@@ -3,15 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev && docker compose up",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
+    "@payloadcms/db-mongodb": "^3.78.0",
+    "@payloadcms/db-postgres": "^3.78.0",
+    "@payloadcms/next": "^3.78.0",
+    "@payloadcms/richtext-lexical": "^3.78.0",
+    "graphql": "^16.13.0",
     "next": "16.1.6",
+    "payload": "^3.78.0",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
