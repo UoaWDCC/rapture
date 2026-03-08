@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "docker-entrypoint.js",
+    "app/example-route/**",
   ]),
 ]);
 
