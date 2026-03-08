@@ -1,7 +1,27 @@
 services:
   database:
-    image: "postgres:latest"
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
     ports:
-      - 5432:5432
-    env_file:
-      - .env
+      - "27017:27017" # Expose MongoDB on the default port
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root # Set the admin username
+      MONGO_INITDB_ROOT_PASSWORD: password # Set the admin password
+    volumes:
+      - mongo-data:/data/db # Persist MongoDB data
+      - mongo-config:/data/configdb # Persist MongoDB configuration
+
+  stripe:
+    image: stripe/stripe-cli
+    command: listen --forward-to http://host.docker.internal:3000/api/webhooks/stripe
+    volumes:
+      - ~/.config/stripe:/root/.config/stripe
+
+
+
+volumes:
+  mongo-data:
+    driver: local
+  mongo-config:
+    driver: local
