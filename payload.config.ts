@@ -2,7 +2,6 @@ import sharp from "sharp";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { buildConfig } from "payload";
-import { postgresAdapter } from "@payloadcms/db-postgres";
 
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
