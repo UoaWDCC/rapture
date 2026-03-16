@@ -43,9 +43,9 @@ FROM base
 
 # Copy built application
 COPY --from=build /app /app
-
+RUN sed -i 's/\r$//' /app/docker-entrypoint.cjs && chmod +x /app/docker-entrypoint.cjs
 # Entrypoint sets up the container.
-ENTRYPOINT [ "/app/docker-entrypoint.js" ]
+ENTRYPOINT [ "/app/docker-entrypoint.cjs" ]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
