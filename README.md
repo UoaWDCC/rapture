@@ -1,11 +1,12 @@
 # Studio Rapture Project
 
 Welcome to the Studio Rapture Project! 
+
 This project aims to design a webpage for the game company Studio Rapture so that they can promote their company and games.
 
 ## Overview
 
-The Studio Rapture Project's main aims include:
+The main aims for this project includes:
 
 - Promote Studio Rapture's games and link to their respective Steam link
 - Allow users to purchase official merchandise from Studio rapture
