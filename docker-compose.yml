@@ -18,8 +18,6 @@ services:
     volumes:
       - ~/.config/stripe:/root/.config/stripe
 
-
-
 volumes:
   mongo-data:
     driver: local
