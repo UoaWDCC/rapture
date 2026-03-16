@@ -6,8 +6,7 @@ import { getPayload } from "payload";
 import config from "@/payload.config";
 import "./styles.css";
 import ExampleCollectionDisplay from "./components/exampleCollectionDisplay";
-import { ExampleCollection } from "@/collections/exampleCollection";
-import { Example } from "@/payload-types";
+
 export default async function HomePage() {
   // All pages that need any payload access need these two lines
   const payloadConfig = await config;
@@ -46,7 +45,7 @@ export default async function HomePage() {
             To edit the below table go to Dashboard and add to the example
             collection
           </h1>
-          {examples.docs.map((example, index, examples) => {
+          {examples.docs.map((example) => {
             return (
               <ExampleCollectionDisplay
                 key={example.title}
