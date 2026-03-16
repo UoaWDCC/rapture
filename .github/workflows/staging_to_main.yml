@@ -1,4 +1,4 @@
-name: CI
+name: staging_to_main
 
 on:
   pull_request:

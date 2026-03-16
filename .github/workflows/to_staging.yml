@@ -5,7 +5,7 @@ on:
     branches: [staging]
 
 jobs:
-  build-and-lint:
+  build-and-lint-to-staging:
     runs-on: ubuntu-latest
     env:
       PAYLOAD_SECRET: "superlongsupersecret"
