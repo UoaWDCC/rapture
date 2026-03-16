@@ -1,0 +1,7 @@
+{
+  "watch": ["collections/"],
+  "ext": "ts,js",
+  "ignore": ["**/*.d.ts", "node_modules"],
+  "exec": "npx payload generate:types",
+  "delay": "1000"
+}

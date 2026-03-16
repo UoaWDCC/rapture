@@ -2,9 +2,11 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "docker compose up -d && next dev",
-    "build": "next build && eslint",
+    "types": "payload generate:types",
+    "dev": "docker compose up -d && concurrently \"next dev\" \"nodemon --config nodemon.json\"",
+    "build": "pnpm types && next build && eslint",
     "start": "next start -H 0.0.0.0 -p 3000",
     "lint": "eslint"
   },
@@ -13,13 +15,16 @@
     "@payloadcms/db-postgres": "^3.78.0",
     "@payloadcms/next": "^3.78.0",
     "@payloadcms/richtext-lexical": "^3.78.0",
+    "concurrently": "^9.2.1",
     "graphql": "^16.13.0",
     "next": "16.1.6",
+    "nodemon": "^3.1.14",
     "payload": "^3.78.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "sharp": "^0.34.5",
-    "stripe": "^20.4.1"
+    "stripe": "^20.4.1",
+    "tsx": "^4.21.0"
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.7.10",
@@ -27,9 +32,11 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.27",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
-    "tailwindcss": "^4",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.1",
     "typescript": "^5"
   }
 }
