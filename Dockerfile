@@ -42,11 +42,10 @@ RUN pnpm prune --prod
 FROM base
 
 # Copy built application
-COPY --from=build /app /app
-RUN sed -i 's/\r$//' /app/docker-entrypoint.cjs && chmod +x /app/docker-entrypoint.cjs
-# Entrypoint sets up the container.
-ENTRYPOINT [ "/app/docker-entrypoint.cjs" ]
+COPY --from=build /app/.next/standalone /app
+COPY --from=build /app/.next/static /app/.next/static
+COPY --from=build /app/public /app/public
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD [ "pnpm", "run", "start" ]
+CMD [ "node", "server.js" ]
