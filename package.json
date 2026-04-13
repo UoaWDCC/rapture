@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  
   "scripts": {
     "types": "payload generate:types",
-    "dev": "docker compose up -d && concurrently \"next dev\" \"nodemon --config nodemon.json\"",
+    "dev": "docker compose up -d && next dev",
     "build": "pnpm types && next build && eslint",
     "start": "next start -H 0.0.0.0 -p 3000",
     "lint": "eslint"
