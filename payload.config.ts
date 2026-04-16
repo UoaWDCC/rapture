@@ -4,12 +4,13 @@ import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { buildConfig } from "payload";
 import { ExampleCollection } from "./collections/exampleCollection.ts";
 import { Users } from "./collections/users.ts";
+import { Players } from "./collections/players.ts";
 
 export default buildConfig({
   editor: lexicalEditor(),
 
   // Ensure created collections are added here
-  collections: [Users, ExampleCollection],
+  collections: [Users, ExampleCollection, Players],
 
   secret: process.env.PAYLOAD_SECRET || "",
   db: mongooseAdapter({
