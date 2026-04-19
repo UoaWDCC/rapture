@@ -1,23 +1,18 @@
-//import Navbar from "../components/navbar";
+import Navbar from "@/app/(frontend)/components/navbar.tsx";
 
 function App() {
-  /*const itemsNav = [
+  const itemsNav = [
     { id: 1, name: "SomethingPage", link: "/example" },
     { id: 2, name: "SomethingPage2", link: "/example2" }
-  ];*/
+  ];
 
 
   return (
     <div>
-      <nav>
-        <ul>
-          <a href="https://youtube.com">youtube testing link</a>
-          <a>     </a>
-          <a href="https://store.steampowered.com/">steam testing link</a>
-        </ul>
-      </nav>
+      <Navbar item={itemsNav} />
     </div>
   );
 }
+
 
 export default App;

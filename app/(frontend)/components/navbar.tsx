@@ -1,5 +1,3 @@
-//import { Example } from "@/payload-types";
-//so...
 //import { NavbarItems } from "../someplace";
 
 type itemNav = {
@@ -8,18 +6,15 @@ type itemNav = {
   link:string
 }
 
-function Navbar({item}: {item:itemNav[]}) { //might not need in real one?}) {
+
+export default function Navbar({item}: {item:itemNav[]}) {
   return (
-    <nav className="navbar">
-      <ul>
-        <li key={item.name}><a href={item.link}>{item.name}</a></li>
-      </ul>
+    <nav>
+      <div>
+        {item.map(item => (
+          <a className="p-5" key={item.id} href={item.link}>{item.name}</a>
+        ))}
+      </div>
     </nav>
-
-
-    /*<div className="flex flex-row gap-5 bg-black rounded-lg text-xl p-2">
-      <h1>{example.title}</h1>
-      <h2>{example.subTitle}</h2>
-    </div>*/
   );
 }
