@@ -1,5 +1,8 @@
+"use client";
+
 //import { NavbarItems } from "../someplace";
 import { User } from "@/payload-types";
+import { usePathname } from "next/navigation";
 
 type itemNav = {
   id:number;
@@ -13,13 +16,25 @@ type NavProps = {
 }
 
 export default function Navbar({item, user}: NavProps) {
+  const pathname = usePathname();
+
   return (
-    <nav className="bg-white text-black font-serif text-l w-screen h-15 content-center absolute top-10 left-0">
+    <nav className="bg-transparent text-white font-serif text-l w-screen h-15 content-center absolute top-10 left-0">
       {/* maybe put a logo first. depends on design */}
-      <div className="content-center w-[90%]">
-        {item.map(item => (
-          <a className="p-5" key={item.id} href={item.link}>{item.name}</a>
-        ))}
+      <div className="content-center w-[90%]">        
+        {item.map((item) => {
+          const isActive = pathname === item.link;
+
+          return(
+            <a
+              className={`p-5 ${isActive ? "text-blue-950 font-bold" : ""}`}
+              key={item.id}
+              href={item.link}
+            >
+              {item.name}
+            </a>
+          );
+        })}
       </div>
       <div className="content-center absolute right-5 top-5">
         {/* for the user part */}
@@ -31,7 +46,7 @@ export default function Navbar({item, user}: NavProps) {
             <li><a href="to profile page">Profile</a></li> {/* profile page link not added */}
             <li><a href="to profile page">Dashboard</a></li>
             {/* <li><button onClick={logout}>Logout</button></li>
-            logout system not added */}
+            logout system not added (?) */}
           </ul>
         }
       </div>

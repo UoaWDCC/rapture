@@ -17,14 +17,15 @@ export default async function HomePage() {
   const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`;
 
   const itemsNav = [
-    { id: 1, name: "SomethingPage", link: "/example" },
-    { id: 2, name: "SomethingPage2", link: "/example2" }
+    { id: 1, name: "Home", link: "/" },
+    { id: 2, name: "Random1", link: "/random1" },
+    { id: 3, name: "SomethingPage - link doesn't work!", link: "/example" }
   ]; // navbar testing
 
   return (
     <div className="h-screen w-full flex flex-col justify-center items-center">
       <div>
-            <Navbar item={itemsNav} />
+            <Navbar item={itemsNav} user={user} />
       </div>
 
       <div className="w-full h-full flex flex-col items-center justify-center gap-5">
