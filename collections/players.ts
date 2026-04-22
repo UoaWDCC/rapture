@@ -5,8 +5,8 @@ export const Players: CollectionConfig = {
   // What is stored in this collection
   fields: [
     {
-      name: "userId", //decided to go with userId instead of email to avoid signing in, can be changed if needed
-      type: "text",
+      name: "userId", //decided to go with userId instead of email to avoid signing in,
+      type: "text",   //can be changed if needed
     },
     {
       name: "score",

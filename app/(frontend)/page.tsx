@@ -51,6 +51,12 @@ export default async function HomePage() {
           >
             Example Collection
           </Link>
+          <Link
+            className="bg-black transition duration-200 hover:bg-sky-700 rounded-lg p-3"
+            href="/leaderboard"
+          >
+            Leaderboard
+          </Link>
         </div>
       </div>
 
