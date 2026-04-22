@@ -13,7 +13,7 @@ Closes #
 ## Checklist
 
 - [ ] Make sure you are requesting to **pull a feature/fix branch** (right side). Don't request the main branch!
-- [ ] Make sure you are making a pull request against the **dev branch** (left side). Also you should start _your branch_ off _dev branch_.
+- [ ] Make sure you are making a pull request against the **main branch** (left side). Also you should start _your branch_ off _main branch_.
 - [ ] I have added tests that prove my fix is effective or that my feature works.
 - [ ] I have added the necessary documentation (if appropriate).
 
