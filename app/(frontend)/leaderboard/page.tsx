@@ -1,6 +1,7 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import PlayerRowDisplay from './playerRowDisplay' 
+import Link from 'next/link'
 
 export default async function LeaderboardPage() { //api part
   const payload = await getPayload({ config })
@@ -13,7 +14,7 @@ export default async function LeaderboardPage() { //api part
   return ( //no styles.css file, can delete and change this whenever, just a placeholder
     <div className="p-8 font-sans flex flex-col items-center">
       <h1 className="text-3xl font-bold mb-6">Top 10 Leaderboard</h1>
-      <a href="/" className="mb-4 text-blue-500 hover:underline">Go back to Dashboard</a>
+      <Link href="/" className="mb-4 text-blue-500 hover:underline">Go back to Dashboard</Link>
 
       <div className="flex flex-col w-full items-center">
         {topPlayers.docs.map((player, index) => (
