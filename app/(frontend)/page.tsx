@@ -5,7 +5,9 @@ import { fileURLToPath } from "url";
 import { getPayload } from "payload";
 import config from "@/payload.config";
 import "./styles.css";
-import ExampleCollectionDisplay from "./components/exampleCollectionDisplay";
+import ExampleCollectionDisplay from "./components/exampleCollectionDisplay"
+import OrderCollectionDisplay from "./order/orderCollectionDisplay"
+
 
 export default async function HomePage() {
   // All pages that need any payload access need these two lines
@@ -19,6 +21,15 @@ export default async function HomePage() {
 
   const examples = await payload.find({
     collection: "example",
+  });
+
+  const order = await payload.find({
+    collection: "order",
+    where: user ? {
+      user: {
+        equals: user.id
+      }
+    } : { id: { equals: "nobody" } } //placeholder for no user id found
   });
 
   return (
@@ -51,6 +62,14 @@ export default async function HomePage() {
                 key={example.title}
                 example={example}
               ></ExampleCollectionDisplay>
+            );
+          })}
+          {order.docs.map((order) => {
+            return (
+              <OrderCollectionDisplay
+                key={order.id}
+                order={order}
+              ></OrderCollectionDisplay>
             );
           })}
         </div>

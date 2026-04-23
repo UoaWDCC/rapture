@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     example: Example;
+    order: Order;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +79,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     example: ExampleSelect<false> | ExampleSelect<true>;
+    order: OrderSelect<false> | OrderSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -156,6 +158,24 @@ export interface Example {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "order".
+ */
+export interface Order {
+  id: string;
+  user: string | User;
+  products: {
+    productName: string;
+    price: number;
+    description?: string | null;
+    id?: string | null;
+  }[];
+  dateTime: string;
+  totalPrice: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -185,6 +205,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'example';
         value: string | Example;
+      } | null)
+    | ({
+        relationTo: 'order';
+        value: string | Order;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -258,6 +282,25 @@ export interface UsersSelect<T extends boolean = true> {
 export interface ExampleSelect<T extends boolean = true> {
   title?: T;
   subTitle?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "order_select".
+ */
+export interface OrderSelect<T extends boolean = true> {
+  user?: T;
+  products?:
+    | T
+    | {
+        productName?: T;
+        price?: T;
+        description?: T;
+        id?: T;
+      };
+  dateTime?: T;
+  totalPrice?: T;
   updatedAt?: T;
   createdAt?: T;
 }
