@@ -2,6 +2,7 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import PlayerRowDisplay from './playerRowDisplay' 
 import Link from 'next/link'
+export const dynamic = 'force-dynamic';
 
 export default async function LeaderboardPage() { //api part
   const payload = await getPayload({ config })
