@@ -61,8 +61,8 @@ export default function Navbar({item, user}: NavProps) {
 
             {open && (
               <ul>
-                <li><a href="to profile page">Profile</a></li> /* profile page link not added */
-                <li><a href="to profile page">Dashboard</a></li> /* dashboard page link not added */
+                <li><a href="to profile page">Profile</a></li> {/* profile page link not added */}
+                <li><a href="to profile page">Dashboard</a></li> {/* dashboard page link not added */}
                 {/* <li><button onClick={logout}>Logout</button></li>
                 logout system not added (?) */}
               </ul>
