@@ -6,6 +6,8 @@ import config from "@/payload.config";
 import "./styles.css";
 import Link from "next/link";
 
+import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing
+
 export default async function HomePage() {
   const payloadConfig = await config;
   const payload = await getPayload({ config: payloadConfig });
@@ -14,8 +16,18 @@ export default async function HomePage() {
 
   const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`;
 
+  const itemsNav = [
+    { id: 1, name: "Home", link: "/" },
+    { id: 2, name: "Random1", link: "/random1" },
+    { id: 3, name: "SomethingPage - link doesn't work!", link: "/example" }
+  ]; // navbar testing
+
   return (
     <div className="h-screen w-full flex flex-col justify-center items-center">
+      <div>
+            <Navbar item={itemsNav} user={user} />
+      </div>
+
       <div className="w-full h-full flex flex-col items-center justify-center gap-5">
         <picture>
           <source srcSet="/Rapture_Large_2500-1000.png" />
