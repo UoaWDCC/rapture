@@ -8,7 +8,8 @@ jobs:
   build-and-lint:
     runs-on: ubuntu-latest
     env:
-      PAYLOAD_SECRET: "superlongsupersecret"
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
 
     steps:
       - name: Checkout repo
