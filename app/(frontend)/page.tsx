@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import { getPayload } from "payload";
 import config from "@/payload.config";
 import "./styles.css";
+
 import OrderCollectionDisplay from "./order/orderCollectionDisplay"
 
 import Link from "next/link";
@@ -56,7 +57,20 @@ export default async function HomePage() {
         {user && (
           <h1 className="text-3xl font-bold">Welcome back, {user.email}</h1>
         )}
-       
+        <div>
+          <h1 className="text-2xl font-bold">
+            To edit the below table go to Dashboard and add to the example
+            collection
+          </h1>
+          {order.docs.map((order) => {
+            return (
+              <OrderCollectionDisplay
+                key={order.id}
+                order={order}
+              ></OrderCollectionDisplay>
+            );
+          })}
+        </div>
         <div className="flex flex-row gap-1 text-2xl">
           <Link
             className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
