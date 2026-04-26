@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     example: Example;
+    Cart: Cart;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +79,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     example: ExampleSelect<false> | ExampleSelect<true>;
+    Cart: CartSelect<false> | CartSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -156,6 +158,24 @@ export interface Example {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Cart".
+ */
+export interface Cart {
+  id: string;
+  user: string | User;
+  items?:
+    | {
+        productTitle: string;
+        productPrice: number;
+        quantity: number;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -185,6 +205,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'example';
         value: string | Example;
+      } | null)
+    | ({
+        relationTo: 'Cart';
+        value: string | Cart;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -258,6 +282,23 @@ export interface UsersSelect<T extends boolean = true> {
 export interface ExampleSelect<T extends boolean = true> {
   title?: T;
   subTitle?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Cart_select".
+ */
+export interface CartSelect<T extends boolean = true> {
+  user?: T;
+  items?:
+    | T
+    | {
+        productTitle?: T;
+        productPrice?: T;
+        quantity?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
