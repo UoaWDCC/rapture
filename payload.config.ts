@@ -5,12 +5,13 @@ import { buildConfig } from "payload";
 import { ExampleCollection } from "./collections/exampleCollection.ts";
 import { Users } from "./collections/users.ts";
 import { Players } from "./collections/players.ts";
+import { CartCollection } from "./collections/Cart.ts";
 
 export default buildConfig({
   editor: lexicalEditor(),
 
   // Ensure created collections are added here
-  collections: [Users, ExampleCollection, Players],
+  collections: [Users, ExampleCollection, Players, CartCollection],
 
   secret: process.env.PAYLOAD_SECRET || "",
   db: mongooseAdapter({
