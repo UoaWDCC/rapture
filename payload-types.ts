@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     products: Product;
     example: Example;
+    Players: Player;
     Cart: Cart;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -81,6 +82,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     example: ExampleSelect<false> | ExampleSelect<true>;
+    Players: PlayersSelect<false> | PlayersSelect<true>;
     Cart: CartSelect<false> | CartSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -177,6 +179,17 @@ export interface Example {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Players".
+ */
+export interface Player {
+  id: string;
+  userId?: string | null;
+  score?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Cart".
  */
 export interface Cart {
@@ -228,6 +241,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'example';
         value: string | Example;
+      } | null)
+    | ({
+        relationTo: 'Players';
+        value: string | Player;
       } | null)
     | ({
         relationTo: 'Cart';
@@ -318,6 +335,16 @@ export interface ProductsSelect<T extends boolean = true> {
 export interface ExampleSelect<T extends boolean = true> {
   title?: T;
   subTitle?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Players_select".
+ */
+export interface PlayersSelect<T extends boolean = true> {
+  userId?: T;
+  score?: T;
   updatedAt?: T;
   createdAt?: T;
 }
