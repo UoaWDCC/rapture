@@ -166,6 +166,11 @@ export interface Player {
   id: string;
   userId?: string | null;
   score?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Cart".
  */
 export interface Cart {
@@ -217,6 +222,8 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'Players';
         value: string | Player;
+      } | null)
+    | ({
         relationTo: 'Cart';
         value: string | Cart;
       } | null);
@@ -302,6 +309,11 @@ export interface ExampleSelect<T extends boolean = true> {
 export interface PlayersSelect<T extends boolean = true> {
   userId?: T;
   score?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "Cart_select".
  */
 export interface CartSelect<T extends boolean = true> {
