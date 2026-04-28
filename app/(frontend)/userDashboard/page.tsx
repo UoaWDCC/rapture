@@ -1,4 +1,3 @@
-// app/(app)/protected-test/page.tsx
 import { getPayload } from 'payload'
 import config from "@/payload.config"
 import { headers } from 'next/headers'
@@ -16,11 +15,10 @@ export default async function ProtectedPage() {
   return (
   <main className="p-8 font-sans flex flex-col items-center">
     <h1 className="text-3xl font-bold mb-6">Secure User Dashboard</h1>
-    <Link href="/" className="mb-4 text-blue-500 hover:underline">Go back to Dashboard</Link>
+    <Link href="/" className="mb-4 text-blue-500 hover:underline">Go back to Main Page</Link>
     <p className="mb-4">
       Authentication successful. Logged in as: <strong className="text-blue-500">{user.email}</strong>
     </p>
-
   </main>
 )
 }
