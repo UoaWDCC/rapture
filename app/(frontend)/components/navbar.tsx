@@ -4,6 +4,7 @@
 import { User } from "@/payload-types";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import Dropdown from "./Dropdown.tsx";
 
 type itemNav = {
   id:number;
@@ -41,35 +42,24 @@ export default function Navbar({item, user}: NavProps) {
 
       {/* for the user part */}
       <div className="content-center absolute right-5 top-5 max-w-[10%] bg-amber-50 text-red-500">
-        {!user &&
-        <ul className="p-2">
-          <li>
-            <a onClick={() => setOpen(!open)}>Dropdown!</a>
+        {!user && (
+          <Dropdown
+            label="Dropdown!"
+            items={[
+              { label: "Login", href: "/login" },
+            ]}
+          />
+        )}
 
-            {open && (
-              <ul>
-                <li><a href="to login">Login VeryLongTitleForTesting</a></li> {/* login page link not added */}
-              </ul>
-            )}
-          </li>
-        </ul>
-        }
-        {user &&
-        <ul className="p-2">
-          <li>
-            <a onClick={() => setOpen(!open)}>Dropdown!</a>
-
-            {open && (
-              <ul>
-                <li><a href="to profile page">Profile</a></li> {/* profile page link not added */}
-                <li><a href="to profile page">Dashboard</a></li> {/* dashboard page link not added */}
-                {/* <li><button onClick={logout}>Logout</button></li>
-                logout system not added (?) */}
-              </ul>
-            )}
-          </li>
-        </ul>
-        }
+        {user && (
+          <Dropdown
+            label="Dropdown!"
+            items={[
+              { label: "Profile", href: "/profile" },
+              { label: "Dashboard", href: "/dashboard" },
+            ]}
+          />
+        )}
       </div>
     </nav>
   );
