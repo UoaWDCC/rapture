@@ -10,26 +10,35 @@ export default function LoginPage() {
   const router = useRouter()
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
-    
-    const res = await fetch('/api/users/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    })
+  e.preventDefault()
+  setError('')
 
-    if (res.ok) {
-      router.push('/') 
-    } else {
-      setError('Invalid credentials. Please try again.')
-    }
+  const res = await fetch('/api/users/login', {
+    method: 'POST',
+    headers: { 
+      'Content-Type': 'application/json' 
+    },
+    body: JSON.stringify({ 
+      email, 
+      password 
+    }),
+  })
+
+  if (res.ok) {
+    router.push('/') 
+  } else {
+    setError('Invalid credentials. Please try again.');
   }
+}
 
   return (
     <div className="p-8 font-sans flex flex-col items-center">
       <h1 className="text-3xl font-bold mb-6">Sign In</h1>
-      
+      {error && (
+          <p className="text-white text-center mt-2 font-medium mb-4">
+            {error}
+          </p>
+        )}
       <form onSubmit={handleLogin} className="flex flex-col w-full max-w-sm gap-4">
         <input 
           type="email" 
@@ -54,12 +63,6 @@ export default function LoginPage() {
         >
           Log In
         </button>
-
-        {error && (
-          <p className="text-red-500 text-center mt-2 font-medium">
-            {error}
-          </p>
-        )}
       </form>
     </div>
   )
