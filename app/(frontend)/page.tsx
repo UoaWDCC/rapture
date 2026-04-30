@@ -7,6 +7,7 @@ import "./styles.css";
 import Link from "next/link";
 
 import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing
+import Carousel from "@/app/(frontend)/components/Carousel.tsx"; // carousel testing
 
 export default async function HomePage() {
   const payloadConfig = await config;
@@ -21,6 +22,11 @@ export default async function HomePage() {
     { id: 2, name: "Random1", link: "/random1" },
     { id: 3, name: "SomethingPage - link doesn't work!", link: "/example" }
   ]; // navbar testing
+
+  const itemsC = [
+    { id: 1, image: "/images/ivlnaud5zro61.png", heading: "Aw Heck", text: "Just Some Text"},
+    { id: 2, image: "/images/ivlnaud5zro61.png", heading: "Page 2", text: "Just Some Text2"},
+  ]; //carousel testing
 
   return (
     <div className="h-screen w-full flex flex-col justify-center items-center">
@@ -79,6 +85,10 @@ export default async function HomePage() {
             app/(frontend)/page.tsx
           </code>
         </Link>
+      </div>
+
+      <div>
+        <Carousel items={itemsC}/>
       </div>
     </div>
   );
