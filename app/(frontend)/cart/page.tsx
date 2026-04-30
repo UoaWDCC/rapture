@@ -13,7 +13,20 @@ const PRODUCTS = [
   }
 ]
 
-function Product({ product, onAdd }: any) {
+type Product = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  currency: string;
+};
+
+type ProductProps = {
+  product: Product;
+  onAdd: (product: Product) => void;
+};
+
+function Product({ product, onAdd }: ProductProps) {
   return (
     <div>
       <p>Name: {product.name}</p>
@@ -28,8 +41,11 @@ function Product({ product, onAdd }: any) {
     </div>
   )
 }
+interface CartProps {
+  searchParams: { canceled?: string };
+}
 
-export default function CartPage({ searchParams }: any) {
+export default function CartPage({ searchParams }: CartProps) {
   const router = useRouter();
   const [cartItems, setCartItems] = useState<typeof PRODUCTS>([]);
   const [loading, setLoading] = useState<boolean>(false)
@@ -60,7 +76,7 @@ export default function CartPage({ searchParams }: any) {
       });
       const { url } = await res.json();
       router.push(url);
-    } catch (err) {
+    } catch {
       alert('Something went wrong on checkout. Please try again.')
     } finally {
       setLoading(false)

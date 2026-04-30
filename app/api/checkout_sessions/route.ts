@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 
-import { stripe } from "@/lib/stripe";
+import { stripeClient, Stripe } from "@/lib/stripe";
 
 export async function POST(request: Request) {
   try {
@@ -14,7 +14,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing price_id" }, { status: 400 });
     }
 
-    const session = await stripe.checkout.sessions.create({
+    const session = await stripeClient.checkout.sessions.create({
       line_items: [
         {
           price: price_id,
@@ -27,10 +27,14 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ url: session.url });
-  } catch (err: any) {
-    return NextResponse.json(
-      { error: err.message },
-      { status: err.statusCode || 500 },
-    );
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      const stripeError = err as Stripe.errors.StripeError;
+      return NextResponse.json(
+        { error: stripeError.message },
+        { status: stripeError.statusCode || 500 },
+      );
+    }
+    return NextResponse.json({ error: "An unexpected error occurred" }, { status: 500 });
   }
 }
