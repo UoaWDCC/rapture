@@ -9,20 +9,23 @@ type GameCardProps = {
   variant?: "card" | "list";
 };
 
-export default function GameCard({ title = "Untitled", image, description, link, variant = "card" }: GameCardProps) {
-  // Wrapper - if there's a link, use <Link> (clickable link). Otherwise, use a plain <div> (not clickable).
-  const Wrapper = link
-    ? ({ children, className }: { children: React.ReactNode; className: string }) => (
-        <Link href={link} className={className}>{children}</Link>
-      )
-    : ({ children, className }: { children: React.ReactNode; className: string }) => (
-        <div className={className}>{children}</div>
-      );
+function Wrapper({ link, children, className }: { link?: string; children: React.ReactNode; className: string }) {
+  if (link) {
+    return (
+      <Link href={link} className={className}>
+        {children}
+      </Link>
+    );
+  }
+  return <div className={className}>{children}</div>;
+}
 
+export default function GameCard({ title = "Untitled", image, description, link, variant = "card" }: GameCardProps) {
   // List variant - horizontal row, no image for list layout
   if (variant === "list") {
     return (
       <Wrapper
+        link={link}
         className={`group flex items-center justify-between gap-4 px-5 py-4 rounded-lg bg-gray-900 border border-gray-800
                    ${link ? "hover:border-sky-600 cursor-pointer" : "opacity-75 cursor-default"} transition duration-300`}
       >
@@ -42,6 +45,7 @@ export default function GameCard({ title = "Untitled", image, description, link,
   // Card variant - for grid layout
   return (
     <Wrapper
+      link={link}
       className={`group block rounded-2xl overflow-hidden bg-gray-900 border border-gray-800 
                  ${link ? "hover:border-sky-600 cursor-pointer" : "opacity-75 cursor-default"} transition duration-300`}
     >
