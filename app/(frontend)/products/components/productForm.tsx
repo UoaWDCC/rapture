@@ -22,6 +22,25 @@ export default function ProductForm() {
 
         try {
 
+            const res = await fetch("/api/products", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name,
+                    price,
+                    currency,
+                    description,
+                }),
+            })
+
+            if (!res.ok) {
+                throw new Error("Failed to create product")
+            }
+
+            setSuccess(true)
+
         } catch (err) {
             setError(err instanceof Error ? err.message : "Something went wrong")
         } finally {
@@ -30,6 +49,9 @@ export default function ProductForm() {
     }
 
     return (
+        <div>
+            {error && <p style={{color: "red"}}>{error}</p>}
+            {success && <p style={{color: "green"}}>Product created successfully!</p>}
         
         <form onSubmit = {handleSubmit}>
             <label>Product Name</label>
@@ -82,6 +104,8 @@ export default function ProductForm() {
             </button>
 
         </form>
+
+        </div>
 
     )
 
