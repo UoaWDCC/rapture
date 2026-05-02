@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from "react"
+import { useState } from "react"
 
 export default function ProductForm() {
 
@@ -15,6 +15,18 @@ export default function ProductForm() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+
+        setError("")
+        setSuccess(false)
+        setLoading(true)
+
+        try {
+
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "Something went wrong")
+        } finally {
+            setLoading(false)
+        }
     }
 
     return (
