@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { NewsPost } from '../mockData'
 
-export default function NewsCard({ post }: { post: NewsPost }) {
+export function NewsCard({ post }: { post: NewsPost }) {
   return (
     <Link href={`/news/${post.id}`} className="no-underline block h-full">
       <div className="overflow-hidden h-full cursor-pointer transition-all hover:opacity-60">

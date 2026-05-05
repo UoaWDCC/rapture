@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import NewsDetailClient from './components/NewsContent'
+import { NewsContent } from './components/NewsContent'
 import { MOCK_POSTS } from '../mockData'
 
 interface Props {
@@ -17,5 +17,5 @@ export default async function NewsContentPage({ params }: Props) {
 
   const isAdmin = true // hardcoded for demo
 
-  return <NewsDetailClient post={post} isAdmin={isAdmin} />
+  return <NewsContent post={post} isAdmin={isAdmin} />
 }

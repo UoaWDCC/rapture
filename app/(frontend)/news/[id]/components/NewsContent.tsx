@@ -13,7 +13,7 @@ interface Props {
   isAdmin: boolean
 }
 
-export default function NewsContent({ post, isAdmin }: Props) {
+export function NewsContent({ post, isAdmin }: Props) {
   const router = useRouter()
 
   const [isEditing, setIsEditing] = useState(false)

@@ -1,5 +1,5 @@
 import { MOCK_POSTS } from './mockData'
-import ArticleCard from './components/NewsCard'
+import { NewsCard } from './components/NewsCard'
 
 export default async function NewsPage() {
   const posts = MOCK_POSTS
@@ -10,7 +10,7 @@ export default async function NewsPage() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {posts.map(post => (
-          <ArticleCard key={post.id} post={post} />
+          <NewsCard key={post.id} post={post} />
         ))}
       </div>
     </div>
