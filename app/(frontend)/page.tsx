@@ -25,7 +25,7 @@ export default async function HomePage() {
   return (
     <div className="h-screen w-full flex flex-col justify-center items-center">
       <div>
-            <Navbar item={itemsNav} user={user} />
+        <Navbar item={itemsNav} user={user} />
       </div>
 
       <div className="w-full h-full flex flex-col items-center justify-center gap-5">
@@ -68,6 +68,12 @@ export default async function HomePage() {
             href="/leaderboard"
           >
             Leaderboard
+          </Link>
+          <Link
+            className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
+            href="/news"
+          >
+            News
           </Link>
         </div>
       </div>
