@@ -8,6 +8,9 @@ const adminCheck = (user: User | null) => {
 export const Users: CollectionConfig = {
   slug: "users",
   auth: true,
+  admin: {
+    useAsTitle: "email",
+  },
 
   access: {
     // restricting Create, Read, Update and Delete(CRUD) access for this collection
