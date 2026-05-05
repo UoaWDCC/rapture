@@ -9,9 +9,9 @@ export const metadata = {
 
 // Fill in with actual webpage links when they are done.
 const navigationLinks = [
-  {label: "Home", href: "/"},
-  {label: "About", href: "/"}, 
-  {label: "Our Games", href: "/"}
+  {label: "Home", href: "/home"},
+  {label: "About", href: "/about"}, 
+  {label: "Our Games", href: "/games"}
 ]
 
 // Add whichever socials Rapture wants here.
@@ -22,7 +22,7 @@ const externalLinks = [
 ];
 
 // Add any additional text.
-const title = "Rapture Games";
+const title = "Studio Rapture";
 const text1 = "Want to be notified of our upcoming games!";
 const text2 = "Make sure to follow us on our socials.";
 const copyright = "© 2026 Studio Rapture. All rights reserved.";
