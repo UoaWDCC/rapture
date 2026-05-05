@@ -7,10 +7,11 @@ on:
 jobs:
   build-and-lint:
     runs-on: ubuntu-latest
-    environment: Build
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET }}
+      STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY }}
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
 
     steps:
       - name: Checkout repo
@@ -25,7 +26,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm' 
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm install
