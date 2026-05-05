@@ -6,7 +6,6 @@ export interface NewsPost {
   date: string;
   description: string;
   content: SerializedEditorState;
-  edited: boolean;
 }
 
 // content value is in rich text
@@ -74,7 +73,6 @@ const mockPost = (id: number): NewsPost => ({
   description:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   content: mockContent,
-  edited: false,
 });
 
 export const MOCK_POSTS: NewsPost[] = Array.from({ length: 12 }, (_, i) =>
