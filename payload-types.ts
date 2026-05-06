@@ -214,11 +214,10 @@ export interface Product {
  */
 export interface News {
   id: string;
-  title?: string | null;
-  description?: string | null;
-  createdAt: string;
-  editedAt?: string | null;
+  title: string;
+  description: string;
   updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -390,9 +389,8 @@ export interface ProductsSelect<T extends boolean = true> {
 export interface NewsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  createdAt?: T;
-  editedAt?: T;
   updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
