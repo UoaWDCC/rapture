@@ -2,7 +2,7 @@ import { getPayload } from "payload";
 import config from "@/payload.config";
 import { NextResponse } from "next/server";
 
-// GET /api/leaderboard - retrieve top 10 scores
+// retrieve top 10 scores at /api/leaderboard
 export async function GET() {
   try {
     const payload = await getPayload({ config });
@@ -16,7 +16,10 @@ export async function GET() {
 
     return NextResponse.json({
       success: true,
-      data: result.docs,
+      data: result.docs.map(player => ({
+        userId: player.userId,
+        score: player.score,
+      })),
     });
 
   } catch (error) {
@@ -27,7 +30,7 @@ export async function GET() {
   }
 }
 
-// POST /api/leaderboard - submit a new score
+// make a new score at /api/leaderboard
 export async function POST(request: Request) {
   try {
     const payload = await getPayload({ config });
