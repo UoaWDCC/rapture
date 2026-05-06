@@ -13,9 +13,11 @@ export default async function ExampleColectionPage() {
   return (
     <div>
       <h1 className="font-extrabold text-[30px] min-h-10 m-10">News Collection Display</h1>
-      {newsItem.docs.map((news) => (
-        <NewsDisplay key={news.title} news={news} />
-      ))}
+      <div className="flex gap-5 items-stretch m-10">
+        {newsItem.docs.map((news) => (
+            <NewsDisplay key={news.title} news={news} />
+        ))}
+      </div>
     </div>
   );
 }

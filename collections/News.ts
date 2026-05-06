@@ -4,6 +4,14 @@ export const News: CollectionConfig = {
   slug: "News", // Collection Name
   // What is stored in this collection
   timestamps: true,
+
+  access: {
+    read: () => true,
+    create: ({ req }) => req.user?.role === "admin",
+    update: ({ req }) => req.user?.role === "admin",
+    delete: ({ req }) => req.user?.role === "admin",
+  },
+
   fields: [
     { 
       name: "title",

@@ -19,7 +19,8 @@ export default async function HomePage() {
   const itemsNav = [
     { id: 1, name: "Home", link: "/" },
     { id: 2, name: "Random1", link: "/random1" },
-    { id: 3, name: "SomethingPage - link doesn't work!", link: "/example" }
+    { id: 3, name: "SomethingPage - WARNING: link doesn't work!", link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUjcmljayBhc3RsZXkgbmV2ZXIgZ29ubmEgZ2l2ZSB5b3UgdXDSBwkJAwsBhyohjO8%3D" },
+    { id: 4, name: "News Page", link: "/News" }
   ]; // navbar testing
 
   return (
