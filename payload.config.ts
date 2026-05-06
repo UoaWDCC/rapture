@@ -7,12 +7,13 @@ import { Users } from "./collections/users.ts";
 import { Players } from "./collections/players.ts";
 import { Products } from "./collections/products.ts";
 import { CartCollection } from "./collections/Cart.ts";
+import { Media } from "./collections/media.ts";
 
 export default buildConfig({
   editor: lexicalEditor(),
 
   // Ensure created collections are added here
-  collections: [Users, ExampleCollection, Players, CartCollection, Products],
+  collections: [Users, ExampleCollection, Players, CartCollection, Products, Media],
 
   secret: process.env.PAYLOAD_SECRET || "",
   db: mongooseAdapter({

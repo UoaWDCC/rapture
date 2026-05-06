@@ -20,33 +20,53 @@ export default function ProductForm() {
         setSuccess(false)
         setLoading(true)
 
-        try {
+    try {
+        let imageId = null;
 
-            const res = await fetch("/api/products", {
+        if (image) {
+            const formData = new FormData()
+            formData.append("file", image)
+
+            const uploadRes = await fetch("/api/media", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    name,
-                    price,
-                    currency,
-                    description,
-                }),
+                body: formData,
             })
 
-            if (!res.ok) {
-                throw new Error("Failed to create product")
+            if (!uploadRes.ok) {
+                throw new Error("Failed to upload image")
             }
 
-            setSuccess(true)
-
-        } catch (err) {
-            setError(err instanceof Error ? err.message : "Something went wrong")
-        } finally {
-            setLoading(false)
+            const uploadData = await uploadRes.json()
+            imageId = uploadData.doc.id
         }
+
+        const res = await fetch("/api/products", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name,
+                price,
+                currency,
+                description,
+                image: imageId,
+                _status: "published",
+            }),
+        })
+
+        if (!res.ok) {
+            throw new Error("Failed to create product")
+        }
+
+        setSuccess(true)
+
+    } catch (err) {
+        setError(err instanceof Error ? err.message : "Something went wrong")
+    } finally {
+        setLoading(false)
     }
+}
 
     return (
         <div>

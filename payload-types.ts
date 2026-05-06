@@ -72,6 +72,7 @@ export interface Config {
     Players: Player;
     Cart: Cart;
     products: Product;
+    media: Media;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,6 +85,7 @@ export interface Config {
     Players: PlayersSelect<false> | PlayersSelect<true>;
     Cart: CartSelect<false> | CartSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -202,9 +204,29 @@ export interface Product {
   price: number;
   currency: 'NZD' | 'AUD' | 'USD' | 'EUR' | 'GBP';
   description?: string | null;
+  image?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: string;
+  alt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -249,6 +271,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'products';
         value: string | Product;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: string | Media;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -361,9 +387,28 @@ export interface ProductsSelect<T extends boolean = true> {
   price?: T;
   currency?: T;
   description?: T;
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
