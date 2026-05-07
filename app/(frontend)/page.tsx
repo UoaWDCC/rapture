@@ -9,7 +9,7 @@ import OrderCollectionDisplay from "./order/orderCollectionDisplay"
 
 import Link from "next/link";
 
-import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing
+import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing 
 
 export default async function HomePage() {
   const payloadConfig = await config;
@@ -103,6 +103,12 @@ export default async function HomePage() {
             href="/news"
           >
             News
+          </Link>
+          <Link
+            className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
+            href="/cart"
+          >
+            Cart
           </Link>
         </div>
       </div>
