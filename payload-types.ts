@@ -72,7 +72,6 @@ export interface Config {
     Players: Player;
     Cart: Cart;
     products: Product;
-    order: Order;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -85,7 +84,6 @@ export interface Config {
     Players: PlayersSelect<false> | PlayersSelect<true>;
     Cart: CartSelect<false> | CartSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
-    order: OrderSelect<false> | OrderSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -210,24 +208,6 @@ export interface Product {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "order".
- */
-export interface Order {
-  id: string;
-  user: string | User;
-  products: {
-    productName: string;
-    price: number;
-    description?: string | null;
-    id?: string | null;
-  }[];
-  dateTime: string;
-  totalPrice: number;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -269,10 +249,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'products';
         value: string | Product;
-      } | null)
-    | ({
-        relationTo: 'order';
-        value: string | Order;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -388,25 +364,6 @@ export interface ProductsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "order_select".
- */
-export interface OrderSelect<T extends boolean = true> {
-  user?: T;
-  products?:
-    | T
-    | {
-        productName?: T;
-        price?: T;
-        description?: T;
-        id?: T;
-      };
-  dateTime?: T;
-  totalPrice?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
