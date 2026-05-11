@@ -26,6 +26,9 @@
   --font-size-body-01: 1rem;
   --line-height-body-01: 24px;
   --letter-spacing-body-01: -0.01em;
+
+  /* Brand colors */
+  --color-yellow: #F2B423;
 }
 
 :root {
