@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { NewsPost } from '../../mockData'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import { RichTextEditor } from '@/components/ui/RichTextEditor'
-import { EditorState } from 'lexical'
+import { EditorState, SerializedLexicalNode, SerializedTextNode } from 'lexical'
 
 interface Props {
   post: NewsPost
@@ -34,15 +34,15 @@ export function NewsContent({ post, isAdmin }: Props) {
     })
   }
 
-  async function handleSave() {
+  const handleSave = async () => {
     const contentIsEmpty =
       !contentRef.current ||
       (typeof contentRef.current === 'object' &&
         (!contentRef.current.root?.children?.length ||
           contentRef.current.root.children.every(
-            (node: any) =>
+            (node: SerializedLexicalNode & { children?: (SerializedTextNode)[] }) =>
               node.children?.length === 0 ||
-              node.children?.every((child: any) => child.text === '')
+              node.children?.every((child: SerializedTextNode) => child.text === '')
           )))
 
     setTitleError(!title.trim())

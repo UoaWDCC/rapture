@@ -1,7 +1,12 @@
 import { useEffect } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { SerializedEditorState } from 'lexical';
 
-export function InitialValuePlugin({ initialValue }: { initialValue?: any }) {
+type Props = {
+  initialValue?: SerializedEditorState
+}
+
+export function InitialValuePlugin({ initialValue }: Props) {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {

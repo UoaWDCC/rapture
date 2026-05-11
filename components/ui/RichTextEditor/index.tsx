@@ -1,13 +1,18 @@
-import { TabIndentationExtension } from '@lexical/extension';
-import { HistoryExtension } from '@lexical/history';
-import { ContentEditable } from '@lexical/react/LexicalContentEditable';
-import { LexicalExtensionComposer } from '@lexical/react/LexicalExtensionComposer';
-import { RichTextExtension } from '@lexical/rich-text';
-import { defineExtension, EditorState, SerializedEditorState } from 'lexical';
-import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
+'use client';
 
-import { ToolbarPlugin } from './ToolbarPlugin';
+import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin';
+import { LexicalComposer } from '@lexical/react/LexicalComposer';
+import { ContentEditable } from '@lexical/react/LexicalContentEditable';
+import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
+import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
+import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
+import { TabIndentationPlugin } from '@lexical/react/LexicalTabIndentationPlugin';
+import { HeadingNode, QuoteNode } from '@lexical/rich-text';
+import { EditorState, SerializedEditorState } from 'lexical';
+
 import { InitialValuePlugin } from './InitialValuePlugin';
+import { ToolbarPlugin } from './ToolbarPlugin';
 
 const theme = {
   heading: {
@@ -25,44 +30,47 @@ const theme = {
   },
 };
 
-const landingHeroExtension = defineExtension({
-  dependencies: [RichTextExtension, HistoryExtension, TabIndentationExtension],
-  name: '@lexical/website/landing-hero-editor',
-  namespace: '@lexical/website/landing-hero-editor',
+const initialConfig = {
+  namespace: 'RichTextEditor',
   theme,
-});
+  nodes: [HeadingNode, QuoteNode],
+  onError: (error: Error) => console.error(error),
+};
 
 type RichTextEditorProps = {
-  initialValue: SerializedEditorState;
+  initialValue?: SerializedEditorState;
   onChange: (editorState: EditorState) => void;
-}
+};
 
 export function RichTextEditor({ initialValue, onChange }: RichTextEditorProps) {
   return (
-    <LexicalExtensionComposer
-      extension={landingHeroExtension}
-      contentEditable={null}
-    >
+    <LexicalComposer initialConfig={initialConfig}>
       <div className="flex w-full flex-col overflow-hidden rounded-2xl border border-solid border-black/10 dark:border-white/10 dark:bg-stone-800">
         <ToolbarPlugin />
 
         <OnChangePlugin onChange={onChange} />
-
+        <HistoryPlugin />
+        <TabIndentationPlugin />
+        <AutoFocusPlugin />
         <InitialValuePlugin initialValue={initialValue} />
 
         <div className="relative">
-          <ContentEditable
-            className="h-[500px] overflow-y-auto p-4 text-base leading-relaxed text-wrap outline-none"
-            aria-label="Rich text editor"
-            aria-placeholder="Enter some text..."
+          <RichTextPlugin
+            contentEditable={
+              <ContentEditable
+                className="h-[500px] overflow-y-auto p-4 text-base leading-relaxed text-wrap outline-none"
+                aria-label="Rich text editor"
+              />
+            }
             placeholder={
               <div className="pointer-events-none absolute top-4 left-4 text-zinc-400 select-none">
                 Enter some text...
               </div>
             }
+            ErrorBoundary={LexicalErrorBoundary}
           />
         </div>
       </div>
-    </LexicalExtensionComposer>
+    </LexicalComposer>
   );
 }
