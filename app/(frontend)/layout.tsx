@@ -1,6 +1,12 @@
 import React from "react";
 import "./styles.css";
+import { Nova_Cut } from 'next/font/google'
 import Footer from "./components/Footer";
+
+const novaCut = Nova_Cut({
+  subsets: ['latin'],
+  weight: "400" // equivalent to weight "book"
+})
 
 export const metadata = {
   description: "Website For Studio Rapture",
@@ -9,16 +15,16 @@ export const metadata = {
 
 // Fill in with actual webpage links when they are done.
 const navigationLinks = [
-  {label: "Home", href: "/home"},
-  {label: "About", href: "/about"}, 
-  {label: "Our Games", href: "/games"}
+  { label: "Home", href: "/home" },
+  { label: "About", href: "/about" },
+  { label: "Our Games", href: "/games" }
 ]
 
 // Add whichever socials Rapture wants here.
 const externalLinks = [
   { label: "Twitter", href: "https://twitter.com" },
   { label: "Discord", href: "https://discord.com" },
-  { label: "Instagram", href: "https://instagram.com"}
+  { label: "Instagram", href: "https://instagram.com" }
 ];
 
 // Add any additional text.
@@ -30,10 +36,10 @@ const copyright = "© 2026 Studio Rapture. All rights reserved.";
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props;
   return (
-    <html lang="en">
+    <html lang="en" className={novaCut.className}>
       <body>
         <main>{children}</main>
-        <Footer 
+        <Footer
           navigationLinks={navigationLinks}
           externalLinks={externalLinks}
           title={title}
