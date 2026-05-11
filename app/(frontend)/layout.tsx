@@ -1,4 +1,5 @@
 import React from "react";
+// @ts-ignore: side-effect import for global CSS
 import "./styles.css";
 import { Nova_Cut } from 'next/font/google'
 import Footer from "./components/Footer";
