@@ -110,6 +110,12 @@ export default async function HomePage() {
           >
             Cart
           </Link>
+          <Link
+            className="bg-black transition duration-200 hover:bg-sky-700 rounded-lg p-3"
+            href="/userDashboard"
+          >
+            User Dashboard
+          </Link>
         </div>
       </div>
 
