@@ -9,6 +9,7 @@ import OrderCollectionDisplay from "./order/orderCollectionDisplay"
 
 import Link from "next/link";
 
+import { NewsSection } from "./components/NewsSection";
 import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing 
 
 export default async function HomePage() {
@@ -35,9 +36,9 @@ export default async function HomePage() {
   });
 
   return (
-    <div className="h-screen w-full flex flex-col justify-center items-center">
+    <div className="w-full flex flex-col justify-center items-center">
       <div>
-            <Navbar item={itemsNav} user={user} />
+        <Navbar item={itemsNav} user={user} />
       </div>
 
       <div className="w-full h-full flex flex-col items-center justify-center gap-5">
@@ -121,6 +122,8 @@ export default async function HomePage() {
           </code>
         </Link>
       </div>
+
+      <NewsSection />
     </div>
   );
 }

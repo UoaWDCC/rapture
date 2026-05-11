@@ -29,19 +29,21 @@
 
   /* Brand colors */
   --color-yellow: #F2B423;
+  --color-dark-brown: #150703;
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #FFFFFF;
 }
 
-@media (prefers-color-scheme: dark) {
+/* Comment out for now for reference */
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   color: var(--foreground);
