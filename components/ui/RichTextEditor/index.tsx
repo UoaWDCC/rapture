@@ -58,7 +58,7 @@ export function RichTextEditor({ initialValue, onChange }: RichTextEditorProps) 
           <RichTextPlugin
             contentEditable={
               <ContentEditable
-                className="h-[500px] overflow-y-auto p-4 text-base leading-relaxed text-wrap outline-none"
+                className="min-h-[200px] max-h-[600px] overflow-y-auto p-4 prose prose-neutral max-w-none text-base leading-relaxed text-wrap outline-none"
                 aria-label="Rich text editor"
               />
             }
