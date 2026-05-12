@@ -21,8 +21,10 @@ export default async function HomePage() {
 
   const itemsNav = [
     { id: 1, name: "Home", link: "/" },
-    { id: 2, name: "Random1", link: "/random1" },
-    { id: 3, name: "SomethingPage - link doesn't work!", link: "/example" }
+    { id: 2, name: "Games", link: "/games" },
+    { id: 3, name: "News", link: "/news" },
+    { id: 3, name: "Leaderboard", link: "/leaderboard" },
+    { id: 3, name: "Support Us", link: "/support" }
   ]; // navbar testing
 
   const order = await payload.find({
@@ -35,8 +37,8 @@ export default async function HomePage() {
   });
 
   return (
-    <div className="h-screen w-full flex flex-col justify-center items-center">
-      <div>
+    <div className="h-screen w-full flex flex-col">
+      <div className="w-full">
             <Navbar item={itemsNav} user={user} />
       </div>
 
