@@ -5,6 +5,7 @@ import { getPayload } from "payload";
 import config from "@/payload.config";
 import "./styles.css";
 import Link from "next/link";
+import Disc from "@/app/(frontend)/components/Disc"
 
 import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing
 
@@ -80,6 +81,8 @@ export default async function HomePage() {
           </code>
         </Link>
       </div>
+
+      <Disc />
     </div>
   );
 }
