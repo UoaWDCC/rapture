@@ -18,8 +18,8 @@ const itemsNav = [
     { id: 1, name: "Home", link: "/" },
     { id: 2, name: "Games", link: "/games" },
     { id: 3, name: "News", link: "/news" },
-    { id: 3, name: "Leaderboard", link: "/leaderboard" },
-    { id: 3, name: "Support Us", link: "/support" }
+    { id: 4, name: "Leaderboard", link: "/leaderboard" },
+    { id: 5, name: "Support Us", link: "/support" }
 ]; 
 
 // Fill in with actual webpage links when they are done.
