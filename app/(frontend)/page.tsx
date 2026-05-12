@@ -6,10 +6,7 @@ import config from "@/payload.config";
 import "./styles.css";
 
 import OrderCollectionDisplay from "./order/orderCollectionDisplay"
-
 import Link from "next/link";
-
-import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing 
 
 export default async function HomePage() {
   const payloadConfig = await config;
@@ -18,14 +15,6 @@ export default async function HomePage() {
   const { user } = await payload.auth({ headers });
 
   const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`;
-
-  const itemsNav = [
-    { id: 1, name: "Home", link: "/" },
-    { id: 2, name: "Games", link: "/games" },
-    { id: 3, name: "News", link: "/news" },
-    { id: 3, name: "Leaderboard", link: "/leaderboard" },
-    { id: 3, name: "Support Us", link: "/support" }
-  ]; // navbar testing
 
   const order = await payload.find({
     collection: "order",
@@ -37,10 +26,7 @@ export default async function HomePage() {
   });
 
   return (
-    <div className="h-screen w-full flex flex-col">
-      <div className="w-full">
-            <Navbar item={itemsNav} user={user} />
-      </div>
+    <div className="h-screen w-full flex flex-col flex-wrap">
 
       <div className="w-full h-full flex flex-col items-center justify-center gap-5">
         <picture>
@@ -73,7 +59,7 @@ export default async function HomePage() {
             );
           })}
         </div>
-        <div className="flex flex-row gap-1 text-2xl">
+        <div className="flex flex-row flex-wrap gap-1 text-2xl">
           <Link
             className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
             href={payloadConfig.routes.admin}

@@ -1,18 +1,33 @@
 import React from "react";
 import "./styles.css";
+import { headers as getHeaders } from "next/headers.js";
+import { getPayload } from "payload";
+import config from "@/payload.config";
+
+import Navbar from "./components/navbar.tsx";
 import Footer from "./components/Footer";
+
 
 export const metadata = {
   description: "Website For Studio Rapture",
   title: "Studio Rapture",
 };
 
+// Navbar links
+const itemsNav = [
+    { id: 1, name: "Home", link: "/" },
+    { id: 2, name: "Games", link: "/games" },
+    { id: 3, name: "News", link: "/news" },
+    { id: 3, name: "Leaderboard", link: "/leaderboard" },
+    { id: 3, name: "Support Us", link: "/support" }
+]; 
+
 // Fill in with actual webpage links when they are done.
 const navigationLinks = [
   {label: "Home", href: "/home"},
   {label: "About", href: "/about"}, 
   {label: "Our Games", href: "/games"}
-]
+];
 
 // Add whichever socials Rapture wants here.
 const externalLinks = [
@@ -29,10 +44,21 @@ const copyright = "© 2026 Studio Rapture. All rights reserved.";
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props;
+  const payloadConfig = await config;
+  const payload = await getPayload({ config: payloadConfig });
+  const headers = await getHeaders();
+  const { user } = await payload.auth({ headers });
+
   return (
     <html lang="en">
       <body>
+        <Navbar 
+          item={itemsNav} 
+          user={user} 
+        />
+
         <main>{children}</main>
+
         <Footer 
           navigationLinks={navigationLinks}
           externalLinks={externalLinks}
