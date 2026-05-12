@@ -60,7 +60,7 @@ export default async function HomePage() {
             );
           })}
         </div>
-        <div className="flex flex-row gap-1 text-2xl">
+        <div className="flex flex-row flex-wrap gap-1 text-2xl">
           <Link
             className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
             href={payloadConfig.routes.admin}
