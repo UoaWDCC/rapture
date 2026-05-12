@@ -32,7 +32,7 @@ export default function Navbar({item, user}: NavProps) {
       {/* maybe put a logo first. depends on design */}
 
       <Image
-        className="mr-10 h-14 w-25"
+        className="mr-10 h-18 w-30"
         alt="Payload Logo"
         height={120}
         src="/LOGO.png"
@@ -45,10 +45,10 @@ export default function Navbar({item, user}: NavProps) {
 
           return(
             <a
-              className={`h-8 px-6 py-0.5
+              className={`w-50 h-9 px-6 py-0.5
                 ${novaCut.className}
                 flex items-center justify-center
-                text-sm 
+                text-2xl
                 border-2 border-white
                 transition-colors duration-200
                 ${isActive 
