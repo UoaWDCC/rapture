@@ -1,4 +1,5 @@
 import { News } from "@/payload-types";
+import { RichText } from "@payloadcms/richtext-lexical/react";
 
 function formatDate(dateString:string) {
   const date = new Date(dateString);
@@ -29,7 +30,7 @@ export default async function NewsDisplay({
         <br></br>
         <hr></hr>
         <br></br>
-        <p className="text-gray-700 text-base">{news.description}</p>
+        <RichText className="text-gray-700 text-base" data={news.description} />
       </div>
     </div>
   );

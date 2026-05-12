@@ -17,7 +17,7 @@ export const News: CollectionConfig = {
       name: "title",
       type: "text",
       required: true,
-      validate: (value) => {
+      validate: (value: string | null | undefined) => {
         if (!value || !value.trim()) {
           return "Title cannot be empty";
         }
@@ -26,10 +26,10 @@ export const News: CollectionConfig = {
     },
     {
       name: "description",
-      type: "text",
+      type: "richText",
       required: true,
-      validate: (value) => {
-        if (!value || !value.trim()) { // if want minimum description instead: value.trim().length < min_length
+      validate: (value: any) => {
+        if (!value?.root?.children?.length) { // if want minimum description instead: value.trim().length < min_length
           return "Description cannot be empty";
         }
         return true;
