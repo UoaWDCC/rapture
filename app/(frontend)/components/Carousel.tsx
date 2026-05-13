@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image'
 
 type itemC = {
     id:number;
@@ -44,7 +45,7 @@ export default function Carousel({items, autoSlide = true, autoSlideInterval = 3
                 className={`absolute inset-0 transition-transfrom ${
                     index === currentIndex ? 'translate-x-0' : 'translate-x-full'
                 }`}>
-                    <img src={item.image} alt={`Slide ${item.id}`} className="w-full h-full object-cover" />
+                    <Image src={item.image} alt={`Slide ${item.id}`} fill className='object-cover'/>
                     <h1>{item.heading}</h1>
                     <p>{item.text}</p>
                 </div>
