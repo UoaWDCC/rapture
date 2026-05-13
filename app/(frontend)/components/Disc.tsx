@@ -1,29 +1,21 @@
 import Link from "next/link"
 
-export default function Disc() {
+interface DiscProps {
+    name: string
+    url: string
+    image: string
+    icon?: string
+    color: string
+}
+
+export default function Disc({ name, url, image, icon, color }: DiscProps) {
     return (
-        <div className="text-center py-8 w-full">
-            <h2 className="text-[#CCA43B] text-2xl mb-4">SOCIAL MEDIA</h2>
-
-            <div className="flex gap-4 justify-center">
-                <div className="border border-[#5865F2] p-6 rounded">
-                    <Link href="https://discord.com" target="_blank">
-                        Discord
-                    </Link>
-                </div>
-
-                <div className="border border-[#FF0000] p-6 rounded">
-                    <Link href="https://youtube.com" target="_blank">
-                        Youtube
-                    </Link>
-                </div>
-
-                <div className="border border-[#171720] p-6 rounded">
-                    <Link href="https://store.steampowered.com" target="_blank">
-                        Steam
-                    </Link>
-                </div>
+        <Link href={url} target="_blank">
+            <div className={`relative w-44 h-52 ${color} rounded-xl overflow-hidden`}>
+                <img src={image} alt={name} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48" />
+                {icon && <img src={icon} alt={name + " icon"} className="absolute top-4 right-2 w-14 h-14 object-contain" />}
+                <p className="absolute bottom-5 left-1/2 -translate-x-1/2 text-white text-lg uppercase" style={{ fontFamily: "'Nova Cut', cursive" }}>{name}</p>
             </div>
-        </div>
+        </Link>
     )
 }
