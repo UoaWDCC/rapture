@@ -17,9 +17,9 @@ export async function sendEmail({
     subject,
     html
 }: SendEmailTypes) {
-    console.log("sending email to:", to);/*temp*/
+    /*console.log("sending email to:", to); temp*/
 
-    /*const payload = await getPayload({ config });*/
+    /*const payload = await getPayload({ config }); temp*/
 
     return await resend.emails.send({
         from: "onboarding@resend.dev",
@@ -28,5 +28,5 @@ export async function sendEmail({
         html
     });
 
-    /*console.log("Email sent to", result)*/
+    /*console.log("Email sent to", result) temp*/
 }

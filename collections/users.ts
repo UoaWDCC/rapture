@@ -1,6 +1,10 @@
 import { User } from "@/payload-types";
 import { CollectionConfig } from "payload";
 
+/*to test email system further*/
+import { sendEmail } from "@/lib/email/send_email";
+import { send } from "process";
+
 const adminCheck = (user: User | null) => {
   return user?.role === "admin";
 };
@@ -38,4 +42,20 @@ export const Users: CollectionConfig = {
       ],
     },
   ],
+
+  /*for email system testing*/
+  hooks: {
+    afterChange: [
+      async ({doc, operation}) => {
+        if (operation == "create") {
+          await sendEmail({
+            to: doc.email,
+            subject: "Welcome!",
+            html: `<h1>Welcome, ${doc.name}!</h1>
+            <p>Thanks for joining us.</p>`,
+          });
+        }
+      }
+    ]
+  }
 };
