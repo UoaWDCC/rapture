@@ -1,3 +1,6 @@
+import { headers as getHeaders } from "next/headers.js";
+import { getPayload } from "payload";
+import config from "@/payload.config";
 import { notFound } from 'next/navigation'
 import { NewsContent } from './components/NewsContent'
 import { MOCK_POSTS } from '../mockData'
@@ -13,9 +16,11 @@ export default async function NewsContentPage({ params }: Props) {
 
   if (!post) notFound()
 
-  // TODO: Check if is admin
+  const payload = await getPayload({ config: await config });
+  const headers = await getHeaders();
+  const { user } = await payload.auth({ headers });
 
-  const isAdmin = true // hardcoded for demo
+  const isAdmin = user?.role === "admin";
 
   return <NewsContent post={post} isAdmin={isAdmin} />
 }
