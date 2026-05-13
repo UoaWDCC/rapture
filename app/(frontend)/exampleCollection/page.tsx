@@ -112,6 +112,7 @@ export default async function ExampleColectionPage() {
             />
           ))}
         </div>
+      </div>
       <div style={{ marginTop: '2rem', padding: '1rem', border: '1px solid #ccc' }}>
         <h2>Test News Submission Component</h2>
         <NewsSubmission isAdmin={isAdmin} />
