@@ -29,5 +29,3 @@ export default buildConfig({
   }),
   sharp,
 });
-
-console.log("EMAIL CONFIG LOADED");

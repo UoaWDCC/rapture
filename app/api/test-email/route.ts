@@ -1,4 +1,5 @@
 /*email system testing*/
+import payload from "payload";
 import { sendEmail } from "@/lib/email/send_email";
 
 
@@ -11,3 +12,4 @@ export async function GET() {
 
   return Response.json({ success: true });
 }
+console.log("EMAIL PLUGIN EXISTS?", (payload as any).sendEmail);
