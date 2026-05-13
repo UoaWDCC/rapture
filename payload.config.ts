@@ -4,7 +4,7 @@ import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { buildConfig } from "payload";
 import { resendAdapter } from "@payloadcms/email-resend"; /*email integration*/
 import { ExampleCollection } from "./collections/exampleCollection.ts";
-import { Users } from "./collections/users.ts";
+import { Users } from "./collections/users.tsx";
 import { OrderCollection } from "./collections/orderCollection.ts";
 import { Players } from "./collections/players.ts";
 import { Products } from "./collections/products.ts";

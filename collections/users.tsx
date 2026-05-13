@@ -3,7 +3,8 @@ import { CollectionConfig } from "payload";
 
 /*to test email system further*/
 import { sendEmail } from "@/lib/email/send_email";
-import { send } from "process";
+import { render } from "@react-email/render";
+import Welcome from "@/lib/email/email_templates/welcome";
 
 const adminCheck = (user: User | null) => {
   return user?.role === "admin";
@@ -48,12 +49,16 @@ export const Users: CollectionConfig = {
     afterChange: [
       async ({doc, operation}) => {
         if (operation == "create") {
-          await sendEmail({
-            to: doc.email,
-            subject: "Welcome!",
-            html: `<h1>Welcome, ${doc.name}!</h1>
-            <p>Thanks for joining us.</p>`,
-          });
+          try{
+            const html = await render(<Welcome name={doc.name} />);
+              await sendEmail({
+              to: doc.email,
+              subject: "Welcome!",
+              html,
+            });
+          } catch (err) {
+            console.error("Welcome email failed.")
+          }
         }
       }
     ]
