@@ -25,17 +25,31 @@ export function PromotedGameSection() {
 
         {/* Book open */}
         <div className="relative">
-          <Image
-            alt="Book open"
-            width={1010}
-            height={674}
-            src="/images/book-open.png"
-            className="w-full h-auto"
-          />
+          {/* Mobile - crop to right half only */}
+          <div className="md:hidden w-full overflow-hidden">
+            <Image
+              alt="Book open"
+              width={1010}
+              height={674}
+              src="/images/book-open.png"
+              className="w-[200%] max-w-none ml-[-100%]"
+            />
+          </div>
 
-          {/* Left page */}
+          {/* Desktop - full image */}
+          <div className="hidden md:block">
+            <Image
+              alt="Book open"
+              width={1010}
+              height={674}
+              src="/images/book-open.png"
+              className="w-full h-auto"
+            />
+          </div>
+
+          {/* Left page - desktop */}
           <div
-            className="absolute top-[12%] left-[4%] w-[36%] h-[80%] overflow-auto"
+            className="hidden md:block absolute top-[12%] left-[4%] w-[36%] h-[80%] overflow-auto"
             style={{
               scrollbarWidth: "thin",
               scrollbarColor: "var(--color-brand-blue) transparent",
@@ -47,7 +61,7 @@ export function PromotedGameSection() {
           </div>
 
           {/* Right page - mobile */}
-          <div className="md:hidden absolute top-[18%] right-[-5%] w-[45%] z-10">
+          <div className="md:hidden absolute top-[18%] left-[20%] w-[45%] z-10">
             <div className="relative inline-block">
               <p className="text-[clamp(1.5rem,8vw,3rem)] text-transparent text-stroke text-stroke-color-brand-blue">
                 VITRIOL
@@ -91,6 +105,19 @@ export function PromotedGameSection() {
             src="/images/book-closed.png"
           />
         </div>
+      </div>
+
+      {/* Left page - mobile */}
+      <div
+        className="md:hidden m-2 p-4 pt-10 overflow-auto border border-brand-blue"
+        style={{
+          scrollbarWidth: "thin",
+          scrollbarColor: "var(--color-brand-blue) transparent",
+        }}
+      >
+        <p className="text-xl leading-snug text-transparent text-stroke text-stroke-color-brand-blue">
+          {leftPageContent}
+        </p>
       </div>
     </section>
   )
