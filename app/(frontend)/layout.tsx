@@ -7,6 +7,13 @@ import config from "@/payload.config";
 import Navbar from "./components/navbar.tsx";
 import Footer from "./components/Footer";
 
+import { Nova_Cut } from 'next/font/google'
+import Footer from "./components/Footer";
+
+const novaCut = Nova_Cut({
+  subsets: ['latin'],
+  weight: "400" // equivalent to weight "book"
+})
 
 export const metadata = {
   description: "Website For Studio Rapture",
@@ -33,7 +40,7 @@ const navigationLinks = [
 const externalLinks = [
   { label: "Twitter", href: "https://twitter.com" },
   { label: "Discord", href: "https://discord.com" },
-  { label: "Instagram", href: "https://instagram.com"}
+  { label: "Instagram", href: "https://instagram.com" }
 ];
 
 // Add any additional text.
@@ -50,7 +57,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { user } = await payload.auth({ headers });
 
   return (
-    <html lang="en">
+    <html lang="en" className={novaCut.className}>
       <body>
         <Navbar 
           item={itemsNav} 
