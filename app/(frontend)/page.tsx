@@ -10,7 +10,8 @@ import OrderCollectionDisplay from "./order/orderCollectionDisplay"
 import Link from "next/link";
 
 import { NewsSection } from "./components/NewsSection";
-import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing 
+import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing
+import Carousel from "@/app/(frontend)/components/Carousel.tsx"; // carousel testing
 
 export default async function HomePage() {
   const payloadConfig = await config;
@@ -26,6 +27,10 @@ export default async function HomePage() {
     { id: 3, name: "SomethingPage - link doesn't work!", link: "/example" }
   ]; // navbar testing
 
+  const itemsC = [
+    { id: 1, image: "/images/ivlnaud5zro61.png", heading: "Aw Heck", text: "Just Some Text" },
+    { id: 2, image: "/images/ivlnaud5zro61.png", heading: "Page 2", text: "Just Some Text2" },
+  ]; //carousel testing
   const order = await payload.find({
     collection: "order",
     where: user ? {
@@ -101,6 +106,12 @@ export default async function HomePage() {
           </Link>
           <Link
             className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
+            href="/news"
+          >
+            News
+          </Link>
+          <Link
+            className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
             href="/cart"
           >
             Cart
@@ -124,6 +135,10 @@ export default async function HomePage() {
       </div>
 
       <NewsSection />
+
+      <div>
+        <Carousel items={itemsC} />
+      </div>
     </div>
   );
 }
