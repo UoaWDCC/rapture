@@ -31,7 +31,7 @@ const NotificationButton = ({ children }: { children: string }) => {
       <div className="relative px-8 py-0.5 cursor-pointer hover:opacity-60 transition-all">
         <div className="absolute inset-0 border blur-[2px] opacity-70" />
         <div className="absolute inset-0 border" />
-        <p className="relative opacity-70">(X) {children}</p>
+        <p className="relative opacity-70">{children}</p>
       </div>
     </a>
   )
@@ -106,8 +106,8 @@ export function NewsSection() {
               </div>
               <div className="bg-background h-[1px] mt-5 mb-3" />
               <div className="flex flex-row justify-end space-x-2">
-                <NotificationButton>Accept</NotificationButton>
-                <NotificationButton>Dismiss</NotificationButton>
+                <NotificationButton>(Y) Accept</NotificationButton>
+                <NotificationButton>(N) Dismiss</NotificationButton>
               </div>
             </div>
           </div>
