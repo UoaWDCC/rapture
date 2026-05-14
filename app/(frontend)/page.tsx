@@ -8,6 +8,10 @@ import "./styles.css";
 import OrderCollectionDisplay from "./order/orderCollectionDisplay"
 import Link from "next/link";
 
+import { NewsSection } from "./components/NewsSection";
+import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing
+import Carousel from "@/app/(frontend)/components/Carousel.tsx"; // carousel testing
+
 export default async function HomePage() {
   const payloadConfig = await config;
   const payload = await getPayload({ config: payloadConfig });
@@ -89,6 +93,12 @@ export default async function HomePage() {
           </Link>
           <Link
             className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
+            href="/news"
+          >
+            News
+          </Link>
+          <Link
+            className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
             href="/cart"
           >
             Cart
@@ -109,6 +119,12 @@ export default async function HomePage() {
             app/(frontend)/page.tsx
           </code>
         </Link>
+      </div>
+
+      <NewsSection />
+
+      <div>
+        <Carousel items={itemsC} />
       </div>
     </div>
   );
