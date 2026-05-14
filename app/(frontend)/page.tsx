@@ -82,12 +82,12 @@ export default async function HomePage() {
         </Link>
       </div>
 
-      <h2 className="text-black text-2xl mb-4 text-center" style={{ fontFamily: "'Nova Cut', cursive" }}>SOCIAL MEDIA</h2>
+      <h2 className="text-white text-2xl mb-4 text-center" style={{ fontFamily: "'Nova Cut', cursive" }}>SOCIAL MEDIA</h2>
 
     <div className="flex gap-4 justify-center w-full">
-    <Disc name="Discord" url="https://discord.com" image="/dvd_player_2.png" icon="/DISCORD.png" color="bg-[#171947]" />
-    <Disc name="Youtube" url="https://youtube.com" image="/dvd_player_2.png" icon="/YT.png" color="bg-[#4C1010]" />
-    <Disc name="Steam" url="https://store.steampowered.com" image="/dvd_player_2.png" color="bg-[#171720]" />
+    <Disc name="Discord" url="https://discord.com" image="/dvd_player_2.png" icon="/DISCORD.png" iconWidth={40} iconHeight={40} color="bg-[#171947]" />
+    <Disc name="Youtube" url="https://youtube.com" image="/dvd_player_2.png" icon="/YT.png" iconWidth={56} iconHeight={56} color="bg-[#4C1010]" />
+    <Disc name="Steam" url="https://store.steampowered.com" image="/dvd_player_2.png" icon="/steam.png" iconWidth={36} iconHeight={36} color="bg-[#171720]" />
     </div>
       
     </div>
