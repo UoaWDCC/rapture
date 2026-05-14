@@ -6,7 +6,7 @@ import GameCard from "@/app/(frontend)/components/gameCard";
 
 import NewsSubmission from "../components/newsSubmission";
 
-export default async function ExampleColectionPage() {
+export default async function ExampleCollectionPage() {
   const payload = await getPayload({ config: await config });
   const headers = await getHeaders();
   const { user } = await payload.auth({ headers });
