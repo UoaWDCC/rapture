@@ -1,4 +1,5 @@
 import { Product } from "@/payload-types";
+import Image from "next/image";
 
 export default async function ProductsDisplay({
   product,
@@ -10,7 +11,7 @@ export default async function ProductsDisplay({
   return (
     <div className="m-20">
       {product.image && typeof product.image !== "string" ? (
-        <img src={product.image.url ?? ""} alt={product.image.alt ?? product.name} className="w-80 h-80 object-cover mb-3" />
+        <Image src={product.image.url ?? ""} alt={product.image.alt ?? product.name} className="w-80 h-80 object-cover mb-3" />
       ) : (
       <div className="w-80 h-80 bg-gray-100 mb-3"></div>
       )}
