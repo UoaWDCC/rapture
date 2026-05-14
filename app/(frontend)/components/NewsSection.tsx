@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const BottomArrow = () => (
   <div className="relative w-[28px] h-[20px]">
@@ -27,24 +28,24 @@ const Divider = () => (
 
 const NotificationButton = ({ children }: { children: string }) => {
   return (
-    <a href="#">
+    <Link href="#">
       <div className="relative px-8 py-0.5 cursor-pointer hover:opacity-60 transition-all">
         <div className="absolute inset-0 border blur-[2px] opacity-70" />
         <div className="absolute inset-0 border" />
         <p className="relative opacity-70">{children}</p>
       </div>
-    </a>
+    </Link>
   )
 }
 
 const ReadMoreButton = () => {
   return (
-    <a href="/news">
+    <Link href="/news">
       <div className="mt-4 flex flex-col items-center space-y-2 cursor-pointer hover:opacity-60 transition-all">
         <BottomArrow />
         <p className="cursor-pointer">READ MORE</p>
       </div>
-    </a>
+    </Link>
   )
 }
 
