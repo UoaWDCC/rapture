@@ -73,6 +73,7 @@ export interface Config {
     Cart: Cart;
     products: Product;
     media: Media;
+    order: Order;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -86,6 +87,7 @@ export interface Config {
     Cart: CartSelect<false> | CartSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    order: OrderSelect<false> | OrderSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -227,6 +229,21 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+ * via the `definition` "order".
+ */
+export interface Order {
+  id: string;
+  user: string | User;
+  products: {
+    productName: string;
+    price: number;
+    description?: string | null;
+    id?: string | null;
+  }[];
+  dateTime: string;
+  totalPrice: number;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -275,6 +292,8 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+        relationTo: 'order';
+        value: string | Order;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -409,6 +428,22 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+ * via the `definition` "order_select".
+ */
+export interface OrderSelect<T extends boolean = true> {
+  user?: T;
+  products?:
+    | T
+    | {
+        productName?: T;
+        price?: T;
+        description?: T;
+        id?: T;
+      };
+  dateTime?: T;
+  totalPrice?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

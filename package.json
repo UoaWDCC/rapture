@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  
   "scripts": {
     "types": "payload generate:types",
     "dev": "docker compose up -d && next dev",
