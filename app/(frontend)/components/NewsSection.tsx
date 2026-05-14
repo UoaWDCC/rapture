@@ -27,7 +27,7 @@ const Divider = () => (
 
 const NotificationButton = ({ children }: { children: string }) => {
   return (
-    <a href="/contact">
+    <a href="#">
       <div className="relative px-8 py-0.5 cursor-pointer hover:opacity-60 transition-all">
         <div className="absolute inset-0 border blur-[2px] opacity-70" />
         <div className="absolute inset-0 border" />
