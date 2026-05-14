@@ -4,7 +4,6 @@
 import { User } from "@/payload-types";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import Dropdown from "./Dropdown.tsx";
 import { Nova_Cut } from "next/font/google";
 
 const novaCut = Nova_Cut({
@@ -24,7 +23,7 @@ type NavProps = {
   user:User | null;
 }
 
-export default function Navbar({item, user}: NavProps) {
+export default function Navbar({item}: NavProps) {
   const pathname = usePathname();
 
   return (
