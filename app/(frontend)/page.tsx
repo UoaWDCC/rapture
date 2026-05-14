@@ -9,6 +9,7 @@ import OrderCollectionDisplay from "./order/orderCollectionDisplay"
 
 import Link from "next/link";
 
+import { NewsSection } from "./components/NewsSection";
 import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing
 import Carousel from "@/app/(frontend)/components/Carousel.tsx"; // carousel testing
 
@@ -27,8 +28,8 @@ export default async function HomePage() {
   ]; // navbar testing
 
   const itemsC = [
-    { id: 1, image: "/images/ivlnaud5zro61.png", heading: "Aw Heck", text: "Just Some Text"},
-    { id: 2, image: "/images/ivlnaud5zro61.png", heading: "Page 2", text: "Just Some Text2"},
+    { id: 1, image: "/images/ivlnaud5zro61.png", heading: "Aw Heck", text: "Just Some Text" },
+    { id: 2, image: "/images/ivlnaud5zro61.png", heading: "Page 2", text: "Just Some Text2" },
   ]; //carousel testing
   const order = await payload.find({
     collection: "order",
@@ -40,7 +41,7 @@ export default async function HomePage() {
   });
 
   return (
-    <div className="h-screen w-full flex flex-col justify-center items-center">
+    <div className="w-full flex flex-col justify-center items-center">
       <div>
         <Navbar item={itemsNav} user={user} />
       </div>
@@ -133,8 +134,10 @@ export default async function HomePage() {
         </Link>
       </div>
 
+      <NewsSection />
+
       <div>
-        <Carousel items={itemsC}/>
+        <Carousel items={itemsC} />
       </div>
     </div>
   );
