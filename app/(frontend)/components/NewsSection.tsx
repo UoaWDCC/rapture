@@ -119,7 +119,7 @@ export function NewsSection() {
             <div className="absolute z-1 w-90 h-[1px] md:bg-background left-20" />
             <div className="absolute z-1 w-[1px] h-10 md:bg-background left-20" />
 
-            <div className="relative mx-4 md:mx-20 pt-8 md:pt-30 pb-3 border border-yellow">
+            <div className="relative mx-4 md:mx-20 pt-8 md:pt-30 pb-3 border border-brand-yellow">
               <h2 className="mb-4 px-4 md:px-10">HEADER</h2>
               <div className="px-4 md:px-18">
                 {/* Mobile description */}
