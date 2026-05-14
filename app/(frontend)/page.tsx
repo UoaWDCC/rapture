@@ -10,6 +10,7 @@ import OrderCollectionDisplay from "./order/orderCollectionDisplay"
 import Link from "next/link";
 
 import { NewsSection } from "./components/NewsSection";
+import { PromotedGameSection } from "./components/PromotedGameSection";
 import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing
 import Carousel from "@/app/(frontend)/components/Carousel.tsx"; // carousel testing
 
@@ -134,6 +135,7 @@ export default async function HomePage() {
         </Link>
       </div>
 
+      <PromotedGameSection />
       <NewsSection />
 
       <div>
