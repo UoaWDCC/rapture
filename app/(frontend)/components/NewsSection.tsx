@@ -23,7 +23,7 @@ const BottomArrow = () => (
 )
 
 const Divider = () => (
-  <div className="bg-yellow h-[1px]" />
+  <div className="bg-brand-yellow h-[1px]" />
 )
 
 const NotificationButton = ({ children }: { children: string }) => {
@@ -53,7 +53,7 @@ export function NewsSection() {
   const description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa Cum sociis natoque penatibus et magnis dis parturient montes, Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa Cum sociis natoque penatibus et magnis dis parturient montes, Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor."
 
   return (
-    <section className="bg-background text-yellow my-10 w-full">
+    <section className="bg-background text-brand-yellow my-10 w-full">
       {/* Spacing */}
       <div className="h-40 md:h-30" />
 
@@ -66,7 +66,7 @@ export function NewsSection() {
         style={{ backgroundImage: "url('/images/bit-texture.png')" }}
       >
         {/* Dark overlay on top of TV image */}
-        <div className="absolute inset-0 bg-dark-brown/50 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-brand-dark-brown/50 z-10 pointer-events-none" />
 
         <div className="relative max-w-280 mx-auto">
 
@@ -78,7 +78,7 @@ export function NewsSection() {
 
             <div className="relative z-2">
               <Image
-                alt="Payload Logo"
+                alt="TV"
                 width={420}
                 height={420}
                 src="/images/tv.png"
@@ -93,7 +93,7 @@ export function NewsSection() {
           {/* Notification */}
           <div className="relative z-30 mx-4 mb-6 md:mb-0 md:absolute md:right-18 md:top-30 md:mx-0">
             <div
-              className="relative bg-yellow text-background p-5 md:w-xl"
+              className="relative bg-brand-yellow text-background p-5 md:w-xl"
               style={{ boxShadow: "0 0 12px 2px rgba(255, 220, 0, 0.5)" }}
             >
               <div className="space-y-1">

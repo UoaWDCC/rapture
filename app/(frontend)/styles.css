@@ -29,8 +29,9 @@
   --letter-spacing-body-01: -0.01em;
 
   /* Brand colors */
-  --color-yellow: #F2B423;
-  --color-dark-brown: #150703;
+  --color-brand-yellow: #F2B423;
+  --color-brand-dark-brown: #150703;
+  --color-brand-blue: #0745BE;
 }
 
 :root {
