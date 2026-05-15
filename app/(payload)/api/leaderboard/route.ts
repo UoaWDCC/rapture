@@ -22,7 +22,7 @@ export async function GET() {
       })),
     });
 
-  } catch (error) {
+  } catch {
     return NextResponse.json({
       success: false,
       error: "Failed to retrieve leaderboard",
@@ -64,7 +64,7 @@ export async function POST(request: Request) {
       data: newEntry,
     }, { status: 201 });
 
-  } catch (error) {
+  } catch {
     return NextResponse.json({
       success: false,
       error: "Failed to submit score",
