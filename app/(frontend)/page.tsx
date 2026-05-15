@@ -10,7 +10,6 @@ import OrderCollectionDisplay from "./order/orderCollectionDisplay"
 import Link from "next/link";
 
 import { NewsSection } from "./components/NewsSection";
-import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing
 import Carousel from "@/app/(frontend)/components/Carousel.tsx"; // carousel testing
 
 export default async function HomePage() {
@@ -20,12 +19,6 @@ export default async function HomePage() {
   const { user } = await payload.auth({ headers });
 
   const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`;
-
-  const itemsNav = [
-    { id: 1, name: "Home", link: "/" },
-    { id: 2, name: "Random1", link: "/random1" },
-    { id: 3, name: "SomethingPage - link doesn't work!", link: "/example" }
-  ]; // navbar testing
 
   const itemsC = [
     { id: 1, image: "/images/ivlnaud5zro61.png", heading: "Aw Heck", text: "Just Some Text" },
@@ -42,9 +35,6 @@ export default async function HomePage() {
 
   return (
     <div className="w-full flex flex-col justify-center items-center">
-      <div>
-        <Navbar item={itemsNav} user={user} />
-      </div>
 
       <div className="w-full h-full flex flex-col items-center justify-center gap-5">
         <picture>
