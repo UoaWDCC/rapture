@@ -3,7 +3,6 @@ import Image from "next/image";
 import { fileURLToPath } from "url";
 import { getPayload } from "payload";
 import config from "@/payload.config";
-import "./styles.css";
 import Link from "next/link";
 import Disc from "@/app/(frontend)/components/Disc"
 
@@ -83,15 +82,15 @@ export default async function HomePage() {
       </div>
 
       <div className="flex items-center gap-4 w-full px-8 mb-4">
-    <div className="flex-1 border-t border-[#CCA43B]"></div>
+    <div className="flex-1 border-t border-white"></div>
     <h2 className="text-white text-2xl" style={{ fontFamily: "'Nova Cut', cursive" }}>SOCIAL MEDIA</h2>
-    <div className="flex-1 border-t border-[#CCA43B]"></div>
+    <div className="flex-1 border-t border-white"></div>
     </div>
 
     <div className="flex gap-4 justify-center w-full">
     <Disc name="Discord" url="https://discord.com" image="/dvd_player_2.png" icon="/DISCORD.png" iconWidth={40} iconHeight={40} iconTop="top-6.5" iconRight="right-4" color="bg-[#171947]" />
-    <Disc name="Youtube" url="https://youtube.com" image="/dvd_player_2.png" icon="/YT.png" iconWidth={70} iconHeight={70} iconTop="top-3" iconRight="right-0.25" color="bg-[#4C1010]" />
-    <Disc name="Steam" url="https://store.steampowered.com" image="/dvd_player_2.png" icon="/steam.png" iconWidth={36} iconHeight={36} iconTop="top-7" iconRight="right-4.5" color="bg-[#171720]" />
+    <Disc name="Youtube" url="https://www.youtube.com/@STUDIO_RAPTURE" image="/dvd_player_2.png" icon="/YT.png" iconWidth={70} iconHeight={70} iconTop="top-3" iconRight="right-0.25" color="bg-[#4C1010]" />
+    <Disc name="Steam" url="https://store.steampowered.com/search/?developer=Lee%20Wilson" image="/dvd_player_2.png" icon="/steam.png" iconWidth={36} iconHeight={36} iconTop="top-7" iconRight="right-4.5" color="bg-[#171720]" />
     </div>
       
     </div>
