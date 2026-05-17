@@ -9,7 +9,9 @@ import OrderCollectionDisplay from "./order/orderCollectionDisplay"
 
 import Link from "next/link";
 
-import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing 
+import { NewsSection } from "./components/NewsSection";
+import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing
+import Carousel from "@/app/(frontend)/components/Carousel.tsx"; // carousel testing
 
 export default async function HomePage() {
   const payloadConfig = await config;
@@ -22,9 +24,14 @@ export default async function HomePage() {
   const itemsNav = [
     { id: 1, name: "Home", link: "/" },
     { id: 2, name: "Random1", link: "/random1" },
-    { id: 3, name: "SomethingPage - link doesn't work!", link: "/example" }
+    { id: 3, name: "SomethingPage - WARNING: link doesn't work!", link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ&pp=ygUjcmljayBhc3RsZXkgbmV2ZXIgZ29ubmEgZ2l2ZSB5b3UgdXDSBwkJAwsBhyohjO8%3D" },
+    { id: 4, name: "News Page", link: "/News" }
   ]; // navbar testing
 
+  const itemsC = [
+    { id: 1, image: "/images/ivlnaud5zro61.png", heading: "Aw Heck", text: "Just Some Text" },
+    { id: 2, image: "/images/ivlnaud5zro61.png", heading: "Page 2", text: "Just Some Text2" },
+  ]; //carousel testing
   const order = await payload.find({
     collection: "order",
     where: user ? {
@@ -35,9 +42,9 @@ export default async function HomePage() {
   });
 
   return (
-    <div className="h-screen w-full flex flex-col justify-center items-center">
+    <div className="w-full flex flex-col justify-center items-center">
       <div>
-            <Navbar item={itemsNav} user={user} />
+        <Navbar item={itemsNav} user={user} />
       </div>
 
       <div className="w-full h-full flex flex-col items-center justify-center gap-5">
@@ -100,6 +107,12 @@ export default async function HomePage() {
           </Link>
           <Link
             className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
+            href="/news"
+          >
+            News
+          </Link>
+          <Link
+            className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
             href="/cart"
           >
             Cart
@@ -120,6 +133,12 @@ export default async function HomePage() {
             app/(frontend)/page.tsx
           </code>
         </Link>
+      </div>
+
+      <NewsSection />
+
+      <div>
+        <Carousel items={itemsC} />
       </div>
     </div>
   );

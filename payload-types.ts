@@ -72,6 +72,7 @@ export interface Config {
     Players: Player;
     Cart: Cart;
     products: Product;
+    News: News;
     order: Order;
     media: Media;
     'payload-kv': PayloadKv;
@@ -86,6 +87,7 @@ export interface Config {
     Players: PlayersSelect<false> | PlayersSelect<true>;
     Cart: CartSelect<false> | CartSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
+    News: NewsSelect<false> | NewsSelect<true>;
     order: OrderSelect<false> | OrderSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -232,6 +234,26 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "News".
+ */
+export interface News {
+  id: string;
+  title: string;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
  * via the `definition` "order".
  */
 export interface Order {
@@ -293,6 +315,8 @@ export interface PayloadLockedDocument {
         value: string | Product;
       } | null)
     | ({
+        relationTo: 'News';
+        value: string | News;
         relationTo: 'order';
         value: string | Order;
       } | null)
@@ -418,6 +442,11 @@ export interface ProductsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "News_select".
+ */
+export interface NewsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
  * via the `definition` "order_select".
  */
 export interface OrderSelect<T extends boolean = true> {
