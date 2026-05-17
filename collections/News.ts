@@ -13,7 +13,7 @@ export const News: CollectionConfig = {
   },
 
   fields: [
-    { 
+    {
       name: "title",
       type: "text",
       required: true,
@@ -28,12 +28,6 @@ export const News: CollectionConfig = {
       name: "description",
       type: "richText",
       required: true,
-      validate: (value: any) => {
-        if (!value?.root?.children?.length) { // if want minimum description instead: value.trim().length < min_length
-          return "Description cannot be empty";
-        }
-        return true;
-      },
     },
   ],
 };
