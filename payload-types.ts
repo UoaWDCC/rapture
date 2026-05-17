@@ -73,6 +73,7 @@ export interface Config {
     Cart: Cart;
     products: Product;
     News: News;
+    order: Order;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -86,6 +87,7 @@ export interface Config {
     Cart: CartSelect<false> | CartSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     News: NewsSelect<false> | NewsSelect<true>;
+    order: OrderSelect<false> | OrderSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -230,6 +232,19 @@ export interface News {
     };
     [k: string]: unknown;
   };
+ * via the `definition` "order".
+ */
+export interface Order {
+  id: string;
+  user: string | User;
+  products: {
+    productName: string;
+    price: number;
+    description?: string | null;
+    id?: string | null;
+  }[];
+  dateTime: string;
+  totalPrice: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -280,6 +295,8 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'News';
         value: string | News;
+        relationTo: 'order';
+        value: string | Order;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -403,6 +420,20 @@ export interface ProductsSelect<T extends boolean = true> {
 export interface NewsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
+ * via the `definition` "order_select".
+ */
+export interface OrderSelect<T extends boolean = true> {
+  user?: T;
+  products?:
+    | T
+    | {
+        productName?: T;
+        price?: T;
+        description?: T;
+        id?: T;
+      };
+  dateTime?: T;
+  totalPrice?: T;
   updatedAt?: T;
   createdAt?: T;
 }
