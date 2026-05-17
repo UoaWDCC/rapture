@@ -8,12 +8,13 @@ import { OrderCollection } from "./collections/orderCollection.ts";
 import { Players } from "./collections/players.ts";
 import { Products } from "./collections/products.ts";
 import { CartCollection } from "./collections/Cart.ts";
+import { News } from "./collections/News.ts";
 
 export default buildConfig({
   editor: lexicalEditor(),
 
   // Ensure created collections are added here
-  collections: [Users, ExampleCollection, Players, CartCollection, Products, OrderCollection],
+  collections: [Users, ExampleCollection, Players, CartCollection, Products, News,OrderCollection],
 
   secret: process.env.PAYLOAD_SECRET || "",
   db: mongooseAdapter({
