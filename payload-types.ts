@@ -72,8 +72,9 @@ export interface Config {
     Players: Player;
     Cart: Cart;
     products: Product;
-    News: News;
     order: Order;
+    media: Media;
+    News: News;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -86,8 +87,9 @@ export interface Config {
     Players: PlayersSelect<false> | PlayersSelect<true>;
     Cart: CartSelect<false> | CartSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
-    News: NewsSelect<false> | NewsSelect<true>;
     order: OrderSelect<false> | OrderSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
+    News: NewsSelect<false> | NewsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -206,9 +208,47 @@ export interface Product {
   price: number;
   currency: 'NZD' | 'AUD' | 'USD' | 'EUR' | 'GBP';
   description?: string | null;
+  image?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: string;
+  alt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "order".
+ */
+export interface Order {
+  id: string;
+  user: string | User;
+  products: {
+    productName: string;
+    price: number;
+    description?: string | null;
+    id?: string | null;
+  }[];
+  dateTime: string;
+  totalPrice: number;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -232,19 +272,6 @@ export interface News {
     };
     [k: string]: unknown;
   };
- * via the `definition` "order".
- */
-export interface Order {
-  id: string;
-  user: string | User;
-  products: {
-    productName: string;
-    price: number;
-    description?: string | null;
-    id?: string | null;
-  }[];
-  dateTime: string;
-  totalPrice: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -293,10 +320,16 @@ export interface PayloadLockedDocument {
         value: string | Product;
       } | null)
     | ({
-        relationTo: 'News';
-        value: string | News;
         relationTo: 'order';
         value: string | Order;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'News';
+        value: string | News;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -409,17 +442,13 @@ export interface ProductsSelect<T extends boolean = true> {
   price?: T;
   currency?: T;
   description?: T;
+  image?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "News_select".
- */
-export interface NewsSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
  * via the `definition` "order_select".
  */
 export interface OrderSelect<T extends boolean = true> {
@@ -434,6 +463,34 @@ export interface OrderSelect<T extends boolean = true> {
       };
   dateTime?: T;
   totalPrice?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "News_select".
+ */
+export interface NewsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
 }
