@@ -232,6 +232,11 @@ export interface News {
     };
     [k: string]: unknown;
   };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "order".
  */
 export interface Order {
@@ -295,6 +300,8 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'News';
         value: string | News;
+      } | null)
+    | ({
         relationTo: 'order';
         value: string | Order;
       } | null);
@@ -420,6 +427,11 @@ export interface ProductsSelect<T extends boolean = true> {
 export interface NewsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "order_select".
  */
 export interface OrderSelect<T extends boolean = true> {

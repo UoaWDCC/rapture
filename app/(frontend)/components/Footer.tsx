@@ -1,66 +1,26 @@
-type Links = {
-    label: string;
-    href: string;
-};
-
 type FooterProps = {
-  navigationLinks?: Links[];
-  externalLinks?: Links[];
-  title?: string;
-  text1?: string;
-  text2?: string;
-  copyright?: string;
+  studioTagline?: string;
+  contactEmail?: string;
 };
 
-export default function Footer({ navigationLinks, externalLinks, title, text1, text2, copyright }: FooterProps) {
+export default function Footer({ studioTagline, contactEmail }: FooterProps) {
     return (
-    <footer className="w-full bg-gray-900 text-white mt-auto">
-        <div className="w-full min-h-70 px-10 py-10 flex flex-row flex-wrap items-center gap-10">
-
-            <div className="max-w-70 mr-20 flex items-center justify-center text-7xl">
-                <h1 className="font-serif">{title}</h1>
-            </div>
-
-            <div className="flex flex-row flex-wrap gap-20">
-                {navigationLinks && navigationLinks.length > 0 && (
-                    <div className="flex flex-col gap-5">
-                        <h3 className="font-bold text-2xl">Navigation</h3>
-                        <ul className="flex flex-col gap-3">
-                            {navigationLinks.map((link) => (
-                            <li key={link.href}>
-                                <a href={link.href} className="hover:underline">
-                                {link.label}
-                                </a>
-                            </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-
-                {externalLinks && externalLinks.length > 0 && (
-                    <div className="flex flex-col gap-5">
-                        <h3 className="font-bold text-2xl">Links</h3>
-                        <ul className="flex flex-col gap-3">
-                            {externalLinks.map((link) => (
-                            <li key={link.href}>
-                                <a href={link.href} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                                {link.label}
-                                </a>
-                            </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-            </div>
-
-            <div className="max-w-100 font-serif text-2xl flex flex-col justify-center gap-5 ml-auto mr-20">
-                <h3>{text1}</h3>
-                <h3>{text2}</h3>
-            </div>
+    <footer className="w-full text-white mt-30">
+        <div className="flex items-center gap-4 w-full px-20 mb-200">
+            <div className="flex-1 h-px bg-white opacity-30"></div>
+            <span className="text-white text-1xl tracking-widest">SOCIAL MEDIA</span>
+            <div className="flex-1 h-px bg-white opacity-30"></div>
         </div>
 
-        <div className="w-full h-15 bg-gray-950 flex items-center justify-center text-sm">
-            <p>{copyright}</p>
+        <div className="px-20">
+            <div className="w-full h-px bg-white opacity-30 mb-20"></div>
+        </div>
+
+        <div className="px-20 mb-100">
+            <div className="w-full border-2 border-amber-400 rounded-3xl flex flex-col gap-4 p-10">
+                <h3>STUDIO RAPTURE!: {studioTagline}</h3>
+                <h3>CONTACT: {contactEmail}</h3>
+            </div>
         </div>
     </footer>
     );

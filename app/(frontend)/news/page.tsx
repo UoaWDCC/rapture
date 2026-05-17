@@ -1,18 +1,23 @@
-import { MOCK_POSTS } from './mockData'
-import { NewsCard } from './components/NewsCard'
+import { getPayload } from "payload";
+import config from "@/payload.config";
+import NewsDisplay from "./components/newsDisplay";
 
-export default async function NewsPage() {
-  const posts = MOCK_POSTS
+
+export default async function ExampleColectionPage() {
+  const payload = await getPayload({ config: await config });
+
+  const newsItem = await payload.find({
+    collection: "News",
+  });
 
   return (
-    <div className="container mx-auto my-6 px-4 space-y-4">
-      <h1 className="text-xl font-bold">Latest News</h1>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {posts.map(post => (
-          <NewsCard key={post.id} post={post} />
+    <div>
+      <h1 className="font-extrabold text-[30px] min-h-10 m-10">News Collection Display</h1>
+      <div className="flex gap-5 items-stretch m-10">
+        {newsItem.docs.map((news) => (
+            <NewsDisplay key={news.title} news={news} />
         ))}
       </div>
     </div>
-  )
+  );
 }
