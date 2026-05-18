@@ -72,7 +72,9 @@ export interface Config {
     Players: Player;
     Cart: Cart;
     products: Product;
+    order: Order;
     media: Media;
+    News: News;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -85,7 +87,9 @@ export interface Config {
     Players: PlayersSelect<false> | PlayersSelect<true>;
     Cart: CartSelect<false> | CartSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
+    order: OrderSelect<false> | OrderSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    News: NewsSelect<false> | NewsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -230,6 +234,49 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "order".
+ */
+export interface Order {
+  id: string;
+  user: string | User;
+  products: {
+    productName: string;
+    price: number;
+    description?: string | null;
+    id?: string | null;
+  }[];
+  dateTime: string;
+  totalPrice: number;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "News".
+ */
+export interface News {
+  id: string;
+  title: string;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -273,8 +320,16 @@ export interface PayloadLockedDocument {
         value: string | Product;
       } | null)
     | ({
+        relationTo: 'order';
+        value: string | Order;
+      } | null)
+    | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'News';
+        value: string | News;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -394,6 +449,25 @@ export interface ProductsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "order_select".
+ */
+export interface OrderSelect<T extends boolean = true> {
+  user?: T;
+  products?:
+    | T
+    | {
+        productName?: T;
+        price?: T;
+        description?: T;
+        id?: T;
+      };
+  dateTime?: T;
+  totalPrice?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -409,6 +483,16 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "News_select".
+ */
+export interface NewsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

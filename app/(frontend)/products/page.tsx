@@ -22,6 +22,7 @@ export default async function ProductsPage({ searchParams }: PageProps) {
     limit,
     page,
     where: { _status: { equals: "published" } },
+    depth: 1,
   });
 
   const { user } = await payload.auth({ headers: await (await import("next/headers")).headers() })
