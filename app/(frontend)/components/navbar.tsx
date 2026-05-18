@@ -8,6 +8,7 @@ import Image from "next/image";
 const novaCut = Nova_Cut({
   weight: "400",
   subsets: ["latin"],
+  variable: "--font-nova-cut",
 });
 
 type itemNav = {

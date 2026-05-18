@@ -9,10 +9,12 @@ import config from "@/payload.config";
 import Navbar from "@/app/(frontend)/components/navbar.tsx";
 import Footer from "./components/Footer";
 
+import { Nova_Cut } from "next/font/google";
+
 const novaCut = Nova_Cut({
-  subsets: ['latin'],
-  weight: "400" // equivalent to weight "book"
-})
+  subsets: ["latin"],
+  weight: "400", // equivalent to weight "book"
+});
 
 export const metadata = {
   description: "Website For Studio Rapture",
