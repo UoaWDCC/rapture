@@ -1,4 +1,25 @@
-import { MOCK_POSTS } from "./mockData";
+import { getPayload } from "payload";
+import config from "@/payload.config";
+import NewsFeed from "./components/newsfeed";
+
+export default async function ExampleCollectionPage() {
+  const payload = await getPayload({ config: await config });
+
+  const newsItems = await payload.find({
+    collection: "News",
+  });
+
+  return (
+    <div className="ml-10">
+      {/*<h1>News Collection Display</h1>*/}
+      {newsItems.docs.map((news) => (
+        <NewsFeed key={news.id} news={news} />
+      ))}
+    </div>
+  );
+}
+
+/*import { MOCK_POSTS } from "./mockData";
 import { NewsCard } from "./components/NewsCard";
 
 export default async function NewsPage() {
@@ -15,4 +36,4 @@ export default async function NewsPage() {
       </div>
     </div>
   );
-}
+}*/
