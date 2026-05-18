@@ -1,7 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Cut&display=swap');
 @import "tailwindcss";
 @plugin '@tailwindcss/typography';
-
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @theme {
   --color-background: var(--background);
@@ -33,18 +32,10 @@
   --color-dark-brown: #150703;
 }
 
-:root {
-  --background: #000000;
-  --foreground: #FFFFFF;
-}
-
-/* Comment out for now for reference */
-/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-} */
 
 body {
   color: var(--foreground);
