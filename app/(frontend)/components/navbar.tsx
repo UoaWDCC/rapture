@@ -25,7 +25,7 @@ export default function Navbar({item}: NavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className="w-full flex flex-row items-center justify-center bg-black px-6 py-3">
+    <nav className="w-full flex flex-row flex-wrap items-center justify-center px-6 py-2 mt-10 mb-10">
 
       {/* Logo */}
       <Image
@@ -44,9 +44,9 @@ export default function Navbar({item}: NavProps) {
             <a
               key={item.id}
               href={item.link}
-              className={`
+              className={`w-55
                 ${novaCut.className}
-                px-10 py-1 text-2xl tracking-widest
+                px-5 text-xl tracking-widest
                 flex items-center justify-center
                 border border-white
                 transition-colors duration-200

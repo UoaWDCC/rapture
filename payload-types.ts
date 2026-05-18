@@ -272,27 +272,6 @@ export interface News {
     };
     [k: string]: unknown;
   };
-<<<<<<< HEAD
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "order".
- */
-export interface Order {
-  id: string;
-  user: string | User;
-  products: {
-    productName: string;
-    price: number;
-    description?: string | null;
-    id?: string | null;
-  }[];
-  dateTime: string;
-  totalPrice: number;
-=======
->>>>>>> main
   updatedAt: string;
   createdAt: string;
 }
@@ -341,13 +320,6 @@ export interface PayloadLockedDocument {
         value: string | Product;
       } | null)
     | ({
-<<<<<<< HEAD
-        relationTo: 'News';
-        value: string | News;
-      } | null)
-    | ({
-=======
->>>>>>> main
         relationTo: 'order';
         value: string | Order;
       } | null)
@@ -477,19 +449,6 @@ export interface ProductsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
-<<<<<<< HEAD
- * via the `definition` "News_select".
- */
-export interface NewsSelect<T extends boolean = true> {
-  title?: T;
-  description?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
-=======
->>>>>>> main
  * via the `definition` "order_select".
  */
 export interface OrderSelect<T extends boolean = true> {
