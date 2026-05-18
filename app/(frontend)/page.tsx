@@ -5,8 +5,7 @@ import { getPayload } from "payload";
 import config from "@/payload.config";
 import "./styles.css";
 
-import OrderCollectionDisplay from "./order/orderCollectionDisplay"
-
+import OrderCollectionDisplay from "./order/orderCollectionDisplay";
 import Link from "next/link";
 
 import { NewsSection } from "./components/NewsSection";
@@ -27,11 +26,13 @@ export default async function HomePage() {
 
   const order = await payload.find({
     collection: "order",
-    where: user ? {
-      user: {
-        equals: user.id
-      }
-    } : { id: { equals: "nobody" } } //placeholder for no user id found
+    where: user
+      ? {
+          user: {
+            equals: user.id,
+          },
+        }
+      : { id: { equals: "nobody" } }, //placeholder for no user id found
   });
 
   return (
@@ -41,6 +42,7 @@ export default async function HomePage() {
         <picture>
           <source srcSet="/Rapture_Large_2500-1000.png" />
           <Image
+            className="mt-20"
             alt="Payload Logo"
             height={2500}
             src="/Rapture_Large_2500-1000.png"
@@ -68,7 +70,7 @@ export default async function HomePage() {
             );
           })}
         </div>
-        <div className="flex flex-row gap-1 text-2xl">
+        <div className="flex flex-row flex-wrap gap-1 text-2xl">
           <Link
             className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
             href={payloadConfig.routes.admin}
@@ -126,10 +128,6 @@ export default async function HomePage() {
       </div>
       
       <NewsSection />
-
-      <div>
-        <Carousel items={itemsC} />
-      </div>
     </div>
   );
 }

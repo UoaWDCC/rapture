@@ -10,9 +10,9 @@ import Navbar from "@/app/(frontend)/components/navbar.tsx";
 import Footer from "./components/Footer";
 
 const novaCut = Nova_Cut({
-  subsets: ['latin'],
-  weight: "400" // equivalent to weight "book"
-})
+  subsets: ["latin"],
+  weight: "400", // equivalent to weight "book"
+});
 
 export const metadata = {
   description: "Website For Studio Rapture",
