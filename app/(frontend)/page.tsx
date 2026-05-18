@@ -32,8 +32,8 @@ export default async function HomePage() {
   });
 
   return (
-    <div className="h-screen w-full flex flex-col items-center">
-      <div className="w-full h-full flex flex-col flex-wrap items-center justify-center gap-5">
+    <div className="w-full flex flex-col items-center">
+      <div className="w-full min-h-screen flex flex-col flex-wrap items-center justify-center gap-5">
         <picture>
           <source srcSet="/Rapture_Large_2500-1000.png" />
           <Image
@@ -51,7 +51,28 @@ export default async function HomePage() {
         {user && (
           <h1 className="text-3xl font-bold">Welcome back, {user.email}</h1>
         )}
-        <div>
+        </div>
+
+        {/* PROMOTED GAME SECTION - to be added when component is ready */}
+
+        <NewsSection />
+
+        <div className="flex items-center gap-4 w-full px-8 mb-4">
+    <div className="flex-1 border-t border-white"></div>
+    <h2 className="text-white text-2xl" style={{ fontFamily: "'Nova Cut', cursive" }}>SOCIAL MEDIA</h2>
+    <div className="flex-1 border-t border-white"></div>
+    </div>
+
+        <div className="flex gap-4 justify-center w-full">
+    <Disc name="Discord" url="https://discord.com" image="/dvd_player_2.png" icon="/DISCORD.png" 
+    iconWidth={40} iconHeight={40} iconTop="top-6.5" iconRight="right-4" color="bg-[#171947]" />
+    <Disc name="Youtube" url="https://www.youtube.com/@STUDIO_RAPTURE" image="/dvd_player_2.png" icon="/YT.png" 
+    iconWidth={70} iconHeight={70} iconTop="top-3" iconRight="right-0.25" color="bg-[#4C1010]" />
+    <Disc name="Steam" url="https://store.steampowered.com/search/?developer=Lee%20Wilson" image="/dvd_player_2.png" icon="/steam.png" 
+    iconWidth={36} iconHeight={36} iconTop="top-7" iconRight="right-4.5" color="bg-[#171720]" />
+    </div>
+
+        <div className="mt-10">
           <h1 className="text-2xl font-bold">
             To edit the below table go to Dashboard and add to the example
             collection
@@ -65,6 +86,7 @@ export default async function HomePage() {
             );
           })}
         </div>
+
         <div className="flex flex-row flex-wrap gap-1 text-2xl">
           <Link
             className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
@@ -111,7 +133,6 @@ export default async function HomePage() {
             User Dashboard
           </Link>
         </div>
-      </div>
 
       <div className="flex flex-row gap-1 m-2 text-lg">
         <p>Update this page by editing</p>
@@ -121,20 +142,7 @@ export default async function HomePage() {
           </code>
         </Link>
       </div>
-
-      <div className="flex items-center gap-4 w-full px-8 mb-4">
-    <div className="flex-1 border-t border-white"></div>
-    <h2 className="text-white text-2xl" style={{ fontFamily: "'Nova Cut', cursive" }}>SOCIAL MEDIA</h2>
-    <div className="flex-1 border-t border-white"></div>
-    </div>
-
-    <div className="flex gap-4 justify-center w-full">
-    <Disc name="Discord" url="https://discord.com" image="/dvd_player_2.png" icon="/DISCORD.png" iconWidth={40} iconHeight={40} iconTop="top-6.5" iconRight="right-4" color="bg-[#171947]" />
-    <Disc name="Youtube" url="https://www.youtube.com/@STUDIO_RAPTURE" image="/dvd_player_2.png" icon="/YT.png" iconWidth={70} iconHeight={70} iconTop="top-3" iconRight="right-0.25" color="bg-[#4C1010]" />
-    <Disc name="Steam" url="https://store.steampowered.com/search/?developer=Lee%20Wilson" image="/dvd_player_2.png" icon="/steam.png" iconWidth={36} iconHeight={36} iconTop="top-7" iconRight="right-4.5" color="bg-[#171720]" />
-    </div>
       
-      <NewsSection />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nova+Cut&display=swap');
 @import "tailwindcss";
-@plugin '@tailwindcss/typography';
+/* @plugin '@tailwindcss/typography'; */
 
 @theme {
   --color-background: var(--background);
