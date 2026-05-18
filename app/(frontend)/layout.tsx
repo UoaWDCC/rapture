@@ -7,13 +7,12 @@ import config from "@/payload.config";
 import Navbar from "./components/navbar.tsx";
 import Footer from "./components/Footer";
 
-import { Nova_Cut } from 'next/font/google'
-import Footer from "./components/Footer";
+import { Nova_Cut } from "next/font/google";
 
 const novaCut = Nova_Cut({
-  subsets: ['latin'],
-  weight: "400" // equivalent to weight "book"
-})
+  subsets: ["latin"],
+  weight: "400", // equivalent to weight "book"
+});
 
 export const metadata = {
   description: "Website For Studio Rapture",
@@ -22,25 +21,25 @@ export const metadata = {
 
 // Navbar links
 const itemsNav = [
-    { id: 1, name: "Home", link: "/" },
-    { id: 2, name: "Games", link: "/games" },
-    { id: 3, name: "News", link: "/news" },
-    { id: 4, name: "Leaderboard", link: "/leaderboard" },
-    { id: 5, name: "Support Us", link: "/support" }
-]; 
+  { id: 1, name: "Home", link: "/" },
+  { id: 2, name: "Games", link: "/games" },
+  { id: 3, name: "News", link: "/news" },
+  { id: 4, name: "Leaderboard", link: "/leaderboard" },
+  { id: 5, name: "Support Us", link: "/support" },
+];
 
 // Fill in with actual webpage links when they are done.
 const navigationLinks = [
-  {label: "Home", href: "/home"},
-  {label: "About", href: "/about"}, 
-  {label: "Our Games", href: "/games"}
+  { label: "Home", href: "/home" },
+  { label: "About", href: "/about" },
+  { label: "Our Games", href: "/games" },
 ];
 
 // Add whichever socials Rapture wants here.
 const externalLinks = [
   { label: "Twitter", href: "https://twitter.com" },
   { label: "Discord", href: "https://discord.com" },
-  { label: "Instagram", href: "https://instagram.com" }
+  { label: "Instagram", href: "https://instagram.com" },
 ];
 
 // Add any additional text.
@@ -59,14 +58,11 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" className={novaCut.className}>
       <body>
-        <Navbar 
-          item={itemsNav} 
-          user={user} 
-        />
+        <Navbar item={itemsNav} user={user} />
 
         <main>{children}</main>
 
-        <Footer 
+        <Footer
           navigationLinks={navigationLinks}
           externalLinks={externalLinks}
           title={title}

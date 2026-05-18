@@ -5,11 +5,10 @@ import { getPayload } from "payload";
 import config from "@/payload.config";
 import "./styles.css";
 
-import OrderCollectionDisplay from "./order/orderCollectionDisplay"
+import OrderCollectionDisplay from "./order/orderCollectionDisplay";
 import Link from "next/link";
 
 import { NewsSection } from "./components/NewsSection";
-import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing
 import Carousel from "@/app/(frontend)/components/Carousel.tsx"; // carousel testing
 
 export default async function HomePage() {
@@ -22,16 +21,17 @@ export default async function HomePage() {
 
   const order = await payload.find({
     collection: "order",
-    where: user ? {
-      user: {
-        equals: user.id
-      }
-    } : { id: { equals: "nobody" } } //placeholder for no user id found
+    where: user
+      ? {
+          user: {
+            equals: user.id,
+          },
+        }
+      : { id: { equals: "nobody" } }, //placeholder for no user id found
   });
 
   return (
     <div className="h-screen w-full flex flex-col items-center">
-
       <div className="w-full h-full flex flex-col flex-wrap items-center justify-center gap-5">
         <picture>
           <source srcSet="/Rapture_Large_2500-1000.png" />
@@ -122,10 +122,6 @@ export default async function HomePage() {
       </div>
 
       <NewsSection />
-
-      <div>
-        <Carousel items={itemsC} />
-      </div>
     </div>
   );
 }
