@@ -21,7 +21,7 @@ type NavProps = {
   user: User | null;
 }
 
-export default function Navbar({ item, user }: NavProps) {
+export default function Navbar({item}: NavProps) {
   const pathname = usePathname();
 
   return (
