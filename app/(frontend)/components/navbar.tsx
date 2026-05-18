@@ -2,13 +2,7 @@
 
 import { User } from "@/payload-types";
 import { usePathname } from "next/navigation";
-import { Nova_Cut } from "next/font/google";
 import Image from "next/image";
-
-const novaCut = Nova_Cut({
-  weight: "400",
-  subsets: ["latin"],
-});
 
 type itemNav = {
   id: number;
@@ -45,7 +39,6 @@ export default function Navbar({item}: NavProps) {
               key={item.id}
               href={item.link}
               className={`w-55
-                ${novaCut.className}
                 px-5 text-xl tracking-widest
                 flex items-center justify-center
                 border border-white
