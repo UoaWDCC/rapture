@@ -10,8 +10,7 @@ export default async function ExampleCollectionPage() {
   });
 
   return (
-    <div className="ml-10">
-      {/*<h1>News Collection Display</h1>*/}
+    <div className="ml-10 w-[55%]">
       {newsItems.docs.map((news) => (
         <NewsFeed key={news.id} news={news} />
       ))}
