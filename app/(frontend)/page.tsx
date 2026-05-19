@@ -32,7 +32,7 @@ export default async function HomePage() {
   });
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex-col items-center">
       <div className="w-full min-h-screen flex flex-col flex-wrap items-center justify-center gap-5">
         <picture>
           <source srcSet="/Rapture_Large_2500-1000.png" />
@@ -59,17 +59,21 @@ export default async function HomePage() {
 
         <div className="flex items-center gap-4 w-full px-8 mb-4">
     <div className="flex-1 border-t border-white"></div>
-    <h2 className="text-white text-2xl" style={{ fontFamily: "'Nova Cut', cursive" }}>SOCIAL MEDIA</h2>
+    <p className="text-white text-lg" style={{ fontFamily: "'Nova Cut', cursive" }}>SOCIAL MEDIA</p>
     <div className="flex-1 border-t border-white"></div>
     </div>
 
-        <div className="flex gap-4 justify-center w-full">
+        <div className="flex gap-8 justify-center w-full px-20">
     <Disc name="Discord" url="https://discord.com" image="/dvd_player_2.png" icon="/DISCORD.png" 
-    iconWidth={40} iconHeight={40} iconTop="top-6.5" iconRight="right-4" color="bg-[#171947]" />
+    iconWidth={45} iconHeight={45} iconTop="top-10" iconRight="right-7.5" color="bg-[#171947]" />
     <Disc name="Youtube" url="https://www.youtube.com/@STUDIO_RAPTURE" image="/dvd_player_2.png" icon="/YT.png" 
-    iconWidth={70} iconHeight={70} iconTop="top-3" iconRight="right-0.25" color="bg-[#4C1010]" />
+    iconWidth={80} iconHeight={80} iconTop="top-6.5" iconRight="right-3" color="bg-[#4C1010]" />
     <Disc name="Steam" url="https://store.steampowered.com/search/?developer=Lee%20Wilson" image="/dvd_player_2.png" icon="/steam.png" 
-    iconWidth={36} iconHeight={36} iconTop="top-7" iconRight="right-4.5" color="bg-[#171720]" />
+    iconWidth={45} iconHeight={45} iconTop="top-10" iconRight="right-7" color="bg-[#171720]" />
+    </div>
+
+    <div className="w-full px-8 mt-8">
+      <div className="border-t border-white"></div>
     </div>
 
         <div className="mt-10">
