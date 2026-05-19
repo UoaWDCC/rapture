@@ -63,7 +63,7 @@ export default async function HomePage() {
     <div className="flex-1 border-t border-white"></div>
     </div>
 
-        <div className="flex gap-8 justify-center w-full px-20">
+        <div className="flex gap-8 justify-center w-full flex-wrap">
     <Disc name="Discord" url="https://discord.com" image="/dvd_player_2.png" icon="/DISCORD.png" 
     iconWidth={45} iconHeight={45} iconTop="top-10" iconRight="right-7.5" color="bg-[#171947]" />
     <Disc name="Youtube" url="https://www.youtube.com/@STUDIO_RAPTURE" image="/dvd_player_2.png" icon="/YT.png" 
@@ -76,7 +76,13 @@ export default async function HomePage() {
       <div className="border-t border-white"></div>
     </div>
 
-        <div className="mt-10">
+    <div className="w-full px-115 mt-8 mb-8">
+      <div className="border border-yellow p-6 rounded-lg">
+        <p className="text-white text-lg">TEXT WILL GO HERE</p>
+      </div>
+    </div>
+
+        <div className="mt-10 text-center w-full px-8">
           <h1 className="text-2xl font-bold">
             To edit the below table go to Dashboard and add to the example
             collection
@@ -91,7 +97,7 @@ export default async function HomePage() {
           })}
         </div>
 
-        <div className="flex flex-row flex-wrap gap-1 text-2xl">
+        <div className="flex flex-row flex-wrap gap-1 text-2xl justify-center">
           <Link
             className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
             href={payloadConfig.routes.admin}
@@ -138,7 +144,7 @@ export default async function HomePage() {
           </Link>
         </div>
 
-      <div className="flex flex-row gap-1 m-2 text-lg">
+      <div className="flex flex-row gap-1 m-2 text-lg justify-center">
         <p>Update this page by editing</p>
         <Link href={fileURL}>
           <code className="bg-black p-1 transition duration-200 hover:underline">
