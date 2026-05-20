@@ -5,9 +5,9 @@ import { getPayload } from "payload";
 import config from "@/payload.config";
 import "./styles.css";
 
-import OrderCollectionDisplay from "./order/orderCollectionDisplay"
-
+import OrderCollectionDisplay from "./order/orderCollectionDisplay";
 import Link from "next/link";
+import Disc from "@/app/(frontend)/components/Disc"
 
 import { NewsSection } from "./components/NewsSection";
 import { PromotedGameSection } from "./components/PromotedGameSection";
@@ -22,35 +22,24 @@ export default async function HomePage() {
 
   const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`;
 
-  const itemsNav = [
-    { id: 1, name: "Home", link: "/" },
-    { id: 2, name: "Random1", link: "/random1" },
-    { id: 3, name: "SomethingPage - link doesn't work!", link: "/example" }
-  ]; // navbar testing
-
-  const itemsC = [
-    { id: 1, image: "/images/ivlnaud5zro61.png", heading: "Aw Heck", text: "Just Some Text" },
-    { id: 2, image: "/images/ivlnaud5zro61.png", heading: "Page 2", text: "Just Some Text2" },
-  ]; //carousel testing
   const order = await payload.find({
     collection: "order",
-    where: user ? {
-      user: {
-        equals: user.id
-      }
-    } : { id: { equals: "nobody" } } //placeholder for no user id found
+    where: user
+      ? {
+          user: {
+            equals: user.id,
+          },
+        }
+      : { id: { equals: "nobody" } }, //placeholder for no user id found
   });
 
   return (
-    <div className="w-full flex flex-col justify-center items-center">
-      <div>
-        <Navbar item={itemsNav} user={user} />
-      </div>
-
-      <div className="w-full h-full flex flex-col items-center justify-center gap-5">
+    <div className="h-screen w-full flex flex-col items-center">
+      <div className="w-full h-full flex flex-col flex-wrap items-center justify-center gap-5">
         <picture>
           <source srcSet="/Rapture_Large_2500-1000.png" />
           <Image
+            className="mt-20"
             alt="Payload Logo"
             height={2500}
             src="/Rapture_Large_2500-1000.png"
@@ -78,7 +67,7 @@ export default async function HomePage() {
             );
           })}
         </div>
-        <div className="flex flex-row gap-1 text-2xl">
+        <div className="flex flex-row flex-wrap gap-1 text-2xl">
           <Link
             className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
             href={payloadConfig.routes.admin}
@@ -137,10 +126,19 @@ export default async function HomePage() {
 
       <PromotedGameSection />
       <NewsSection />
+      <div className="flex items-center gap-4 w-full px-8 mb-4">
+    <div className="flex-1 border-t border-white"></div>
+    <h2 className="text-white text-2xl" style={{ fontFamily: "'Nova Cut', cursive" }}>SOCIAL MEDIA</h2>
+    <div className="flex-1 border-t border-white"></div>
+    </div>
 
-      <div>
-        <Carousel items={itemsC} />
-      </div>
+    <div className="flex gap-4 justify-center w-full">
+    <Disc name="Discord" url="https://discord.com" image="/dvd_player_2.png" icon="/DISCORD.png" iconWidth={40} iconHeight={40} iconTop="top-6.5" iconRight="right-4" color="bg-[#171947]" />
+    <Disc name="Youtube" url="https://www.youtube.com/@STUDIO_RAPTURE" image="/dvd_player_2.png" icon="/YT.png" iconWidth={70} iconHeight={70} iconTop="top-3" iconRight="right-0.25" color="bg-[#4C1010]" />
+    <Disc name="Steam" url="https://store.steampowered.com/search/?developer=Lee%20Wilson" image="/dvd_player_2.png" icon="/steam.png" iconWidth={36} iconHeight={36} iconTop="top-7" iconRight="right-4.5" color="bg-[#171720]" />
+    </div>
+      
+      <NewsSection />
     </div>
   );
 }
