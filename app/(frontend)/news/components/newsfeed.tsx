@@ -18,8 +18,10 @@
 
   export default function NewsFeed({
     news,
+    onReadMore,
   }: {
     news: News;
+    onReadMore: () => void;
   }) {
     const image = typeof news.image === "string" ? null : news.image
     const categories = news.category.filter(
@@ -28,8 +30,10 @@
 
     return (
       <div className="max-w-full mb-2 bg-[#DDA520]/76 text-xl px-2 pt-2"> {/*ori color: AF8219*/}
-        <div className=" bg-[#E6E6E6]/60 text-[#302F2F] flex"> {/*ori color: DCCDAA*/}
-            <div className="w-[58.5%] m-[1.5%] h-50 flex justify-center">
+        {/*Beige card - Image and Texts*/}
+        <div className="max-h-70 bg-[#E6E6E6]/60 text-[#302F2F] flex"> {/*ori color: DCCDAA*/}
+          {/*Image*/}
+            <div className="w-[54.5%] m-[1.5%] h-50 flex justify-center">
               {image?.url && (
                 <Image
                   src={image.url}
@@ -40,29 +44,33 @@
               )
               }
             </div>
-            <div className="w-[38.5%] m-[1.5%] flex flex-col justify-center">
+            
+            {/*Text*/}
+            <div className="w-[42.5%] m-[1.5%] flex flex-col justify-center">
               <p className="font-dm font-medium text-xs"> ▶ {news.subtitle}</p> {/*font is not font-ing :(((*/}
               <p className="font-[23] text-2xl"> {news.title}</p>
               {/*<h5>{formatDate(news.createdAt)}</h5>
               <hr />*/}
-              <RichText data={news.description} className="font-[Fira_Mono] text-sm" /> {/*font is not font-ing :(((*/}
-              {/*gotta make new fucntion cuz there's gonna be probs more than one category*/}
-              <div className="flex-col justify-left mt-2">
+              <div className="max-h-25 overflow-hidden">
+                <RichText data={news.description} className="font-[Fira_Mono] text-sm line-clamp-3" /> {/*font is not font-ing :(((*/}
+              </div>
+              <div className="flex flex-wrap justify-left mt-2">
                 {categories.map((cat) => ((
                   <div key={cat.id} className="bg-black text-[#E2E2E2] m-2 py-1 px-10 text-sm text-center font-[Fira_Mono]">{cat.name}</div> /*font is not font-ing :(((*/
                 )))}
               </div>
-              
             </div>
         </div>
-        <Link href={`/news/${news.id}`} className="group">
-            <div className="max-w-[16%] flex items-center">
+
+        {/*Read more button*/}
+        <button onClick={onReadMore} className="group hover:cursor-pointer">
+            <div className="max-w-full flex items-center">
                 <div className="bg-[#DDA520] border-2 border-[#FEFEFE] group-hover:border-[#FFFFFF] rounded-full w-7 h-7 m-2 flex justify-center-safe items-center-safe"> {/* check margin and press tab in the rendering its kinda bad ngl*/}
                   <div className="text-xs text-[#FEFEFE] group-hover:text-[#FFFFFF]">▶</div>
                 </div>
                 <div className="text-[75%] group-hover:text-[#FFFFFF]">Read more</div>
             </div>
-        </Link>
+        </button>
       </div>
     );
   }
