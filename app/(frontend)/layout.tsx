@@ -21,6 +21,22 @@ const externalLinks = [
   { label: "Instagram", href: "https://instagram.com"}
 ];
 
+import { Fira_Mono, Nova_Cut } from "next/font/google";
+
+const firaMono = Fira_Mono({
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-fira-mono",
+});
+
+const novaCut = Nova_Cut({
+  weight: ["400"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-nova-cut",
+});
+
 // Add any additional text.
 const title = "Studio Rapture";
 const text1 = "Want to be notified of our upcoming games!";
@@ -30,7 +46,7 @@ const copyright = "© 2026 Studio Rapture. All rights reserved.";
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props;
   return (
-    <html lang="en">
+    <html lang="en" className={`${firaMono.variable} ${novaCut.variable}`}>
       <body>
         <main>{children}</main>
         <Footer 
