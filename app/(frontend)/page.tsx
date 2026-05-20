@@ -10,6 +10,8 @@ import Link from "next/link";
 import Disc from "@/app/(frontend)/components/Disc"
 
 import { NewsSection } from "./components/NewsSection";
+import { PromotedGameSection } from "./components/PromotedGameSection";
+import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing
 import Carousel from "@/app/(frontend)/components/Carousel.tsx"; // carousel testing
 
 export default async function HomePage() {
@@ -122,6 +124,8 @@ export default async function HomePage() {
         </Link>
       </div>
 
+      <PromotedGameSection />
+      <NewsSection />
       <div className="flex items-center gap-4 w-full px-8 mb-4">
     <div className="flex-1 border-t border-white"></div>
     <h2 className="text-white text-2xl" style={{ fontFamily: "'Nova Cut', cursive" }}>SOCIAL MEDIA</h2>
