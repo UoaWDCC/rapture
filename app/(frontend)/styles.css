@@ -1,26 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Cut&display=swap');
 @import "tailwindcss";
-
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@plugin '@tailwindcss/typography';
 
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  /* Font sizes */
+  --font-size-headline-01: 3rem;
+  --line-height-headline-01: 58px;
+  --letter-spacing-headline-01: 0em;
+
+  --font-size-headline-02: 2.25rem;
+  --line-height-headline-02: 24px;
+  --letter-spacing-headline-02: -0.01em;
+
+  --font-size-headline-03: 2rem;
+  --line-height-headline-03: 32px;
+  --letter-spacing-headline-03: -0.01em;
+
+  --font-size-headline-04: 1.75rem;
+  --line-height-headline-04: 24px;
+  --letter-spacing-headline-04: -0.01em;
+
+  --font-size-body-01: 1rem;
+  --line-height-body-01: 24px;
+  --letter-spacing-body-01: -0.01em;
+
+  /* Brand colors */
+  --color-yellow: #F2B423;
+  --color-dark-brown: #150703;
 }
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-nova-cut), Arial, sans-serif;
+  font-size: var(--font-size-body-01);
+  line-height: var(--line-height-body-01);
+  letter-spacing: var(--letter-spacing-body-01);
+}
+
+h1 {
+  font-size: var(--font-size-headline-01);
+  line-height: var(--line-height-headline-01);
+  letter-spacing: var(--letter-spacing-headline-01);
+}
+
+h2 {
+  font-size: var(--font-size-headline-02);
+  line-height: var(--line-height-headline-02);
+  letter-spacing: var(--letter-spacing-headline-02);
+}
+
+h3 {
+  font-size: var(--font-size-headline-03);
+  line-height: var(--line-height-headline-03);
+  letter-spacing: var(--letter-spacing-headline-03);
+}
+
+h4 {
+  font-size: var(--font-size-headline-04);
+  line-height: var(--line-height-headline-04);
+  letter-spacing: var(--letter-spacing-headline-04);
 }

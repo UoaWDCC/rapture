@@ -42,5 +42,10 @@ export const Products: CollectionConfig = {
       name: "description",
       type: "text",
     },
+    {
+      name: "image",
+      type: "upload",
+      relationTo: "media",
+    },
   ],
 };
