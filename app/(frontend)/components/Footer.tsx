@@ -1,4 +1,5 @@
 import Disc from "@/app/(frontend)/components/Disc"
+import Image from "next/image";
 
 type FooterProps = {
   studioTagline?: string;
@@ -7,18 +8,21 @@ type FooterProps = {
 
 export default function Footer({ studioTagline, contactEmail }: FooterProps) {
     return (
-    <footer className="w-full text-white mt-30">
+    <footer className="bg-[url(/images/footer.png)] w-full bg-cover bg-center text-white mt-30">
         <div className="flex items-center gap-4 w-full px-20 mb-10">
             <div className="flex-1 h-px bg-white opacity-30"></div>
             <span className="text-white text-2xl tracking-widest">SOCIAL MEDIA</span>
             <div className="flex-1 h-px bg-white opacity-30"></div>
         </div>
 
-        <div className="flex flex-wrap gap-8 justify-center w-full">
-            <Disc name="Discord" url="https://discord.com" image="/dvd_player_2.png" icon="/DISCORD.png" iconWidth={60} iconHeight={60} iconTop="top-13" iconRight="right-10" color="bg-[#171947]" />
-            <Disc name="Youtube" url="https://www.youtube.com/@STUDIO_RAPTURE" image="/dvd_player_2.png" icon="/YT.png" iconWidth={130} iconHeight={150} iconTop="top-5" iconRight="right-1.5" color="bg-[#4C1010]" />
-            <Disc name="Steam" url="https://store.steampowered.com/search/?developer=Lee%20Wilson" image="/dvd_player_2.png" icon="/steam.png" iconWidth={60} iconHeight={60} iconTop="top-13" iconRight="right-10" color="bg-[#171720]" />
-        </div>
+        <div className="flex gap-8 justify-center w-full flex-wrap">
+              <Disc name="Discord" url="https://discord.com" image="/dvd_player_2.png" icon="/DISCORD.png" 
+                iconWidth={45} iconHeight={45} iconTop="top-10" iconRight="right-7.5" color="bg-[#171947]" />
+              <Disc name="Youtube" url="https://www.youtube.com/@STUDIO_RAPTURE" image="/dvd_player_2.png" icon="/YT.png" 
+                iconWidth={80} iconHeight={80} iconTop="top-6.5" iconRight="right-3" color="bg-[#4C1010]" />
+              <Disc name="Steam" url="https://store.steampowered.com/search/?developer=Lee%20Wilson" image="/dvd_player_2.png" icon="/steam.png" 
+                iconWidth={45} iconHeight={45} iconTop="top-10" iconRight="right-7" color="bg-[#171720]" />
+            </div>
 
         <div className="px-20 mt-10">
             <div className="w-full h-px bg-white opacity-30 mb-20"></div>

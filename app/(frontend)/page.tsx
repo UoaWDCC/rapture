@@ -12,6 +12,7 @@ import { NewsSection } from "./components/NewsSection";
 import { PromotedGameSection } from "./components/PromotedGameSection";
 import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing
 import Carousel from "@/app/(frontend)/components/Carousel.tsx"; // carousel testing
+import Disc from "./components/Disc";
 
 export default async function HomePage() {
   const payloadConfig = await config;
@@ -90,48 +91,12 @@ export default async function HomePage() {
         )}
         </div>
 
-        {/* PROMOTED GAME SECTION - to be added when component is ready */}
+        <PromotedGameSection />
 
         <NewsSection />
        
       <div className="relative w-full overflow-hidden">
-  
-  <div className="absolute bottom-0 left-0 w-full h-full overflow-hidden">
-    <Image
-      src="/images/FOOTER.png"
-      alt=""
-      width={1437}
-      height={400}
-      className="w-full object-cover opacity-60"
-    />
-  </div>
 
-  <div className="relative z-10">
-    <div className="flex items-center gap-4 w-full px-8 mb-4">
-      <div className="flex-1 border-t border-white"></div>
-      <p className="text-white text-lg" style={{ fontFamily: "'Nova Cut', cursive" }}>SOCIAL MEDIA</p>
-      <div className="flex-1 border-t border-white"></div>
-    </div>
-
-    <div className="flex gap-8 justify-center w-full flex-wrap">
-      <Disc name="Discord" url="https://discord.com" image="/dvd_player_2.png" icon="/DISCORD.png" 
-        iconWidth={45} iconHeight={45} iconTop="top-10" iconRight="right-7.5" color="bg-[#171947]" />
-      <Disc name="Youtube" url="https://www.youtube.com/@STUDIO_RAPTURE" image="/dvd_player_2.png" icon="/YT.png" 
-        iconWidth={80} iconHeight={80} iconTop="top-6.5" iconRight="right-3" color="bg-[#4C1010]" />
-      <Disc name="Steam" url="https://store.steampowered.com/search/?developer=Lee%20Wilson" image="/dvd_player_2.png" icon="/steam.png" 
-        iconWidth={45} iconHeight={45} iconTop="top-10" iconRight="right-7" color="bg-[#171720]" />
-    </div>
-
-    <div className="w-full px-8 mt-8">
-      <div className="border-t border-white"></div>
-    </div>
-
-    <div className="w-full px-115 mt-8 mb-8">
-      <div className="border border-yellow p-6 rounded-lg">
-        <p className="text-white text-lg">TEXT WILL GO HERE</p>
-      </div>
-    </div>
-  </div>
 </div>
       
     </div>
