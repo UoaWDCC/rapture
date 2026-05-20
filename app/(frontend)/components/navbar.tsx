@@ -19,7 +19,7 @@ export default function Navbar({item}: NavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className="w-full flex flex-row flex-wrap items-center justify-center px-6 py-2 mt-10 mb-10">
+    <nav className="w-full flex flex-row flex-wrap items-center justify-center px-6 py-2 mt-10 mb-10 bg-transparent z-1000 relative">
 
       {/* Logo */}
       <Image

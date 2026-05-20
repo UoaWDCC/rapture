@@ -12,6 +12,7 @@ import { NewsSection } from "./components/NewsSection";
 import { PromotedGameSection } from "./components/PromotedGameSection";
 import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing
 import Carousel from "@/app/(frontend)/components/Carousel.tsx"; // carousel testing
+import Disc from "./components/Disc";
 
 export default async function HomePage() {
   const payloadConfig = await config;
@@ -48,9 +49,20 @@ export default async function HomePage() {
   });
 
   return (
-    <div className="w-full flex flex-col justify-center items-center">
-      <div className="w-full h-full flex flex-col items-center justify-center gap-5">
-        <picture>
+    <div className="w-full flex-col items-center -mt-50">
+      <div className="w-full min-h-screen flex flex-col flex-wrap items-center justify-center gap-5 relative overflow-hidden">
+       
+        <div className="absolute top-0 left-0 w-full">
+        <Image
+          src="/images/FRONT_PAGE.png"
+          alt=""
+          width={1437}
+          height={500}
+          className="w-full object-cover opacity-60"
+        />
+      </div>
+       
+       <picture>
           <source srcSet="/Rapture_Large_2500-1000.png" />
           <Image
             className="mt-20"
@@ -67,91 +79,16 @@ export default async function HomePage() {
         {user && (
           <h1 className="text-3xl font-bold">Welcome back, {user.email}</h1>
         )}
-        <div>
-          <h1 className="text-2xl font-bold">
-            To edit the below table go to Dashboard and add to the example
-            collection
-          </h1>
-          {order.docs.map((order) => {
-            return (
-              <OrderCollectionDisplay
-                key={order.id}
-                order={order}
-              ></OrderCollectionDisplay>
-            );
-          })}
         </div>
-        <div className="flex flex-row flex-wrap gap-1 text-2xl">
-          <Link
-            className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
-            href={payloadConfig.routes.admin}
-            target="_blank"
-          >
-            Admin panel
-          </Link>
-          <Link
-            className="bg-black transition duration-200 hover:bg-sky-700 rounded-lg p-3"
-            href="https://payloadcms.com/docs"
-            target="_blank"
-          >
-            Documentation
-          </Link>
-          <Link
-            className="bg-black transition duration-200 hover:bg-sky-700 rounded-lg p-3"
-            href="/exampleCollection"
-          >
-            Example Collection
-          </Link>
-          <Link
-            className="bg-black transition duration-200 hover:bg-sky-700 rounded-lg p-3"
-            href="/leaderboard"
-          >
-            Leaderboard
-          </Link>
-          <Link
-            className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
-            href="/news"
-          >
-            News
-          </Link>
-          <Link
-            className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
-            href="/cart"
-          >
-            Cart
-          </Link>
-          <Link
-            className="bg-black transition duration-200 hover:bg-sky-700 rounded-lg p-3"
-            href="/userDashboard"
-          >
-            User Dashboard
-          </Link>
-        </div>
-      </div>
 
-      <div className="flex flex-row gap-1 m-2 text-lg">
-        <p>Update this page by editing</p>
-        <Link href={fileURL}>
-          <code className="bg-black p-1 transition duration-200 hover:underline">
-            app/(frontend)/page.tsx
-          </code>
-        </Link>
-      </div>
+        <PromotedGameSection />
 
-      <PromotedGameSection />
-      <NewsSection />
-      <div className="flex items-center gap-4 w-full px-8 mb-4">
-        <div className="flex-1 border-t border-white"></div>
-        <h2
-          className="text-white text-2xl"
-          style={{ fontFamily: "'Nova Cut', cursive" }}
-        >
-          SOCIAL MEDIA
-        </h2>
-        <div className="flex-1 border-t border-white"></div>
-      </div>
+        <NewsSection />
+       
+      <div className="relative w-full overflow-hidden">
 
-      <NewsSection />
+</div>
+      
     </div>
   );
 }
