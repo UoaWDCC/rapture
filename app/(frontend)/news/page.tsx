@@ -15,7 +15,7 @@ export default async function ExampleCollectionPage() {
   })
 
   return (
-    <div className="max-w-full max-h-full bg-[url('/PROP%20%232%201.png')] bg-fixed">
+    <div className="max-w-full max-h-full bg-[url('/PROP%20%232%201.png')] bg-fixed"> {/*bg image is 'PROP #2 1.png' that I downloaded from Figma*/}
       <div className="ml-15 mt-[2.5%] w-[55%]">
         <NewsTab allNews={newsItems.docs} categories={categories.docs} />
       </div>
