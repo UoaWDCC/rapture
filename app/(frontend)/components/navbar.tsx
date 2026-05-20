@@ -27,7 +27,7 @@ export default function Navbar({item}: NavProps) {
   const pathname = usePathname();
 
   return (
-    <nav lang="en" className={`${novaCut.variable} text-white w-auto mt-14 flex flex-row flex-wrap items-center justify-center md:flex-row`}>
+    <nav lang="en" className={`${novaCut.variable} text-white bg-none w-auto mt-14 flex flex-row flex-wrap items-center justify-center md:flex-row`}>
       {/* maybe put a logo first. depends on design */}
 
       <Image

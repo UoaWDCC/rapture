@@ -61,15 +61,6 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         <Navbar item={itemsNav} user={user} />
 
         <main>{children}</main>
-
-        <Footer
-          navigationLinks={navigationLinks}
-          externalLinks={externalLinks}
-          title={title}
-          text1={text1}
-          text2={text2}
-          copyright={copyright}
-        />
       </body>
     </html>
   );

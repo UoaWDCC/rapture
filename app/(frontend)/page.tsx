@@ -80,7 +80,7 @@ export default async function HomePage() {
        
       <div className="relative w-full overflow-hidden">
   
-  <div className="absolute bottom-0 left-0 w-full h-[300px] overflow-hidden">
+  <div className="absolute bottom-0 left-0 w-full h-full overflow-hidden">
     <Image
       src="/images/FOOTER.png"
       alt=""
@@ -117,77 +117,6 @@ export default async function HomePage() {
     </div>
   </div>
 </div>
-
-        <div className="mt-10 text-center w-full px-8">
-          <h1 className="text-2xl font-bold">
-            To edit the below table go to Dashboard and add to the example
-            collection
-          </h1>
-          {order.docs.map((order) => {
-            return (
-              <OrderCollectionDisplay
-                key={order.id}
-                order={order}
-              ></OrderCollectionDisplay>
-            );
-          })}
-        </div>
-
-        <div className="flex flex-row flex-wrap gap-1 text-2xl justify-center">
-          <Link
-            className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
-            href={payloadConfig.routes.admin}
-            target="_blank"
-          >
-            Admin panel
-          </Link>
-          <Link
-            className="bg-black transition duration-200 hover:bg-sky-700 rounded-lg p-3"
-            href="https://payloadcms.com/docs"
-            target="_blank"
-          >
-            Documentation
-          </Link>
-          <Link
-            className="bg-black transition duration-200 hover:bg-sky-700 rounded-lg p-3"
-            href="/exampleCollection"
-          >
-            Example Collection
-          </Link>
-          <Link
-            className="bg-black transition duration-200 hover:bg-sky-700 rounded-lg p-3"
-            href="/leaderboard"
-          >
-            Leaderboard
-          </Link>
-          <Link
-            className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
-            href="/news"
-          >
-            News
-          </Link>
-          <Link
-            className="bg-foreground transition duration-200 hover:bg-sky-700 text-background rounded-lg p-3"
-            href="/cart"
-          >
-            Cart
-          </Link>
-          <Link
-            className="bg-black transition duration-200 hover:bg-sky-700 rounded-lg p-3"
-            href="/userDashboard"
-          >
-            User Dashboard
-          </Link>
-        </div>
-
-      <div className="flex flex-row gap-1 m-2 text-lg justify-center">
-        <p>Update this page by editing</p>
-        <Link href={fileURL}>
-          <code className="bg-black p-1 transition duration-200 hover:underline">
-            app/(frontend)/page.tsx
-          </code>
-        </Link>
-      </div>
       
     </div>
   );
