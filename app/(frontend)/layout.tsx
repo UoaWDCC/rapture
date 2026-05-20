@@ -1,6 +1,5 @@
 import React from "react";
 import "./styles.css";
-import { Nova_Cut } from 'next/font/google'
 
 import { headers as getHeaders } from "next/headers.js";
 import { getPayload } from "payload";
