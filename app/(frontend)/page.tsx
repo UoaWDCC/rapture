@@ -49,22 +49,12 @@ export default async function HomePage() {
   });
 
   return (
-    <div className="w-full flex-col items-center">
+    <div className="w-full flex-col items-center -mt-50">
       <div className="w-full min-h-screen flex flex-col flex-wrap items-center justify-center gap-5 relative overflow-hidden">
        
         <div className="absolute top-0 left-0 w-full">
         <Image
-          src="/images/IMG_3161 1.png"
-          alt=""
-          width={1437}
-          height={500}
-          className="w-full object-cover opacity-60"
-        />
-      </div>
-
-        <div className="absolute bottom-0 left-0 w-full">
-        <Image
-          src="/images/FRONT PAGE.png"
+          src="/images/FRONT_PAGE.png"
           alt=""
           width={1437}
           height={500}
