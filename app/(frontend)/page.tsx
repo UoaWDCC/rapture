@@ -7,9 +7,10 @@ import "./styles.css";
 
 import OrderCollectionDisplay from "./order/orderCollectionDisplay";
 import Link from "next/link";
-import Disc from "@/app/(frontend)/components/Disc"
 
 import { NewsSection } from "./components/NewsSection";
+import { PromotedGameSection } from "./components/PromotedGameSection";
+import Navbar from "@/app/(frontend)/components/navbar.tsx"; // navbar testing
 import Carousel from "@/app/(frontend)/components/Carousel.tsx"; // carousel testing
 
 export default async function HomePage() {
@@ -19,6 +20,21 @@ export default async function HomePage() {
   const { user } = await payload.auth({ headers });
 
   const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`;
+
+  const itemsC = [
+    {
+      id: 1,
+      image: "/images/ivlnaud5zro61.png",
+      heading: "Aw Heck",
+      text: "Just Some Text",
+    },
+    {
+      id: 2,
+      image: "/images/ivlnaud5zro61.png",
+      heading: "Page 2",
+      text: "Just Some Text2",
+    },
+  ]; //carousel testing
 
   const order = await payload.find({
     collection: "order",
