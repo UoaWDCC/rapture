@@ -16,7 +16,7 @@
     return `${day}/${month}/${year} ${hour}:${minute}`;
   }
 
-  export default async function NewsFeed({
+  export default function NewsFeed({
     news,
   }: {
     news: News;
@@ -28,13 +28,13 @@
 
     return (
       <div className="max-w-full mb-2 bg-[#DDA520]/76 text-xl px-2 pt-2"> {/*ori color: AF8219*/}
-        <div className="bg-[#E6E6E6]/60 text-[#302F2F] flex"> {/*ori color: DCCDAA*/}
-            <div className="w-[58.5%] m-[1.5%] flex justify-center">
+        <div className=" bg-[#E6E6E6]/60 text-[#302F2F] flex"> {/*ori color: DCCDAA*/}
+            <div className="w-[58.5%] m-[1.5%] h-50 flex justify-center">
               {image?.url && (
                 <Image
                   src={image.url}
-                  width={100000} /*to force it to fill the container*/
-                  height={100000}
+                  width={300}
+                  height={100}
                   alt={image.alt || ""}
                 />
               )
@@ -47,12 +47,10 @@
               <hr />*/}
               <RichText data={news.description} className="font-[Fira_Mono] text-sm" /> {/*font is not font-ing :(((*/}
               {/*gotta make new fucntion cuz there's gonna be probs more than one category*/}
-              <div className="flex justify-lefts mt-2">
-                {categories.map((cat) => (( 
-                <div>
-                    <div key={cat.id} className="bg-black text-[#E2E2E2] mx-2 py-1 px-10 text-sm text-center font-[Fira_Mono]">{cat.name}</div> {/*font is not font-ing :(((*/}
-                </div>
-              )))}
+              <div className="flex-col justify-left mt-2">
+                {categories.map((cat) => ((
+                  <div key={cat.id} className="bg-black text-[#E2E2E2] m-2 py-1 px-10 text-sm text-center font-[Fira_Mono]">{cat.name}</div> /*font is not font-ing :(((*/
+                )))}
               </div>
               
             </div>
