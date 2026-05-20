@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Nova+Cut&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nova+Cut&display=swap");
 @import "tailwindcss";
-@plugin '@tailwindcss/typography';
+/* @plugin '@tailwindcss/typography'; */
 
 @theme {
   --color-background: var(--background);
@@ -28,14 +28,31 @@
   --letter-spacing-body-01: -0.01em;
 
   /* Brand colors */
-  --color-yellow: #F2B423;
-  --color-dark-brown: #150703;
+  --color-brand-yellow: #f2b423;
+  --color-brand-dark-brown: #150703;
+  --color-brand-blue: #0745be;
 }
 
+@utility text-stroke {
+  -webkit-text-stroke: 1px var(--text-stroke-color, currentColor);
+}
+
+@utility text-stroke-color-* {
+  --text-stroke-color: --value(--color-*);
+}
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+}
+
+/* Comment out for now for reference */
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+*/
 
 body {
   color: var(--foreground);
