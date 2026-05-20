@@ -16,11 +16,11 @@ interface DiscProps {
 export default function Disc({ name, url, image, icon, iconWidth, iconHeight, iconRight, iconTop, color }: DiscProps) {
     return (
         <Link href={url} target="_blank">
-            <div className={`relative w-44 h-52 ${color} rounded-xl overflow-hidden`}>
-                <Image src={image} width={192} height={224} alt={name} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48" />
+            <div className={`relative w-88 h-100 ${color} rounded-xl overflow-hidden`}>
+                <Image src={image} width={192} height={224} alt={name} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full object-cover" />
                 {icon && <Image src={icon} alt={name + " icon"} width={iconWidth || 56} height={iconHeight || 56} 
                 className= {`absolute ${iconTop || 'top-4'} ${iconRight || 'right-2'} object-contain`} />}
-                <p className="absolute bottom-5 left-1/2 -translate-x-1/2 text-white text-lg uppercase" 
+                <p className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white text-5xl uppercase" 
                 style={{ fontFamily: "'Nova Cut', cursive" }}>{name}</p>
             </div>
         </Link>
