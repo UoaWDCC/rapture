@@ -10,10 +10,12 @@ export default async function ExampleCollectionPage() {
   });
 
   return (
-    <div className="ml-10 w-[55%]">
-      {newsItems.docs.map((news) => (
-        <NewsFeed key={news.id} news={news} />
-      ))}
+    <div className="max-w-full max-h-full bg-[url('/PROP%20%232%201.png')] bg-fixed">
+      <div className="ml-15 mt-[2.5%] w-[55%]">
+        {newsItems.docs.map((news) => (
+          <NewsFeed key={news.id} news={news} />
+        ))}
+      </div>
     </div>
   );
 }
