@@ -54,13 +54,13 @@ export default function Footer({ studioTagline, contactEmail }: FooterProps) {
       </div>
 
       <div className="px-20 mt-10">
-        <div className="w-full h-px bg-white opacity-30 mb-20"></div>
+        <div className="w-full h-px bg-white opacity-30 mb-10"></div>
       </div>
 
       <div className="px-20">
-        <div className="w-full border-2 border-amber-400 rounded-3xl flex flex-col gap-4 p-10">
-          <h3>STUDIO RAPTURE!: {studioTagline}</h3>
-          <h3>CONTACT: {contactEmail}</h3>
+        <div className="w-full border-2 border-amber-400 bg-black rounded-3xl flex flex-col gap-2 p-5">
+          <h5>STUDIO RAPTURE!: {studioTagline}</h5>
+          <h5>CONTACT: {contactEmail}</h5>
         </div>
       </div>
     </footer>
