@@ -51,44 +51,22 @@ export default async function HomePage() {
   return (
     <div className="w-full flex-col items-center -mt-50">
       <div className="w-full min-h-screen flex flex-col flex-wrap items-center justify-center gap-5 relative overflow-hidden">
-       
         <div className="absolute top-0 left-0 w-full">
-        <Image
-          src="/images/FRONT_PAGE.png"
-          alt=""
-          width={1437}
-          height={500}
-          className="w-full object-cover opacity-60"
-        />
-      </div>
-       
-       <picture>
-          <source srcSet="/Rapture_Large_2500-1000.png" />
           <Image
-            className="mt-20"
-            alt="Payload Logo"
-            height={2500}
-            src="/Rapture_Large_2500-1000.png"
-            width={1000}
+            src="/images/FRONT_PAGE.png"
+            alt=""
+            width={1437}
+            height={500}
+            className="w-full object-cover opacity-60"
           />
-        </picture>
-
-        {!user && (
-          <h1 className="text-3xl font-bold">Welcome to Studio Rapture.</h1>
-        )}
-        {user && (
-          <h1 className="text-3xl font-bold">Welcome back, {user.email}</h1>
-        )}
         </div>
+      </div>
 
-        <PromotedGameSection />
+      <PromotedGameSection />
 
-        <NewsSection />
-       
-      <div className="relative w-full overflow-hidden">
+      <NewsSection />
 
-</div>
-      
+      <div className="relative w-full overflow-hidden"></div>
     </div>
   );
 }
