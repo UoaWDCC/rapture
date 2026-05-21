@@ -30,7 +30,7 @@
   /* Brand colors */
   --color-brand-yellow: #f2b423;
   --color-brand-dark-brown: #150703;
-  --color-brand-blue: #0745be;
+  --color-brand-blue: #3727ea;
 }
 
 @utility text-stroke {
@@ -41,9 +41,19 @@
   --text-stroke-color: --value(--color-*);
 }
 
+/* removes number inpuut spinner (arrow buttons) */
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
 :root {
   --background: #000000;
   --foreground: #ffffff;
+  --font-nova-cut: "Nova Cut";
 }
 
 /* Comment out for now for reference */
@@ -85,4 +95,8 @@ h4 {
   font-size: var(--font-size-headline-04);
   line-height: var(--line-height-headline-04);
   letter-spacing: var(--letter-spacing-headline-04);
+}
+
+span {
+  font-family: var(--font-nova-cut), Arial, sans-serif;
 }
