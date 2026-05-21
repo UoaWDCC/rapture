@@ -3,6 +3,7 @@ import config from "@/payload.config"
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import Link from "next/link"
+import LogoutButton from '../components/ui/LogoutButton'
 
 export default async function ProtectedPage() {
   const payload = await getPayload({ config: await config})
@@ -19,6 +20,7 @@ export default async function ProtectedPage() {
     <p className="mb-4">
       Authentication successful. Logged in as: <strong className="text-blue-500">{user.email}</strong>
     </p>
+    <LogoutButton />
   </main>
 )
 }

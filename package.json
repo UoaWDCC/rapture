@@ -33,7 +33,8 @@
     "react-dom": "19.2.3",
     "sharp": "^0.34.5",
     "stripe": "^20.4.1",
-    "tsx": "^4.21.0"
+    "tsx": "^4.21.0",
+    "typography": "^0.16.24"
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.7.10",
