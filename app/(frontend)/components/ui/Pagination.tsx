@@ -76,7 +76,7 @@ export function Pagination({ page, totalPages, hasNextPage, hasPrevPage }: Pagin
         {`>`}
       </PageButton>
 
-      <PageButton href={`?page=${totalPages}`} disabled={!hasNextPage} className="text-xl">
+      <PageButton href={`?page=${totalPages}`} disabled={!hasNextPage}>
         {`>|`}
       </PageButton>
     </div>
