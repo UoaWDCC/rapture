@@ -14,7 +14,7 @@
    =========================== */
 
 .newsListHeading {
-  background: url("/news-list-heading-bg.png") center / cover no-repeat;
+  background: url("/images/news-list-heading-bg.png") center / cover no-repeat;
   height: 49px;
   display: flex;
   align-items: center;
