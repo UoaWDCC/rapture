@@ -7,9 +7,7 @@ const adminCheck = (user: User | null) => {
 
 export const Users: CollectionConfig = {
   slug: "users",
-  auth: {
-      lockTime: 5,
-  },
+  auth: true,
   admin: {
     useAsTitle: "email",
   },
