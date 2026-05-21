@@ -8,7 +8,7 @@ type FooterProps = {
 
 export default function Footer({ studioTagline, contactEmail }: FooterProps) {
   return (
-    <footer className="bg-[url(/images/FOOTER.png)] min-h-250 w-full bg-cover bg-no-repeat text-white mt-10 z-0 relative bg-[center_top_100px]">
+    <footer className="bg-[url(/images/FOOTER.png)]  w-full bg-cover bg-no-repeat text-white z-0 relative bg-[center_top_100px] -mt-20">
       <div className="flex items-center gap-4 w-full px-20 mb-10">
         <div className="flex-1 h-px bg-white opacity-30"></div>
         <span className="text-white text-2xl tracking-widest">
@@ -26,7 +26,7 @@ export default function Footer({ studioTagline, contactEmail }: FooterProps) {
           iconWidth={35}
           iconHeight={35}
           iconTop="top-5.5"
-          iconRight="right-4"
+          iconRight="right-3.75"
           color="bg-[#171947]/70"
         />
         <Disc
@@ -34,10 +34,10 @@ export default function Footer({ studioTagline, contactEmail }: FooterProps) {
           url="https://www.youtube.com/@STUDIO_RAPTURE"
           image="/dvd_player_2.png"
           icon="/YT.png"
-          iconWidth={70}
-          iconHeight={70}
-          iconTop="top-1"
-          iconRight="right-0"
+          iconWidth={60}
+          iconHeight={60}
+          iconTop="top-2"
+          iconRight="right-0.5"
           color="bg-[#4C1010]/70"
         />
         <Disc
@@ -48,7 +48,7 @@ export default function Footer({ studioTagline, contactEmail }: FooterProps) {
           iconWidth={35}
           iconHeight={35}
           iconTop="top-5.5"
-          iconRight="right-4"
+          iconRight="right-3.75"
           color="bg-[#171720]/70"
         />
       </div>
