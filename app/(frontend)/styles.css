@@ -41,7 +41,7 @@
   --text-stroke-color: --value(--color-*);
 }
 
-/* removes number inpuut spinner (arrow buttons) */
+/* removes number input spinner (arrow buttons) */
 @layer base {
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {
