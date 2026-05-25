@@ -7,24 +7,23 @@ const BottomArrow = () => (
     <div
       className="absolute inset-0"
       style={{
-        clipPath: 'polygon(50% 100%, 0% 0%, 100% 0%)',
-        background: 'linear-gradient(140deg, rgba(255, 255, 255, 1) 0%, rgba(180, 150, 0, 0.7) 50%, rgba(255, 255, 255, 1) 70%, rgba(255, 255, 255, 1) 100%)',
+        clipPath: "polygon(50% 100%, 0% 0%, 100% 0%)",
+        background:
+          "linear-gradient(140deg, rgba(255, 255, 255, 1) 0%, rgba(180, 150, 0, 0.7) 50%, rgba(255, 255, 255, 1) 70%, rgba(255, 255, 255, 1) 100%)",
       }}
     />
     {/* dark fill layer */}
     <div
       className="absolute inset-0"
       style={{
-        clipPath: 'polygon(50% 95%, 4% 3%, 95% 4%)',
-        background: '#1a1500',
+        clipPath: "polygon(50% 95%, 4% 3%, 95% 4%)",
+        background: "#1a1500",
       }}
     />
   </div>
-)
+);
 
-const Divider = () => (
-  <div className="bg-brand-yellow h-[1px]" />
-)
+const Divider = () => <div className="bg-brand-yellow h-[1px]" />;
 
 const NotificationButton = ({ children }: { children: string }) => {
   return (
@@ -35,8 +34,8 @@ const NotificationButton = ({ children }: { children: string }) => {
         <p className="relative opacity-70">{children}</p>
       </div>
     </Link>
-  )
-}
+  );
+};
 
 const ReadMoreButton = () => {
   return (
@@ -46,14 +45,15 @@ const ReadMoreButton = () => {
         <p className="cursor-pointer">READ MORE</p>
       </div>
     </Link>
-  )
-}
+  );
+};
 
 export function NewsSection() {
-  const description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa Cum sociis natoque penatibus et magnis dis parturient montes, Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa Cum sociis natoque penatibus et magnis dis parturient montes, Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor."
+  const description =
+    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa Cum sociis natoque penatibus et magnis dis parturient montes, Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa Cum sociis natoque penatibus et magnis dis parturient montes, Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.";
 
   return (
-    <section className="bg-background text-brand-yellow my-10 w-full">
+    <section className="bg-background text-brand-yellow mt-10 w-full">
       {/* Spacing */}
       <div className="h-40 md:h-30" />
 
@@ -69,7 +69,6 @@ export function NewsSection() {
         <div className="absolute inset-0 bg-brand-dark-brown/50 z-10 pointer-events-none" />
 
         <div className="relative max-w-280 mx-auto">
-
           {/* TV image*/}
           <div className="absolute top-[-140] md:top-[-88] left-00 md:left-10 z-20">
             {/* Overlay */}
@@ -84,7 +83,9 @@ export function NewsSection() {
                 src="/images/tv.png"
                 className="w-[300px] h-[280px] md:w-[430px] md:h-[410px]"
               />
-              <h2 className="absolute z-20 top-25 md:top-36 left-39 md:left-62">NEWS</h2>
+              <h2 className="absolute z-20 top-25 md:top-36 left-39 md:left-62">
+                NEWS
+              </h2>
             </div>
           </div>
 
@@ -98,11 +99,14 @@ export function NewsSection() {
             >
               <div className="space-y-1">
                 <div className="relative">
-                  <h4 className="absolute left-[2px] blur-[1px]">NOTIFICATION</h4>
+                  <h4 className="absolute left-[2px] blur-[1px]">
+                    NOTIFICATION
+                  </h4>
                   <h4>NOTIFICATION</h4>
                 </div>
                 <p className="opacity-70">
-                  Lorem ipsum dolor sit amet, consectetuer. Lorem ipsum dolor sit amet, consectetuer.
+                  Lorem ipsum dolor sit amet, consectetuer. Lorem ipsum dolor
+                  sit amet, consectetuer.
                 </p>
               </div>
               <div className="bg-background h-[1px] mt-5 mb-3" />
@@ -124,12 +128,12 @@ export function NewsSection() {
               <div className="px-4 md:px-18">
                 {/* Mobile description */}
                 <p className="mb-2 md:hidden">
-                  {description.length > 120 ? description.slice(0, 120) + "..." : description}
+                  {description.length > 120
+                    ? description.slice(0, 120) + "..."
+                    : description}
                 </p>
                 {/* Desktop description */}
-                <p className="mb-2 hidden md:block">
-                  {description}
-                </p>
+                <p className="mb-2 hidden md:block">{description}</p>
 
                 <p className="text-right">VS 3.01</p>
                 <Divider />
@@ -149,5 +153,5 @@ export function NewsSection() {
       {/* Spacing */}
       <div className="h-20 md:h-30" />
     </section>
-  )
+  );
 }

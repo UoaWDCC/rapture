@@ -8,7 +8,7 @@ type FooterProps = {
 
 export default function Footer({ studioTagline, contactEmail }: FooterProps) {
   return (
-    <footer className="bg-[url(/images/FOOTER.png)] min-h-250 w-full bg-cover bg-no-repeat text-white mt-10 z-0 relative bg-[center_top_100px]">
+    <footer className="bg-[url(/images/FOOTER.png)]  w-full bg-cover bg-no-repeat text-white z-0 relative bg-[center_top_100px] -mt-20">
       <div className="flex items-center gap-4 w-full px-20 mb-10">
         <div className="flex-1 h-px bg-white opacity-30"></div>
         <span className="text-white text-2xl tracking-widest">
@@ -23,10 +23,10 @@ export default function Footer({ studioTagline, contactEmail }: FooterProps) {
           url="https://discord.com"
           image="/dvd_player_2.png"
           icon="/DISCORD.png"
-          iconWidth={45}
-          iconHeight={45}
-          iconTop="top-10"
-          iconRight="right-7.5"
+          iconWidth={35}
+          iconHeight={35}
+          iconTop="top-5.5"
+          iconRight="right-3.75"
           color="bg-[#171947]/70"
         />
         <Disc
@@ -34,10 +34,10 @@ export default function Footer({ studioTagline, contactEmail }: FooterProps) {
           url="https://www.youtube.com/@STUDIO_RAPTURE"
           image="/dvd_player_2.png"
           icon="/YT.png"
-          iconWidth={80}
-          iconHeight={80}
-          iconTop="top-6.5"
-          iconRight="right-3"
+          iconWidth={60}
+          iconHeight={60}
+          iconTop="top-2"
+          iconRight="right-0.5"
           color="bg-[#4C1010]/70"
         />
         <Disc
@@ -45,22 +45,22 @@ export default function Footer({ studioTagline, contactEmail }: FooterProps) {
           url="https://store.steampowered.com/search/?developer=Lee%20Wilson"
           image="/dvd_player_2.png"
           icon="/steam.png"
-          iconWidth={45}
-          iconHeight={45}
-          iconTop="top-10"
-          iconRight="right-7"
+          iconWidth={35}
+          iconHeight={35}
+          iconTop="top-5.5"
+          iconRight="right-3.75"
           color="bg-[#171720]/70"
         />
       </div>
 
       <div className="px-20 mt-10">
-        <div className="w-full h-px bg-white opacity-30 mb-20"></div>
+        <div className="w-full h-px bg-white opacity-30 mb-10"></div>
       </div>
 
       <div className="px-20">
-        <div className="w-full border-2 border-amber-400 rounded-3xl flex flex-col gap-4 p-10">
-          <h3>STUDIO RAPTURE!: {studioTagline}</h3>
-          <h3>CONTACT: {contactEmail}</h3>
+        <div className="w-full border-2 border-amber-400 bg-black rounded-3xl flex flex-col gap-2 p-5">
+          <h5>STUDIO RAPTURE!: {studioTagline}</h5>
+          <h5>CONTACT: {contactEmail}</h5>
         </div>
       </div>
     </footer>
