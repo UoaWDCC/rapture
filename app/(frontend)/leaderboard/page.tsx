@@ -19,13 +19,7 @@ export default async function LeaderboardPage() { //api part
 
       <div className="flex flex-col w-full items-center">
         <LeaderboardTable 
-          players={topPlayers.docs.length > 0 ? topPlayers.docs : [
-            { id: '1', userId: 'wolfeyvgc', score: 9999, updatedAt: '', createdAt: '' },
-            { id: '2', userId: 'Player 2', score: 8500, updatedAt: '', createdAt: '' },
-            { id: '3', userId: 'Player 3', score: 7200, updatedAt: '', createdAt: '' },
-            { id: '4', userId: 'Player 4', score: 6800, updatedAt: '', createdAt: '' },
-            { id: '5', userId: 'Player 5', score: 6500, updatedAt: '', createdAt: '' },
-          ]} 
+          players={topPlayers.docs} 
         />
       </div>
     </div>
