@@ -33,7 +33,7 @@ export default function PopUp(prop: popUpProps,) { {/*title is reqiured ... or i
 
     if ("src" in prop) { {/*imgSrc is reqiured*/}
         return(
-            <div className={`border-solid border-1 border-[#D9D9D9] text-white ${prop.className}`}>
+            <div className={`border-solid border-[#D9D9D9] text-white ${prop.className}`}>
                 {/*The top part of the PopUp*/}
                 <div className="bg-[#D9D9D9] h-5"></div>
                 {/*The main part of the PopUp*/}
