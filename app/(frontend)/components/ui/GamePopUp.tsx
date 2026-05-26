@@ -1,41 +1,44 @@
 import Image from "next/image"
 
-type popUpType = "image" | "text"
-
-type popUpProps = {
-    type: popUpType
+type textPopUp = {
     width: number
     height: number
-    imgSrc: string | null
-    imgAlt: string | null
-    title: string | null
-    text: string | null
+    title?: string
+    text?: string 
 }
 
-export default function PopUp({ type, width, height, imgSrc, imgAlt, title, text }: popUpProps) {
-    if (type === "image") {
-        if (!imgSrc || !imgAlt) {
-            console.error("Error: image must have src and alt!")
-        } else{
-            return(
-                <div style={{ width: `${width}px`, height: `${height}px` }}>
-                    {/*The top part of the PopUp*/}
-                    <div className="bg-white h-10"></div>
-                    {/*The main part of the PopUp*/}
-                    <div><Image src={imgSrc} alt={imgAlt} width={width} height={height-10} /></div>
-                </div>
-            );
-        }
-    }
+type imgPopUp = {
+    width: number
+    height: number
+    imgSrc: string
+    imgAlt: string
+}
 
-    if (!title || !text) {
-        console.error("Error: title and text must NOT be null!")
-    } else {
+type popUpProps = textPopUp | imgPopUp
+
+export default function PopUp(prop: popUpProps) { {/*title is reqiured ... or is it?*/}
+    if ("title" in prop) {
         return(
-            <div style={{ width: `${width}px`, height: `${height}px` }}>
-                <h1>{title}</h1>
-                <p>{text}</p>
+            <div style={{ width: `${prop.width}px`, height: `${prop.height}px` }} className="max-h-1000 inline-block border-2 border-white m-[2.5%]">
+                {/*The top part of the PopUp*/}
+                <div className="bg-white h-5"></div>
+                {/*The main part of the PopUp*/}
+                <div className="h-full m-[5%]">
+                    <h1>{prop.title}</h1>
+                    <p>{prop.text}</p>
+                </div>
             </div>
         );
+    }
+
+    if ("imgSrc" in prop) { {/*imgSrc is reqiured*/}
+        return(
+            <div style={{ width: `${prop.width}px`, height: `${prop.height}px` }} className="border-white">
+                {/*The top part of the PopUp*/}
+                <div className="bg-white h-10"></div>
+                {/*The main part of the PopUp*/}
+                <div><Image src={prop.imgSrc ?? ""} alt={prop.imgAlt} width={prop.width} height={prop.height-10} /></div>
+            </div>
+        )
     }
 }
