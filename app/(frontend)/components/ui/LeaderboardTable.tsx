@@ -13,7 +13,7 @@ export function LeaderboardTable({ players, startIndex = 1 }: LeaderboardTablePr
       className="relative bg-black text-white border-[3px] border-[#3727EA] rounded-[3px] overflow-hidden shadow-2xl mx-auto"
       style={{ width: '916px', height: '771px' }}
     >
-      {/* 2 Vertical Lines - Precise positioning from Figma */}
+      {/* Alignment of swiggly vertical lines from Figma */}
       <div 
         className="absolute pointer-events-none" 
         style={{ left: '127px', top: '90.81px', height: '680.19px', width: '2px' }} 
@@ -37,7 +37,7 @@ export function LeaderboardTable({ players, startIndex = 1 }: LeaderboardTablePr
         />
       </div>
 
-      {/* Header labels at exactly 31px from top */}
+      {/* Header labels for rank number, name, score */}
       <div 
         className="absolute text-[#FFFFFF] text-[28px] leading-none"
         style={{ width: '18px', left: '31px', top: '31px', fontFamily: "'Nova Cut', cursive", fontWeight: 400 }}
@@ -57,13 +57,13 @@ export function LeaderboardTable({ players, startIndex = 1 }: LeaderboardTablePr
         SCORE
       </div>
 
-      {/* Heading Line - weight 2, positioned center */}
+      {/* Heading Line (line under heading labels) */}
       <div 
         className="absolute bg-[#3727EA] left-1/2 -translate-x-1/2"
         style={{ top: '90.49px', width: '916px', height: '2px' }}
       />
 
-      {/* Rows Container - Fixed structure with 10 rows */}
+      {/* Rows Container (fixed structure with 10 rows) */}
       <div 
         className="absolute w-full"
         style={{ top: '90.49px', height: '680.39px' }}
@@ -117,7 +117,7 @@ export function LeaderboardTable({ players, startIndex = 1 }: LeaderboardTablePr
                 </>
               )}
 
-              {/* Default unselected line (Horizontal Line Image) - Always shown for all 10 slots */}
+              {/* Horizontal swiggly line from Figma (Always shown for all 10 slots) */}
               <div className="absolute bottom-0 left-0 w-full pointer-events-none" style={{ height: '4px' }}>
                 <Image 
                   src="/images/horizontal-line.png" 
