@@ -2,6 +2,7 @@ import { getPayload } from "payload";
 import config from "@/payload.config";
 import ProductsDisplay from "./components/productsDisplay";
 import { Pagination } from "@/components/ui/Pagination";
+import ProductForm from "./components/productForm"
 
 interface PageProps {
   searchParams: Promise<{ page?: string; limit?: string }>;
@@ -21,10 +22,14 @@ export default async function ProductsPage({ searchParams }: PageProps) {
     limit,
     page,
     where: { _status: { equals: "published" } },
+    depth: 1,
   });
+
+  const { user } = await payload.auth({ headers: await (await import("next/headers")).headers() })
 
   return (
     <div className="container mx-auto py-10">
+      {user?.role === "admin" && <ProductForm />}
       <h1 className="font-bold text-xl">Products ({result.totalDocs})</h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

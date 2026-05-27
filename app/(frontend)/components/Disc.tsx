@@ -1,0 +1,28 @@
+import Image from "next/image"
+import Link from "next/link"
+
+interface DiscProps {
+    name: string
+    url: string
+    image: string
+    icon?: string
+    iconWidth?: number
+    iconHeight?: number
+    iconTop?: string
+    iconRight?: string
+    color: string
+}
+
+export default function Disc({ name, url, image, icon, iconWidth, iconHeight, iconRight, iconTop, color }: DiscProps) {
+    return (
+        <Link href={url} target="_blank">
+            <div className={`relative w-40 h-45 ${color} bg-opacity-10 rounded-xl overflow-hidden`}>
+                <Image src={image} width={102} height={134} alt={name} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full -mr-2" />
+                {icon && <Image src={icon} alt={name + " icon"} width={iconWidth || 56} height={iconHeight || 56} 
+                className= {`absolute ${iconTop || 'top-4'} ${iconRight || 'right-2'} object-contain`} />}
+                <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-[24px] uppercase" 
+                style={{ fontFamily: "'Nova Cut', cursive" }}>{name}</p>
+            </div>
+        </Link>
+    )
+}

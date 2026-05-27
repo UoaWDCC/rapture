@@ -1,67 +1,68 @@
-type Links = {
-    label: string;
-    href: string;
-};
+import Disc from "@/app/(frontend)/components/Disc";
+import Image from "next/image";
 
 type FooterProps = {
-  navigationLinks?: Links[];
-  externalLinks?: Links[];
-  title?: string;
-  text1?: string;
-  text2?: string;
-  copyright?: string;
+  studioTagline?: string;
+  contactEmail?: string;
 };
 
-export default function Footer({ navigationLinks, externalLinks, title, text1, text2, copyright }: FooterProps) {
-    return (
-    <footer className="w-full bg-gray-900 text-white mt-auto">
-        <div className="w-full min-h-70 px-10 py-10 flex flex-row flex-wrap items-center gap-10">
+export default function Footer({ studioTagline, contactEmail }: FooterProps) {
+  return (
+    <footer className="bg-[url(/images/FOOTER.png)]  w-full bg-cover bg-no-repeat text-white z-0 relative bg-[center_top_100px] -mt-20">
+      <div className="flex items-center gap-4 w-full px-20 mb-10">
+        <div className="flex-1 h-px bg-white opacity-30"></div>
+        <span className="text-white text-2xl tracking-widest">
+          SOCIAL MEDIA
+        </span>
+        <div className="flex-1 h-px bg-white opacity-30"></div>
+      </div>
 
-            <div className="max-w-70 mr-20 flex items-center justify-center text-7xl">
-                <h1 className="font-serif">{title}</h1>
-            </div>
+      <div className="flex gap-8 justify-center w-full flex-wrap">
+        <Disc
+          name="Discord"
+          url="https://discord.com"
+          image="/dvd_player_2.png"
+          icon="/DISCORD.png"
+          iconWidth={35}
+          iconHeight={35}
+          iconTop="top-5.5"
+          iconRight="right-3.75"
+          color="bg-[#171947]/70"
+        />
+        <Disc
+          name="Youtube"
+          url="https://www.youtube.com/@STUDIO_RAPTURE"
+          image="/dvd_player_2.png"
+          icon="/YT.png"
+          iconWidth={60}
+          iconHeight={60}
+          iconTop="top-2"
+          iconRight="right-0.5"
+          color="bg-[#4C1010]/70"
+        />
+        <Disc
+          name="Steam"
+          url="https://store.steampowered.com/search/?developer=Lee%20Wilson"
+          image="/dvd_player_2.png"
+          icon="/steam.png"
+          iconWidth={35}
+          iconHeight={35}
+          iconTop="top-5.5"
+          iconRight="right-3.75"
+          color="bg-[#171720]/70"
+        />
+      </div>
 
-            <div className="flex flex-row flex-wrap gap-20">
-                {navigationLinks && navigationLinks.length > 0 && (
-                    <div className="flex flex-col gap-5">
-                        <h3 className="font-bold text-2xl">Navigation</h3>
-                        <ul className="flex flex-col gap-3">
-                            {navigationLinks.map((link) => (
-                            <li key={link.href}>
-                                <a href={link.href} className="hover:underline">
-                                {link.label}
-                                </a>
-                            </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
+      <div className="px-20 mt-10">
+        <div className="w-full h-px bg-white opacity-30 mb-10"></div>
+      </div>
 
-                {externalLinks && externalLinks.length > 0 && (
-                    <div className="flex flex-col gap-5">
-                        <h3 className="font-bold text-2xl">Links</h3>
-                        <ul className="flex flex-col gap-3">
-                            {externalLinks.map((link) => (
-                            <li key={link.href}>
-                                <a href={link.href} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                                {link.label}
-                                </a>
-                            </li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
-            </div>
-
-            <div className="max-w-100 font-serif text-2xl flex flex-col justify-center gap-5 ml-auto mr-20">
-                <h3>{text1}</h3>
-                <h3>{text2}</h3>
-            </div>
+      <div className="px-20">
+        <div className="w-full border-2 border-amber-400 bg-black rounded-3xl flex flex-col gap-2 p-5">
+          <h5>STUDIO RAPTURE!: {studioTagline}</h5>
+          <h5>CONTACT: {contactEmail}</h5>
         </div>
-
-        <div className="w-full h-15 bg-gray-950 flex items-center justify-center text-sm">
-            <p>{copyright}</p>
-        </div>
+      </div>
     </footer>
-    );
+  );
 }
