@@ -17,6 +17,7 @@
     "@payloadcms/next": "^3.78.0",
     "@payloadcms/richtext-lexical": "^3.78.0",
     "@react-email/components": "^1.0.12",
+    "@react-email/render": "^2.0.8",
     "concurrently": "^9.2.1",
     "graphql": "^16.13.0",
     "next": "^16.2.6",
