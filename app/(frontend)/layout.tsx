@@ -1,17 +1,26 @@
 import React from "react";
 import "./styles.css";
-import { Nova_Cut } from 'next/font/google'
 
 import { headers as getHeaders } from "next/headers.js";
 import { getPayload } from "payload";
 import config from "@/payload.config";
+import { Fira_Mono, Nova_Cut } from "next/font/google";
 
 import Navbar from "@/app/(frontend)/components/navbar.tsx";
 import Footer from "./components/Footer";
 
-const novaCut = Nova_Cut({
+const firaMono = Fira_Mono({
+  weight: ["400", "500", "700"],
   subsets: ["latin"],
-  weight: "400", // equivalent to weight "book"
+  display: "swap",
+  variable: "--font-fira-mono",
+});
+
+const novaCut = Nova_Cut({
+  weight: ["400"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-nova-cut",
 });
 
 export const metadata = {
@@ -41,7 +50,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   
 
   return (
-    <html lang="en" className={novaCut.className}>
+    <html lang="en" className={`${firaMono.variable} ${novaCut.variable}`}>
       <body>
         <Navbar 
           item={itemsNav} 
