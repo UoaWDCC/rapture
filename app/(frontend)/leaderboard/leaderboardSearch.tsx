@@ -11,19 +11,19 @@ export default function LeaderBoardSearch({
     const [username, setUsername] = useState('')
 
     return (
-        <div className="flex flex-col gap-2 w-full max-w-[200px]">
+        <div className="flex flex-col gap-2 w-full max-w-[250px] border border-dashed border-[#2a2a6e] bg-[#0a0a1a] p-3 self-end">
             <input
                 type="text"
                 placeholder="find username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="bg-[#0a0a1a] border border-[#4C5091] text-white text-sm px-3 py-2 placeholder-gray-500 focus:outline-none focus:border-[#6a6aff]"
-                style={{ fontFamily: "'Fira Mono', monospace" }}
+                className="bg-[#0a0a1a] border border-dashed border-[#4C5091] text-white text-sm px-3 py-2 placeholder-gray-500 focus:outline-none focus:border-[#6a6aff]"
+                style={{ fontFamily: "'Nova Cut', cursive" }}
             />
 
             <button
                 onClick={() => onSearch?.(username)}
-                className="bg-[#4C5091] hover:bg-[#5a5ea8] text-white text-sm font-bold py-2 px-3 border border-[#4C5091] transition duration-200 cursor-pointer"
+                className="bg-[#2a2a6e] hover:bg-[#3a3a8e] text-white text-sm font-bold py-2 px-3 border border-[#4C5091] transition duration-200 cursor-pointer"
                 style={{ fontFamily: "'Nova Cut', cursive" }}
             >
                 SEARCH
@@ -31,7 +31,7 @@ export default function LeaderBoardSearch({
 
             <button
                 onClick={() => onFindMe?. ()}
-                className="bg-[#4C5091] hover:bg-[#5a5ea8] text-white text-sm font-bold py-2 px-3 border border-[#4C5091] transition duration-200 cursor-pointer"
+                className="bg-[#2a2a6e] hover:bg-[#3a3a8e] text-white text-sm font-bold py-2 px-3 border border-[#4C5091] transition duration-200 cursor-pointer"
                 style={{ fontFamily: "'Nova Cut', cursive" }}
             >
                 FIND ME  
