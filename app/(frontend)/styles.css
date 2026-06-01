@@ -30,10 +30,10 @@
   /* Brand colors */
   --color-brand-yellow: #f2b423;
   --color-brand-dark-brown: #150703;
-  --color-brand-blue: #0745be;
+  --color-brand-blue: #3727ea;
 
   /* Custom utility for Nova Cut font design */
-  --font-nova: var(--font-nova-cut);
+  --font-nova: var(--font-nova-cut);;
 }
 
 @utility text-stroke {
