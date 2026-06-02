@@ -59,7 +59,7 @@ const sampleNewsItemsLong: NewsItem[] = [
 
         </div>
         {/*ITEMS IN HERE*/}
-        <div className="mx-auto max-w-full md:max-w-full">
+        <div className="mx-auto max-w-full md:max-w-full md:pb-[5%] pb-[25%]">
 
           <div className="md:flex">
             <div className="md:w-[70%] max-w-full"> {/*ml-15  mt-[2.5%]*/}
