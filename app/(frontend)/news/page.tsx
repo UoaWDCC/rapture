@@ -49,7 +49,9 @@ const sampleNewsItemsLong: NewsItem[] = [
 
   return (
     <div className="max-w-full max-h-full bg-[url('/PROP%20%232%201.png')] bg-fixed"> {/*bg image is 'PROP #2 1.png' that I downloaded from Figma*/}
+
       <div className="m-[5%] w-[90%] self-center">
+
         {/*TITLE*/}
         <div className="max-w-full bg-[url('/images/news-list-heading-bg.png')] no-repeat;"> {/*ml-15 */}
 
@@ -57,26 +59,27 @@ const sampleNewsItemsLong: NewsItem[] = [
 
         </div>
         {/*ITEMS IN HERE*/}
-        <div className="flex">
-          <div className="w-[85%]"> {/*ml-15  mt-[2.5%]*/}
+        <div className="mx-auto max-w-full md:max-w-full">
 
-            <NewsTab allNews={newsItems.docs} categories={categories.docs} />
-
-          </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', paddingLeft: '1rem', paddingTop: '0.6rem', alignItems: 'flex-start' , width: '35%'}}> {/*gap: '2rem',  margin: '2rem',*/}
-            
-            {/* 2. 8 cards, scrolls, shows exactly 5 cards at a time */}
-            <div>
-              <NewsList
-                heading="Rapture Player Updates"
-                items={sampleNewsItemsLong}
-                className="w-5000"
-              />
+          <div className="md:flex">
+            <div className="md:w-[70%] max-w-full"> {/*ml-15  mt-[2.5%]*/}
+              <NewsTab allNews={newsItems.docs} categories={categories.docs} />
             </div>
-
+            <div className="md:shrink-0 md:h-full md:w-[30%] md:flex-wrap md:pl-4 pt-[0.6rem] items-start w-full"> {/*gap: '2rem',  margin: '2rem', width: '312rem'*/}
+              <div>
+                <NewsList
+                  heading="Rapture Player Updates"
+                  items={sampleNewsItemsLong}
+                  className="w-5000"
+                />
+              </div>
+            </div>
           </div>
+
         </div>
+
       </div>
+
     </div>
   );
 }
