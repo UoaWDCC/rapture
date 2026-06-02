@@ -42,7 +42,7 @@ export default function NewsTabs({
             );
     
     return (
-        <div className="my-10">
+        <div className="my-7.5">
             {/*Category tabs navigation*/}
             <div>
                 {/*Created a special 'All News' category (not in Figma (?))*/}
