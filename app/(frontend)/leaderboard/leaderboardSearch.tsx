@@ -10,14 +10,6 @@ export default function LeaderBoardSearch({
 }) {
     const [username, setUsername] = useState('')
 
-    async function handleSearch() {
-        if (!username.trim()) return;
-        const response = await fetch(`/api/leaderboard/search?username=${username}`);
-        const data = await response.json();
-        if (data.success && onSearch) {
-            onSearch(data.data);
-        }
-    }
 
     return (
         <div className="flex flex-col gap-2 w-full max-w-[250px] border border-dashed border-[#3B28FF] bg-[#0a0a1a] p-3 self-end">

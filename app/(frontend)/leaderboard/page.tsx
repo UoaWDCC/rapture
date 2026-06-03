@@ -1,25 +1,36 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import Link from 'next/link'
 import LeaderboardClient from "./leaderboardClient";
 
-export const dynamic = 'force-dynamic';
+interface PageProps {
+  searchParams: Promise<{ page?: string; limit?: string }>;
+}
 
-export default async function LeaderboardPage() { //api part
+export default async function LeaderboardPage({ searchParams }: PageProps) {
+  const { page: pageParam, limit: limitParam } = await searchParams;
+  
+  const page = Number(pageParam ?? 1);
+  const limit = Math.min(Number(limitParam ?? 10), 100);
+
   const payload = await getPayload({ config })
   const topPlayers = await payload.find({
     collection: 'Players', 
     sort: '-score',        
-    limit: 10,             
+    limit,
+    page,
   })
 
-  return ( //no styles.css file, can delete and change this whenever, just a placeholder
+  return (
     <div className="p-8 font-sans flex flex-col items-center">
-
-      <div className="flex flex-col w-full max-w-2xl gap-6">
-        <LeaderboardClient topPlayers={topPlayers.docs} />
+      <div className="flex flex-col w-full max-w-5xl h-200 gap-6 mb-25">
+        <LeaderboardClient 
+          topPlayers={topPlayers.docs}
+          page={page}
+          totalPages={topPlayers.totalPages}
+          hasNextPage={topPlayers.hasNextPage}
+          hasPrevPage={topPlayers.hasPrevPage}
+        />
       </div>
-      
     </div>
   )
 }
