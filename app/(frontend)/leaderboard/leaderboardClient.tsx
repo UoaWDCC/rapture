@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Player } from "@/payload-types";
 import LeaderboardSearch from "./leaderboardSearch";
+import { LeaderboardTable } from "./LeaderboardTable";
 import PlayerRowDisplay from "./playerRowDisplay";
 
 export default function LeaderboardClient({ topPlayers }: { topPlayers: Player[] }) {
@@ -23,6 +24,7 @@ export default function LeaderboardClient({ topPlayers }: { topPlayers: Player[]
             {results.map((player, index) => (
                 <PlayerRowDisplay key={player.userId} player={player} rank={index + 1} />
             ))}
+            <LeaderboardTable players={results}/>
         </div>
     )
 }
