@@ -1,7 +1,7 @@
 import { getPayload } from "payload";
 import config from "@/payload.config";
 import ProductsDisplay from "./components/productsDisplay";
-import { Pagination } from "@/app/(frontend)/components/ui/Pagination";
+import { Pagination } from "@/components/ui/Pagination";
 import ProductForm from "./components/productForm"
 
 interface PageProps {
