@@ -10,12 +10,14 @@ import Image from "next/image";
 export default function LeaderboardClient({ 
   topPlayers,
   page,
+  limit,
   totalPages,
   hasNextPage,
   hasPrevPage,
 }: { 
   topPlayers: Player[];
   page: number;
+  limit: number;
   totalPages: number;
   hasNextPage: boolean;
   hasPrevPage: boolean;
@@ -63,7 +65,7 @@ export default function LeaderboardClient({
         <div className="h-6 bg-brand-blue mb-3"></div>
 
         <div className="h-160 flex flex-row justify-between">
-            <LeaderboardTable players={results}/>
+            <LeaderboardTable players={results} startIndex={(page - 1) * limit + 1}/>
 
             <div className="w-90 flex flex-col gap-2 justify-center ml-auto">
                 <LeaderboardSearch onSearch={handleSearch} />

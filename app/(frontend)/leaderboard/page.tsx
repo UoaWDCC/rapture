@@ -26,6 +26,7 @@ export default async function LeaderboardPage({ searchParams }: PageProps) {
         <LeaderboardClient 
           topPlayers={topPlayers.docs}
           page={page}
+          limit={limit}
           totalPages={topPlayers.totalPages}
           hasNextPage={topPlayers.hasNextPage}
           hasPrevPage={topPlayers.hasPrevPage}
