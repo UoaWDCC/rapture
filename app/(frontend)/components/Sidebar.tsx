@@ -23,11 +23,6 @@ export default function Sidebar() {
     setIsOpen(false);
   }, []);
 
-  // Close sidebar when navigating to a new page
-  useEffect(() => {
-    closeSidebar();
-  }, [pathname, closeSidebar]);
-
   // Close sidebar on Escape key
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -53,11 +48,15 @@ export default function Sidebar() {
   }, [isOpen]);
 
   // Track screen size for responsive sidebar width
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.matchMedia("(min-width: 768px)").matches;
+    }
+    return false;
+  });
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
-    setIsDesktop(mq.matches);
 
     function handleChange(e: MediaQueryListEvent) {
       setIsDesktop(e.matches);
@@ -137,6 +136,7 @@ export default function Sidebar() {
                 key={item.href}
                 href={item.href}
                 style={isActive ? linkActiveStyle : linkBaseStyle}
+                onClick={closeSidebar}
                 onMouseEnter={(e) => {
                   if (!isActive) {
                     e.currentTarget.style.background = "rgba(255, 255, 255, 0.1)";
