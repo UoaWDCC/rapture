@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Player } from "@/payload-types";
 import LeaderboardSearch from "./leaderboardSearch";
 import { LeaderboardTable } from "./LeaderboardTable";
-import PlayerRowDisplay from "./playerRowDisplay";
+import { Pagination } from "./Pagination";
 
 export default function LeaderboardClient({ topPlayers }: { topPlayers: Player[] }) {
     const [results, setResults] = useState<Player[]>(topPlayers);
@@ -20,10 +20,11 @@ export default function LeaderboardClient({ topPlayers }: { topPlayers: Player[]
 
     return (
         <div>
+            <div>
+                <h2 className="font-nova border-2 border-blue-900">Welcome to Studio Rapture Leaderboard</h2>
+            </div>
+
             <LeaderboardSearch onSearch={handleSearch}/>
-            {results.map((player, index) => (
-                <PlayerRowDisplay key={player.userId} player={player} rank={index + 1} />
-            ))}
             <LeaderboardTable players={results}/>
         </div>
     )
