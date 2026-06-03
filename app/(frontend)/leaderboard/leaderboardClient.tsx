@@ -42,7 +42,7 @@ export default function LeaderboardClient({
             <h5>WELCOME TO STUDIO RAPTURE LEADERBOARD</h5>
         </div>
 
-        <div className="h-15 w-full flex flex-row flex-wrap gap-3 justify-between items-center">
+        <div className="h-15 w-full flex flex-row gap-3 justify-between items-center">
 
             <div className="w-10/20 p-2 text-white bg-brand-blue [text-shadow:0_0_10px_#6060ff,0_0_20px_#ffffff]">
                 <p>VITROL LEADERBOARD</p>
@@ -64,7 +64,7 @@ export default function LeaderboardClient({
 
         <div className="h-6 bg-brand-blue mb-3"></div>
 
-        <div className="h-160 flex flex-row flex-wrap justify-between">
+        <div className="h-160 flex flex-row justify-between">
             <LeaderboardTable players={results} startIndex={(page - 1) * limit + 1}/>
 
             <div className="w-90 flex flex-col gap-2 justify-center ml-auto">
