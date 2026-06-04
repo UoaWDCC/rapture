@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import Link from "next/link"
 import UserAccountForm, { type UpdateAccountState } from './UserAccountForm'
+import LogoutButton from '../components/ui/LogoutButton'
 
 export default async function ProtectedPage() {
   const payload = await getPayload({ config: await config })

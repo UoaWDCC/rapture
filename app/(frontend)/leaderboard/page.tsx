@@ -1,6 +1,6 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
-import PlayerRowDisplay from './playerRowDisplay' 
+import { LeaderboardTable } from '../components/ui/LeaderboardTable' 
 import Link from 'next/link'
 export const dynamic = 'force-dynamic';
 
@@ -18,13 +18,9 @@ export default async function LeaderboardPage() { //api part
       <Link href="/" className="mb-4 text-blue-500 hover:underline">Go back to Main Page</Link>
 
       <div className="flex flex-col w-full items-center">
-        {topPlayers.docs.map((player, index) => (
-          <PlayerRowDisplay //separate element used for ui design
-            key={player.id} 
-            player={player} 
-            rank={index + 1} 
-          />
-        ))}
+        <LeaderboardTable 
+          players={topPlayers.docs} 
+        />
       </div>
     </div>
   )
