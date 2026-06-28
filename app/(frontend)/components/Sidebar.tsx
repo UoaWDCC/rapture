@@ -78,7 +78,7 @@ export default function Sidebar() {
     top: 0,
     left: 0,
     height: "100vh",
-    width: isDesktop ? "320px" : "100vw",
+    width: isDesktop ? "max(250px, 25vw)" : "250px",
     background: "#0a0a0a",
     zIndex: 1050,
     transform: isOpen ? "translateX(0)" : "translateX(-100%)",
