@@ -33,7 +33,8 @@
   --color-brand-blue: #3727ea;
 
   /* Custom utility for Nova Cut font design */
-  --font-nova: var(--font-nova-cut);;
+  --font-nova: var(--font-nova-cut);
+  --font-fira: var(--font-fira-mono);
 }
 
 @utility text-stroke {
@@ -88,4 +89,13 @@ h4 {
   font-size: var(--font-size-headline-04);
   line-height: var(--line-height-headline-04);
   letter-spacing: var(--letter-spacing-headline-04);
+}
+
+/* Custom font classes to bypass Tailwind compiler issues */
+.font-fira-custom {
+  font-family: var(--font-fira-mono), monospace !important;
+}
+
+.font-nova-custom {
+  font-family: var(--font-nova-cut), sans-serif !important;
 }
