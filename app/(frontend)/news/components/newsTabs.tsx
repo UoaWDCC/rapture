@@ -22,13 +22,19 @@ function formatDate(dateString: string) {
 export default function NewsTabs({
   allNews,
   categories,
+  expandedArticleId,
 }: {
   allNews: News[];
   categories: Category[];
+  expandedArticleId?: string | null;
 }) {
   const [activeTab, setActiveTab] = useState("All");
 
-  const [selectedNews, setSelectedNews] = useState<News | null>(null);
+  const initialNews = expandedArticleId
+  ? allNews.find((n) => String(n.id) === expandedArticleId) ?? null
+  : null;
+
+  const [selectedNews, setSelectedNews] = useState<News | null>(initialNews);
 
   const filteredNews =
     activeTab === "All"
