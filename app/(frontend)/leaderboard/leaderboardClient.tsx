@@ -38,11 +38,11 @@ export default function LeaderboardClient({
 
   return (
     <div className="flex flex-col w-full font-nova">
-        <div className="w-full p-3.5 flex justify-center items-center border-2 border-brand-blue [text-shadow:0_0_10px_#6060ff,0_0_20px_#ffffff]">
+        <div className="w-full p-3.5 flex justify-center items-center text-center border-2 border-brand-blue [text-shadow:0_0_10px_#6060ff,0_0_20px_#ffffff]">
             <h5>WELCOME TO STUDIO RAPTURE LEADERBOARD</h5>
         </div>
 
-        <div className="h-15 w-full flex flex-row gap-3 justify-between items-center">
+        <div className="h-15 w-full flex flex-row   gap-3 justify-between items-center">
 
             <div className="w-10/20 p-2 text-white bg-brand-blue [text-shadow:0_0_10px_#6060ff,0_0_20px_#ffffff]">
                 <p>VITROL LEADERBOARD</p>
