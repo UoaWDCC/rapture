@@ -11,39 +11,58 @@ export default async function DonorPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             <DonorBox 
-                textContent="Hello Through a parameter"
+                name="Name"
             />
 
             <DonorBox 
-                textContent="Hello Through a parameter"
+                name="Name"
             />
 
             <DonorBox 
-                textContent="Hello Through a parameter"
+                name="Name"
             />
 
             <DonorBox 
-                textContent="Hello Through a parameter"
+                name="Name"
+                image="/globe.svg"
+                tabColor="blue"
             />
 
             <DonorBox 
-                textContent="Hello Through a parameter"
+                name="Name"
+                text="This is a test This is a test This is a test
+                        This is a test This is a test This is a test
+                        This is a test This is a test This is a test
+                        This is a test This is a test This is a test"
+                image="/steam.png"
+                tabColor="blue"
             />
 
             <DonorBox 
-                textContent="Hello Through a parameter"
+                name="Name"
+                image="/DISCORD.png"
+                tabColor="blue"
             />
 
             <DonorBox 
-                textContent="Hello Through a parameter"
+                name="Name"
+                tabColor="green"
             />
 
             <DonorBox 
-                textContent="Hello Through a parameter"
+                name="Name"
+                text="This is a test This is a test This is a test
+                        This is a test This is a test This is a test
+                        This is a test This is a test This is a test
+                        This is a test This is a test This is a test"
+                tabColor="green"
             />
 
             <DonorBox 
-                textContent="Hello Through a parameter"
+                name="Really long name that is needed to test if the box can handle long text inputs
+                Really long name that is needed to test if the box can handle long text inputs
+                Really long name that is needed to test if the box can handle long text inputs"
+                tabColor="green"
             />
         </div>
     </div>
