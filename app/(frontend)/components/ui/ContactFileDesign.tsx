@@ -3,7 +3,7 @@ type contactFileProps = {
     bgColor: string
     className?: string
     classNameSide?: string
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 export default function ContactFile(prop: contactFileProps) {
