@@ -18,11 +18,37 @@ export default async function Page() {
       <PopUp title="Hello World" text={example_text} className="absolute top-100 right-50 w-200 z-50" />
       <PopUp src="/images/ivlnaud5zro61.png" alt="logo.png" width={550} height={700} className="absolute top-90 left-30 z-49" />
 
-      <ContactFile title="test" bgColor="bg-amber-200" className="absolute top-250 left-5 w-250 h-150" classNameSide="mt-10">
-        <div className="bg-amber-400">
+      <ContactFile title="test" bgColor="bg-amber-200" className="absolute top-250 left-5 w-250 h-150 z-98" classNameSide="mt-10">
+        <div className="bg-amber-400 ml-42.5">
           <h1>INNER</h1>
         </div>
       </ContactFile>
+      <ContactFile title="test" bgColor="bg-blue-200" className="absolute top-250 -left-200 w-250 h-150 z-99" classNameSide="mt-20">
+        <div className="bg-amber-400">
+          <br />
+          <br />
+          <br />
+          <h1>INNER #2</h1>
+        </div>
+      </ContactFile>
+      <ContactFile title="test" bgColor="bg-red-200" className="absolute top-250 -left-220 w-250 h-150 z-100" classNameSide="mt-40">
+        <div className="bg-amber-400">
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <h1>INNER #3</h1>
+        </div>
+      </ContactFile>
+
+      <div className="absolute top-500 right-2">
+        <br />
+        <p>sup</p>
+      </div>
     </div>
   );
 }

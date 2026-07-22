@@ -17,7 +17,7 @@ export default function ContactFile(prop: contactFileProps) {
             <div className={`flex flex-row relative -ml-0.5 h-fit writing-mode-vertical bg-transparent`}>
                 <div className={`h-4 w-10 skew-y-20 ${prop.bgColor} ${prop.classNameSide}`}></div>
                 <p className={`-mt-1.75 -mb-11.75 py-ppx px-2.25 ${prop.bgColor} text-2xl`}>{prop.title}</p>
-                <div className={`h-4 w-10 -skew-y-20 ${prop.bgColor} ${prop.classNameSide}`}></div>
+                <div className={`h-4 w-10 -skew-y-20 mt-10 ${prop.bgColor}`}></div>
             </div>
         </div>
     );
