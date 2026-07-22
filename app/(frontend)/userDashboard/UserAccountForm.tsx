@@ -2,13 +2,16 @@
 
 import { useActionState } from 'react'
 
-export type UpdateAccountState = { ok: boolean; message: string } | null
+export type UpdateAccountState = {
+  status: 'success' | 'error'
+  message: string
+}
 
 export default function UserAccountForm({
   action,
   currentEmail,
 }: {
-  action: (prev: UpdateAccountState, formData: FormData) => Promise<UpdateAccountState>
+  action: (prev: UpdateAccountState | null, formData: FormData) => Promise<UpdateAccountState>
   currentEmail: string
 }) {
   const [state, formAction, pending] = useActionState(action, null)

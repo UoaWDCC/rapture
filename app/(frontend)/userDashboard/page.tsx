@@ -16,7 +16,7 @@ export default async function ProtectedPage() {
   }
 
   async function updateAccount(
-    _prev: UpdateAccountState,
+    _prev: UpdateAccountState | null,
     formData: FormData,
   ): Promise<UpdateAccountState> {
     'use server'
@@ -46,9 +46,11 @@ export default async function ProtectedPage() {
       await payload.update({ collection: 'users', id: user.id, data, user })
       revalidatePath('/userDashboard')
       return { status: 'success', message: 'Account updated.' }
-    } catch (err: any) {
-      const msg = err?.data?.errors?.[0]?.message ?? err?.message ?? 'Update failed.'
-      return { status: 'error', message: msg }
+    } catch (err) {
+      if (err instanceof Error) {
+      return { status: 'error', message: err.message }
+      }
+      return { status: 'error', message: 'An unexpected error occurred' }
     }
   }
 
@@ -61,6 +63,7 @@ export default async function ProtectedPage() {
       </p>
 
       <UserAccountForm action={updateAccount} currentEmail={user.email ?? ''} />
+      <LogoutButton />
     </main>
   )
 }
