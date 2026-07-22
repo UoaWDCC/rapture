@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import GlitchReveal from "./GlitchReveal";
 
 const BottomArrow = () => (
   <div className="relative w-[28px] h-[20px]">
@@ -70,7 +71,7 @@ export function NewsSection() {
 
         <div className="relative max-w-280 mx-auto">
           {/* TV image*/}
-          <div className="absolute top-[-140] md:top-[-88] left-00 md:left-10 z-20">
+          <GlitchReveal className="absolute top-[-140] md:top-[-88] left-00 md:left-10 z-20">
             {/* Overlay */}
             <div className="absolute z-1 w-64 md:w-62 h-1 bg-background top-30 left-6 md:top-17 md:left-33" />
             <div className="absolute z-1 w-64 md:w-70 h-1 bg-background top-34 left-6 md:top-21 md:left-29" />
@@ -87,12 +88,15 @@ export function NewsSection() {
                 NEWS
               </h2>
             </div>
-          </div>
+          </GlitchReveal>
 
           <div className="h-36 md:h-60" />
 
           {/* Notification */}
-          <div className="relative z-30 mx-4 mb-6 md:mb-0 md:absolute md:right-18 md:top-30 md:mx-0">
+          <GlitchReveal
+            className="relative z-30 mx-4 mb-6 md:mb-0 md:absolute md:right-18 md:top-30 md:mx-0"
+            delay={0.15}
+          >
             <div
               className="relative bg-brand-yellow text-background p-5 md:w-xl"
               style={{ boxShadow: "0 0 12px 2px rgba(255, 220, 0, 0.5)" }}
@@ -115,10 +119,10 @@ export function NewsSection() {
                 <NotificationButton>(N) Dismiss</NotificationButton>
               </div>
             </div>
-          </div>
+          </GlitchReveal>
 
           {/* Main content */}
-          <div className="relative">
+          <GlitchReveal className="relative" delay={0.3}>
             {/* Overlay */}
             <div className="absolute z-1 w-90 h-[1px] md:bg-background left-20" />
             <div className="absolute z-1 w-[1px] h-10 md:bg-background left-20" />
@@ -140,7 +144,7 @@ export function NewsSection() {
                 <ReadMoreButton />
               </div>
             </div>
-          </div>
+          </GlitchReveal>
 
           <div className="h-10 md:h-20" />
         </div>
