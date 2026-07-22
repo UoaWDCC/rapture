@@ -8,7 +8,7 @@ type contactFileProps = {
 
 export default function ContactFile(prop: contactFileProps) {
     return(
-        <div className={`flex flex-row ${prop.className}`}>
+        <div className={`flex flex-row bg-transparent ${prop.className}`}>
             {/*The main part*/}
             <div className={`h-full w-full p-5 ${prop.bgColor}`}>
                 {prop.children}
