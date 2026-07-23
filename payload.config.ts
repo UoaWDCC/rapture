@@ -9,7 +9,7 @@ import { Players } from "./collections/players.ts";
 import { Products } from "./collections/products.ts";
 import { CartCollection } from "./collections/Cart.ts";
 import { Media } from "./collections/media.ts";
-import { News } from "./collections/news.ts";
+import { News } from "./collections/News.ts";
 import { Category } from "./collections/category.ts"
 
 export default buildConfig({
