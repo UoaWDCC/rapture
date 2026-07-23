@@ -6,9 +6,11 @@
   export default function NewsFeed({
     news,
     onReadMore,
+    isExpanded,
   }: {
     news: News;
     onReadMore: () => void;
+    isExpanded?: boolean;
   }) {
     const image = typeof news.image === "string" ? null : news.image
     const categories = news.category.filter(
@@ -18,7 +20,7 @@
     return (
       <div className="max-w-full mb-2 bg-[#DDA520]/80 text-xl px-2 pt-2"> {/*ori color: AF8219*/}
         {/*Beige card - Image and Texts*/}
-        <div className="max-h-70 bg-[#E6E6E6]/60 text-[#302F2F] flex"> {/*ori color: DCCDAA*/}
+        <div className={`${isExpanded ? "" : "max-h-70"} bg-[#E6E6E6]/60 text-[#302F2F] flex`}> {/*ori color: DCCDAA*/}
           {/*News Image*/}
             <div className="w-[54.5%] m-[1.5%] h-50 flex justify-center">
               {image?.url && (
@@ -36,8 +38,8 @@
             <div className="w-[42.5%] m-[1.5%] flex flex-col justify-center">
               <p className="font-dm font-medium text-xs"> ▶ {news.subtitle}</p> {/*font is not font-ing :(((*/}
               <p className="font-[23] text-2xl"> {news.title}</p>
-              <div className="max-h-25 overflow-hidden">
-                <RichText data={news.description} className="font-[Fira_Mono] text-sm line-clamp-3" /> {/*font is not font-ing :(((*/}
+              <div className={isExpanded ? "" : "max-h-25 overflow-hidden"}>
+                <RichText data={news.description} className={`font-[Fira_Mono] text-sm ${isExpanded ? "" : "line-clamp-3"}`} /> {/*font is not font-ing :(((*/}
               </div>
               {/*Categories*/}
               <div className="flex flex-wrap justify-left mt-2">
@@ -57,6 +59,7 @@
                 <div className="text-[75%]">Read more</div>
             </div>
         </button>
+
       </div>
     );
   }
