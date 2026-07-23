@@ -7,7 +7,7 @@ import { Users } from "./collections/users.ts";
 import { OrderCollection } from "./collections/orderCollection.ts";
 import { Players } from "./collections/players.ts";
 import { Products } from "./collections/products.ts";
-import { CartCollection } from "./collections/cart.ts";
+import { CartCollection } from "./collections/Cart.ts";
 import { Media } from "./collections/media.ts";
 import { News } from "./collections/news.ts";
 import { Category } from "./collections/category.ts"
