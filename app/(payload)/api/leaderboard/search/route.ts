@@ -27,10 +27,8 @@ export async function GET(request: Request) {
         });
 
         return NextResponse.json({
-            data: result.docs.map(player => ({
-                userId: player.userId,
-                score: player.score,
-            })),
+            success: true,
+            data: result.docs,
         });
     } catch {
         return NextResponse.json({
