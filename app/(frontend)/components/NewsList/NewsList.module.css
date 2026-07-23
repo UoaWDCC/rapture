@@ -4,7 +4,7 @@
 
 .newsListOuter {
   width: 100%;
-  max-width: 412px;
+  /*max-width: 412px;*/
   overflow: hidden;
   position: relative;
 }

@@ -16,7 +16,7 @@ export const Users: CollectionConfig = {
     // restricting Create, Read, Update and Delete(CRUD) access for this collection
     create: ({ req: { user } }) => adminCheck(user),
     read: ({ req: { user } }) => adminCheck(user),
-    update: ({ req: { user } }) => adminCheck(user),
+    update: ({ req: { user } }) => adminCheck(user) || { id: { equals: user?.id } },
     delete: ({ req: { user } }) => adminCheck(user),
 
     admin: ({ req: { user } }) => adminCheck(user), // Whether a user from this collection can access the admin panel or not
