@@ -259,6 +259,7 @@ export interface Order {
 export interface News {
   id: string;
   title: string;
+  subtitle: string;
   description: {
     root: {
       type: string;
@@ -274,6 +275,8 @@ export interface News {
     };
     [k: string]: unknown;
   };
+  image: string | Media;
+  category: (string | Category)[];
   updatedAt: string;
   createdAt: string;
 }
@@ -506,7 +509,10 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface NewsSelect<T extends boolean = true> {
   title?: T;
+  subtitle?: T;
   description?: T;
+  image?: T;
+  category?: T;
   updatedAt?: T;
   createdAt?: T;
 }
