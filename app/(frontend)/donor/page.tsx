@@ -140,7 +140,14 @@ export default async function DonorPage() {
         </div>
 
         <div className="w-[80%] md:w-[70%] relative">
-            <DonorBigBox/>
+            <DonorBigBox
+                names={['name', 'name', 'name', 'name', 'name',
+                        'name', 'name', 'name', 'name', 'name',
+                        'name', 'name', 'name', 'name', 'name',
+                        'name', 'name', 'name', 'name', 'name',
+                        'name', 'name', 'name', 'name', 'name',
+                ]}    
+            />
         </div>
     </div>
   )

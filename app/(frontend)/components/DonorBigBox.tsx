@@ -1,5 +1,5 @@
 type DonorBigBoxContent = {
-    names?: Array<string>;
+    names: Array<string>;
 }
 
 export default function DonorBigBox({ names }: DonorBigBoxContent) {
@@ -15,47 +15,9 @@ export default function DonorBigBox({ names }: DonorBigBoxContent) {
                 style={{borderColor: '#c69825',}}>
                 
                 <div className="pt-8 grid grid-cols-1 md:grid-cols-5 gap-x-40 text-2xl">
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
-                    <p>Name</p>
+                    {names.map((name, index) => {
+                        return <p key={index}>{name}</p>;
+                    })}
                 </div>
             </div>
         </div>
