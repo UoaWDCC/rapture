@@ -1,4 +1,3 @@
-import config from '@payload-config'
 export const dynamic = 'force-dynamic';
 
 import DonorBox from "../components/Donor";
@@ -6,63 +5,77 @@ import DonorBox from "../components/Donor";
 export default async function DonorPage() { 
 
   return (
-    <div className="mb-40 p-8 flex flex-col items-center">
+    <div className="mb-40 p-8 flex flex-col gap-10 items-center">
         <h1 className="mb-10">DONOR</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="w-[80%] md:w-[70%] grid grid-cols-1 md:grid-cols-3 gap-1">
             <DonorBox 
                 name="Name"
             />
 
             <DonorBox 
                 name="Name"
+                className="-mt-16 md:mt-0"
             />
 
             <DonorBox 
                 name="Name"
+                className="-mt-16 md:mt-0"
             />
 
             <DonorBox 
                 name="Name"
-                image="/globe.svg"
-                tabColor="blue"
+                className="-mt-16"
+                text="thisisatest thisisatest thisisatest thisisatest
+                        thisisatest thisisatest thisisatest thisisatest
+                        thisisatest thisisatest thisisatest thisisatest"
+                image="DISCORD.png"
             />
 
             <DonorBox 
                 name="Name"
-                text="This is a test This is a test This is a test
-                        This is a test This is a test This is a test
-                        This is a test This is a test This is a test
-                        This is a test This is a test This is a test"
-                image="/steam.png"
-                tabColor="blue"
+                className="-mt-16"
             />
 
             <DonorBox 
                 name="Name"
-                image="/DISCORD.png"
-                tabColor="blue"
+                className="-mt-16"
             />
 
             <DonorBox 
                 name="Name"
-                tabColor="green"
+                className="-mt-16"
             />
 
             <DonorBox 
                 name="Name"
-                text="This is a test This is a test This is a test
-                        This is a test This is a test This is a test
-                        This is a test This is a test This is a test
-                        This is a test This is a test This is a test"
-                tabColor="green"
+                className="-mt-16"
             />
 
             <DonorBox 
-                name="Really long name that is needed to test if the box can handle long text inputs
-                Really long name that is needed to test if the box can handle long text inputs
-                Really long name that is needed to test if the box can handle long text inputs"
-                tabColor="green"
+                name="Name"
+                className="-mt-16"
+            />
+
+            <DonorBox 
+                name="Name"
+                className="-mt-16"
+            />
+
+            <DonorBox 
+                name="Name"
+                className="-mt-16"
+            />
+
+            <DonorBox 
+                name="Name"
+                className="-mt-16"
+            />
+        </div>
+
+        <div className="w-[70%]">
+            <DonorBox 
+                name="name"    
             />
         </div>
     </div>
