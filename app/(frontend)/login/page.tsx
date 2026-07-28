@@ -1,6 +1,10 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import AuthInput from '../components/auth/authInput'
+import AuthButton from '../components/auth/authButton'
+import AuthFormCard from '../components/auth/authFormCard'
+import AuthSideCard from '../components/auth/authSideCard'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -32,38 +36,44 @@ export default function LoginPage() {
 }
 
   return (
-    <div className="p-8 font-sans flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-6">Sign In</h1>
-      {error && (
-          <p className="text-white text-center mt-2 font-medium mb-4">
-            {error}
-          </p>
-        )}
-      <form onSubmit={handleLogin} className="flex flex-col w-full max-w-sm gap-4">
-        <input 
-          type="email" 
-          placeholder="Email"
-          value={email} 
-          onChange={e => setEmail(e.target.value)} 
-          required 
-          className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input 
-          type="password" 
-          placeholder="Password"
-          value={password} 
-          onChange={e => setPassword(e.target.value)} 
-          required 
-          className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        
-        <button 
-          type="submit"
-          className="w-full bg-blue-500 text-white font-bold py-3 rounded hover:bg-blue-600 transition-colors"
-        >
-          Log In
-        </button>
-      </form>
+    <div className="min-h-screen bg-[#171720] flex items-center justify-center p-8">
+        <div className="flex gap-6">
+
+            {/* Main login form card */}
+            <AuthFormCard title="LOGIN">
+                {error && (
+                    <p className="text-red-400 text-center font-mono">{error}</p>
+                )}
+                <form onSubmit={handleLogin} className="flex flex-col gap-4">
+                    <AuthInput
+                        type="email"
+                        placeholder="email"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                    />
+                    <AuthInput
+                        type="password"
+                        placeholder="password"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                    />
+                    <AuthButton
+                        type="submit"
+                        label="sign in"
+                        onClick={() => {}}
+                    />
+                </form>
+            </AuthFormCard>
+
+            {/* Side card linking to sign up */}
+            <AuthSideCard
+                title="NEW CUSTOMER?"
+                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                buttonLabel="Sign Up"
+                onButtonClick={() => router.push('/signup')}
+            />
+
+        </div>
     </div>
   )
 }
