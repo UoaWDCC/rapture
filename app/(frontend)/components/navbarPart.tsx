@@ -1,26 +1,59 @@
-import { User } from "@/payload-types";
+"use client";
 
-type navbarPartContent = {
-    name: string;
-    links?: Array<string>;
-}
+import { useState, useRef, useEffect } from "react";
 
-type itemNav = {
-  id: number;
+type DropdownItem = {
+  label: string;
+};
+
+type navLink = {
+    id: number;
   name: string;
-  childrenLinks?: string[];
+  link: string;
 }
 
-export default function NavbarPart({ id, name, childrenLinks }: itemNav) {
-    return (
-        <div className="w-50 h-8 bg-blue-800 border border-blue-500 text-xl flex items-center pl-2 pt-0.5 [clip-path:polygon(0_0,90%_0,93%_30%,100%_30%,100%_100%,0_100%)]">
-            <p>▶ {name}</p>
+type DropdownProps = {
+  key: number;
+  label: string;
+  items: navLink[];
+};
 
-            {childrenLinks && childrenLinks.map((link) => {
-                return (
-                    <a key={id} href={link}>hello</a>
-                )
-            })}
-        </div>
-    )
-}
+export default function Dropdown({ label, items }: DropdownProps) {
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState(label);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div ref={dropdownRef} className="relative">
+      <div className="w-50 h-8 bg-blue-800 border border-blue-500 text-xl flex items-center pl-2 pt-0.5 [clip-path:polygon(0_0,90%_0,93%_30%,100%_30%,100%_100%,0_100%)]">
+        <button className="w-full h-full flex items-center" onClick={() => setOpen(!open)}>▶ {label}</button>
+      </div>
+
+      <ul className={`transition-all duration-300 overflow-hidden ${open ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}>
+        {items.map((item) => (
+          <li key={item.id} className="p-2 pl-8 text-xl bg-blue-300 hover:opacity-80 border-t-2 border-b-2 border-black">
+            <a href={item.link}>
+                <button onClick={() => {
+                    setSelected(item.name);
+                    setOpen(false);
+                    }}>
+                    {item.name}
+                </button>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}    
