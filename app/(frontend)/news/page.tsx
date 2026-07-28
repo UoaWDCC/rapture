@@ -85,17 +85,17 @@ export default async function ExampleCollectionPage() {
               {/*ml-15  mt-[2.5%]*/}
               <NewsTab allNews={newsItems.docs} />
             </div>
-            <div className="md:shrink-0 md:h-full md:w-[30%] md:flex-wrap md:pl-4 pt-[0.6rem] items-start w-full">
-              {" "}
-              {/*gap: '2rem',  margin: '2rem', width: '312rem'*/}
-              <div>
+            {/* <div className="md:shrink-0 md:h-full md:w-[30%] md:flex-wrap md:pl-4 pt-[0.6rem] items-start w-full">
+              {/* {" "}
+              {/* {/*gap: '2rem',  margin: '2rem', width: '312rem'*/}
+              {/* <div>
                 <NewsList
                   heading="Rapture Player Updates"
                   items={sampleNewsItemsLong}
                   className="w-5000"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
