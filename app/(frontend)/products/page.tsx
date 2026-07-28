@@ -1,6 +1,7 @@
 import { getPayload } from "payload";
 import config from "@/payload.config";
 import ProductsDisplay from "./components/productsDisplay";
+import ProductsDisplayBig from "./components/productsDisplayBig";
 import { Pagination } from "@/components/ui/Pagination";
 import ProductForm from "./components/productForm"
 
@@ -28,13 +29,20 @@ export default async function ProductsPage({ searchParams }: PageProps) {
   const { user } = await payload.auth({ headers: await (await import("next/headers")).headers() })
 
   return (
-    <div className="container mx-auto py-10">
-      {user?.role === "admin" && <ProductForm />}
-      <h1 className="font-bold text-xl">Products ({result.totalDocs})</h1>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div className="container">
+      <div>
         {result.docs.map((product, i) => (
-          <ProductsDisplay key={i} product={product} />
+          <ProductsDisplayBig key={i} product={product} className="h-[40%]" />
+        ))}
+      </div>
+
+      <div className="h-200 w-full mx-auto bg-[#1F1F1F]"></div>
+      {/*user?.role === "admin" && <ProductForm />*/}
+      {/*<h1 className="font-bold text-xl">Products ({result.totalDocs})</h1>*/}
+
+      <div className="h-[10%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-[5%] p-[3%]">
+        {result.docs.map((product, i) => (
+          <ProductsDisplay key={i} product={product} className="h-full" />
         ))}
       </div>
 
