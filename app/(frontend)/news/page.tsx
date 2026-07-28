@@ -14,10 +14,6 @@ export default async function ExampleCollectionPage() {
     collection: "News",
   });
 
-  const categories = await payload.find({
-    collection: "category",
-  });
-
   const sampleNewsItems: NewsItem[] = [
     {
       id: "1",
@@ -87,7 +83,7 @@ export default async function ExampleCollectionPage() {
             <div className="md:w-[70%] max-w-full">
               {" "}
               {/*ml-15  mt-[2.5%]*/}
-              <NewsTab allNews={newsItems.docs} categories={categories.docs} />
+              <NewsTab allNews={newsItems.docs} />
             </div>
             <div className="md:shrink-0 md:h-full md:w-[30%] md:flex-wrap md:pl-4 pt-[0.6rem] items-start w-full">
               {" "}
