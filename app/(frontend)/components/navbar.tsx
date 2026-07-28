@@ -7,11 +7,17 @@ import NavbarPart from "./navbarPart";
 
 import Dropdown from "./Dropdown";
 
+type navLink = {
+  id: number;
+  name: string;
+  link: string;
+}
+
 type itemNav = {
   id: number;
   name: string;
   link: string;
-  childrenLinks?: string[];
+  childrenLinks: navLink[];
 }
 
 type NavProps = {
@@ -23,7 +29,7 @@ export default function Navbar({item}: NavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className="w-full fixed top-0 flex flex-row flex-wrap items-start justify-center px-6 py-2 mt-10 mb-10 bg-transparent z-1000">
+    <nav className="w-full top-0 flex flex-row flex-wrap items-start justify-center px-6 py-2 mt-10 mb-10 bg-transparent">
 
       {/* Logo */}
       <Image
@@ -38,21 +44,13 @@ export default function Navbar({item}: NavProps) {
         {item.map((item) => {
           const isActive = pathname === item.link;
           return(
-            <a 
-              key={item.id}
-              href={item.link}>
               <NavbarPart 
-                id={item.id} 
-                name={item.name} 
-                childrenLinks={item.childrenLinks}
+                key={item.id}
+                label={item.name} 
+                items={item.childrenLinks}
               />
-            </a>
           )
         })}
-      </div>
-
-      <div className="self-start relative">
-        <Dropdown label="something" items={["idk", "idk2"]} />
       </div>
     </nav>
   );
