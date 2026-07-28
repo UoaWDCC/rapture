@@ -28,7 +28,7 @@ export default function NewsTabs({ allNews }: { allNews: News[] }) {
       <div>
         {allNews.length === 0 ? (
           /*No news; just a container display */
-          <div className="w-full h-148.75 bg-[#F2B423]/70 flex items-center justify-center p-3 text-center text-[#302F2F] font-[Nova_Cut]">
+          <div className="w-full h-148.75 text-2xl bg-[#F2B423]/70 flex items-center justify-center p-3 text-center text-[#302F2F] font-[Nova_Cut]">
             <p>No news to display yet.</p>
           </div>
         ) : (
