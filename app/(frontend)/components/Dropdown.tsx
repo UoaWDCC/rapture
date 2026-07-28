@@ -8,7 +8,7 @@ type DropdownItem = {
 
 type DropdownProps = {
   label: string;
-  items: DropdownItem[];
+  items: string[];
 };
 
 export default function Dropdown({ label, items }: DropdownProps) {
@@ -28,18 +28,18 @@ export default function Dropdown({ label, items }: DropdownProps) {
   }, []);
 
   return (
-    <div ref={dropdownRef} className="p-2">
+    <div ref={dropdownRef} className="relative p-2">
       <ul className="p-2">
         <li>
           <button onClick={() => setOpen(!open)}>{selected}</button>
           <ul className={`transition-all duration-300 overflow-hidden ${open ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}>
             {items.map((item) => (
-              <li key={item.label} className="p-2 hover:bg-gray-950">
+              <li key={item} className="p-2 hover:bg-gray-950">
                 <button onClick={() => {
-                  setSelected(item.label);
+                  setSelected(item);
                   setOpen(false);
                 }}>
-                  {item.label}
+                  {item}
                 </button>
               </li>
             ))}

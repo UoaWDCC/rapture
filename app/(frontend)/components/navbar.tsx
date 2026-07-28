@@ -3,11 +3,15 @@
 import { User } from "@/payload-types";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import NavbarPart from "./navbarPart";
+
+import Dropdown from "./Dropdown";
 
 type itemNav = {
   id: number;
   name: string;
   link: string;
+  childrenLinks?: string[];
 }
 
 type NavProps = {
@@ -19,7 +23,7 @@ export default function Navbar({item}: NavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className="w-full flex flex-row flex-wrap items-center justify-center px-6 py-2 mt-10 mb-10 bg-transparent z-1000 relative">
+    <nav className="w-full fixed top-0 flex flex-row flex-wrap items-start justify-center px-6 py-2 mt-10 mb-10 bg-transparent z-1000">
 
       {/* Logo */}
       <Image
@@ -30,29 +34,25 @@ export default function Navbar({item}: NavProps) {
         width={120}
       />
 
-      {/* Nav links */}
-      <div className="flex flex-row flex-wrap">
+      <div className="flex flex-row flex-wrap gap-1">
         {item.map((item) => {
           const isActive = pathname === item.link;
-          return (
-            <a
+          return(
+            <a 
               key={item.id}
-              href={item.link}
-              className={`w-55
-                px-5 text-xl tracking-widest
-                flex items-center justify-center
-                border border-white
-                transition-colors duration-200
-                ${isActive
-                  ? "bg-white text-black"
-                  : "bg-[#5d561e] text-white hover:bg-[#423d17]"
-                }
-              `}
-            >
-              {item.name}
+              href={item.link}>
+              <NavbarPart 
+                id={item.id} 
+                name={item.name} 
+                childrenLinks={item.childrenLinks}
+              />
             </a>
-          );
+          )
         })}
+      </div>
+
+      <div className="self-start relative">
+        <Dropdown label="something" items={["idk", "idk2"]} />
       </div>
     </nav>
   );

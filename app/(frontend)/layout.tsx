@@ -31,7 +31,7 @@ export const metadata = {
 
 const itemsNav = [
   { id: 1, name: "Home", link: "/" },
-  { id: 2, name: "Games", link: "/games" },
+  { id: 2, name: "Games", link: "/games", childrenLinks: ["/something"]},
   { id: 3, name: "News", link: "/news" },
   { id: 4, name: "Leaderboard", link: "/leaderboard" },
   { id: 5, name: "Support Us", link: "/support" }
