@@ -1,6 +1,42 @@
 import Image from "next/image";
 import Link from "next/link";
+
 import GlitchReveal from "./GlitchReveal";
+
+import type { News } from "@/payload-types";
+
+type RichTextNode = {
+  type: string;
+  text?: string | null;
+  children?: RichTextNode[];
+  [key: string]: unknown;
+};
+
+type RichTextField = {
+  root: {
+    type: string;
+    children: RichTextNode[];
+    direction: "ltr" | "rtl" | null;
+    format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
+    indent: number;
+    version: number;
+    [key: string]: unknown;
+  };
+  [key: string]: unknown;
+};
+
+function extractPlainText(richText: RichTextField | null | undefined): string {
+  if (!richText?.root?.children) return "";
+
+  function getText(node: RichTextNode): string {
+    if (node.type === "text") return node.text || "";
+    if (node.children) return node.children.map(getText).join(" ");
+    return "";
+  }
+
+  return richText.root.children.map(getText).join(" ").trim();
+}
+
 
 const BottomArrow = () => (
   <div className="relative w-[28px] h-[20px]">
@@ -38,9 +74,11 @@ const NotificationButton = ({ children }: { children: string }) => {
   );
 };
 
-const ReadMoreButton = () => {
+const ReadMoreButton = ({ articleId }: { articleId?: string }) => {
+  const href = articleId ? `/news?article=${articleId}` : "/news";
+
   return (
-    <Link href="/news">
+    <Link href={href}>
       <div className="mt-4 flex flex-col items-center space-y-2 cursor-pointer hover:opacity-60 transition-all">
         <BottomArrow />
         <p className="cursor-pointer">READ MORE</p>
@@ -49,9 +87,11 @@ const ReadMoreButton = () => {
   );
 };
 
-export function NewsSection() {
-  const description =
-    "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa Cum sociis natoque penatibus et magnis dis parturient montes, Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa Cum sociis natoque penatibus et magnis dis parturient montes, Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.";
+export function NewsSection({ latestNews }: { latestNews: News | null }) {
+  const description = latestNews
+    ? extractPlainText(latestNews.description)
+    : "";
+  const title = latestNews?.title ?? "No News Available";
 
   return (
     <section className="bg-background text-brand-yellow mt-10 w-full">
@@ -128,7 +168,7 @@ export function NewsSection() {
             <div className="absolute z-1 w-[1px] h-10 md:bg-background left-20" />
 
             <div className="relative mx-4 md:mx-20 pt-8 md:pt-30 pb-3 border border-brand-yellow">
-              <h2 className="mb-4 px-4 md:px-10">HEADER</h2>
+              <h2 className="mb-4 px-4 md:px-10">{title}</h2>
               <div className="px-4 md:px-18">
                 {/* Mobile description */}
                 <p className="mb-2 md:hidden">
@@ -141,7 +181,7 @@ export function NewsSection() {
 
                 <p className="text-right">VS 3.01</p>
                 <Divider />
-                <ReadMoreButton />
+                <ReadMoreButton articleId={latestNews?.id} />
               </div>
             </div>
           </GlitchReveal>
