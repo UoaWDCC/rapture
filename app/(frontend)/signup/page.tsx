@@ -7,89 +7,87 @@ import AuthFormCard from '../components/auth/authFormCard'
 import AuthSideCard from '../components/auth/authSideCard'
 import Image from 'next/image'
 
-export default function LoginPage() {
+export default function SignupPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
-  
+
   const router = useRouter()
 
-  const handleLogin = async (e: React.FormEvent) => {
-  e.preventDefault()
-  setError('')
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError('')
 
-  const res = await fetch('/api/users/login', {
-    method: 'POST',
-    headers: { 
-      'Content-Type': 'application/json' 
-    },
-    body: JSON.stringify({ 
-      email, 
-      password 
-    }),
-  })
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.')
+      return
+    }
 
-  if (res.ok) {
-    router.push('/') 
-  } else {
-    setError('Invalid credentials. Please try again.');
+    router.push('/')
   }
-}
 
   return (
     <div className="min-h-screen bg-[#171720] flex items-center justify-center p-8">
         <div className="flex gap-8">
 
-            {/* Main login form card */}
+            {/* Main sign up form card */}
             <div className="w-[450px] h-[600px]">
-            <AuthFormCard title="LOGIN" theme="gold">
+            <AuthFormCard title="SIGN UP" theme="blue">
                 {error && (
                     <p className="text-red-400 text-center font-mono">{error}</p>
                 )}
-                <form onSubmit={handleLogin} className="flex flex-col gap-4">
+                <form onSubmit={handleSignup} className="flex flex-col gap-4">
                     <AuthInput
                         type="email"
                         placeholder="email"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
-                        theme="gold"
+                        theme="blue"
                     />
                     <AuthInput
                         type="password"
                         placeholder="password"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
-                        theme="gold"
+                        theme="blue"
+                    />
+                    <AuthInput
+                        type="password"
+                        placeholder="confirm password"
+                        value={confirmPassword}
+                        onChange={e => setConfirmPassword(e.target.value)}
+                        theme="blue"
                     />
                     <div className="mt-4">
                         <AuthButton
                             type="submit"
-                            label="sign in"
+                            label="sign up"
                             onClick={() => {}}
-                            theme="gold"
+                            theme="blue"
                         />
                     </div>
                 </form>
 
-            {/* "or log in with" divider and Steam OAuth icon */}
+            {/* "or sign up with" divider and Steam OAuth icon */}
               <div className="flex flex-col items-center gap-3 mt-4">
-                  <p className="text-gray-400 font-mono text-xs">or log in with</p>
-                  <div className="border-2 border-[#F2B423] rounded-3xl px-8 py-2">
-                      <Image src="/steam.png" alt="Sign in with Steam" width={32} height={32} />
+                  <p className="text-gray-400 font-mono text-xs">or sign up with</p>
+                  <div className="border-2 border-[#0650DA] rounded-3xl px-8 py-2">
+                      <Image src="/steam.png" alt="Sign up with Steam" width={32} height={32} />
                   </div>
               </div>
 
             </AuthFormCard>
             </div>
 
-            {/* Side card linking to sign up */}
+            {/* Side card linking to login */}
             <div className="w-[275px] mt-4">
               <AuthSideCard
-                title="NEW CUSTOMER?"
+                title="LOGIN?"
                 description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                buttonLabel="sign up"
-                onButtonClick={() => router.push('/signup')}
-                theme="gold"
+                buttonLabel="login"
+                onButtonClick={() => router.push('/login')}
+                theme="blue"
               />
             </div>
 
