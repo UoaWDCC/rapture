@@ -12,6 +12,10 @@ export const News: CollectionConfig = {
     delete: ({ req }) => req.user?.role === "admin",
   },
 
+  admin: {
+    useAsTitle: "title",
+  },
+
   fields: [
     {
       name: "title",
@@ -25,8 +29,32 @@ export const News: CollectionConfig = {
       },
     },
     {
+      name: "subtitle",
+      type: "text",
+      required: true,
+      validate: (value: string | null | undefined) => {
+        if (!value || !value.trim()) {
+          return "Subtitle cannot be empty";
+        }
+        return true;
+      },
+    },
+    {
       name: "description",
       type: "richText",
+      required: true,
+    },
+    {
+      name: "image",
+      type: "upload",
+      relationTo: "media",
+      required: true,
+    },
+    {
+      name: "category",
+      type: "relationship",
+      relationTo: "category",
+      hasMany: true,
       required: true,
     },
   ],
