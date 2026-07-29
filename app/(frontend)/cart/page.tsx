@@ -271,18 +271,6 @@ export default function CartPage({ searchParams }: CartProps) {
                 strokeDasharray="8 10"
                 vectorEffect="non-scaling-stroke"
               />
-              {/* Mobile position */}
-              <line
-                className="md:hidden"
-                x1="93"
-                y1="0"
-                x2="93"
-                y2="100"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeDasharray="8 10"
-                vectorEffect="non-scaling-stroke"
-              />
               {/* sm and up position */}
               <line
                 className="hidden md:block"
@@ -296,6 +284,25 @@ export default function CartPage({ searchParams }: CartProps) {
                 vectorEffect="non-scaling-stroke"
               />
             </svg>
+
+            {/* Mobile position - fixed pixel size, doesn't scale with the container */}
+            <svg
+              className="md:hidden absolute top-1/2 right-10 -translate-y-1/2 pointer-events-none"
+              width="2"
+              height="32"
+              viewBox="0 0 2 32"
+            >
+              <line
+                x1="1"
+                y1="0"
+                x2="1"
+                y2="32"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeDasharray="8 10"
+              />
+            </svg>
+
             <button
               onClick={() => setShowPromo(false)}
               aria-label="Dismiss promo"
