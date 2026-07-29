@@ -3,6 +3,23 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Button from "../components/ui/Button";
+import Image from "next/image";
+
+const IconX = () => (
+  <svg
+    width={14}
+    height={14}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    strokeLinecap="round"
+    aria-hidden="true"
+  >
+    <line x1="4" y1="4" x2="20" y2="20" />
+    <line x1="20" y1="4" x2="4" y2="20" />
+  </svg>
+)
 
 const PRODUCTS = [
   {
@@ -50,6 +67,7 @@ export default function CartPage({ searchParams }: CartProps) {
   const router = useRouter();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false)
+  const [showPromo, setShowPromo] = useState<boolean>(true)
 
   const { canceled } = searchParams
 
@@ -86,25 +104,30 @@ export default function CartPage({ searchParams }: CartProps) {
   const handleClearCart = () => setCartItems([]);
 
   const itemCount = cartItems.reduce((sum, i) => sum + i.quantity, 0);
-  const total = cartItems.reduce((sum, i) => sum + i.product.price * i.quantity, 0);
-  const currency = cartItems[0]?.product.currency ?? "NZD";
 
-  const handleCheckout = async () => {
-    setLoading(true)
-    try {
-      const res = await fetch("/api/checkout_sessions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ price_id: cartItems[0].product.id }),
-      });
-      const { url } = await res.json();
-      router.push(url);
-    } catch {
-      alert('Something went wrong on checkout. Please try again.')
-    } finally {
-      setLoading(false)
-    }
-  };
+  // =============================
+  // For checkout functionality
+  // =============================
+  // const total = cartItems.reduce((sum, i) => sum + i.product.price * i.quantity, 0);
+  // const currency = cartItems[0]?.product.currency ?? "NZD";
+
+  // const handleCheckout = async () => {
+  //   setLoading(true)
+  //   try {
+  //     const res = await fetch("/api/checkout_sessions", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ price_id: cartItems[0].product.id }),
+  //     });
+  //     const { url } = await res.json();
+  //     router.push(url);
+  //   } catch {
+  //     alert('Something went wrong on checkout. Please try again.')
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // };
+  // =============================
 
   return (
     <div className="container mx-auto my-10 px-4">
@@ -134,42 +157,45 @@ export default function CartPage({ searchParams }: CartProps) {
             {cartItems.map(({ product, quantity }) => (
               <div
                 key={product.id}
-                className="relative border border-foreground bg-slate-700 p-5 sm:p-6 md:p-8 flex flex-col lg:flex-row gap-6 sm:gap-8"
+                className="p-5 relative border-5 border-brand-blue bg-brand-blue/25 flex flex-col xl:flex-row"
               >
                 <button
                   onClick={() => handleRemove(product.id)}
                   aria-label="Remove item"
-                  className="absolute top-3 right-6 sm:top-4 sm:right-5 cursor-pointer hover:opacity-60 transition text-xl leading-none"
+                  className="absolute top-3 right-4 cursor-pointer hover:opacity-60 transition text-xl leading-none"
                 >
                   -
                 </button>
 
-                <div className="w-[calc(100%-3rem)] lg:w-56 xl:w-72 h-56 sm:h-64 md:h-80 bg-gray-400 shrink-0" />
+                {/* Image placeholder */}
+                <div className="rounded-sm w-[calc(100%-3rem)] xl:w-64 h-56 sm:h-64 md:h-80 xl:h-auto xl:self-stretch bg-gray-400 shrink-0" />
 
-                <div className="flex flex-col justify-center gap-4 sm:gap-6 lg:w-44 xl:w-56 shrink-0">
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl break-words">{product.name}</h3>
-                  <div className="flex items-center gap-6 sm:gap-8 text-base sm:text-lg">
-                    <button
-                      onClick={() => handleQuantityChange(product.id, -1)}
-                      aria-label="Decrease quantity"
-                      className="cursor-pointer hover:opacity-60 transition"
-                    >
-                      -
-                    </button>
-                    <span>{quantity}</span>
-                    <button
-                      onClick={() => handleQuantityChange(product.id, 1)}
-                      aria-label="Increase quantity"
-                      className="cursor-pointer hover:opacity-60 transition"
-                    >
-                      +
-                    </button>
+                <div className="bg-background/10 border border-brand-blue xl:border-l-0 mt-5 mb-5 mr-5 flex-1 flex flex-col xl:flex-row gap-6 sm:gap-8 p-5 sm:p-6 md:p-8">
+                  <div className="flex flex-col justify-center gap-4 sm:gap-6 xl:w-56 shrink-0">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl break-words">{product.name}</h3>
+                    <div className="flex items-center gap-6 sm:gap-8 text-base sm:text-lg">
+                      <button
+                        onClick={() => handleQuantityChange(product.id, -1)}
+                        aria-label="Decrease quantity"
+                        className="cursor-pointer hover:opacity-60 transition"
+                      >
+                        -
+                      </button>
+                      <span>{quantity}</span>
+                      <button
+                        onClick={() => handleQuantityChange(product.id, 1)}
+                        aria-label="Increase quantity"
+                        className="cursor-pointer hover:opacity-60 transition"
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex-1 min-w-0 mt-8 lg:mt-0 lg:ml-4">
-                  <p className="text-xl sm:text-2xl mb-3 sm:mb-4">Description</p>
-                  <p className="text-sm leading-relaxed opacity-80">{product.description}</p>
+                  <div className="flex-1 min-w-0 p-5 sm:p-6 text-right">
+                    <p className="text-xl sm:text-2xl mb-3 sm:mb-4">Description</p>
+                    <p className="text-sm leading-relaxed opacity-80">{product.description}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -183,8 +209,8 @@ export default function CartPage({ searchParams }: CartProps) {
           </div>
         </div>
 
-        {/* Order summary */}
-        <div className="w-full md:w-72 md:self-start shrink-0 md:min-h-[400px] bg-gray-300 text-background p-5 flex flex-col gap-4">
+        {/* Checkout order summary - temporary placeholder for now */}
+        {/* <div className="w-full md:w-72 md:self-start shrink-0 md:min-h-[400px] bg-gray-300 text-background p-5 flex flex-col gap-4">
           <h4 className="font-bold">Order Summary</h4>
           <div className="flex justify-between">
             <span>Subtotal</span>
@@ -202,6 +228,121 @@ export default function CartPage({ searchParams }: CartProps) {
           >
             {loading ? 'Please wait...' : 'Checkout'}
           </Button>
+        </div> */}
+
+        <div className="w-full md:w-72 md:self-start shrink-0 flex flex-col text-foreground">
+          {/* Top bar */}
+          <div className="relative flex justify-end items-center p-2">
+            <svg
+              className="absolute inset-0 w-full h-full pointer-events-none overflow-visible"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+            >
+              {/* Top edge */}
+              <line
+                x1="1"
+                y1="1"
+                x2="99"
+                y2="1"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeDasharray="8 10"
+                vectorEffect="non-scaling-stroke"
+              />
+              {/* Left edge */}
+              <line
+                x1="1"
+                y1="1"
+                x2="1"
+                y2="100"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeDasharray="8 10"
+                vectorEffect="non-scaling-stroke"
+              />
+              {/* Right edge */}
+              <line
+                x1="99"
+                y1="1"
+                x2="99"
+                y2="100"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeDasharray="8 10"
+                vectorEffect="non-scaling-stroke"
+              />
+              {/* Mobile position */}
+              <line
+                className="md:hidden"
+                x1="93"
+                y1="0"
+                x2="93"
+                y2="100"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeDasharray="8 10"
+                vectorEffect="non-scaling-stroke"
+              />
+              {/* sm and up position */}
+              <line
+                className="hidden md:block"
+                x1="88"
+                y1="0"
+                x2="88"
+                y2="100"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeDasharray="8 10"
+                vectorEffect="non-scaling-stroke"
+              />
+            </svg>
+            <button
+              onClick={() => setShowPromo(false)}
+              aria-label="Dismiss promo"
+              className="pr-2 md:pr-1 relative cursor-pointer hover:opacity-60 transition"
+            >
+              <IconX />
+            </button>
+          </div>
+
+          {/* Main box */}
+          <div className="relative p-2">
+            <svg
+              className="absolute inset-0 w-full h-full pointer-events-none overflow-visible"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+            >
+              <rect
+                x="1"
+                y="0"
+                width="98"
+                height="99"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeDasharray="8 10"
+                vectorEffect="non-scaling-stroke"
+              />
+            </svg>
+
+            <Image
+              src="/images/vhs-case.png"
+              alt="VHS Case"
+              width={353}
+              height={548}
+              className="relative w-full h-auto"
+            />
+
+            <div className="relative bg-foreground h-[155px] flex items-center justify-center">
+              <Image
+                src="/images/get-it-today.png"
+                alt="Get It Today"
+                width={275}
+                height={0} // auto height
+                className="w-auto h-auto max-w-[70%] sm:max-w-[180px]"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
