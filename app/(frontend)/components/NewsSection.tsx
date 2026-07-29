@@ -2,10 +2,30 @@ import Image from "next/image";
 import Link from "next/link";
 import type { News } from "@/payload-types";
 
-function extractPlainText(richText: any): string {
+type RichTextNode = {
+  type: string;
+  text?: string | null;
+  children?: RichTextNode[];
+  [key: string]: unknown;
+};
+
+type RichTextField = {
+  root: {
+    type: string;
+    children: RichTextNode[];
+    direction: "ltr" | "rtl" | null;
+    format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
+    indent: number;
+    version: number;
+    [key: string]: unknown;
+  };
+  [key: string]: unknown;
+};
+
+function extractPlainText(richText: RichTextField | null | undefined): string {
   if (!richText?.root?.children) return "";
 
-  function getText(node: any): string {
+  function getText(node: RichTextNode): string {
     if (node.type === "text") return node.text || "";
     if (node.children) return node.children.map(getText).join(" ");
     return "";
@@ -52,7 +72,7 @@ const NotificationButton = ({ children }: { children: string }) => {
 
 const ReadMoreButton = ({ articleId }: { articleId?: string }) => {
   const href = articleId ? `/news?article=${articleId}` : "/news";
-  
+
   return (
     <Link href={href}>
       <div className="mt-4 flex flex-col items-center space-y-2 cursor-pointer hover:opacity-60 transition-all">
@@ -64,7 +84,9 @@ const ReadMoreButton = ({ articleId }: { articleId?: string }) => {
 };
 
 export function NewsSection({ latestNews }: { latestNews: News | null }) {
-  const description = latestNews ? extractPlainText(latestNews.description) : "";
+  const description = latestNews
+    ? extractPlainText(latestNews.description)
+    : "";
   const title = latestNews?.title ?? "No News Available";
 
   return (
@@ -152,7 +174,7 @@ export function NewsSection({ latestNews }: { latestNews: News | null }) {
 
                 <p className="text-right">VS 3.01</p>
                 <Divider />
-                <ReadMoreButton articleId={latestNews?.id}/>
+                <ReadMoreButton articleId={latestNews?.id} />
               </div>
             </div>
           </div>
