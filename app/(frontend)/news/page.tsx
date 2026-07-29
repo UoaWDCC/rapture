@@ -5,9 +5,13 @@ import NewsList from "@/app/(frontend)/components/NewsList/NewsList";
 import { NewsListProps } from "../components/NewsList";
 import GameCard from "@/app/(frontend)/components/gameCard";
 import NewsSubmission from "../components/newsSubmission";
-import type { NewsItem } from "../components/NewsList";
+import type { NewsItem } from "../components/NewsList";                                                                                     
 
-export default async function ExampleCollectionPage() {
+export default async function ExampleCollectionPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ article?: string }>;
+}) {
   const payload = await getPayload({ config: await config });
 
   const newsItems = await payload.find({
@@ -18,6 +22,9 @@ export default async function ExampleCollectionPage() {
     collection: "category",
   });
 
+  const params = await searchParams;
+  const expandedArticleId = params.article ?? null;
+  
   const sampleNewsItems: NewsItem[] = [
     {
       id: "1",
@@ -87,7 +94,7 @@ export default async function ExampleCollectionPage() {
             <div className="md:w-[70%] max-w-full">
               {" "}
               {/*ml-15  mt-[2.5%]*/}
-              <NewsTab allNews={newsItems.docs} categories={categories.docs} />
+              <NewsTab allNews={newsItems.docs} categories={categories.docs} expandedArticleId={expandedArticleId} />
             </div>
             <div className="md:shrink-0 md:h-full md:w-[30%] md:flex-wrap md:pl-4 pt-[0.6rem] items-start w-full">
               {" "}
