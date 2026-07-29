@@ -15,12 +15,12 @@ export default async function ProductsDisplay(props: productProps) {
     <div className={`flex flex-row w-full group ${props.className}`}>
         <div className="w-full h-full">
           {props.product.image && typeof props.product.image !== "string" ? (
-            <Image src={props.product.image.url ?? ""} alt={props.product.image.alt ?? props.product.name} width={1560} height={1560} className="w-full h-full object-cover mb-3 rounded-2xl" />
+            <Image src={props.product.image.url ?? ""} alt={props.product.image.alt ?? props.product.name} width={1560} height={1560} className="w-full h-full object-cover mb-3 rounded-md" />
           ) : (
-            <div className="w-full h-full bg-[#1F1F1F] mb-3 rounded-2xl"></div>
+            <div className="w-full h-full bg-[#1F1F1F] mb-3 rounded-md"></div>
           )}
         </div>
-        <div className="inline-block max-w-full ml-[-100%] pr-[10%] p-3 bg-black rounded-l-2xl transition ease-in-out duration-500 opacity-0 group-hover:opacity-70">
+        <div className="inline-block max-w-full ml-[-100%] pr-[10%] p-3 bg-black rounded-l-md transition ease-in-out duration-500 opacity-0 group-hover:opacity-70">
           <div className=" hover:underline hover:cursor-pointer hover:text-bold">
             <a href="/">
               <p className="font-bold text-[150%] p-[5%]">{props.product.name}</p>

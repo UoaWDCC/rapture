@@ -4,6 +4,7 @@ import ProductsDisplay from "./components/productsDisplay";
 import ProductsDisplayBig from "./components/productsDisplayBig";
 import { Pagination } from "@/components/ui/Pagination";
 import ProductForm from "./components/productForm"
+import Carousel from "@/app/(frontend)/components/Carousel";
 
 interface PageProps {
   searchParams: Promise<{ page?: string; limit?: string }>;
@@ -30,10 +31,13 @@ export default async function ProductsPage({ searchParams }: PageProps) {
 
   return (
     <div className="container">
-      <div>
-        {result.docs.map((product, i) => (
-          <ProductsDisplayBig key={i} product={product} className="h-[40%]" />
-        ))}
+      <div className="mb-[5%] h-[40%]">
+        <Carousel
+          isImageCarousel={false}
+          items={result.docs.map((product, i) => (
+            <ProductsDisplayBig key={i} product={product} className="h-full" />
+          ))}
+        />
       </div>
 
       <div className="h-200 w-full mx-auto bg-[#1F1F1F]"></div>
