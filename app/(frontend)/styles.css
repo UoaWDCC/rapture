@@ -44,6 +44,10 @@
   --text-stroke-color: --value(--color-*);
 }
 
+@utility writing-mode-vertical {
+  writing-mode: vertical-lr;
+}
+
 :root {
   --background: #000000;
   --foreground: #ffffff;
