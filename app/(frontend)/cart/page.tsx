@@ -105,29 +105,22 @@ export default function CartPage({ searchParams }: CartProps) {
 
   const itemCount = cartItems.reduce((sum, i) => sum + i.quantity, 0);
 
-  // =============================
-  // For checkout functionality
-  // =============================
-  // const total = cartItems.reduce((sum, i) => sum + i.product.price * i.quantity, 0);
-  // const currency = cartItems[0]?.product.currency ?? "NZD";
-
-  // const handleCheckout = async () => {
-  //   setLoading(true)
-  //   try {
-  //     const res = await fetch("/api/checkout_sessions", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ price_id: cartItems[0].product.id }),
-  //     });
-  //     const { url } = await res.json();
-  //     router.push(url);
-  //   } catch {
-  //     alert('Something went wrong on checkout. Please try again.')
-  //   } finally {
-  //     setLoading(false)
-  //   }
-  // };
-  // =============================
+  const handleCheckout = async () => {
+    setLoading(true)
+    try {
+      const res = await fetch("/api/checkout_sessions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ price_id: cartItems[0].product.id }),
+      });
+      const { url } = await res.json();
+      router.push(url);
+    } catch {
+      alert('Something went wrong on checkout. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  };
 
   return (
     <div className="container mx-auto my-10 px-4">
@@ -207,28 +200,19 @@ export default function CartPage({ searchParams }: CartProps) {
               <Product key={i} product={item} onAdd={handleAdd} />
             ))}
           </div>
+
+          {/* Checkout */}
+          <div className="flex items-center justify-center">
+            <button
+              onClick={handleCheckout}
+              disabled={cartItems.length === 0 || loading}
+              className="bg-foreground text-background font-bold px-20 py-3 cursor-pointer hover:opacity-80 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'PLEASE WAIT...' : 'GO TO CHECKOUT'}
+            </button>
+          </div>
         </div>
 
-        {/* Checkout order summary - temporary placeholder for now */}
-        {/* <div className="w-full md:w-72 md:self-start shrink-0 md:min-h-[400px] bg-gray-300 text-background p-5 flex flex-col gap-4">
-          <h4 className="font-bold">Order Summary</h4>
-          <div className="flex justify-between">
-            <span>Subtotal</span>
-            <span>{total} {currency}</span>
-          </div>
-          <div className="h-[1px] bg-background/20" />
-          <div className="flex justify-between font-bold">
-            <span>Total</span>
-            <span>{total} {currency}</span>
-          </div>
-          <Button
-            onClick={handleCheckout}
-            disabled={cartItems.length === 0 || loading}
-            className="mt-4 w-full"
-          >
-            {loading ? 'Please wait...' : 'Checkout'}
-          </Button>
-        </div> */}
 
         <div className="w-full md:w-72 md:self-start shrink-0 flex flex-col text-foreground">
           {/* Top bar */}
