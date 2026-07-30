@@ -6,6 +6,8 @@ import { Pagination } from "@/components/ui/Pagination";
 import ProductForm from "./components/productForm"
 import Carousel from "@/app/(frontend)/components/Carousel";
 
+import HamburgerButton from '@/app/(frontend)/components/ui/HamburgerButton';
+
 interface PageProps {
   searchParams: Promise<{ page?: string; limit?: string }>;
 }

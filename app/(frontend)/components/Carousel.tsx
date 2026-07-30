@@ -77,6 +77,16 @@ export default function Carousel(props: carouselProps) {
                     </button>
                 ))}
             </div>
+
+            <div className="absolute bottom-0 left-0 right-0 flex justify-center mb-4">
+            {slides.map((_, index) => (
+                <div
+                    key={index}
+                    className={`w-2 h-2 rounded-full mx-1 ${index === currentIndex ? 'bg-gray-800' : 'bg-gray-400'}`}
+                    onClick={() => setCurrentIndex(index)}
+                />
+            ))}
+            </div>
         </div>
     );
 }
