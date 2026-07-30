@@ -31,16 +31,22 @@ export default async function ProductsPage({ searchParams }: PageProps) {
 
   return (
     <div className="container">
-      <div className="mb-[5%] h-[40%]">
+      {/*<div className="mb-[5%] h-[40%]">
         <Carousel
           isImageCarousel={false}
           items={result.docs.map((product, i) => (
             <ProductsDisplayBig key={i} product={product} className="h-full" />
           ))}
         />
+      </div>*/}
+
+      <div className="my-[5%] md:mx-0">
+        {result.docs[1] && (
+            <ProductsDisplayBig product={result.docs[1]} />
+          )}
       </div>
 
-      <div className="h-200 w-full mx-auto bg-[#1F1F1F]"></div>
+      {/*<div className="h-100 w-full mx-auto bg-[#1F1F1F]"></div>*/}
       {/*user?.role === "admin" && <ProductForm />*/}
       {/*<h1 className="font-bold text-xl">Products ({result.totalDocs})</h1>*/}
 

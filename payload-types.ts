@@ -211,6 +211,7 @@ export interface Product {
   currency: 'NZD' | 'AUD' | 'USD' | 'EUR' | 'GBP';
   description?: string | null;
   image?: (string | null) | Media;
+  additionalImage?: (string | Media)[] | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -462,6 +463,7 @@ export interface ProductsSelect<T extends boolean = true> {
   currency?: T;
   description?: T;
   image?: T;
+  additionalImage?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
