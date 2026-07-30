@@ -12,16 +12,19 @@ export default function ContactForm({
   onSubmit,
 }: ContactFormProps) {
   return (
-    <div className="w-full max-w-[869px] min-w-[320px] mx-auto @container">
-      <div className="relative w-full bg-[#0650DA]/30 text-white overflow-hidden aspect-869/980 pt-[9.206cqw] pl-[14.384cqw] pr-[7.940cqw] pb-[11.507cqw]">
+    <div className="w-full max-w-[870px] min-w-[320px] mx-auto @container">
+      <div className="relative w-full text-white overflow-hidden aspect-[87/98] pt-[9cqw] pl-[14cqw] pr-[8cqw] pb-[12cqw]">
         
+        {/* Background Overlay */}
+        <div className="absolute inset-0 bg-[#0650DA]/[0.34] pointer-events-none z-10" />
+
         {/* Heading */}
-        <h2 className="font-nova-custom font-normal text-[5.524cqw] leading-[4.604cqw] tracking-normal">
+        <h2 className="relative z-20 font-nova-custom font-normal text-[5.524cqw] leading-[4.604cqw] tracking-normal">
           {title}
         </h2>
 
         {/* Description */}
-        <div className="font-fira-custom font-normal mt-[1.956cqw] text-[1.611cqw] leading-[1.841cqw] max-w-[68.929cqw] tracking-[-0.01em]">
+        <div className="relative z-20 font-fira-custom font-normal mt-[1.956cqw] text-[1.611cqw] leading-[1.841cqw] max-w-[68.929cqw] tracking-[-0.01em]">
           {description}
         </div>
 
@@ -33,7 +36,7 @@ export default function ContactForm({
         >
           
           {/* Row 1: First and Last Name */}
-          <div className="flex flex-row gap-[4.028cqw]">
+          <div className="relative z-20 flex flex-row gap-[4.028cqw]">
             <div className="flex flex-col flex-1 gap-[1.036cqw]">
               <label 
                 htmlFor="firstName" 
@@ -72,7 +75,7 @@ export default function ContactForm({
           </div>
 
           {/* Row 2: Email */}
-          <div className="flex flex-col gap-[1.266cqw] mt-[3.797cqw] w-[77.676cqw]">
+          <div className="relative z-20 flex flex-col gap-[1.266cqw] mt-[3.797cqw] w-[77.676cqw]">
             <label 
               htmlFor="email" 
               className="font-nova-custom font-normal text-[3.222cqw] leading-[2.762cqw] tracking-[-0.01em]"
@@ -91,7 +94,7 @@ export default function ContactForm({
           </div>
 
           {/* Row 3: Enquiry Category */}
-          <div className="flex flex-col gap-[1.036cqw] mt-[3.567cqw] w-[46.145cqw]">
+          <div className="relative z-20 flex flex-col gap-[1.036cqw] mt-[3.567cqw] w-[46.145cqw]">
             <label 
               htmlFor="enquiryCategory" 
               className="font-nova-custom font-normal text-[3.222cqw] leading-[2.762cqw] tracking-[-0.01em]"
@@ -122,7 +125,7 @@ export default function ContactForm({
           </div>
 
           {/* Row 4: Message */}
-          <div className="flex flex-col gap-[1.036cqw] mt-[3.797cqw] w-[77.676cqw]">
+          <div className="relative z-20 flex flex-col gap-[1.036cqw] mt-[3.797cqw] w-[77.676cqw]">
             <label 
               htmlFor="message" 
               className="font-nova-custom font-normal text-[3.222cqw] leading-[2.762cqw] tracking-[-0.01em]"
@@ -137,10 +140,10 @@ export default function ContactForm({
           </div>
 
           {/* Submit Button */}
-          <div className="mt-[2.762cqw] ml-[58.007cqw]">
+          <div className="relative z-0 mt-[2.762cqw] ml-[58.007cqw]">
             <button 
               type="submit"
-              className="bg-black text-white font-normal flex items-center justify-center w-[19.642cqw] h-[4.718cqw] font-fira-custom text-[1.726cqw] leading-[1.726cqw]"
+              className="bg-black text-white font-normal flex items-center justify-center w-[19.642cqw] h-[4.718cqw] font-fira-custom text-[1.726cqw] leading-[1.726cqw] shadow-[0_4px_4px_rgba(0,0,0,0.25)]"
             >
               Submit
             </button>
