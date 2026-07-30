@@ -19,7 +19,7 @@ export default function AuthFormCard({ title, children, theme }: AuthFormCardPro
     <div className={`border-8 ${borderColor} rounded p-2 relative w-full bg-cover bg-center bg-no-repeat `}
         style={{ backgroundImage: "url('/images/bit-texture.png')" }}>
         <div className={`h-[625px] rounded ${cardBg} border-2 ${borderColor} px-6 pt-18 pb-8 flex flex-col gap-4`}>
-            <h1 style={{ fontFamily: "var(--font-nova-cut)", textShadow: `0 0 15px ${glowColor}`, fontSize: "4.5rem"}} className={`italic font-bold ${textColor} text-left`}>{title}</h1>
+            <h1 style={{ fontFamily: "var(--font-nova-cut)", textShadow: `0 0 15px ${glowColor}`, fontSize: "4.5rem", letterSpacing: "-0.12em"}} className={`italic font-normal ${textColor} text-left`}>{title}</h1>
             <div className="relative z-10 flex flex-col gap-4">
                 {children}
             </div>
