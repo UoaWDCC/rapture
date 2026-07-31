@@ -103,14 +103,12 @@ export default function LoginPage() {
           </AuthFormCard>
         </div>
 
-        <div className="max-md:h-10"></div>
-
         {/* Side card linking to sign up */}
         <div className="relative w-[275px] mt-4">
 
           {/* Decorative accent panel - side card top right (behind) */}
           <div className="hidden md:block absolute -top-18 -right-56 w-[400px] h-45 border-4 border-[#F2B423] rounded p-0.25 z-0">
-            <div className="w-full h-full border-2 border-[#F2B423] rounded bg-[#F2B423]/15"></div>
+            <div className="w-full h-full border-2 border-[#F2B423] rounded bg-[#271E06]/80"></div>
           </div>
 
           {/* Decorative accent panel - side card bottom right */}
@@ -118,7 +116,7 @@ export default function LoginPage() {
             <div className="w-full h-full border-2 border-[#F2B423] rounded bg-[#271E06]/80"></div>
           </div>
 
-          <div className="hidden md:block relative z-10 bg-[#271E06]/80 rounded">
+          <div className="hidden md:block relative z-10 bg-[#271E06] rounded">
             <AuthSideCard
               title={`NEW\nCUSTOMER?`}
               description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
@@ -128,7 +126,8 @@ export default function LoginPage() {
             />
           </div>
 
-          <div className="block md:hidden absolute -top-45 left-24 -right-24 z-10 bg-[#271E06] rounded">
+          {/* Mobile view side card */}
+          <div className="block md:hidden absolute -top-36 left-24 -right-24 z-10 bg-[#271E06] rounded">
             <AuthSideCard
               title={`NEW\nCUSTOMER?`}
               description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."

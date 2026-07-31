@@ -51,12 +51,12 @@ export default function SignupPage() {
 
                     {/* Decorative accent panel - form card bottom left */}
                     <div className="absolute bottom-6 -left-42 w-60 h-36 border-4 border-[#0650DA] rounded p-0.25 z-20">
-                        <div className="w-full h-full border-2 border-[#0650DA] rounded bg-[#0650DA]/15"></div>
+                        <div className="w-full h-full border-2 border-[#0650DA] rounded bg-[#010C21]/80"></div>
                     </div>
 
                     {/* Decorative accent panel - form card bottom right */}
                     <div className="hidden md:block absolute bottom-18 -right-23 w-40 h-16 border-4 border-[#0650DA] rounded p-0.25 z-20">
-                        <div className="w-full h-full border-2 border-[#0650DA] rounded bg-[#0650DA]/15"></div>
+                        <div className="w-full h-full border-2 border-[#0650DA] rounded bg-[#010C21]/80"></div>
                     </div>
                     {/* Mobile-only accent - big top right */}
                     <div className="block md:hidden absolute top-8 -right-46 w-48 h-56 border-4 border-[#0650DA] rounded p-0.25 z-20">
@@ -125,10 +125,10 @@ export default function SignupPage() {
 
                     {/* Decorative accent panel - side card bottom right */}
                     <div className="hidden md:block absolute bottom-14 -right-32 w-60 h-60 border-4 border-[#0650DA] rounded p-0.25 z-20">
-                        <div className="w-full h-full border-2 border-[#0650DA] rounded bg-[#0650DA]/15"></div>
+                        <div className="w-full h-full border-2 border-[#0650DA] rounded bg-[#010C21]/80"></div>
                     </div>
 
-                    <div className="hidden md:block relative z-10 bg-[#171720] rounded">
+                    <div className="hidden md:block relative z-10 bg-[#010C21] rounded">
                         <AuthSideCard
                             title="LOGIN?"
                             description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
@@ -138,7 +138,8 @@ export default function SignupPage() {
                         />
                     </div>
 
-                    <div className="block md:hidden absolute -top-28 left-24 -right-24 z-10 bg-[#171720] rounded">
+                    {/* Mobile view side card */}
+                    <div className="block md:hidden absolute -top-28 left-24 -right-24 z-10 bg-[#010C21] rounded">
                         <AuthSideCard
                             title="LOGIN?"
                             description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."

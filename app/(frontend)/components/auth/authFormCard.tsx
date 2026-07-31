@@ -10,13 +10,13 @@ interface AuthFormCardProps {
 
 export default function AuthFormCard({ title, children, theme }: AuthFormCardProps) {
     const borderColor = theme === "gold" ? "border-[#F2B423]" : "border-[#0650DA]"
-    const cardBg = theme === "gold" ? "bg-[#F2B423]/15" : "bg-blue-[#0650DA]/15"
+    const cardBg = theme === "gold" ? "bg-[#271E06]/80" : "bg-[#010C21]/80"
     const textColor = theme === "gold" ? "text-[#F2B423]" : "text-[#82A7ED]"
     const discImage = theme === "gold" ? "/images/gold_disc.png" : "/images/blue_disc.png"
     const glowColor = theme === "gold" ? "#F2B423" : "#82A7ED"
     const discMargin = theme === "gold" ? "-mt-52" : "-mt-66"
     return (
-    <div className={`border-8 ${borderColor} rounded p-2 relative w-full bg-cover bg-center bg-no-repeat `}
+    <div className={`border-8 ${borderColor} rounded p-2 relative w-full bg-cover bg-center bg-no-repeat ${cardBg}`}
         style={{ backgroundImage: "url('/images/bit-texture.png')" }}>
         <div className={`h-[625px] rounded ${cardBg} border-2 ${borderColor} px-6 pt-18 pb-8 flex flex-col gap-4`}>
             <h1 style={{ fontFamily: "var(--font-nova-cut)", textShadow: `0 0 15px ${glowColor}`, fontSize: "4.5rem", letterSpacing: "-0.12em"}} className={`italic font-normal ${textColor} text-left`}>{title}</h1>
