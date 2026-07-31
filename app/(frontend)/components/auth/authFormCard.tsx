@@ -10,7 +10,7 @@ interface AuthFormCardProps {
 
 export default function AuthFormCard({ title, children, theme }: AuthFormCardProps) {
     const borderColor = theme === "gold" ? "border-[#F2B423]" : "border-[#0650DA]"
-    const cardBg = theme === "gold" ? "bg-[#F2B423]/10" : "bg-blue-[#0650DA]/10"
+    const cardBg = theme === "gold" ? "bg-[#F2B423]/15" : "bg-blue-[#0650DA]/15"
     const textColor = theme === "gold" ? "text-[#F2B423]" : "text-[#82A7ED]"
     const discImage = theme === "gold" ? "/images/gold_disc.png" : "/images/blue_disc.png"
     const glowColor = theme === "gold" ? "#F2B423" : "#82A7ED"

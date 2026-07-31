@@ -24,7 +24,24 @@ export default function SignupPage() {
       return
     }
 
-    router.push('/')
+    const res = await fetch('/api/users', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+    },
+        body: JSON.stringify({
+        email,
+        password
+    }),
+  })
+
+  if (res.ok) {
+        router.push('/account')
+    } else {
+        const data = await res.json()
+        console.log('Signup error:', data)
+        setError('Could not create account. Please try again.')
+    }
   }
 
   return (

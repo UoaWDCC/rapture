@@ -41,7 +41,18 @@ export default function LoginPage() {
         <div className="flex gap-8">
 
             {/* Main login form card */}
-            <div className="w-[450px] h-[600px]">
+            <div className="relative w-[450px] h-[600px]">
+              
+              {/* Decorative accent panel - form card bottom left */}
+            <div className="absolute bottom-6 -left-42 w-60 h-36 border-4 border-[#F2B423] rounded p-0.25 z-20">
+              <div className="w-full h-full border-2 border-[#F2B423] rounded bg-[#F2B423]/15"></div>
+            </div>
+            
+            {/* Decorative accent panel - form card bottom right */}
+            <div className="absolute bottom-18 -right-23 w-40 h-16 border-4 border-[#F2B423] rounded p-0.25 z-20">
+              <div className="w-full h-full border-2 border-[#F2B423] rounded bg-[#F2B423]/15"></div>
+            </div>
+            
             <AuthFormCard title="LOGIN" theme="gold">
                 {error && (
                     <p className="text-red-400 text-center font-mono">{error}</p>
@@ -83,7 +94,19 @@ export default function LoginPage() {
             </div>
 
             {/* Side card linking to sign up */}
-            <div className="w-[275px] mt-4">
+            <div className="relative w-[275px] mt-4">
+              
+              {/* Decorative accent panel - side card top right (behind) */}
+              <div className="absolute -top-18 -right-56 w-[400px] h-45 border-4 border-[#F2B423] rounded p-0.25 z-0">
+                <div className="w-full h-full border-2 border-[#F2B423] rounded bg-[#F2B423]/15"></div>
+              </div>
+
+              {/* Decorative accent panel - side card bottom right */}
+              <div className="absolute bottom-14 -right-32 w-60 h-60 border-4 border-[#F2B423] rounded p-0.25 z-20">
+                <div className="w-full h-full border-2 border-[#F2B423] rounded bg-[#F2B423]/15"></div>
+              </div>
+              
+              <div className="relative z-10 bg-[#171720] rounded">
               <AuthSideCard
                 title="NEW CUSTOMER?"
                 description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
@@ -92,6 +115,8 @@ export default function LoginPage() {
                 theme="gold"
               />
             </div>
+
+          </div>
 
         </div>
     </div>
