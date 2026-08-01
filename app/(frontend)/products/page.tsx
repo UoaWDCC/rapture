@@ -2,9 +2,7 @@ import { getPayload } from "payload";
 import config from "@/payload.config";
 import ProductsDisplay from "./components/productsDisplay";
 import ProductsDisplayBig from "./components/productsDisplayBig";
-import { Pagination } from "@/components/ui/Pagination";
 import ProductForm from "./components/productForm"
-import Carousel from "@/app/(frontend)/components/Carousel";
 
 interface PageProps {
   searchParams: Promise<{ page?: string; limit?: string }>;
@@ -31,14 +29,6 @@ export default async function ProductsPage({ searchParams }: PageProps) {
 
   return (
     <div className="container mx-auto">
-      {/*<div className="mb-[5%] h-[40%]">
-        <Carousel
-          isImageCarousel={false}
-          items={result.docs.map((product, i) => (
-            <ProductsDisplayBig key={i} product={product} className="h-full" />
-          ))}
-        />
-      </div>*/}
 
       <div className="my-[5%] md:mx-0">
         {result.docs[1] && ( //1 is just the first product.
@@ -47,22 +37,11 @@ export default async function ProductsPage({ searchParams }: PageProps) {
           )}
       </div>
 
-      {/*<div className="h-100 w-full mx-auto bg-[#1F1F1F]"></div>*/}
-      {/*user?.role === "admin" && <ProductForm />*/}
-      {/*<h1 className="font-bold text-xl">Products ({result.totalDocs})</h1>*/}
-
       <div className="h-[10%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-[5%] p-[3%]">
         {result.docs.map((product, i) => (
           <ProductsDisplay key={i} product={product} className="h-full" /> //all products previewed here.
         ))}
       </div>
-
-      {/*<Pagination
-        page={page}
-        totalPages={result.totalPages}
-        hasNextPage={result.hasNextPage}
-        hasPrevPage={result.hasPrevPage}
-      />*/}
     </div>
   );
 }

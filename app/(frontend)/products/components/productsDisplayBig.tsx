@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, { useState } from "react";
 import { Product } from "@/payload-types";
 import { Media } from "@/payload-types";
 import Image from "next/image";
@@ -19,7 +19,6 @@ export default function ProductsDisplay(props: productProps) {
   const isMedia = (image: string | Media): image is Media => typeof image === "object" && image !== null && "url" in image;
   const [amount, setAmount] = useState(1);
 
-  // console.log("product image:", props.product.image)
   console.log("image", props.product.image);
   console.log("additionalImage", props.product.additionalImage);
   console.log(props.product.additionalImage);
@@ -46,7 +45,7 @@ export default function ProductsDisplay(props: productProps) {
             </div>
         )}
       </div>
-      <div className="block md:hidden h-100 w-[90%] mx-auto my-[5%] items-center justify-center">
+      <div className="block md:hidden h-100 w-[90%] mx-auto my-[5%] rounded-md items-center justify-center">
         {props.product.additionalImage && props.product.additionalImage.length > 0 ? (
           <Carousel
           items={props.product.additionalImage?.map((image, index) => {
@@ -56,10 +55,10 @@ export default function ProductsDisplay(props: productProps) {
               )
             }
             return (
-             <Image key={index} src={image.url ?? ""} alt={image.alt ?? `${props.product.name} ${index+ 1}`} width={2000} height={2000} className="max-w-full max-h-full md:my-auto object-contain rounded-md" />
+             <Image key={index} src={image.url ?? ""} alt={image.alt ?? `${props.product.name} ${index+ 1}`} width={2000} height={2000} className="max-w-full max-h-full my-auto md:my-auto object-contain rounded-md" />
             );
           })}
-          className="max-h-screen place-items-center-safe justify-center"
+          className="max-h-screen my-auto rounded-md items-center justify-center"
         />
         ) : (
             <div className="flex w-full h-full mx-auto py-[40%] rounded-md items-center justify-center">
