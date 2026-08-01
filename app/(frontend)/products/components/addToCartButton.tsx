@@ -2,7 +2,8 @@
 
 type props= {
     productId: string;
-    className: string;
+    className?: string;
+    amount: number;
 }
 
 async function addToCart(productId: string) {
@@ -11,6 +12,6 @@ async function addToCart(productId: string) {
 
 export default function AddToCartButton(props: props) {
     return (
-        <button className={`font-mono bg-white text-black p-[2%] rounded-sm hover:bg-amber-800 hover:cursor-pointer ${props.className}`} onClick={() => addToCart(props.productId)}>ADD TO BAG</button>
+        <button className={`font-mono bg-white text-black p-[2%] rounded-sm hover:cursor-pointer ${props.className}`} onClick={() => addToCart(props.productId)}>ADD {props.amount} TO BAG</button>
     )
 }

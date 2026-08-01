@@ -3,29 +3,21 @@ import { useState } from "react";
 
 type props= {
     className?: string;
+    setCounter: React.Dispatch<React.SetStateAction<number>>;
+    amount: number;
 }
 
-export default function IncrementorButton(props: props) {
-    const [counter, setCounter] = useState(0);
-
-    const incrementor = () => {
-        setCounter(counter + 1);
-    }
-
-    const decrementor = () => {
-        if (counter > 0) setCounter(counter - 1);
-    }
-
+export default function IncrementorButton(props: props) {    
     return (
         <div className={`flex flex-row w-[35%] px-[3.5%] py-[1.5%] border-white border ${props.className}`}>
             <button
                 className={`font-mono text-white rounded-sm hover:text-shadow-white hover:text-shadow-xs hover:cursor-pointer`}
-                onClick={() => decrementor()}
+                onClick={() => props.setCounter(c => Math.max(0, c-1))}
             >-</button>
-            <span className="number mx-auto">{counter}</span>
+            <span className="number mx-auto">{props.amount}</span>
             <button
                 className={`font-mono text-white rounded-sm hover:text-shadow-white hover:text-shadow-xs hover:cursor-pointer`}
-                onClick={() => incrementor()}
+                onClick={() => props.setCounter(c => c + 1)}
             >+</button>
         </div>
     )

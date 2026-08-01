@@ -6,8 +6,6 @@ import { Pagination } from "@/components/ui/Pagination";
 import ProductForm from "./components/productForm"
 import Carousel from "@/app/(frontend)/components/Carousel";
 
-import HamburgerButton from '@/app/(frontend)/components/ui/HamburgerButton';
-
 interface PageProps {
   searchParams: Promise<{ page?: string; limit?: string }>;
 }
@@ -43,8 +41,9 @@ export default async function ProductsPage({ searchParams }: PageProps) {
       </div>*/}
 
       <div className="my-[5%] md:mx-0">
-        {result.docs[1] && (
-            <ProductsDisplayBig product={result.docs[1]} />
+        {result.docs[1] && ( //1 is just the first product.
+            <ProductsDisplayBig product={result.docs[1]} cap={30} />
+            //cap = quantity cap for the quantity can one add into cart each time.
           )}
       </div>
 
@@ -54,16 +53,16 @@ export default async function ProductsPage({ searchParams }: PageProps) {
 
       <div className="h-[10%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-[5%] p-[3%]">
         {result.docs.map((product, i) => (
-          <ProductsDisplay key={i} product={product} className="h-full" />
+          <ProductsDisplay key={i} product={product} className="h-full" /> //all products previewed here.
         ))}
       </div>
 
-      <Pagination
+      {/*<Pagination
         page={page}
         totalPages={result.totalPages}
         hasNextPage={result.hasNextPage}
         hasPrevPage={result.hasPrevPage}
-      />
+      />*/}
     </div>
   );
 }
