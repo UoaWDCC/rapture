@@ -30,7 +30,7 @@ export default async function ProductsPage({ searchParams }: PageProps) {
   const { user } = await payload.auth({ headers: await (await import("next/headers")).headers() })
 
   return (
-    <div className="container">
+    <div className="container mx-auto">
       {/*<div className="mb-[5%] h-[40%]">
         <Carousel
           isImageCarousel={false}
