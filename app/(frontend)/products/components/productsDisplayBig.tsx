@@ -72,7 +72,7 @@ export default function ProductsDisplay(props: productProps) {
         <p className="w-full font-mono text-3xl md:text-5xl text-center">{props.product.name}</p>
         <p className="w-full font-mono text-2xl md:text-4xl text-center mt-[3%] mb-[7.5%]">{formattedPrice} {props.product.currency}</p>
         <div className="w-full flex flex-col mt-[7%] items-center justify-center">
-          <IncrementorButton amount={amount} setCounter={setAmount} className="m-[1.5%]"></IncrementorButton>
+          <IncrementorButton amount={amount} setCounter={setAmount} numCap={quantityCap} className="m-[1.5%]"></IncrementorButton>
           <AddToCartButton productId={props.product.id} amount={amount} className="w-[90%] mt-[10%] hover:scale-105 hover:shadow-md hover:shadow-white"/>
         </div>
       </div>
