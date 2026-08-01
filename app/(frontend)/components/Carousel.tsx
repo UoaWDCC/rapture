@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 type carouselProps = {
-    isImageCarousel:false;
     items:React.ReactNode[];
     autoSlide?: boolean;
     autoSlideInterval?: number;
@@ -70,10 +69,10 @@ export default function Carousel(props: carouselProps) {
             onTouchStart={() => setIsPaused(true)}
             onTouchEnd={() => setIsPaused(false)}
         >
-            <div ref={carouselRef} className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none">
+            <div ref={carouselRef} className="flex h-full overflow-x-auto snap-x snap-mandatory scrollbar-none">
                 {slides.map((slide, index) => (
-                    <button key={index} className={`w-full snap-center shrink-0`}>
-                        {slide}
+                    <button key={index} className={`w-full snap-center shrink-0 overflow-hidden`}>
+                        {slide} {/*any component won't automatically be contained within this div and any overflow will just be hidden*/}
                     </button>
                 ))}
             </div>
