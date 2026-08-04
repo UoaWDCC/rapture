@@ -34,18 +34,18 @@ export default function Navbar({item}: NavProps) {
 
       {/* Logo */}
       <Image
-        className="mr-8 h-16 w-auto shrink-0"
+        className="mr-8 h-14 w-auto shrink-0"
         alt="Rapture Logo"
         height={120}
-        src="/LOGO.png"
         width={120}
+        src="/LOGO.png"
       />
 
-      <Link href="/" className="w-50 h-8 mr-1 bg-blue-800 border border-blue-500 opacity-70 text-xl flex items-center pl-2 pt-0.5 [clip-path:polygon(0_0,90%_0,93%_30%,100%_30%,100%_100%,0_100%)] hover:opacity-90">
+      <Link href="/" className="w-50 h-8 mr-1 mt-4 bg-blue-800 border border-blue-500 opacity-70 text-xl flex items-center pl-2 pt-0.5 [clip-path:polygon(0_0,90%_0,93%_30%,100%_30%,100%_100%,0_100%)] hover:opacity-90">
         Home
       </Link>
 
-      <div className="flex flex-row flex-wrap gap-1">
+      <div className="flex flex-row flex-wrap gap-1 mt-4">
         {item.map((item) => {
           const isActive = pathname === item.link;
           return(
