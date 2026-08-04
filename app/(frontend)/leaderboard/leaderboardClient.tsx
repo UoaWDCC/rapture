@@ -69,8 +69,9 @@ export default function LeaderboardClient({
             <div className="w-90 flex flex-col gap-2 justify-center ml-auto">
                 <LeaderboardSearch onSearch={handleSearch} />
 
-                <div className="h-full max-h-15/20 w-full max-w-[250px] ml-auto border-2 border-dashed rounded-xs border-brand-blue">
-                    <Image src={"/images/ad.png"} alt={"leaderboard ad"} width={220} height={134}/>
+                <div className="relative h-full max-h-15/20 w-full max-w-[250px] ml-auto border-2 border-dashed rounded-xs border-brand-blue overflow-hidden">
+                    <Image src={"/images/ad.png"} alt={"leaderboard ad"} fill className="object-cover"/>
+                    <div className="absolute inset-x-20 bottom-70 left-25 text-4xl text-white bg-black/40 py-1">GET YOURS TODAY</div>
                 </div>
             </div>
         </div>
