@@ -59,7 +59,7 @@ export function Pagination({ page, totalPages, hasNextPage, hasPrevPage }: Pagin
         {`<`}
       </PageButton>
 
-      <div className="h-8 border-l border-r border-dotted border-brand-blue">
+      <div className="h-8 border-l border-r border-dotted border-brand-blue pl-4 pr-4">
         <input
           type="number"
           min={1}
@@ -68,7 +68,7 @@ export function Pagination({ page, totalPages, hasNextPage, hasPrevPage }: Pagin
           onChange={(e) => setInput(e.target.value)}
           onBlur={handleNavigate}
           onKeyDown={(e) => e.key === "Enter" && handleNavigate()}
-          className="text-center text-lg outline-none"
+          className="text-center text-lg outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
         />
       </div>
 
