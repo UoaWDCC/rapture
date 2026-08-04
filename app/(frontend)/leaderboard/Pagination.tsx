@@ -59,7 +59,7 @@ export function Pagination({ page, totalPages, hasNextPage, hasPrevPage }: Pagin
         {`<`}
       </PageButton>
 
-      <div className="h-9 border-l border-r border-dashed border-brand-blue pl-4 pr-4 pt-1">
+      <div className="h-10 border-l border-r border-dashed border-brand-blue pl-4 pr-4 pt-1">
         <input
           type="number"
           min={1}

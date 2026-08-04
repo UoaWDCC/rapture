@@ -38,12 +38,12 @@ export default function LeaderboardClient({
 
   return (
     <div className="flex flex-col w-full font-nova">
-        <div className="w-full p-3.5 flex justify-center items-center text-center border-2 border-brand-blue [text-shadow:0_0_10px_#6060ff,0_0_20px_#ffffff]">
+        <div className="w-full p-3.5 flex justify-center items-center text-center border-2 border-brand-blue text-xl [text-shadow:0_0_10px_#6060ff,0_0_20px_#ffffff]">
             <h5>WELCOME TO STUDIO RAPTURE LEADERBOARD</h5>
         </div>
 
         <div className="h-15 w-full flex flex-row gap-3 justify-between items-center">
-            <div className="w-10/20 p-2 text-white bg-brand-blue [text-shadow:0_0_10px_#6060ff,0_0_20px_#ffffff]">
+            <div className="w-10/20 p-2 text-white bg-brand-blue text-xl [text-shadow:0_0_10px_#6060ff,0_0_20px_#ffffff]">
                 <p>VITROL LEADERBOARD</p>
             </div>
 
@@ -54,7 +54,7 @@ export default function LeaderboardClient({
                 hasPrevPage={hasPrevPage}
             />
 
-            <div className="h-10 w-25 border-2 border-dashed border-brand-blue"></div>
+            <div className="h-11 w-25 border-2 border-dashed rounded-xs border-brand-blue"></div>
 
             <div>
                 <p className="text-xl text-brand-blue">VERS: ACT V</p>
@@ -69,7 +69,7 @@ export default function LeaderboardClient({
             <div className="w-90 flex flex-col gap-2 justify-center ml-auto">
                 <LeaderboardSearch onSearch={handleSearch} />
 
-                <div className="h-full max-h-15/20 w-full max-w-[250px] ml-auto border-2 border-dashed border-brand-blue">
+                <div className="h-full max-h-15/20 w-full max-w-[250px] ml-auto border-2 border-dashed rounded-xs border-brand-blue">
                     <Image src={"/images/ad.png"} alt={"leaderboard ad"} width={220} height={134}/>
                 </div>
             </div>
