@@ -63,13 +63,13 @@ export default function LeaderboardClient({
 
         <div className="h-6 bg-brand-blue mb-3"></div>
 
-        <div className="h-160 flex flex-row justify-between">
+        <div className="h-159 flex flex-row justify-between">
             <LeaderboardTable players={results} startIndex={(page - 1) * limit + 1}/>
 
             <div className="w-90 flex flex-col gap-2 justify-center ml-auto">
                 <LeaderboardSearch onSearch={handleSearch} />
 
-                <div className="h-full max-h-15/20 w-19/20 ml-auto border-2 border-dashed border-brand-blue">
+                <div className="h-full max-h-15/20 w-full max-w-[250px] ml-auto border-2 border-dashed border-brand-blue">
                     <Image src={"/images/ad.png"} alt={"leaderboard ad"} width={220} height={134}/>
                 </div>
             </div>
