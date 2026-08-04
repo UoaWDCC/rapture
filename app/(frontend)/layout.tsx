@@ -51,7 +51,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${firaMono.variable} ${novaCut.variable} z-10`}>
       <body>
-        <Sidebar />
+        {/* REMOVDE SIDEBAR FOR NOW <Sidebar /> */}
         <Navbar 
           item={itemsNav} 
           user={user} 
