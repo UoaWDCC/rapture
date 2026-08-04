@@ -42,8 +42,7 @@ export default function LeaderboardClient({
             <h5>WELCOME TO STUDIO RAPTURE LEADERBOARD</h5>
         </div>
 
-        <div className="h-15 w-full flex flex-row   gap-3 justify-between items-center">
-
+        <div className="h-15 w-full flex flex-row gap-3 justify-between items-center">
             <div className="w-10/20 p-2 text-white bg-brand-blue [text-shadow:0_0_10px_#6060ff,0_0_20px_#ffffff]">
                 <p>VITROL LEADERBOARD</p>
             </div>
@@ -55,7 +54,7 @@ export default function LeaderboardClient({
                 hasPrevPage={hasPrevPage}
             />
 
-            <div className="h-12/20 w-25 border-2 border-dotted border-brand-blue"></div>
+            <div className="h-10 w-25 border-2 border-dotted border-brand-blue"></div>
 
             <div>
                 <p className="text-xl text-brand-blue">VERS: ACT V</p>
