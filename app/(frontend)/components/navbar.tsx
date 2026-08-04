@@ -41,7 +41,7 @@ export default function Navbar({item}: NavProps) {
         width={120}
       />
 
-      <Link href="/" className="w-50 h-8 mr-1 bg-blue-800 border border-blue-500 text-xl flex items-center pl-2 pt-0.5 [clip-path:polygon(0_0,90%_0,93%_30%,100%_30%,100%_100%,0_100%)] hover:opacity-80">
+      <Link href="/" className="w-50 h-8 mr-1 bg-blue-800 border border-blue-500 opacity-70 text-xl flex items-center pl-2 pt-0.5 [clip-path:polygon(0_0,90%_0,93%_30%,100%_30%,100%_100%,0_100%)] hover:opacity-90">
         Home
       </Link>
 
