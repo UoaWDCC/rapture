@@ -50,7 +50,7 @@ export function Pagination({ page, totalPages, hasNextPage, hasPrevPage }: Pagin
   }
 
   return (
-    <div className="px-2 flex justify-end items-center gap-3 rounded-xs border-2 border-dotted border-brand-blue">
+    <div className="px-2 flex justify-end items-center gap-3 rounded-xs border-2 border-dashed border-brand-blue">
       <PageButton href={`?page=${1}`} disabled={!hasPrevPage}>
         {`|<`}
       </PageButton>
@@ -59,7 +59,7 @@ export function Pagination({ page, totalPages, hasNextPage, hasPrevPage }: Pagin
         {`<`}
       </PageButton>
 
-      <div className="h-9 border-l border-r border-dotted border-brand-blue pl-4 pr-4 pt-1">
+      <div className="h-9 border-l border-r border-dashed border-brand-blue pl-4 pr-4 pt-1">
         <input
           type="number"
           min={1}

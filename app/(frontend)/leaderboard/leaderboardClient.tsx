@@ -54,7 +54,7 @@ export default function LeaderboardClient({
                 hasPrevPage={hasPrevPage}
             />
 
-            <div className="h-10 w-25 border-2 border-dotted border-brand-blue"></div>
+            <div className="h-10 w-25 border-2 border-dashed border-brand-blue"></div>
 
             <div>
                 <p className="text-xl text-brand-blue">VERS: ACT V</p>
@@ -69,7 +69,7 @@ export default function LeaderboardClient({
             <div className="w-90 flex flex-col gap-2 justify-center ml-auto">
                 <LeaderboardSearch onSearch={handleSearch} />
 
-                <div className="h-full max-h-15/20 w-19/20 ml-auto border-2 border-dotted border-brand-blue">
+                <div className="h-full max-h-15/20 w-19/20 ml-auto border-2 border-dashed border-brand-blue">
                     <Image src={"/images/ad.png"} alt={"leaderboard ad"} width={220} height={134}/>
                 </div>
             </div>
