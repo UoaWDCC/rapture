@@ -21,7 +21,7 @@
           <div className="h-1/2 px-2 pt-2 mb-0 bg-[#DDA520]/30 border border-[#DDA520]"/>
           <div className="h-1/2 px-2 pt-2 bg-[#DDA520]/30 border border-[#DDA520]"/>
         </div>
-        <div className="max-w-full w-4/6 mb-2 bg-[#DDA520]/80 text-xl px-2 pt-2"> {/*ori color: AF8219*/}
+        <div className="max-w-full w-4/6 mb-2 border-0 rounded-xs bg-[#DDA520]/80 text-xl px-2 pt-2"> {/*ori color: AF8219*/}
           {/*Beige card - Image and Texts*/}
           <div className="max-h-70 bg-[#E6E6E6]/60 text-[#302F2F] flex"> {/*ori color: DCCDAA*/}
             {/*News Image*/}
