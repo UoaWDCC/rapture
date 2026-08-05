@@ -54,8 +54,6 @@ export default async function HomePage() {
     limit: 1,
   });
 
-  throw new Error("Testing the error page!");
-
   return (
     <div className="w-full flex-col items-center -mt-50">
       <div className="w-full min-h-screen flex flex-col flex-wrap items-center justify-center gap-5 relative overflow-hidden">
