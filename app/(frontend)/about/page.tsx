@@ -4,8 +4,6 @@ import ContactFile from "../components/ui/ContactFileDesign.tsx";
 export default async function aboutPage() {
     return (
         <div className="mt-40 mb-80 flex flex-row">
-            <ContactForm />
-
             <div className="absolute left-50 h-245 flex flex-row">
                 <ContactFile title="About Us (1)" bgColor="bg-red-800" sideHeight="100px" zIndex={3}>
                     <div className="w-150 flex flex-col items-start">
@@ -115,6 +113,8 @@ export default async function aboutPage() {
                     </div>
                 </ContactFile>
             </div>
+
+            <ContactForm />
         </div>
     )
 }
