@@ -3,6 +3,14 @@
   import Link from 'next/link'
   import Image from 'next/image'
 
+  function formatShortDate(dateString: string) {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear() % 100;
+    return `${day}/${month}/${year}`;
+  }
+
   export default function NewsFeed({
     news,
     onReadMore,
@@ -63,11 +71,11 @@
               </div>
           </button>
         </div>
-        <div className="flex flex-col relative mb-2 w-1/6">
+        <div className="flex flex-col relative mb-2 w-1/6 ">
           <div className="h-1/2 px-2 pt-2 mb-0 bg-[#DDA520]/30 border border-[#DDA520]"/>
           <div className="h-1/2 px-2 pt-2 bg-[#DDA520]/30 border border-[#DDA520]"/>
-          <div className="absolute h-3/5 w-1/5 inset-0 m-auto ml-3 border border-[#DDA520] bg-black">
-            
+          <div className="absolute top-1/2 -ml-13 left-0 h-fit w-4/5 -translate-y-1/2 border border-[#DDA520] bg-black rotate-270">
+            <div className="text-[#DDA520] text-2xl text-center">{formatShortDate(news.date)}</div>
           </div>
         </div>
       </div>
