@@ -32,7 +32,7 @@ export default async function ProductsPage({ searchParams }: PageProps) {
 
       <div className="my-[5%] md:mx-0">
         {result.docs[1] && ( //1 is just the first product.
-            <ProductsDisplayBig product={result.docs[1]} cap={30} />
+            <ProductsDisplayBig key={1} product={result.docs[1]} cap={30} />
             //cap = quantity cap for the quantity can one add into cart each time.
           )}
       </div>

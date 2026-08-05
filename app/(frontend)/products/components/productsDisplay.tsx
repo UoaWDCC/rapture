@@ -2,6 +2,7 @@ import { Product } from "@/payload-types";
 import Image from "next/image";
 
 type productProps = {
+  key: string | number;
   product: Product;
   className?: string;
 }
