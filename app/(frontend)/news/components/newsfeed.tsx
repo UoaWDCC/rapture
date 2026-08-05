@@ -63,9 +63,12 @@
               </div>
           </button>
         </div>
-        <div className="flex flex-col mb-2 w-1/6">
+        <div className="flex flex-col relative mb-2 w-1/6">
           <div className="h-1/2 px-2 pt-2 mb-0 bg-[#DDA520]/30 border border-[#DDA520]"/>
           <div className="h-1/2 px-2 pt-2 bg-[#DDA520]/30 border border-[#DDA520]"/>
+          <div className="absolute h-3/5 w-1/5 inset-0 m-auto ml-3 border border-[#DDA520] bg-black">
+            
+          </div>
         </div>
       </div>
     );
