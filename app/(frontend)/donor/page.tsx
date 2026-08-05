@@ -1,68 +1,152 @@
-import config from '@payload-config'
 export const dynamic = 'force-dynamic';
 
 import DonorBox from "../components/Donor";
+import DonorBigBox from "../components/DonorBigBox";
 
 export default async function DonorPage() { 
 
   return (
-    <div className="mb-40 p-8 flex flex-col items-center">
+    <div className="mt-40 mb-40 p-8 flex flex-col items-center">
         <h1 className="mb-10">DONOR</h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <DonorBox 
-                name="Name"
-            />
+        <div className="w-[80%] md:w-[70%] grid grid-cols-1 md:grid-cols-3 gap-1">
+            
+            <div className="relative h-50">
+                <div className="absolute w-full">
+                    <DonorBox 
+                        name="Name"
+                    />
+                </div>
+            </div>
+            
+            <div className="relative h-32">
+                <div className="relative">
+                    <DonorBox 
+                        name="Name"
+                        text="thisisatest thisisatest thisisatest thisisatest
+                                thisisatest thisisatest thisisatest thisisatest
+                                thisisatest thisisatest thisisatest thisisatest"
+                        image="DISCORD.png"
+                        className="-mt-16 md:mt-0"
+                    />
+                </div>
+            </div>
 
-            <DonorBox 
-                name="Name"
-            />
+            <div className="relative h-32">
+                <div className="relative">
+                    <DonorBox 
+                        name="Name"
+                        className="-mt-16 md:mt-0"
+                    />
+                </div>
+            </div>
 
-            <DonorBox 
-                name="Name"
-            />
+            <div className="relative h-32">
+                <div className="absolute w-full">
+                    <DonorBox 
+                        name="Name"
+                        text="thisisatest thisisatest thisisatest thisisatest
+                                thisisatest thisisatest thisisatest thisisatest
+                                thisisatest thisisatest thisisatest thisisatest"
+                        image="DISCORD.png"
+                        className="-mt-16"
+                    />
+                </div>
+            </div>
 
-            <DonorBox 
-                name="Name"
-                image="/globe.svg"
-                tabColor="blue"
-            />
+            <div className="relative h-32">
+                <div className="relative">
+                    <DonorBox 
+                        name="Name"
+                        text="thisisatest thisisatest thisisatest thisisatest
+                                thisisatest thisisatest thisisatest thisisatest
+                                thisisatest thisisatest thisisatest thisisatest"
+                        image="YT.png"
+                        className="-mt-16"
+                    />
+                </div>
+            </div>
 
-            <DonorBox 
-                name="Name"
-                text="This is a test This is a test This is a test
-                        This is a test This is a test This is a test
-                        This is a test This is a test This is a test
-                        This is a test This is a test This is a test"
-                image="/steam.png"
-                tabColor="blue"
-            />
+            <div className="relative h-32">
+                <div className="relative">
+                    <DonorBox 
+                        name="Name"
+                        text="thisisatest thisisatest thisisatest thisisatest
+                                thisisatest thisisatest thisisatest thisisatest
+                                thisisatest thisisatest thisisatest thisisatest"
+                        image="steam.png"
+                        className="-mt-16"
+                    />
+                </div>
+            </div>
 
-            <DonorBox 
-                name="Name"
-                image="/DISCORD.png"
-                tabColor="blue"
-            />
+            <div className="relative h-32">
+                <div className="absolute w-full">
+                    <DonorBox 
+                        name="Name"
+                        className="-mt-16"
+                    />
+                </div>
+            </div>
 
-            <DonorBox 
-                name="Name"
-                tabColor="green"
-            />
+            <div className="relative h-32">
+                <div className="relative">
+                    <DonorBox 
+                        name="Name"
+                        className="-mt-16"
+                    />
+                </div>
+            </div>
 
-            <DonorBox 
-                name="Name"
-                text="This is a test This is a test This is a test
-                        This is a test This is a test This is a test
-                        This is a test This is a test This is a test
-                        This is a test This is a test This is a test"
-                tabColor="green"
-            />
+            <div className="relative h-32">
+                <div className="relative">
+                    <DonorBox 
+                        name="Name"
+                        className="-mt-16"
+                    />
+                </div>
+            </div>
 
-            <DonorBox 
-                name="Really long name that is needed to test if the box can handle long text inputs
-                Really long name that is needed to test if the box can handle long text inputs
-                Really long name that is needed to test if the box can handle long text inputs"
-                tabColor="green"
+            <div className="relative h-32">
+                <div className="relative">
+                    <DonorBox 
+                        name="Name"
+                        className="-mt-16"
+                    />
+                </div>
+            </div>
+
+            <div className="relative h-32">
+                <div className="relative">
+                    <DonorBox 
+                        name="Name"
+                        className="-mt-16"
+                    />
+                </div>
+            </div>
+
+            <div className="relative h-32">
+                <div className="relative">
+                    <DonorBox 
+                        name="Name"
+                        text="thisisatest thisisatest thisisatest thisisatest
+                                thisisatest thisisatest thisisatest thisisatest
+                                thisisatest thisisatest thisisatest thisisatest"
+                        image="DISCORD.png"
+                        className="-mt-16"
+                    />
+                </div>
+            </div>
+        </div>
+
+        <div className="w-[80%] md:w-[70%] relative">
+            <DonorBigBox
+                names={['name', 'name', 'name', 'name', 'name',
+                        'name', 'name', 'name', 'name', 'name',
+                        'name', 'name', 'name', 'name', 'name',
+                        'name', 'name', 'name', 'name', 'name',
+                        'name', 'name', 'name', 'name', 'name',
+                ]}    
             />
         </div>
     </div>
