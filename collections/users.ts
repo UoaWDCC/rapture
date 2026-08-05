@@ -13,13 +13,13 @@ export const Users: CollectionConfig = {
   },
 
   access: {
-    // restricting Create, Read, Update and Delete(CRUD) access for this collection
     create: ({ req: { user } }) => adminCheck(user),
-    read: ({ req: { user } }) => adminCheck(user),
-    update: ({ req: { user } }) => adminCheck(user) || { id: { equals: user?.id } },
+    read: ({ req: { user } }) =>
+      adminCheck(user) || { id: { equals: user?.id } },
+    update: ({ req: { user } }) =>
+      adminCheck(user) || { id: { equals: user?.id } },
     delete: ({ req: { user } }) => adminCheck(user),
-
-    admin: ({ req: { user } }) => adminCheck(user), // Whether a user from this collection can access the admin panel or not
+    admin: ({ req: { user } }) => adminCheck(user),
   },
 
   fields: [
@@ -36,6 +36,64 @@ export const Users: CollectionConfig = {
         { label: "Admin", value: "admin" },
         { label: "User", value: "user" },
       ],
+    },
+
+    {
+      name: "username",
+      type: "text",
+      unique: true,
+      admin: {
+        description: "Public display name",
+      },
+    },
+    {
+      name: "realName",
+      type: "text",
+      admin: {
+        description: "Full legal name",
+      },
+    },
+    {
+      name: "country",
+      type: "text",
+      admin: {
+        description: "Country of residence",
+      },
+    },
+
+    {
+      name: "cardInfo",
+      type: "text",
+      admin: {
+        description:
+          "Last 4 digits or card label — do NOT store full card numbers",
+      },
+    },
+    {
+      name: "address",
+      type: "text",
+    },
+    {
+      name: "state",
+      type: "text",
+      admin: {
+        description: "State or province",
+      },
+    },
+    {
+      name: "paymentCountry",
+      type: "text",
+      admin: {
+        description:
+          "Country on the payment/shipping address (may differ from residence)",
+      },
+    },
+    {
+      name: "pincode",
+      type: "text",
+      admin: {
+        description: "Postal / ZIP code",
+      },
     },
   ],
 };

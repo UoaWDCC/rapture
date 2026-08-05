@@ -3,12 +3,20 @@
 import { useState } from "react";
 import GlowingHeader from "./ui/GlowingHeader";
 import UserDashboardTab from "./UserDashboardTab";
-import { colorToRgba } from "@/lib/colour";
-import { ProfileField } from "./ProfileField";
+import {
+  GlitchTitle,
+  LeaderboardRow,
+  leaderboardTest,
+} from "./UserDashboardRank";
+import { OrdersDisplay } from "./UserDashboard/Order";
+import { Profile } from "./UserDashboard/Profile";
+
+import { logout, updateProfile } from "@/lib/user";
+import { User } from "@/payload-types";
 
 type TabKey = "profile" | "orders" | "settings";
 
-export default function UserDashboardVisual() {
+export default function UserDashboardVisual({ user }: { user: User }) {
   const [activeTab, setActiveTab] = useState<TabKey>("profile");
 
   return (
@@ -52,145 +60,66 @@ export default function UserDashboardVisual() {
 
       <div className="-mt-px relative z-40 flex-1 flex flex-col">
         {activeTab === "profile" && (
-          <div
-            className="rounded-lg border p-6 flex-1 flex flex-col gap-6 overflow-y-auto"
-            style={{
-              borderColor: "#146543",
-              backgroundColor: colorToRgba("#146543", 0.15),
-            }}
-          >
-            {/* Top: avatar + name + actions */}
-            <div className="flex items-start gap-6">
-              <div
-                className="w-24 h-24 rounded-full border flex-none"
-                style={{
-                  borderColor: "#146543",
-                  backgroundColor: colorToRgba("#146543", 0.3),
-                }}
-              />
-
-              <div className="flex-1 min-w-0 pt-2">
-                <GlowingHeader
-                  intensity="low"
-                  className="text-2xl font-bold tracking-wide"
-                  style={{ color: "#146543" }}
-                >
-                  USERNAME
-                </GlowingHeader>
-                <p
-                  className="mt-1 text-sm tracking-widest uppercase"
-                  style={{ color: colorToRgba("#146543", 0.6) }}
-                >
-                  Detail
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-3 flex-none">
-                <button
-                  type="button"
-                  className="px-6 py-2 rounded border text-sm font-semibold tracking-wide"
-                  style={{
-                    borderColor: "#146543",
-                    color: "#8fe3bd",
-                    backgroundColor: colorToRgba("#146543", 0.25),
-                  }}
-                >
-                  Update Detail
-                </button>
-                <button
-                  type="button"
-                  className="px-6 py-2 rounded border text-sm font-semibold tracking-wide"
-                  style={{
-                    borderColor: "#146543",
-                    color: "#8fe3bd",
-                    backgroundColor: colorToRgba("#146543", 0.25),
-                  }}
-                >
-                  Log Out
-                </button>
-              </div>
-            </div>
-
-            {/* Bottom: About + Show Information */}
-            <div
-              className="rounded-lg border p-6 flex-1"
-              style={{
-                borderColor: colorToRgba("#146543", 0.5),
-                backgroundColor: "#0a1f16",
-              }}
-            >
-              <div className="grid grid-cols-2 gap-8">
-                {/* Left: About */}
-                <div>
-                  <h3 className="text-lg font-semibold text-emerald-100 mb-4">
-                    About
-                  </h3>
-
-                  <ProfileField label="Username" />
-                  <ProfileField label="Real Name" />
-                  <ProfileField label="Country" />
-                </div>
-
-                {/* Right: Show Information */}
-                <div>
-                  <span
-                    className="inline-block text-xs tracking-widest uppercase px-3 py-1 rounded mb-4"
-                    style={{
-                      backgroundColor: colorToRgba("#146543", 0.3),
-                      color: "#8fe3bd",
-                    }}
-                  >
-                    Show Information
-                  </span>
-
-                  <div
-                    className="rounded-lg border p-4"
-                    style={{ borderColor: colorToRgba("#146543", 0.4) }}
-                  >
-                    <ProfileField label="Card Info" />
-                    <ProfileField label="Address" />
-                    <ProfileField label="State/Province" />
-
-                    <div className="flex gap-4">
-                      <div className="flex-1">
-                        <ProfileField label="Country" />
-                      </div>
-                      <div className="w-32 flex-none">
-                        <ProfileField label="Pincode" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Profile
+            user={user}
+            updateAction={updateProfile}
+            logoutAction={logout}
+          />
         )}
 
         {activeTab === "orders" && (
           <div
-            className="rounded-lg border p-4 flex-1"
+            className="rounded-lg border flex-1 flex flex-col overflow-hidden relative"
             style={{
               borderColor: "#a82a2a",
-              backgroundColor: colorToRgba("#a82a2a", 0.15),
+              backgroundColor: "#1a0505",
             }}
           >
-            <h2 className="text-lg font-semibold text-emerald-200">Orders</h2>
-            <p className="mt-2 text-sm text-emerald-100/80">AHHH</p>
+            {/* Hero: rank tag, then wordmark stacked below */}
+            <div className="px-8 pt-6 pb-6">
+              <div
+                className="inline-block border px-5 py-1.5 mb-3"
+                style={{
+                  borderColor: "#ffffff",
+                  transform: "skewX(-12deg)",
+                  clipPath: "polygon(0 0, 100% 0, 88% 100%, 0% 100%)",
+                }}
+              >
+                <span
+                  className="italic font-bold tracking-wide text-white text-sm inline-block"
+                  style={{ transform: "skewX(12deg)" }}
+                >
+                  RANK
+                </span>
+              </div>
+
+              <GlitchTitle text="VITROL" size="clamp(48px, 7vw, 96px)" />
+              <GlitchTitle
+                text="#001"
+                size="clamp(28px, 4vw, 56px)"
+                className="mt-1"
+              />
+            </div>
+
+            {/* Top rule */}
+            <div className="h-1.5" style={{ backgroundColor: "#a82a2a" }} />
+
+            {/* Leaderboard body */}
+            <div
+              className="flex-1 overflow-y-auto px-8 py-4"
+              style={{ backgroundColor: "#050202" }}
+            >
+              {leaderboardTest.map((entry, i) => (
+                <LeaderboardRow key={entry.id} rank={i + 1} entry={entry} />
+              ))}
+            </div>
+
+            {/* Bottom rule */}
+            <div className="h-1.5" style={{ backgroundColor: "#a82a2a" }} />
           </div>
         )}
 
-        {activeTab === "settings" && (
-          <div
-            className="rounded-lg border p-4 flex-1"
-            style={{
-              borderColor: "#1e5fa8",
-              backgroundColor: colorToRgba("#1e5fa8", 0.15),
-            }}
-          >
-            <h2 className="text-lg font-semibold text-emerald-200">Settings</h2>
-            <p className="mt-2 text-sm text-emerald-100/80">AHHH</p>
-          </div>
-        )}
+        {activeTab === "settings" && <OrdersDisplay />}
       </div>
     </div>
   );

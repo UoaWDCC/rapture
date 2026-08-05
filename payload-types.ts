@@ -138,6 +138,35 @@ export interface UserAuthOperations {
 export interface User {
   id: string;
   role: 'admin' | 'user';
+  /**
+   * Public display name
+   */
+  username?: string | null;
+  /**
+   * Full legal name
+   */
+  realName?: string | null;
+  /**
+   * Country of residence
+   */
+  country?: string | null;
+  /**
+   * Last 4 digits or card label — do NOT store full card numbers
+   */
+  cardInfo?: string | null;
+  address?: string | null;
+  /**
+   * State or province
+   */
+  state?: string | null;
+  /**
+   * Country on the payment/shipping address (may differ from residence)
+   */
+  paymentCountry?: string | null;
+  /**
+   * Postal / ZIP code
+   */
+  pincode?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -398,6 +427,14 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   role?: T;
+  username?: T;
+  realName?: T;
+  country?: T;
+  cardInfo?: T;
+  address?: T;
+  state?: T;
+  paymentCountry?: T;
+  pincode?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
