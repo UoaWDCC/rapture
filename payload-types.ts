@@ -270,14 +270,31 @@ export interface Media {
 export interface Order {
   id: string;
   user: string | User;
-  products: {
-    productName: string;
-    price: number;
-    description?: string | null;
-    id?: string | null;
-  }[];
+  status:
+    | 'pending'
+    | 'payment_completed'
+    | 'waiting_on_details'
+    | 'processing'
+    | 'delivery'
+    | 'completed'
+    | 'cancelled'
+    | 'refunded';
+  products: (string | Product)[];
   dateTime: string;
   totalPrice: number;
+  /**
+   * Snapshot of shipping address at time of order
+   */
+  shippingAddress?: {
+    address?: string | null;
+    state?: string | null;
+    country?: string | null;
+    pincode?: string | null;
+  };
+  /**
+   * Internal admin notes about this order
+   */
+  notes?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -509,16 +526,19 @@ export interface ProductsSelect<T extends boolean = true> {
  */
 export interface OrderSelect<T extends boolean = true> {
   user?: T;
-  products?:
-    | T
-    | {
-        productName?: T;
-        price?: T;
-        description?: T;
-        id?: T;
-      };
+  status?: T;
+  products?: T;
   dateTime?: T;
   totalPrice?: T;
+  shippingAddress?:
+    | T
+    | {
+        address?: T;
+        state?: T;
+        country?: T;
+        pincode?: T;
+      };
+  notes?: T;
   updatedAt?: T;
   createdAt?: T;
 }

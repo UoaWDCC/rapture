@@ -3,20 +3,22 @@
 import { useState } from "react";
 import GlowingHeader from "./ui/GlowingHeader";
 import UserDashboardTab from "./UserDashboardTab";
-import {
-  GlitchTitle,
-  LeaderboardRow,
-  leaderboardTest,
-} from "./UserDashboardRank";
+import { RankTabContent } from "./UserDashboardRank";
 import { OrdersDisplay } from "./UserDashboard/Order";
 import { Profile } from "./UserDashboard/Profile";
 
 import { logout, updateProfile } from "@/lib/user";
-import { User } from "@/payload-types";
+import { Order, User } from "@/payload-types";
 
 type TabKey = "profile" | "orders" | "settings";
 
-export default function UserDashboardVisual({ user }: { user: User }) {
+export default function UserDashboardVisual({
+  user,
+  orders,
+}: {
+  user: User;
+  orders: Order[];
+}) {
   const [activeTab, setActiveTab] = useState<TabKey>("profile");
 
   return (
@@ -67,59 +69,9 @@ export default function UserDashboardVisual({ user }: { user: User }) {
           />
         )}
 
-        {activeTab === "orders" && (
-          <div
-            className="rounded-lg border flex-1 flex flex-col overflow-hidden relative"
-            style={{
-              borderColor: "#a82a2a",
-              backgroundColor: "#1a0505",
-            }}
-          >
-            {/* Hero: rank tag, then wordmark stacked below */}
-            <div className="px-8 pt-6 pb-6">
-              <div
-                className="inline-block border px-5 py-1.5 mb-3"
-                style={{
-                  borderColor: "#ffffff",
-                  transform: "skewX(-12deg)",
-                  clipPath: "polygon(0 0, 100% 0, 88% 100%, 0% 100%)",
-                }}
-              >
-                <span
-                  className="italic font-bold tracking-wide text-white text-sm inline-block"
-                  style={{ transform: "skewX(12deg)" }}
-                >
-                  RANK
-                </span>
-              </div>
+        {activeTab === "orders" && <RankTabContent />}
 
-              <GlitchTitle text="VITROL" size="clamp(48px, 7vw, 96px)" />
-              <GlitchTitle
-                text="#001"
-                size="clamp(28px, 4vw, 56px)"
-                className="mt-1"
-              />
-            </div>
-
-            {/* Top rule */}
-            <div className="h-1.5" style={{ backgroundColor: "#a82a2a" }} />
-
-            {/* Leaderboard body */}
-            <div
-              className="flex-1 overflow-y-auto px-8 py-4"
-              style={{ backgroundColor: "#050202" }}
-            >
-              {leaderboardTest.map((entry, i) => (
-                <LeaderboardRow key={entry.id} rank={i + 1} entry={entry} />
-              ))}
-            </div>
-
-            {/* Bottom rule */}
-            <div className="h-1.5" style={{ backgroundColor: "#a82a2a" }} />
-          </div>
-        )}
-
-        {activeTab === "settings" && <OrdersDisplay />}
+        {activeTab === "settings" && <OrdersDisplay orders={orders || []} />}
       </div>
     </div>
   );

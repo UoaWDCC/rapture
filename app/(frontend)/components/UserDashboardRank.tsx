@@ -1,4 +1,5 @@
 import { colorToRgba } from "@/lib/colour";
+import { ReactNode } from "react";
 
 type LeaderboardEntry = {
   id: string;
@@ -12,7 +13,28 @@ export const leaderboardTest: LeaderboardEntry[] = [
   { id: "3", name: "Player Three", score: 7655 },
 ];
 
-export function LeaderboardRow({
+export function ItalicTitle({
+  className = "",
+  children,
+}: {
+  className?: string;
+  children: ReactNode[] | ReactNode;
+}) {
+  return (
+    <h1
+      className={`block italic font-black leading-none font-nova ${className} `}
+      style={{
+        letterSpacing: "-0.06em",
+        color: "black",
+        WebkitTextStroke: "0.5px #ff2b2b",
+      }}
+    >
+      {children}
+    </h1>
+  );
+}
+
+export function LeaderboardBox({
   rank,
   entry,
 }: {
@@ -21,54 +43,79 @@ export function LeaderboardRow({
 }) {
   return (
     <div
-      className="flex items-center border-b py-3"
-      style={{ borderColor: colorToRgba("#a82a2a", 0.35) }}
+      className="flex items-center justify-between px-4 py-3 border"
+      style={{
+        borderColor: colorToRgba("#a82a2a", 0.5),
+        backgroundColor: "#080101",
+      }}
     >
-      <div
-        className="w-20 flex-none border-r pr-3 mr-3 font-bold text-lg"
-        style={{ borderColor: colorToRgba("#a82a2a", 0.35), color: "#e35b5b" }}
+      <span
+        className="text-xs tracking-[0.12em] uppercase"
+        style={{ color: colorToRgba("#ffffff", 0.5) }}
       >
-        #{String(rank).padStart(3, "0")}
-      </div>
-      <div className="flex-1 text-emerald-50 text-sm">{entry.name}</div>
-      <div className="text-sm font-semibold" style={{ color: "#e35b5b" }}>
-        {entry.score.toLocaleString()}
-      </div>
+        {entry.name}
+      </span>
+      <span
+        className="text-sm italic font-black"
+        style={{
+          color: "#e35b5b",
+
+          letterSpacing: "-0.03em",
+        }}
+      ></span>
     </div>
   );
 }
 
-export function GlitchTitle({
-  text,
-  size,
-  className = "",
+export function RankTabContent({
+  userRank = 1,
+  userName = "VITRIOL",
 }: {
-  text: string;
-  size: string;
-  className?: string;
+  userRank?: number;
+  userName?: string;
 }) {
   return (
     <div
-      className={`relative block italic font-black leading-none w-fit ${className}`}
-      style={{ fontSize: size, fontFamily: "var(--font-nova-cut, inherit)" }}
+      className="border h-full"
+      style={{
+        borderColor: "#a82a2a",
+        backgroundColor: "#1a0505",
+      }}
     >
-      <span
-        aria-hidden="true"
-        className="absolute inset-0"
-        style={{
-          transform: "translate(4px, -3px)",
-          color: "transparent",
-          WebkitTextStroke: "2px rgba(255,43,43,0.55)",
-        }}
-      >
-        {text}
-      </span>
-      <span
-        className="relative"
-        style={{ color: "#000000", WebkitTextStroke: "2px #ff2b2b" }}
-      >
-        {text}
-      </span>
+      {/* Left: RANK badge + leaderboard boxes */}
+      <div className="flex flex-col justify-end p-6 gap-2 w-[42%] flex-none">
+        {/* RANK badge */}
+        <div
+          className="self-start border px-5 py-1.5 mb-2"
+          style={{
+            borderColor: "#ffffff",
+            transform: "skewX(-12deg)",
+            clipPath: "polygon(0 0, 100% 0, 88% 100%, 0% 100%)",
+          }}
+        >
+          <span
+            className="italic font-bold tracking-wide text-white text-sm block"
+            style={{ transform: "skewX(12deg)" }}
+          >
+            RANK
+          </span>
+        </div>
+
+        {leaderboardTest.map((entry, i) => (
+          <LeaderboardBox key={entry.id} rank={i + 1} entry={entry} />
+        ))}
+      </div>
+
+      {/* Right: title centered */}
+      <div className="flex-1 flex flex-col items-center justify-center gap-1 pr-6">
+        <ItalicTitle className="text-2xl">Vitriol</ItalicTitle>
+      </div>
+
+      {/* Bottom accent bar */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-1.5"
+        style={{ backgroundColor: "#a82a2a" }}
+      />
     </div>
   );
 }

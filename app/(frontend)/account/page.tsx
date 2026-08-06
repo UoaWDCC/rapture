@@ -3,7 +3,6 @@ import payloadConfig from "@/payload.config";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getPayload } from "payload";
-import { use } from "react";
 
 export default async function AccountPage() {
   const payload = await getPayload({ config: await payloadConfig });
@@ -12,9 +11,18 @@ export default async function AccountPage() {
   if (!user) {
     redirect("/login");
   }
+
+  const ordersResult = await payload.find({
+    collection: "order",
+    where: {
+      user: { equals: user.id },
+    },
+    depth: 2,
+    sort: "-createdAt",
+  });
   return (
     <main className="min-h-screen">
-      <UserDashboardVisual user={user} />
+      <UserDashboardVisual user={user} orders={ordersResult.docs} />
     </main>
   );
 }

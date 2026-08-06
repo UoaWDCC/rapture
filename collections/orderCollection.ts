@@ -12,39 +12,34 @@ export const OrderCollection: CollectionConfig = {
       label: "User (Email)",
     },
     {
-      name: "products",
-      type: "array",
+      name: "status",
+      type: "select",
       required: true,
-      fields: [
-        {
-          name: "productName",
-          type: "text",
-          required: true,
-        },
-        {
-          name: "price",
-          type: "number",
-          label: "Price ($)",
-          required: true,
-          admin: {
-            step: 0.01,
-          },
-        },
-        {
-          name: "description",
-          type: "text",
-        },
+      defaultValue: "pending",
+      options: [
+        { label: "Pending", value: "pending" },
+        { label: "Payment Completed", value: "payment_completed" },
+        { label: "Waiting on Details", value: "waiting_on_details" },
+        { label: "Processing", value: "processing" },
+        { label: "Delivery", value: "delivery" },
+        { label: "Completed", value: "completed" },
+        { label: "Cancelled", value: "cancelled" },
+        { label: "Refunded", value: "refunded" },
       ],
+    },
+    {
+      name: "products",
+      type: "relationship",
+      relationTo: "products",
+      hasMany: true,
+      required: true,
+      label: "Products",
     },
     {
       name: "dateTime",
       type: "date",
       required: true,
-      admin: {
-        date: {
-          pickerAppearance: "dayAndTime",
-        },
-      },
+      admin: { date: { pickerAppearance: "dayAndTime" } },
       defaultValue: () => new Date(),
     },
     {
@@ -52,9 +47,23 @@ export const OrderCollection: CollectionConfig = {
       type: "number",
       label: "Total Price ($)",
       required: true,
-      admin: {
-        step: 0.01,
-      },
+      admin: { step: 0.01 },
+    },
+    {
+      name: "shippingAddress",
+      type: "group",
+      admin: { description: "Snapshot of shipping address at time of order" },
+      fields: [
+        { name: "address", type: "text" },
+        { name: "state", type: "text" },
+        { name: "country", type: "text" },
+        { name: "pincode", type: "text" },
+      ],
+    },
+    {
+      name: "notes",
+      type: "textarea",
+      admin: { description: "Internal admin notes about this order" },
     },
   ],
 };
