@@ -104,11 +104,13 @@ export default function SignupPage() {
                             </div>
                         </form>
 
-                        {/* "or sign up with" divider and Steam OAuth icon */}
+                        {/* "or sign up with" divider and Gmail OAuth icon */}
                         <div className="flex flex-col items-center gap-3 mt-4">
-                            <p className="text-gray-400 font-mono text-xs">or sign up with</p>
+                            <p className="text-gray-400 font-mono text-xs">or log in with</p>
                             <div className="border-2 border-[#0650DA] rounded-3xl px-8 py-2">
-                                <Image src="/steam.png" alt="Sign up with Steam" width={32} height={32} />
+                                <div className="bg-white rounded-full w-8 h-8 flex items-center justify-center">
+                                    <Image src="/gmail.png" alt="or sign up with" width={24} height={24} />
+                                </div>
                             </div>
                         </div>
 
