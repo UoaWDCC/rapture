@@ -4,13 +4,14 @@ import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import Link from "next/link"
 import LogoutButton from '../components/ui/LogoutButton'
+import SteamLink from './SteamLink'
 
 export default async function ProtectedPage() {
   const payload = await getPayload({ config: await config})
   const { user } = await payload.auth({ headers: await headers() })
 
   if (!user) {
-    redirect('/login') 
+    redirect('/login')
   }
 
   return (
@@ -20,6 +21,7 @@ export default async function ProtectedPage() {
     <p className="mb-4">
       Authentication successful. Logged in as: <strong className="text-blue-500">{user.email}</strong>
     </p>
+    <SteamLink initialSteamId={user.steamId ?? null} />
     <LogoutButton />
   </main>
 )
