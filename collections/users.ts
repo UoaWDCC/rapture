@@ -37,5 +37,11 @@ export const Users: CollectionConfig = {
         { label: "User", value: "user" },
       ],
     },
+    {
+      name: "steamId",
+      type: "text",
+      unique: true,
+      index: true,
+    },
   ],
 };
