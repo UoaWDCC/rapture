@@ -5,6 +5,65 @@ import ExampleCollectionDisplay from "./components/exampleCollectionDisplay";
 import GameCard from "@/app/(frontend)/components/gameCard";
 
 import NewsSubmission from "../components/newsSubmission";
+import { NewsList } from "../components/NewsList";
+import type { NewsItem } from "../components/NewsList";
+
+// Sample news data for testing — should be replaced with real Payload CMS data later
+const sampleNewsItems: NewsItem[] = [
+  {
+    id: "1",
+    title: "Example Post",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+    date: "2026-04-28",
+    username: "Username",
+    commentCount: 0,
+  },
+  {
+    id: "2",
+    title: "Example Post",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididid",
+    date: "2026-04-28",
+    username: "Username",
+    commentCount: 0,
+  },
+  {
+    id: "3",
+    title: "Example Post",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididid",
+    date: "2026-04-28",
+    username: "Username",
+    commentCount: 0,
+  },
+  {
+    id: "4",
+    title: "Example Post",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididid",
+    date: "2026-04-28",
+    username: "Username",
+    commentCount: 0,
+  },
+  {
+    id: "5",
+    title: "Example Post",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididid",
+    date: "2026-04-28",
+    username: "Username",
+    commentCount: 0,
+  },
+];
+
+// Extended list for testing scrolling with > 5 items
+const sampleNewsItemsLong: NewsItem[] = [
+  ...sampleNewsItems,
+  { id: "6", title: "Scrollable Post 6", description: "This is the 6th post.", date: "2026-04-29", username: "User2", commentCount: 1 },
+  { id: "7", title: "Scrollable Post 7", description: "This is the 7th post.", date: "2026-04-30", username: "User3", commentCount: 5 },
+  { id: "8", title: "Scrollable Post 8", description: "This is the 8th post.", date: "2026-05-01", username: "User4", commentCount: 2 },
+];
 
 export default async function ExampleCollectionPage() {
   const payload = await getPayload({ config: await config });
@@ -117,6 +176,41 @@ export default async function ExampleCollectionPage() {
         <h2>Test News Submission Component</h2>
         <NewsSubmission isAdmin={isAdmin} />
       </div>
+
+      {/* Demo Container: Flex row to show them side-by-side */}
+      <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', marginTop: '2rem', padding: '1rem', alignItems: 'flex-start' }}>
+        
+        {/* 1. Exactly 5 cards, little bit of scroll (figma design still shows scroll bar with 5 cards) */}
+        <div>
+          <h3 style={{ marginBottom: '1rem', color: '#666' }}>1. Full Height (5 Cards, No Scroll)</h3>
+          <NewsList
+            heading="Rapture Player Updates"
+            items={sampleNewsItems}
+          />
+        </div>
+
+        {/* 2. 8 cards, scrolls, shows exactly 5 cards at a time */}
+        <div>
+          <h3 style={{ marginBottom: '1rem', color: '#666' }}>2. Scrollable (8 Cards, Shows 5)</h3>
+          <NewsList
+            heading="Rapture Player Updates"
+            items={sampleNewsItemsLong}
+          />
+        </div>
+
+        {/* 3. Short List (2 Items, fixed background height) */}
+        <div>
+          <h3 style={{ marginBottom: '1rem', color: '#666' }}>4. Short List (2 Items, fixed height)</h3>
+          <NewsList
+            heading="Rapture Player Updates"
+            items={sampleNewsItems.slice(0, 2)}
+            height="595px"
+          />
+        </div>
+
+      </div>
+
+
     </div>
   );
 }

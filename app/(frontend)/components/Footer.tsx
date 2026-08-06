@@ -8,7 +8,7 @@ type FooterProps = {
 
 export default function Footer({ studioTagline, contactEmail }: FooterProps) {
   return (
-    <footer className="bg-[url(/images/FOOTER.png)]  w-full bg-cover bg-no-repeat text-white z-0 relative bg-[center_top_100px] -mt-20">
+    <footer className="bg-[url(/images/FOOTER.png)]  w-full bg-cover bg-no-repeat text-white z-0 relative bg-[center_top_100px]">
       <div className="flex items-center gap-4 w-full px-20 mb-10">
         <div className="flex-1 h-px bg-white opacity-30"></div>
         <span className="text-white text-2xl tracking-widest">

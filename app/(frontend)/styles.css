@@ -30,7 +30,13 @@
   /* Brand colors */
   --color-brand-yellow: #f2b423;
   --color-brand-dark-brown: #150703;
-  --color-brand-blue: #0745be;
+  --color-brand-blue: #0650DA;
+  --color-brand-blue2: #84AFFF;
+  --color-brand-white: #EEEEEE;
+
+  /* Custom utility for Nova Cut font design */
+  --font-nova: var(--font-nova-cut);
+  --font-fira: var(--font-fira-mono);
 }
 
 @utility text-stroke {
@@ -39,6 +45,10 @@
 
 @utility text-stroke-color-* {
   --text-stroke-color: --value(--color-*);
+}
+
+@utility writing-mode-vertical {
+  writing-mode: vertical-lr;
 }
 
 :root {
@@ -85,4 +95,13 @@ h4 {
   font-size: var(--font-size-headline-04);
   line-height: var(--line-height-headline-04);
   letter-spacing: var(--letter-spacing-headline-04);
+}
+
+/* Custom font classes to bypass Tailwind compiler issues */
+.font-fira-custom {
+  font-family: var(--font-fira-mono), monospace !important;
+}
+
+.font-nova-custom {
+  font-family: var(--font-nova-cut), sans-serif !important;
 }
