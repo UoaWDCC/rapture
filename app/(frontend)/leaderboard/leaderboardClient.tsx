@@ -38,13 +38,12 @@ export default function LeaderboardClient({
 
   return (
     <div className="flex flex-col w-full font-nova">
-        <div className="w-full p-3.5 flex justify-center items-center text-center border-2 border-brand-blue [text-shadow:0_0_10px_#6060ff,0_0_20px_#ffffff]">
+        <div className="w-full p-3.5 flex justify-center items-center text-center border-2 border-brand-blue text-xl [text-shadow:0_0_10px_#6060ff,0_0_20px_#ffffff]">
             <h5>WELCOME TO STUDIO RAPTURE LEADERBOARD</h5>
         </div>
 
-        <div className="h-15 w-full flex flex-row   gap-3 justify-between items-center">
-
-            <div className="w-10/20 p-2 text-white bg-brand-blue [text-shadow:0_0_10px_#6060ff,0_0_20px_#ffffff]">
+        <div className="h-15 w-full flex flex-row gap-3 justify-between items-center">
+            <div className="w-10/20 p-2 text-white bg-brand-blue text-xl [text-shadow:0_0_10px_#6060ff,0_0_20px_#ffffff]">
                 <p>VITROL LEADERBOARD</p>
             </div>
 
@@ -55,7 +54,7 @@ export default function LeaderboardClient({
                 hasPrevPage={hasPrevPage}
             />
 
-            <div className="h-12/20 w-25 border-2 border-dotted border-brand-blue"></div>
+            <div className="h-11 w-25 border-2 border-dashed rounded-xs border-brand-blue"></div>
 
             <div>
                 <p className="text-xl text-brand-blue">VERS: ACT V</p>
@@ -64,14 +63,15 @@ export default function LeaderboardClient({
 
         <div className="h-6 bg-brand-blue mb-3"></div>
 
-        <div className="h-160 flex flex-row justify-between">
+        <div className="h-159 flex flex-row justify-between">
             <LeaderboardTable players={results} startIndex={(page - 1) * limit + 1}/>
 
             <div className="w-90 flex flex-col gap-2 justify-center ml-auto">
                 <LeaderboardSearch onSearch={handleSearch} />
 
-                <div className="h-full max-h-15/20 w-19/20 ml-auto border-2 border-dotted border-brand-blue">
-                    <Image src={"/images/ad.png"} alt={"leaderboard ad"} width={220} height={134}/>
+                <div className="relative h-full max-h-15/20 w-full max-w-[250px] ml-auto border-2 border-dashed rounded-xs border-brand-blue overflow-hidden">
+                    <Image src={"/images/ad.png"} alt={"leaderboard ad"} fill className="object-cover"/>
+                    <div className="absolute inset-x-20 bottom-70 left-25 text-4xl text-white bg-black/40 py-1">GET YOURS TODAY</div>
                 </div>
             </div>
         </div>
