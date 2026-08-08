@@ -11,13 +11,15 @@ type contactFileProps = {
     sideHeight?: string;
     zIndex?: number;
     mlValue?: number;
+    translateValueOpen?: string;
+    translateValueClosed?: string;
 }
 
 export default function ContactFile(prop: contactFileProps) {
     const [open, setOpen] = useState(false);
 
     return(
-        <div className={`flex flex-row bg-transparent transition-transform duration-300 ${open ? 'translate-x-0' : '-translate-x-full'} ${prop.className}`}
+        <div className={`flex flex-row bg-transparent transition-transform duration-300 ${open ? prop.translateValueClosed ?? 'translate-x-[-200px]' : prop.translateValueOpen ?? '-translate-x-[100%]'} ${prop.className}`}
                 style={{ zIndex: open ? 50 : prop.zIndex ?? 20, 
                          marginLeft: prop.mlValue ?? 0,
                 }}>
@@ -26,7 +28,7 @@ export default function ContactFile(prop: contactFileProps) {
                 {prop.children}
             </div>
             {/*The side piece*/}
-            <div className={`flex flex-row relative -ml-0.5 h-fit writing-mode-vertical bg-transparent`}
+            <div className={`flex flex-row relative -ml-0.5 h-fit writing-mode-vertical bg-transparent hover:cursor-pointer`}
                     style={{ marginTop: prop.sideHeight ?? '7px' }}
                     onClick={() => setOpen(!open)}>
                 <div className={`h-4 w-10 skew-y-20 ${prop.bgColor} ${prop.classNameSide}`}></div>
