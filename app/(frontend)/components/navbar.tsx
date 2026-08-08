@@ -2,12 +2,23 @@
 
 import { User } from "@/payload-types";
 import { usePathname } from "next/navigation";
+import Link from "next/link"
 import Image from "next/image";
+import NavbarPart from "./navbarPart";
+
+import Dropdown from "./Dropdown";
+
+type navLink = {
+  id: number;
+  name: string;
+  link: string;
+}
 
 type itemNav = {
   id: number;
   name: string;
   link: string;
+  childrenLinks: navLink[];
 }
 
 type NavProps = {
@@ -19,39 +30,31 @@ export default function Navbar({item}: NavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className="w-full flex flex-row flex-wrap items-center justify-center px-6 py-2 mt-10 mb-10 bg-transparent z-1000 relative">
+    <nav className="w-full top-0 flex flex-row flex-wrap items-start justify-center px-6 py-2 mt-10 mb-10 bg-transparent">
 
       {/* Logo */}
       <Image
-        className="mr-8 h-16 w-auto shrink-0"
+        className="mr-8 h-14 w-auto shrink-0"
         alt="Rapture Logo"
         height={120}
-        src="/LOGO.png"
         width={120}
+        src="/LOGO.png"
       />
 
-      {/* Nav links */}
-      <div className="flex flex-row flex-wrap">
+      <Link href="/" className="w-50 h-8 mr-1 mt-4 bg-blue-800 border border-blue-500 opacity-70 text-xl flex items-center pl-2 pt-0.5 [clip-path:polygon(0_0,90%_0,93%_30%,100%_30%,100%_100%,0_100%)] hover:opacity-90">
+        Home
+      </Link>
+
+      <div className="flex flex-row flex-wrap gap-1 mt-4">
         {item.map((item) => {
           const isActive = pathname === item.link;
-          return (
-            <a
-              key={item.id}
-              href={item.link}
-              className={`w-55
-                px-5 text-xl tracking-widest
-                flex items-center justify-center
-                border border-white
-                transition-colors duration-200
-                ${isActive
-                  ? "bg-white text-black"
-                  : "bg-[#5d561e] text-white hover:bg-[#423d17]"
-                }
-              `}
-            >
-              {item.name}
-            </a>
-          );
+          return(
+              <NavbarPart 
+                key={item.id}
+                label={item.name} 
+                items={item.childrenLinks}
+              />
+          )
         })}
       </div>
     </nav>

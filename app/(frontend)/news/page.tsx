@@ -7,12 +7,19 @@ import GameCard from "@/app/(frontend)/components/gameCard";
 import NewsSubmission from "../components/newsSubmission";
 import type { NewsItem } from "../components/NewsList";
 
-export default async function ExampleCollectionPage() {
+export default async function ExampleCollectionPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ article?: string }>;
+}) {
   const payload = await getPayload({ config: await config });
 
   const newsItems = await payload.find({
     collection: "News",
   });
+
+  const params = await searchParams;
+  const expandedArticleId = params.article ?? null;
 
   const sampleNewsItems: NewsItem[] = [
     {
@@ -83,12 +90,15 @@ export default async function ExampleCollectionPage() {
             <div className="md:w-full max-w-full">
               {" "}
               {/*ml-15  mt-[2.5%]*/}
-              <NewsTab allNews={newsItems.docs} />
+              <NewsTab
+                allNews={newsItems.docs}
+                expandedArticleId={expandedArticleId}
+              />
             </div>
             {/* <div className="md:shrink-0 md:h-full md:w-[30%] md:flex-wrap md:pl-4 pt-[0.6rem] items-start w-full">
               {/* {" "}
               {/* {/*gap: '2rem',  margin: '2rem', width: '312rem'*/}
-              {/* <div>
+            {/* <div>
                 <NewsList
                   heading="Rapture Player Updates"
                   items={sampleNewsItemsLong}
