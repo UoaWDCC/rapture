@@ -5,7 +5,7 @@ import NewsList from "@/app/(frontend)/components/NewsList/NewsList";
 import { NewsListProps } from "../components/NewsList";
 import GameCard from "@/app/(frontend)/components/gameCard";
 import NewsSubmission from "../components/newsSubmission";
-import type { NewsItem } from "../components/NewsList";                                                                                     
+import type { NewsItem } from "../components/NewsList";
 
 export default async function ExampleCollectionPage({
   searchParams,
@@ -18,13 +18,9 @@ export default async function ExampleCollectionPage({
     collection: "News",
   });
 
-  const categories = await payload.find({
-    collection: "category",
-  });
-
   const params = await searchParams;
   const expandedArticleId = params.article ?? null;
-  
+
   const sampleNewsItems: NewsItem[] = [
     {
       id: "1",
@@ -91,22 +87,25 @@ export default async function ExampleCollectionPage({
         {/*ITEMS IN HERE*/}
         <div className="mx-auto max-w-full md:max-w-full md:pb-[5%] pb-[25%]">
           <div className="md:flex">
-            <div className="md:w-[70%] max-w-full">
+            <div className="md:w-full max-w-full">
               {" "}
               {/*ml-15  mt-[2.5%]*/}
-              <NewsTab allNews={newsItems.docs} categories={categories.docs} expandedArticleId={expandedArticleId} />
+              <NewsTab
+                allNews={newsItems.docs}
+                expandedArticleId={expandedArticleId}
+              />
             </div>
-            <div className="md:shrink-0 md:h-full md:w-[30%] md:flex-wrap md:pl-4 pt-[0.6rem] items-start w-full">
-              {" "}
-              {/*gap: '2rem',  margin: '2rem', width: '312rem'*/}
-              <div>
+            {/* <div className="md:shrink-0 md:h-full md:w-[30%] md:flex-wrap md:pl-4 pt-[0.6rem] items-start w-full">
+              {/* {" "}
+              {/* {/*gap: '2rem',  margin: '2rem', width: '312rem'*/}
+            {/* <div>
                 <NewsList
                   heading="Rapture Player Updates"
                   items={sampleNewsItemsLong}
                   className="w-5000"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
