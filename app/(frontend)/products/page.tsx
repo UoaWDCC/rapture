@@ -1,7 +1,7 @@
 import { getPayload } from "payload";
 import config from "@/payload.config";
 import ProductsDisplay from "./components/productsDisplay";
-import { Pagination } from "@/components/ui/Pagination";
+import ProductsDisplayBig from "./components/productsDisplayBig";
 import ProductForm from "./components/productForm"
 
 interface PageProps {
@@ -28,22 +28,20 @@ export default async function ProductsPage({ searchParams }: PageProps) {
   const { user } = await payload.auth({ headers: await (await import("next/headers")).headers() })
 
   return (
-    <div className="container mx-auto py-10">
-      {user?.role === "admin" && <ProductForm />}
-      <h1 className="font-bold text-xl">Products ({result.totalDocs})</h1>
+    <div className="container mx-auto">
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {result.docs.map((product, i) => (
-          <ProductsDisplay key={i} product={product} />
-        ))}
+      <div className="my-[5%] md:mx-0">
+        {result.docs[1] && ( //1 is just the first product.
+            <ProductsDisplayBig key={1} product={result.docs[1]} cap={30} />
+            //cap = quantity cap for the quantity can one add into cart each time.
+          )}
       </div>
 
-      <Pagination
-        page={page}
-        totalPages={result.totalPages}
-        hasNextPage={result.hasNextPage}
-        hasPrevPage={result.hasPrevPage}
-      />
+      <div className="h-[10%] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-[5%] p-[3%]">
+        {result.docs.map((product, i) => (
+          <ProductsDisplay key={i} product={product} className="h-full" /> //all products previewed here.
+        ))}
+      </div>
     </div>
   );
 }
