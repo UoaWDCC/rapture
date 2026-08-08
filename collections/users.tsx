@@ -1,6 +1,11 @@
 import { User } from "@/payload-types";
 import { CollectionConfig } from "payload";
 
+/*to test email system further*/
+import { sendEmail } from "@/lib/email/send_email";
+import { render } from "@react-email/render";
+import Welcome from "@/lib/email/email_templates/welcome";
+
 const adminCheck = (user: User | null) => {
   return user?.role === "admin";
 };
@@ -14,7 +19,7 @@ export const Users: CollectionConfig = {
 
   access: {
     // restricting Create, Read, Update and Delete(CRUD) access for this collection
-    create: ({ req: { user } }) => adminCheck(user),
+    create: () => true,
     read: ({ req: { user } }) => adminCheck(user),
     update: ({ req: { user } }) => adminCheck(user) || { id: { equals: user?.id } },
     delete: ({ req: { user } }) => adminCheck(user),
@@ -38,4 +43,24 @@ export const Users: CollectionConfig = {
       ],
     },
   ],
+
+  /*for email system testing*/
+  hooks: {
+    afterChange: [
+      async ({doc, operation}) => {
+        if (operation == "create") {
+          try{
+            const html = await render(<Welcome name={doc.name} />);
+              await sendEmail({
+              to: doc.email,
+              subject: "Welcome!",
+              html,
+            });
+          } catch (err) {
+            console.error("Welcome email failed.")
+          }
+        }
+      }
+    ]
+  }
 };
