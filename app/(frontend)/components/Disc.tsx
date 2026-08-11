@@ -12,9 +12,11 @@ interface DiscProps {
     iconRight?: string
     color: string
     ringText?: string
+    discColor?: string
+    ringColor?: string
 }
 
-export default function Disc({ name, url, image, icon, iconWidth, iconHeight, iconRight, iconTop, color, ringText = "RAPTURE" }: DiscProps) {
+export default function Disc({ name, url, image, icon, iconWidth, iconHeight, iconRight, iconTop, color, ringText = "RAPTURE", discColor = "#0650DA", ringColor = "#4C5091" }: DiscProps) {
     return (
         <Link href={url} target="_blank">
             <div className={`relative w-40 h-45 ${color} bg-opacity-10 rounded-xl overflow-hidden`}>
@@ -23,13 +25,17 @@ export default function Disc({ name, url, image, icon, iconWidth, iconHeight, ic
                     <defs>
                         <path id={`ring-${name}`} d="M 50,50 m -28,0 a 28,28 0 1,1 56,0 a 28,28 0 1,1 -56,0" fill="none" />
                     </defs>
-                    <text fill="#ffffff" fontSize="6" letterSpacing="1" style={{ fontFamily: "'Nova Cut', cursive" }}>
+                    <circle cx="50" cy="50" r="36" fill={discColor} fillOpacity="0.35" />
+                    <circle cx="50" cy="52" r="14" fill="#000000" fillOpacity="0.5" />
+                    <circle cx="50" cy="52" r="14" fill="none" stroke={ringColor} strokeWidth="1" />
+                    <circle cx="50" cy="50" r="36" fill="none" stroke={ringColor} strokeWidth="1" />
+                    <text fill="#ffffff" fontSize="6" letterSpacing="1" style={{ fontFamily: "'Fira Mono'" }}>
                         <textPath href={`#ring-${name}`} startOffset="0%">{ringText}</textPath>
                     </text>
-                    <text fill="#ffffff" fontSize="6" letterSpacing="1" style={{ fontFamily: "'Nova Cut', cursive" }}>
+                    <text fill="#ffffff" fontSize="6" letterSpacing="1" style={{ fontFamily: "'Fira Mono'" }}>
                         <textPath href={`#ring-${name}`} startOffset="33.33%">{ringText}</textPath>
                     </text>
-                    <text fill="#ffffff" fontSize="6" letterSpacing="1" style={{ fontFamily: "'Nova Cut', cursive" }}>
+                    <text fill="#ffffff" fontSize="6" letterSpacing="1" style={{ fontFamily: "'Fira Mono'" }}>
                         <textPath href={`#ring-${name}`} startOffset="66.66%">{ringText}</textPath>
                     </text>
                 </svg>
