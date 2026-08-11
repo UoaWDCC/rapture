@@ -32,9 +32,9 @@ export default function ProductsDisplay(props: productProps) {
         {props.product.additionalImage && props.product.additionalImage.length > 0 ? (
           <div className="max-h-full rounded-md items-center justify-center overflow-y-auto snap-y snap-mandatory scrollbar-none">
             {props.product.additionalImage?.map((image, index) => isMedia(image) ? (
-              <div className="snap-start mb-[5%]"> <Image src={image.url ?? ""} alt={image.alt ?? `${props.product.name} ${index+ 1}`} width={1560} height={1560} className="w-full h-full md:my-auto object-cover rounded-md" /> </div>
+              <div key={index} className="snap-start mb-[5%]"> <Image src={image.url ?? ""} alt={image.alt ?? `${props.product.name} ${index+ 1}`} width={1560} height={1560} className="w-full h-full md:my-auto object-cover rounded-md" /> </div>
             ) : (
-              <div className="flex w-full h-full py-[40%] bg-[#1F1F1F] rounded-md items-center justify-center">
+              <div key={index} className="flex w-full h-full py-[40%] bg-[#1F1F1F] rounded-md items-center justify-center">
                 <p className="m-[5%]">No Image(s).</p>
               </div>
             ))}
