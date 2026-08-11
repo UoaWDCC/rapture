@@ -48,9 +48,15 @@ export default async function HomePage() {
       : { id: { equals: "nobody" } }, //placeholder for no user id found
   });
 
+  const latestNews = await payload.find({
+    collection: "News",
+    sort: "-createdAt",
+    limit: 1,
+  });
+
   return (
     <div className="w-full flex-col items-center -mt-50">
-      <div className="w-full min-h-screen flex flex-col flex-wrap items-center justify-center gap-5 relative overflow-hidden">
+      <div className="w-full min-h-screen flex flex-col flex-wrap items-center justify-center gap-5 relative overflow-hidden pointer-events-none -z-10">
         <div className="absolute top-0 left-0 w-full">
           <Image
             src="/images/FRONT_PAGE.png"
@@ -64,7 +70,7 @@ export default async function HomePage() {
 
       <PromotedGameSection />
 
-      <NewsSection />
+      <NewsSection latestNews={latestNews.docs[0] ?? null}/>
 
       <div className="relative w-full overflow-hidden"></div>
     </div>
