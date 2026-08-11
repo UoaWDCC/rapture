@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Custom404() {
   return (
@@ -11,7 +12,7 @@ export default function Custom404() {
       <div className="w-[40%] mt-[-5%] md:mt-[-2%]">
         <p className="w-full text-center md:text-base text-xs">error #404</p>
         {/* <p className="w-full text-center">You have reached a dead end.</p> */}
-        <p className="w-full mb-[1.75%] text-center md:text-base text-xs"><a href="/" className="text-blue-500 text-shadow-blue-300 hover:text-shadow-sm hover:underline">click here to return to the home page.</a></p>
+        <p className="w-full mb-[1.75%] text-center md:text-base text-xs"><Link href="/" className="text-blue-500 text-shadow-blue-300 hover:text-shadow-sm hover:underline">click here to return to the home page.</Link></p>
       </div>
     </div>
   )
