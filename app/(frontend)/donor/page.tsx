@@ -6,7 +6,7 @@ import DonorBigBox from "../components/DonorBigBox";
 export default async function DonorPage() { 
 
   return (
-    <div className="mt-40 mb-40 p-8 flex flex-col items-center">
+    <div className="mt-20 p-8 flex flex-col items-center">
         <h1 className="mb-10">DONOR</h1>
 
         <div className="w-[80%] md:w-[70%] grid grid-cols-1 md:grid-cols-3 gap-1">

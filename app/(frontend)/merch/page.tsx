@@ -91,7 +91,7 @@ export default function MerchPage() {
 
   return (
     <div 
-      className="merch-wrapper min-h-screen bg-black text-white w-full max-w-[1440px] mx-auto relative flex flex-col md:flex-row pt-24 md:pt-32" 
+      className="merch-wrapper min-h-screen bg-black text-white w-full max-w-[1440px] mx-auto relative flex flex-col md:flex-row"
     >
       <style>{`
         .merch-wrapper {

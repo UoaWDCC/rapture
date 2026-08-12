@@ -28,7 +28,7 @@ export default async function ProductsPage({ searchParams }: PageProps) {
   const { user } = await payload.auth({ headers: await (await import("next/headers")).headers() })
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto">
       {user?.role === "admin" && <ProductForm />}
       <h1 className="font-bold text-xl">Products ({result.totalDocs})</h1>
 

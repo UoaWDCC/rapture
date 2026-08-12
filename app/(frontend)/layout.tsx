@@ -55,7 +55,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           user={user} 
         />
 
-        <main>{children}</main>
+        <main className="mt-16 mb-16">{children}</main>
         
         <Footer
           contactEmail={contactEmail}
