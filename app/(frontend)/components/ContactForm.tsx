@@ -33,17 +33,23 @@ async function submitContactForm(formData: FormData) {
     <ContactFormConfirmation name={name} email={email} form={form} category={category} />
   );
 
-  await sendEmail({
-    to: email,
-    subject: "Thank you for reaching out!",
-    html: htmlToUser,
-  })
+  try {
+    await Promise.all([
+      sendEmail({
+        to: email2,
+        subject: `${name} Reached out.`,
+        html: htmlToAdmin,
+      }),
 
-  await sendEmail({
-    to: email2,
-    subject: `${name} Reached out.`,
-    html: htmlToAdmin,
-  })
+      sendEmail({
+        to: email,
+        subject: "Thank you for reaching out!",
+        html: htmlToUser,
+      })
+    ]);
+  } catch (error) {
+    throw new Error("Sorry, we couldn't send your message.")
+  }
 }
 
 export default function ContactForm({
@@ -92,6 +98,7 @@ export default function ContactForm({
                 data-form-type="other"
                 data-lpignore="true"
                 className="bg-transparent border-white font-fira-custom text-white outline-none transition-colors h-[4.833cqw] border-[0.115cqw] border-solid px-[1.381cqw] text-[1.611cqw]"
+                required
               />
             </div>
 
@@ -130,6 +137,7 @@ export default function ContactForm({
               data-form-type="other"
               data-lpignore="true"
               className="bg-transparent border-white font-fira-custom text-white outline-none transition-colors h-[4.833cqw] border-[0.115cqw] border-solid px-[1.381cqw] text-[1.611cqw]"
+              required
             />
           </div>
 
@@ -176,6 +184,7 @@ export default function ContactForm({
               id="message" 
               name="message"
               className="bg-transparent border-white font-fira-custom text-white outline-none transition-colors h-[31.645cqw] resize-none border-[0.115cqw] border-solid p-[1.381cqw] text-[1.611cqw]"
+              required
             ></textarea>
           </div>
 
