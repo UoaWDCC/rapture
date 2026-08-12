@@ -23,12 +23,14 @@ async function submitContactForm(formData: FormData) {
     throw new Error("invalid email");
   }
 
+  // USER
   const email = emailValue.trim();
   const htmlToUser = await render(
     <ContactFormConfirmationToUser name={name} form={form} />
   );
 
-  const email2 = "tendean.ireneandyna@gmail.com";
+  // ADMIN
+  const emailAdmin = "dummy@gmail.com"; //admin email
   const htmlToAdmin = await render(
     <ContactFormConfirmation name={name} email={email} form={form} category={category} />
   );
@@ -36,7 +38,7 @@ async function submitContactForm(formData: FormData) {
   try {
     await Promise.all([
       sendEmail({
-        to: email2,
+        to: emailAdmin,
         subject: `${name} Reached out.`,
         html: htmlToAdmin,
       }),
