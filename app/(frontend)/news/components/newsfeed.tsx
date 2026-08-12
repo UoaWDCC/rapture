@@ -1,6 +1,5 @@
-import type { News, Category, Media } from "@/payload-types";
+import type { News, Category } from "@/payload-types";
 import { RichText } from "@payloadcms/richtext-lexical/react";
-import Link from "next/link";
 import Image from "next/image";
 
 function formatShortDate(dateString: string) {

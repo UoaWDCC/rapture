@@ -3,7 +3,7 @@
 import { useState } from "react";
 import NewsFeed from "./newsfeed";
 
-import type { News, Category } from "@/payload-types";
+import type { News } from "@/payload-types";
 
 function formatDate(dateString: string) {
   const date = new Date(dateString);

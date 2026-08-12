@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { NewsPost } from '../../mockData'
@@ -21,25 +21,23 @@ export function NewsContent({ post, isAdmin }: Props) {
   const [saving, setSaving] = useState(false)
   const [titleError, setTitleError] = useState(false)
   const [contentError, setContentError] = useState(false)
-
-  // Live editor state (NOT reactive)
-  const contentRef = useRef(post.content)
+  const [draftContent, setDraftContent] = useState(post.content)
 
   // UI state (what user sees after save)
   const [savedContent, setSavedContent] = useState(post.content)
 
   function handleEditorChange(editorState: EditorState) {
     editorState.read(() => {
-      contentRef.current = editorState.toJSON()
+      setDraftContent(editorState.toJSON())
     })
   }
 
   const handleSave = async () => {
     const contentIsEmpty =
-      !contentRef.current ||
-      (typeof contentRef.current === 'object' &&
-        (!contentRef.current.root?.children?.length ||
-          contentRef.current.root.children.every(
+      !draftContent ||
+      (typeof draftContent === 'object' &&
+        (!draftContent.root?.children?.length ||
+          draftContent.root.children.every(
             (node: SerializedLexicalNode & { children?: (SerializedTextNode)[] }) =>
               node.children?.length === 0 ||
               node.children?.every((child: SerializedTextNode) => child.text === '')
@@ -55,7 +53,7 @@ export function NewsContent({ post, isAdmin }: Props) {
     try {
       // TODO: Update news post API call here
 
-      setSavedContent(contentRef.current)
+      setSavedContent(draftContent)
       setIsEditing(false)
       router.refresh()
     } catch (err) {
@@ -67,7 +65,7 @@ export function NewsContent({ post, isAdmin }: Props) {
 
   function handleCancel() {
     setTitle(post.title)
-    contentRef.current = post.content
+    setDraftContent(post.content)
     setTitleError(false)
     setContentError(false)
     setIsEditing(false)
@@ -111,7 +109,7 @@ export function NewsContent({ post, isAdmin }: Props) {
       {/* Content */}
       {isEditing ? (
         <RichTextEditor
-          initialValue={contentRef.current}
+          initialValue={draftContent}
           onChange={handleEditorChange}
         />
       ) : (

@@ -157,5 +157,11 @@ export const Products: CollectionConfig = {
       type: "upload",
       relationTo: "media",
     },
+    {
+      name: "additionalImage",
+      type: "upload",
+      relationTo: "media",
+      hasMany: true,
+    },
   ],
 };

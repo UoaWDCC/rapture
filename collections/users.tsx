@@ -18,7 +18,8 @@ export const Users: CollectionConfig = {
   },
 
   access: {
-    create: ({ req: { user } }) => adminCheck(user),
+    // restricting Create, Read, Update and Delete(CRUD) access for this collection
+    create: () => true,
     read: ({ req: { user } }) =>
       adminCheck(user) || { id: { equals: user?.id } },
     update: ({ req: { user } }) =>
