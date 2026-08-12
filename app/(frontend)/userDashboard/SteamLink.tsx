@@ -1,40 +1,34 @@
+//Steam linking widget, simple and dumb
 "use client";
 
 import { useState } from "react";
 
-export default function SteamLink({ initialSteamId }: { initialSteamId: string | null }) {
-  const [steamId, setSteamId] = useState<string | null>(initialSteamId);
-  const [input, setInput] = useState("");
-  const [error, setError] = useState("");
-  const [busy, setBusy] = useState(false);
+const MESSAGES: Record<string, string> = {
+  linked: "Steam account linked.",
+  already_linked: "Your account is already linked to a Steam account.",
+  duplicate: "That Steam account is already linked to another user.",
+  invalid: "Steam returned an invalid ID. Please try again.",
+  error: "Steam sign-in failed. Please try again.",
+};
 
-  async function link(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
-    setBusy(true);
-    const res = await fetch("/api/steam", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ steamId: input }),
-    });
-    const json = await res.json();
-    setBusy(false);
-    if (res.ok) {
-      setSteamId(json.data.steamId);
-      setInput("");
-    } else {
-      setError(json.error ?? "Failed to link.");
-    }
-  }
+export default function SteamLink({
+  initialSteamId,
+  status,
+}: {
+  initialSteamId: string | null;
+  status?: string;
+}) {
+  const [steamId, setSteamId] = useState<string | null>(initialSteamId);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
 
   async function unlink() {
     setError("");
     setBusy(true);
     const res = await fetch("/api/steam", { method: "DELETE" });
-    const json = await res.json();
     setBusy(false);
     if (res.ok) setSteamId(null);
-    else setError(json.error ?? "Failed to unlink.");
+    else setError("Failed to unlink.");
   }
 
   return (
@@ -53,23 +47,14 @@ export default function SteamLink({ initialSteamId }: { initialSteamId: string |
           </button>
         </>
       ) : (
-        <form onSubmit={link} className="flex flex-col gap-2 w-full">
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="SteamID64 (17 digits)"
-            required
-            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <button
-            type="submit"
-            disabled={busy}
-            className="px-4 py-2 border rounded disabled:opacity-50"
-          >
-            Link Steam account
-          </button>
-        </form>
+        <a
+          href="/api/steam/login"
+          className="px-4 py-2 border rounded bg-black text-white hover:opacity-90"
+        >
+          Sign in through Steam
+        </a>
       )}
+      {status && MESSAGES[status] && <p className="text-gray-600">{MESSAGES[status]}</p>}
       {error && <p className="text-red-500">{error}</p>}
     </div>
   );

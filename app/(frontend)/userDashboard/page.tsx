@@ -6,13 +6,19 @@ import Link from "next/link"
 import LogoutButton from '../components/ui/LogoutButton'
 import SteamLink from './SteamLink'
 
-export default async function ProtectedPage() {
+export default async function ProtectedPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ steam?: string }>
+}) {
   const payload = await getPayload({ config: await config})
   const { user } = await payload.auth({ headers: await headers() })
 
   if (!user) {
     redirect('/login')
   }
+
+  const { steam } = await searchParams
 
   return (
   <main className="p-8 font-sans flex flex-col items-center">
@@ -21,7 +27,7 @@ export default async function ProtectedPage() {
     <p className="mb-4">
       Authentication successful. Logged in as: <strong className="text-blue-500">{user.email}</strong>
     </p>
-    <SteamLink initialSteamId={user.steamId ?? null} />
+    <SteamLink initialSteamId={user.steamId ?? null} status={steam} />
     <LogoutButton />
   </main>
 )
