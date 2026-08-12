@@ -1,21 +1,11 @@
 import type { CollectionConfig } from "payload";
 
-/* 
-Example Payload Collection
-
-When creating a new payload collection, you must ensure to add it to the payload.config.ts file.
-
-for more information look at the online docs
-https://payloadcms.com/docs/configuration/collections
-*/
-
 export const CartCollection: CollectionConfig = {
-  slug: "Cart", // Collection Name
-  // What is stored in this collection
+  slug: "Cart",
   fields: [
     {
-      name: "user", // Name of field can be anything
-      type: "relationship", // Type of field has to be one of the defined types from https://payloadcms.com/docs/fields/overview
+      name: "user",
+      type: "relationship",
       relationTo: "users",
       required: true,
       unique: true,
@@ -25,14 +15,16 @@ export const CartCollection: CollectionConfig = {
       type: "array",
       fields: [
         {
-          name: "productTitle",
-          type: "text",
+          name: "product",
+          type: "relationship",
+          relationTo: "products",
           required: true,
         },
         {
-          name: "productPrice",
-          type: "number",
+          name: "stripePriceId",
+          type: "text",
           required: true,
+          admin: { description: "Stripe price ID used to checkout this item." },
         },
         {
           name: "quantity",
@@ -41,7 +33,7 @@ export const CartCollection: CollectionConfig = {
           min: 1,
           defaultValue: 1,
         },
-      ]
-    },    
+      ],
+    },
   ],
 };

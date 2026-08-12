@@ -7,7 +7,6 @@ export const OrderCollection: CollectionConfig = {
       name: "user",
       type: "relationship",
       relationTo: "users",
-      required: true,
       index: true,
       label: "User (Email)",
     },
@@ -34,6 +33,27 @@ export const OrderCollection: CollectionConfig = {
       hasMany: true,
       required: true,
       label: "Products",
+    },
+    {
+      name: "stripeCheckoutSessionId",
+      type: "text",
+      index: true,
+      admin: {
+        description: "Canonical Stripe checkout session ID for the order.",
+      },
+    },
+    {
+      name: "stripePaymentIntentId",
+      type: "text",
+      index: true,
+      admin: {
+        description: "Canonical Stripe payment intent ID for the order.",
+      },
+    },
+    {
+      name: "customerEmail",
+      type: "email",
+      admin: { description: "Email captured from the checkout session." },
     },
     {
       name: "dateTime",
