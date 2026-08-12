@@ -19,7 +19,7 @@ export default function Footer({ contactEmail }: FooterProps) {
       <div className="flex gap-8 justify-center w-full flex-wrap">
         <Disc
           name="Discord"
-          url="https://discord.com"
+          url="https://www.discord.gg/w4D5rn6Tnf"
           image="/dvd_player_2.png"
           icon="/DISCORD.png"
           iconWidth={35}
@@ -41,7 +41,7 @@ export default function Footer({ contactEmail }: FooterProps) {
         />
         <Disc
           name="Steam"
-          url="https://store.steampowered.com/search/?developer=Lee%20Wilson"
+          url="https://store.steampowered.com/app/2908090/VITRIOL/"
           image="/dvd_player_2.png"
           icon="/steam.png"
           iconWidth={35}
