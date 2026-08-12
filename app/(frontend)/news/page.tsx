@@ -1,10 +1,7 @@
 import { getPayload } from "payload";
 import config from "@/payload.config";
 import NewsTab from "./components/newsTabs";
-import NewsList from "@/app/(frontend)/components/NewsList/NewsList";
-import { NewsListProps } from "../components/NewsList";
-import GameCard from "@/app/(frontend)/components/gameCard";
-import NewsSubmission from "../components/newsSubmission";
+
 import type { NewsItem } from "../components/NewsList";
 
 export default async function ExampleCollectionPage({

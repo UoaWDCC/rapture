@@ -8,7 +8,6 @@ import { Fira_Mono, Nova_Cut } from "next/font/google";
 
 import Navbar from "@/app/(frontend)/components/navbar.tsx";
 import Footer from "./components/Footer";
-import Sidebar from "./components/Sidebar";
 
 const firaMono = Fira_Mono({
   weight: ["400", "500", "700"],

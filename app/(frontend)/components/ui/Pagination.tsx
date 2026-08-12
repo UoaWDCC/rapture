@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRef } from "react";
 
 interface PaginationProps {
   page: number;
@@ -35,17 +35,16 @@ function PageButton({
 }
 
 export function Pagination({ page, totalPages, hasNextPage, hasPrevPage }: PaginationProps) {
-  const [input, setInput] = useState(String(page));
+  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  useEffect(() => {
-    setInput(String(page));
-  }, [page]);
-
   function handleNavigate() {
-    const parsed = parseInt(input, 10);
+    const inputValue = inputRef.current?.value ?? String(page);
+    const parsed = parseInt(inputValue, 10);
     const clamped = isNaN(parsed) ? page : Math.min(Math.max(parsed, 1), totalPages);
-    setInput(String(clamped));
+    if (inputRef.current) {
+      inputRef.current.value = String(clamped);
+    }
     router.push(`?page=${clamped}`);
   }
 
@@ -61,11 +60,12 @@ export function Pagination({ page, totalPages, hasNextPage, hasPrevPage }: Pagin
 
       <div className="h-8 border-l border-r border-dotted border-brand-blue">
         <input
+          key={page}
+          ref={inputRef}
           type="number"
           min={1}
           max={totalPages}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
+          defaultValue={page}
           onBlur={handleNavigate}
           onKeyDown={(e) => e.key === "Enter" && handleNavigate()}
           className="text-center text-lg outline-none"
