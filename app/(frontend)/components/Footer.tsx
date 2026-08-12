@@ -22,10 +22,10 @@ export default function Footer({ contactEmail }: FooterProps) {
           url="https://www.discord.gg/w4D5rn6Tnf"
           image="/dvd_player_2.png"
           icon="/DISCORD.png"
-          iconWidth={35}
-          iconHeight={35}
-          iconTop="top-5.5"
-          iconRight="right-3.75"
+          iconWidth={50}
+          iconHeight={50}
+          iconTop="top-8"
+          iconRight="right-5.75"
           color="bg-[#171947]/70"
         />
         <Disc
@@ -33,10 +33,10 @@ export default function Footer({ contactEmail }: FooterProps) {
           url="https://www.youtube.com/@STUDIO_RAPTURE"
           image="/dvd_player_2.png"
           icon="/YT.png"
-          iconWidth={60}
-          iconHeight={60}
+          iconWidth={95}
+          iconHeight={95}
           iconTop="top-2"
-          iconRight="right-0.5"
+          iconRight="right-0"
           color="bg-[#4C1010]/70"
         />
         <Disc
@@ -44,10 +44,10 @@ export default function Footer({ contactEmail }: FooterProps) {
           url="https://store.steampowered.com/app/2908090/VITRIOL/"
           image="/dvd_player_2.png"
           icon="/steam.png"
-          iconWidth={35}
-          iconHeight={35}
-          iconTop="top-5.5"
-          iconRight="right-3.75"
+          iconWidth={50}
+          iconHeight={50}
+          iconTop="top-7.5"
+          iconRight="right-5.75"
           color="bg-[#171720]/70"
         />
       </div>
