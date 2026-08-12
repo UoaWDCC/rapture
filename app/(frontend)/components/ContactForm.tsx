@@ -1,15 +1,55 @@
 import React from 'react';
+import { sendEmail } from "@/lib/email/send_email";
+import { render } from "@react-email/render";
+import ContactFormConfirmationToUser from '@/lib/email/email_templates/contactFormConfirmationToUser';
+import ContactFormConfirmation from '@/lib/email/email_templates/contactFormConfirmation';
 
 interface ContactFormProps {
   title?: string;
   description?: React.ReactNode;
-  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
+}
+
+async function submitContactForm(formData: FormData) {
+  "use server";
+
+  const firstName = formData.get("firstName") as string; const lastName = formData.get("lastName") as string;
+  const name = `${firstName} ${lastName}`;
+  const emailValue = formData.get("email"); // as string;
+  // console.log("EMAIL:", emailValue);
+  const form = formData.get("message") as string;
+  const category = formData.get("enquiryCategory") as string;
+
+  if (typeof emailValue !== "string" || !emailValue.trim()) {
+    throw new Error("invalid email");
+  }
+
+  const email = emailValue.trim();
+  const htmlToUser = await render(
+    <ContactFormConfirmationToUser name={name} form={form} />
+  );
+
+  const email2 = "tendean.ireneandyna@gmail.com";
+  const htmlToAdmin = await render(
+    <ContactFormConfirmation name={name} email={email} form={form} category={category} />
+  );
+
+  await sendEmail({
+    to: email,
+    subject: "Thank you for reaching out!",
+    html: htmlToUser,
+  })
+
+  await sendEmail({
+    to: email2,
+    subject: `${name} Reached out.`,
+    html: htmlToAdmin,
+  })
 }
 
 export default function ContactForm({
   title = "Contact Us",
   description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nis.",
-  onSubmit,
+
 }: ContactFormProps) {
   return (
     <div className="w-full max-w-[870px] min-w-[320px] mx-auto @container">
@@ -31,7 +71,7 @@ export default function ContactForm({
         {/* Form */}
         <form 
           className="flex flex-col mt-[4.373cqw]" 
-          onSubmit={onSubmit}
+          action={submitContactForm}
           autoComplete="off"
         >
           
