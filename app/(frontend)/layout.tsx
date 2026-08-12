@@ -8,7 +8,6 @@ import { Fira_Mono, Nova_Cut } from "next/font/google";
 
 import Navbar from "@/app/(frontend)/components/navbar.tsx";
 import Footer from "./components/Footer";
-import Sidebar from "./components/Sidebar";
 
 const firaMono = Fira_Mono({
   weight: ["400", "500", "700"],
@@ -37,8 +36,7 @@ const itemsNav = [
 ]; // navbar testing
 
 // Fill in with actual webpage links when they are done.
-const studioTagline = "Tagline example";
-const contactEmail = "contact@gmail.com";
+const contactEmail = "contact@studiorapture.com";
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props;
@@ -51,7 +49,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${firaMono.variable} ${novaCut.variable} z-10`}>
       <body>
-        {/* REMOVDE SIDEBAR FOR NOW <Sidebar /> */}
+        {/* REMOVED SIDEBAR FOR NOW <Sidebar /> */}
         <Navbar 
           item={itemsNav} 
           user={user} 
@@ -60,7 +58,6 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         <main>{children}</main>
         
         <Footer
-          studioTagline={studioTagline}
           contactEmail={contactEmail}
         />
       </body>

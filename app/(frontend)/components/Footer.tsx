@@ -2,11 +2,10 @@ import Disc from "@/app/(frontend)/components/Disc";
 import Image from "next/image";
 
 type FooterProps = {
-  studioTagline?: string;
   contactEmail?: string;
 };
 
-export default function Footer({ studioTagline, contactEmail }: FooterProps) {
+export default function Footer({ contactEmail }: FooterProps) {
   return (
     <footer className="bg-[url(/images/FOOTER.png)]  w-full bg-cover bg-no-repeat text-white z-0 relative bg-[center_top_100px]">
       <div className="flex items-center gap-4 w-full px-20 mb-10">
@@ -59,7 +58,7 @@ export default function Footer({ studioTagline, contactEmail }: FooterProps) {
 
       <div className="px-20">
         <div className="w-full border-2 border-amber-400 bg-black rounded-3xl flex flex-col gap-2 p-5">
-          <h5>STUDIO RAPTURE!: {studioTagline}</h5>
+          <h5>STUDIO RAPTURE!</h5>
           <h5>CONTACT: {contactEmail}</h5>
         </div>
       </div>
