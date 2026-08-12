@@ -30,10 +30,13 @@
   /* Brand colors */
   --color-brand-yellow: #f2b423;
   --color-brand-dark-brown: #150703;
-  --color-brand-blue: #3727ea;
+  --color-brand-blue: #0650da;
+  --color-brand-blue2: #84afff;
+  --color-brand-white: #eeeeee;
 
   /* Custom utility for Nova Cut font design */
   --font-nova: var(--font-nova-cut);
+  --font-fira: var(--font-fira-mono);
 }
 
 @utility text-stroke {
@@ -97,4 +100,12 @@ h4 {
 
 .font-nova-cut {
   font-family: "Nova Cut", cursive;
+}
+/* Custom font classes to bypass Tailwind compiler issues */
+.font-fira-custom {
+  font-family: var(--font-fira-mono), monospace !important;
+}
+
+.font-nova-custom {
+  font-family: var(--font-nova-cut), sans-serif !important;
 }

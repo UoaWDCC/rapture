@@ -323,6 +323,7 @@ export interface News {
   };
   image: string | Media;
   category: (string | Category)[];
+  date: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -570,6 +571,7 @@ export interface NewsSelect<T extends boolean = true> {
   description?: T;
   image?: T;
   category?: T;
+  date?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -57,5 +57,10 @@ export const News: CollectionConfig = {
       hasMany: true,
       required: true,
     },
+    {
+      name: "date",
+      type: "date",
+      required: true,
+    },
   ],
 };
