@@ -21,7 +21,8 @@ export const Users: CollectionConfig = {
     // restricting Create, Read, Update and Delete(CRUD) access for this collection
     create: () => true,
     read: ({ req: { user } }) => adminCheck(user),
-    update: ({ req: { user } }) => adminCheck(user) || { id: { equals: user?.id } },
+    update: ({ req: { user } }) =>
+      adminCheck(user) || { id: { equals: user?.id } },
     delete: ({ req: { user } }) => adminCheck(user),
 
     admin: ({ req: { user } }) => adminCheck(user), // Whether a user from this collection can access the admin panel or not
@@ -47,20 +48,20 @@ export const Users: CollectionConfig = {
   /*for email system testing*/
   hooks: {
     afterChange: [
-      async ({doc, operation}) => {
+      async ({ doc, operation }) => {
         if (operation == "create") {
-          try{
+          try {
             const html = await render(<Welcome name={doc.name} />);
-              await sendEmail({
+            await sendEmail({
               to: doc.email,
               subject: "Welcome!",
               html,
             });
           } catch (err) {
-            console.error("Welcome email failed.")
+            console.error("Welcome email failed.");
           }
         }
-      }
-    ]
-  }
+      },
+    ],
+  },
 };
