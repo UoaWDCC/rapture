@@ -1,6 +1,6 @@
 import Image from "next/image"
-import PopUp from '../components/ui/PopUp'
-import GlitchReveal from "../components/GlitchReveal"
+import PopUp from '../../components/ui/PopUp'
+import GlitchReveal from "../../components/GlitchReveal"
 
 export default async function GamesPage() {
   return (
