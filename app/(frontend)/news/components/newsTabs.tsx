@@ -1,22 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import NewsFeed from "./newsfeed";
+import styles from "./newsTabs.module.css";
 
-import type { News, Category } from "@/payload-types";
+import type { News } from "@/payload-types";
 
-function formatDate(dateString: string) {
-  const date = new Date(dateString);
-
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const year = date.getFullYear();
-
-  const hour = String(date.getHours()).padStart(2, "0");
-  const minute = String(date.getMinutes()).padStart(2, "0");
-
-  return `${day}/${month}/${year} ${hour}:${minute}`;
-}
+const VISIBLE_CARDS = 3;
+const TRACK_PADDING = 10;
 
 export default function NewsTabs({
   allNews,
@@ -25,7 +16,17 @@ export default function NewsTabs({
   allNews: News[];
   expandedArticleId?: string | null;
 }) {
-  const [activeTab, setActiveTab] = useState("All");
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const thumbRef = useRef<HTMLDivElement>(null);
+
+  /* Store thumb dimensions in refs so recalc() never calls setState */
+  const thumbHeightRef = useRef(0);
+  const thumbTopRef = useRef(0);
+
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartY, setDragStartY] = useState(0);
+  const [dragStartTop, setDragStartTop] = useState(0);
 
   const initialNews = expandedArticleId
     ? (allNews.find((n) => String(n.id) === expandedArticleId) ?? null)
@@ -35,30 +36,152 @@ export default function NewsTabs({
     initialNews?.id ? String(initialNews.id) : null,
   );
 
+  const shouldScroll = allNews.length > VISIBLE_CARDS;
+
+  /**
+   * Measures the DOM and updates styles imperatively (no setState).
+   * This avoids the React 19 "cascading renders" warning.
+   */
+  const recalc = useCallback(() => {
+    const el = scrollRef.current;
+    const track = trackRef.current;
+    const thumb = thumbRef.current;
+    if (!el) return;
+
+    /* ---- Dynamic max-height based on first 3 cards ---- */
+    const children = Array.from(el.children);
+    if (children.length > VISIBLE_CARDS) {
+      let exactHeight = 0;
+      for (let i = 0; i < VISIBLE_CARDS; i++) {
+        exactHeight += (children[i] as HTMLElement).offsetHeight;
+      }
+      el.style.maxHeight = `${exactHeight}px`;
+    }
+
+    /* ---- Scrollbar visibility & thumb sizing ---- */
+    const overflows = el.scrollHeight > el.clientHeight;
+
+    if (track) {
+      track.style.display = overflows ? "" : "none";
+    }
+
+    if (!overflows || !track || !thumb) return;
+
+    const trackH = track.clientHeight - TRACK_PADDING;
+    const ratio = el.clientHeight / el.scrollHeight;
+    const newThumbH = Math.max(ratio * trackH, 30);
+    thumbHeightRef.current = newThumbH;
+    thumb.style.height = `${newThumbH}px`;
+
+    const scrollRatio =
+      el.scrollTop / (el.scrollHeight - el.clientHeight || 1);
+    const newThumbTop = scrollRatio * (trackH - newThumbH);
+    thumbTopRef.current = newThumbTop;
+    thumb.style.top = `${newThumbTop + 5}px`;
+  }, []);
+
+  /* ---- Run recalc on mount, data change, and resize ---- */
+  useEffect(() => {
+    /* Defer to next frame so the DOM has painted the children */
+    const raf = requestAnimationFrame(recalc);
+    window.addEventListener("resize", recalc);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", recalc);
+    };
+  }, [allNews, expandedId, recalc]);
+
+  /* ---- Sync thumb position on content scroll ---- */
+  const handleScroll = () => recalc();
+
+  /* ---- Drag-to-scroll on thumb ---- */
+  const startDrag = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+    setDragStartY(e.clientY);
+    setDragStartTop(thumbTopRef.current);
+  };
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const onMove = (e: MouseEvent) => {
+      const el = scrollRef.current;
+      const track = trackRef.current;
+      const thumb = thumbRef.current;
+      if (!el || !track || !thumb) return;
+
+      const trackH = track.clientHeight - TRACK_PADDING;
+      const currentThumbH = thumbHeightRef.current;
+      const delta = e.clientY - dragStartY;
+      const newTop = Math.min(
+        Math.max(dragStartTop + delta, 0),
+        trackH - currentThumbH,
+      );
+      thumbTopRef.current = newTop;
+      thumb.style.top = `${newTop + 5}px`;
+
+      const scrollRatio = newTop / (trackH - currentThumbH || 1);
+      el.scrollTop = scrollRatio * (el.scrollHeight - el.clientHeight);
+    };
+
+    const onUp = () => setIsDragging(false);
+
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+    };
+  }, [isDragging, dragStartY, dragStartTop]);
+
+  /* ---- Render ---- */
+  if (allNews.length === 0) {
+    return (
+      <div className="my-7.5">
+        <div className={styles.emptyState}>
+          <p>No news to display yet.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="my-7.5">
-      {/*All news displayed*/}
-      <div>
-        {allNews.length === 0 ? (
-          /*No news; just a container display */
-          <div className="w-full h-148.75 text-2xl bg-[#F2B423]/70 flex items-center justify-center p-3 text-center text-[#302F2F] font-[Nova_Cut]">
-            <p>No news to display yet.</p>
-          </div>
-        ) : (
-          allNews.map((item) => (
-            <NewsFeed
-              key={item.id}
-              news={item}
-              onReadMore={() =>
-                setExpandedId(
-                  expandedId === String(item.id) ? null : String(item.id),
-                )
-              }
-              isExpanded={expandedId === String(item.id)}
-            />
-          ))
-        )}
+      <div className={styles.newsContainer}>
+      <div
+        ref={scrollRef}
+        className={`${styles.scrollableArea} ${
+          !shouldScroll ? styles.noOverflow : ""
+        }`}
+        onScroll={handleScroll}
+      >
+        {allNews.map((item) => (
+          <NewsFeed
+            key={item.id}
+            news={item}
+            onReadMore={() =>
+              setExpandedId(
+                expandedId === String(item.id) ? null : String(item.id),
+              )
+            }
+            isExpanded={expandedId === String(item.id)}
+          />
+        ))}
       </div>
+
+      <div
+        ref={trackRef}
+        className={styles.scrollbarTrack}
+        style={{ display: "none" }}
+      >
+        <div
+          ref={thumbRef}
+          className={styles.scrollbarThumb}
+          onMouseDown={startDrag}
+        />
+      </div>
+    </div>
     </div>
   );
 }
