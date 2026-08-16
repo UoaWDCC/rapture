@@ -4,6 +4,8 @@ import { headers as getHeaders } from "next/headers.js";
 import NewsTab from "./components/newsTabs";
 import NewsHeader from "./components/NewsHeader";
 
+import type { NewsItem } from "../components/NewsList";
+
 export default async function ExampleCollectionPage({
   searchParams,
 }: {
