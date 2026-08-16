@@ -30,10 +30,13 @@
   /* Brand colors */
   --color-brand-yellow: #f2b423;
   --color-brand-dark-brown: #150703;
-  --color-brand-blue: #3727ea;
+  --color-brand-blue: #0650DA;
+  --color-brand-blue2: #84AFFF;
+  --color-brand-white: #EEEEEE;
 
   /* Custom utility for Nova Cut font design */
-  --font-nova: var(--font-nova-cut);;
+  --font-nova: var(--font-nova-cut);
+  --font-fira: var(--font-fira-mono);
 }
 
 @utility text-stroke {
@@ -42,6 +45,24 @@
 
 @utility text-stroke-color-* {
   --text-stroke-color: --value(--color-*);
+}
+
+@utility writing-mode-vertical {
+  writing-mode: vertical-lr;
+}
+
+@keyframes disc-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.disc-ring {
+    transform-box: view-box;
+    transform-origin: 50px 50px;
+}
+
+.group:hover .disc-ring {
+    animation: disc-spin 4s linear infinite;
 }
 
 :root {
@@ -57,35 +78,46 @@
   }
 */
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-nova-cut), Arial, sans-serif;
-  font-size: var(--font-size-body-01);
-  line-height: var(--line-height-body-01);
-  letter-spacing: var(--letter-spacing-body-01);
+@layer base {
+  body {
+    color: var(--foreground);
+    background: var(--background);
+    font-family: var(--font-nova-cut), Arial, sans-serif;
+    font-size: var(--font-size-body-01);
+    line-height: var(--line-height-body-01);
+    letter-spacing: var(--letter-spacing-body-01);
+  }
+
+  h1 {
+    font-size: var(--font-size-headline-01);
+    line-height: var(--line-height-headline-01);
+    letter-spacing: var(--letter-spacing-headline-01);
+  }
+
+  h2 {
+    font-size: var(--font-size-headline-02);
+    line-height: var(--line-height-headline-02);
+    letter-spacing: var(--letter-spacing-headline-02);
+  }
+
+  h3 {
+    font-size: var(--font-size-headline-03);
+    line-height: var(--line-height-headline-03);
+    letter-spacing: var(--letter-spacing-headline-03);
+  }
+
+  h4 {
+    font-size: var(--font-size-headline-04);
+    line-height: var(--line-height-headline-04);
+    letter-spacing: var(--letter-spacing-headline-04);
+  }
 }
 
-h1 {
-  font-size: var(--font-size-headline-01);
-  line-height: var(--line-height-headline-01);
-  letter-spacing: var(--letter-spacing-headline-01);
+/* Custom font classes to bypass Tailwind compiler issues */
+.font-fira-custom {
+  font-family: var(--font-fira-mono), monospace !important;
 }
 
-h2 {
-  font-size: var(--font-size-headline-02);
-  line-height: var(--line-height-headline-02);
-  letter-spacing: var(--letter-spacing-headline-02);
-}
-
-h3 {
-  font-size: var(--font-size-headline-03);
-  line-height: var(--line-height-headline-03);
-  letter-spacing: var(--letter-spacing-headline-03);
-}
-
-h4 {
-  font-size: var(--font-size-headline-04);
-  line-height: var(--line-height-headline-04);
-  letter-spacing: var(--letter-spacing-headline-04);
+.font-nova-custom {
+  font-family: var(--font-nova-cut), sans-serif !important;
 }
