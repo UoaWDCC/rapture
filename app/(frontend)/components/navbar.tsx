@@ -57,6 +57,17 @@ export default function Navbar({item}: NavProps) {
           )
         })}
       </div>
+
+      {/* Account Profile */}
+      <Link href="/login">
+        <Image 
+          className="pt-3 pl-4 hover:filter-grey"
+          alt="Account Profile"
+          height={60}
+          width={60}
+          src="Account.svg"
+        />
+      </Link>
     </nav>
   );
 }

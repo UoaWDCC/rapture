@@ -60,7 +60,7 @@ export default function ContactForm({
 
 }: ContactFormProps) {
   return (
-    <div className="w-full max-w-[870px] min-w-[320px] mx-auto @container">
+    <div className="w-full max-w-[870px] min-w-[320px] ml-95 @container z-0">
       <div className="relative w-full text-white overflow-hidden aspect-[87/98] pt-[9cqw] pl-[14cqw] pr-[8cqw] pb-[12cqw]">
         
         {/* Background Overlay */}

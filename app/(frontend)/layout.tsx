@@ -8,7 +8,6 @@ import { Fira_Mono, Nova_Cut } from "next/font/google";
 
 import Navbar from "@/app/(frontend)/components/navbar.tsx";
 import Footer from "./components/Footer";
-import Sidebar from "./components/Sidebar";
 
 const firaMono = Fira_Mono({
   weight: ["400", "500", "700"],
@@ -30,8 +29,8 @@ export const metadata = {
 };
 
 const itemsNav = [
-  { id: 1, name: "Games", link: "/games", childrenLinks: [{id: 2, name:"Leaderboard", link:"/leaderboard"}]},
-  { id: 2, name: "Community", link: "/community", childrenLinks: [{id: 3, name:"News", link:"/news"}, {id: 4, name:"Donor", link:"/donor"}] },
+  { id: 1, name: "Games", link: "/games", childrenLinks: [{id: 1, name:"Vitriol", link:"/vitriol"}, {id: 2, name:"Leaderboard", link:"/leaderboard"}]},
+  { id: 2, name: "Community", link: "/community", childrenLinks: [{id: 7, name:"Store", link:"/merch"}, {id: 3, name:"News", link:"/news"}, {id: 4, name:"Donor", link:"/donor"}] },
   { id: 3, name: "About", link: "/about", childrenLinks: [{id: 5, name:"Contacts", link:"/contacts"}, {id: 6, name:"Support", link:"/support"}] }
   
 ]; // navbar testing

@@ -30,14 +30,15 @@ export default function GlitchReveal({
   delay?: number;
 }) {
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0 }}
-      whileInView={glitchKeyframes}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration, delay, times, ease: "easeInOut" }}
-    >
-      {children}
-    </motion.div>
+    <div className={className}>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={glitchKeyframes}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration, delay, times, ease: "easeInOut" }}
+      >
+        {children}
+      </motion.div>
+    </div>
   );
 }

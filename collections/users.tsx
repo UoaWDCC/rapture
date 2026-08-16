@@ -19,7 +19,8 @@ export const Users: CollectionConfig = {
   access: {
     create: () => true,
     read: ({ req: { user } }) => adminCheck(user),
-    update: ({ req: { user } }) => adminCheck(user) || { id: { equals: user?.id } },
+    update: ({ req: { user } }) =>
+      adminCheck(user) || { id: { equals: user?.id } },
     delete: ({ req: { user } }) => adminCheck(user),
 
     admin: ({ req: { user } }) => adminCheck(user),
@@ -45,20 +46,20 @@ export const Users: CollectionConfig = {
   /*for email system testing*/
   hooks: {
     afterChange: [
-      async ({doc, operation}) => {
+      async ({ doc, operation }) => {
         if (operation == "create") {
-          try{
+          try {
             const html = await render(<Welcome name={doc.email} />);
-              await sendEmail({
+            await sendEmail({
               to: doc.email,
               subject: "Welcome!",
               html,
             });
           } catch (err) {
-            console.error("Welcome email failed.")
+            console.error("Welcome email failed.");
           }
         }
-      }
-    ]
-  }
+      },
+    ],
+  },
 };

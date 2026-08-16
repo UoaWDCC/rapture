@@ -1,25 +1,36 @@
 import { Product } from "@/payload-types";
 import Image from "next/image";
+import Link from "next/link";
 
-export default async function ProductsDisplay({
-  product,
-}: {
+type productProps = {
   product: Product;
-}) {
-  const formattedPrice = product.price / 100
+  className?: string;
+}
 
-  console.log("product image:", product.image)
+export default async function ProductsDisplay(props: productProps) {
+  const formattedPrice = props.product.price / 100
+
+  console.log("product image:", props.product.image)
 
   return (
-    <div className="m-20">
-      {product.image && typeof product.image !== "string" ? (
-        <Image src={product.image.url ?? ""} alt={product.image.alt ?? product.name} width ={56} height = {56} className="w-80 h-80 object-cover mb-3" />
-      ) : (
-      <div className="w-80 h-80 bg-gray-100 mb-3"></div>
-      )}
-      <p className="font-bold text-xl">{product.name}</p>
-      <p className="text-lg">{formattedPrice} {product.currency}</p>
-      <p>{product.description}</p>
+    <div className={`flex flex-row w-full group ${props.className}`}>
+        <div className="w-full h-full">
+          {props.product.image && typeof props.product.image !== "string" ? (
+            <Image src={props.product.image.url ?? ""} alt={props.product.image.alt ?? props.product.name} width={1560} height={1560} className="w-full h-full object-cover mb-3 rounded-md" />
+          ) : (
+            <div className="w-full h-full bg-[#1F1F1F] mb-3 rounded-md"></div>
+          )}
+        </div>
+        <div className="inline-block overflow-y-hidden max-w-full ml-[-100%] pr-[10%] p-3 bg-black rounded-l-md transition ease-in-out duration-500 opacity-0 group-hover:opacity-100">
+          <div className="hover:underline hover:cursor-pointer hover:text-bold">
+            <Link href="/">
+              <p className="font-bold text-[150%] p-[5%]">{props.product.name}</p>
+              <p className="text-[80%] px-[5%]">{formattedPrice} {props.product.currency}</p>
+              {/*<p className="hidden md:text-[70%] md:px-[5%] md:block">{props.product.description}</p>*/}
+              <p className="text-[70%] px-[5%] hover:text-shadow-white hover:text-shadow-xs">READ MORE ▶</p>
+            </Link>
+          </div>
+        </div>
     </div>
   );
 }
