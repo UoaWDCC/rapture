@@ -39,6 +39,7 @@
     "react-email": "^6.1.3",
     "resend": "^6.12.3",
     "sharp": "^0.34.5",
+    "steam-signin": "^1.0.5",
     "stripe": "^20.4.1",
     "tsx": "^4.21.0",
     "typography": "^0.16.24"
@@ -54,6 +55,7 @@
     "eslint-config-next": "16.1.6",
     "postcss": "^8.5.8",
     "tailwindcss": "^4.2.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.10"
   }
 }
