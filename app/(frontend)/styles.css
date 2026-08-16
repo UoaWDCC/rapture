@@ -51,6 +51,20 @@
   writing-mode: vertical-lr;
 }
 
+@keyframes disc-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.disc-ring {
+    transform-box: view-box;
+    transform-origin: 50px 50px;
+}
+
+.group:hover .disc-ring {
+    animation: disc-spin 4s linear infinite;
+}
+
 :root {
   --background: #000000;
   --foreground: #ffffff;

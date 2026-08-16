@@ -27,7 +27,10 @@ export default function Footer({ studioTagline, contactEmail }: FooterProps) {
           iconHeight={35}
           iconTop="top-5.5"
           iconRight="right-3.75"
-          color="bg-[#171947]/70"
+          color="bg-[#5865F2]/15"
+          discColor="#0650DA"
+          ringColor="#0650DA"
+          
         />
         <Disc
           name="Youtube"
@@ -39,6 +42,8 @@ export default function Footer({ studioTagline, contactEmail }: FooterProps) {
           iconTop="top-2"
           iconRight="right-0.5"
           color="bg-[#4C1010]/70"
+          discColor="#FF0000"
+          ringColor="#FF0000"
         />
         <Disc
           name="Steam"
@@ -50,6 +55,8 @@ export default function Footer({ studioTagline, contactEmail }: FooterProps) {
           iconTop="top-5.5"
           iconRight="right-3.75"
           color="bg-[#171720]/70"
+          discColor="#FFFFFF"
+          ringColor="#FFFFFF"
         />
       </div>
 
