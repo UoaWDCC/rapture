@@ -211,6 +211,7 @@ export interface Product {
   currency: 'NZD' | 'AUD' | 'USD' | 'EUR' | 'GBP';
   description?: string | null;
   image?: (string | null) | Media;
+  additionalImage?: (string | Media)[] | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -277,6 +278,7 @@ export interface News {
   };
   image: string | Media;
   category: (string | Category)[];
+  date: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -462,6 +464,7 @@ export interface ProductsSelect<T extends boolean = true> {
   currency?: T;
   description?: T;
   image?: T;
+  additionalImage?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -513,6 +516,7 @@ export interface NewsSelect<T extends boolean = true> {
   description?: T;
   image?: T;
   category?: T;
+  date?: T;
   updatedAt?: T;
   createdAt?: T;
 }
