@@ -36,7 +36,8 @@ export default function SteamLink({
       {steamId ? (
         <>
           <p>
-            Linked Steam ID: <strong className="text-blue-500">{steamId}</strong>
+            Linked Steam ID:{" "}
+            <strong className="text-blue-500">{steamId}</strong>
           </p>
           <button
             onClick={unlink}
@@ -54,7 +55,9 @@ export default function SteamLink({
           Sign in through Steam
         </a>
       )}
-      {status && MESSAGES[status] && <p className="text-gray-600">{MESSAGES[status]}</p>}
+      {status && MESSAGES[status] && (
+        <p className="text-gray-600">{MESSAGES[status]}</p>
+      )}
       {error && <p className="text-red-500">{error}</p>}
     </div>
   );
