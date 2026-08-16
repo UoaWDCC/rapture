@@ -1,0 +1,86 @@
+/* ===========================
+   NewsTabs — Scrollable Container
+   =========================== */
+
+.newsContainer {
+  display: flex;
+  gap: 13px;
+  width: 100%;
+  position: relative;
+}
+
+.scrollableArea {
+  flex: 1;
+  min-width: 0;
+  max-height: 1050px; /* ~3 collapsed news cards */
+  overflow-y: auto;
+  scroll-behavior: smooth;
+
+  /* Hide native scrollbar */
+  scrollbar-width: none;          /* Firefox */
+  -ms-overflow-style: none;       /* IE/Edge */
+}
+
+.scrollableArea::-webkit-scrollbar {
+  display: none;                  /* Chrome / Safari */
+}
+
+/* When content does not overflow, remove height constraint */
+.noOverflow {
+  overflow-y: hidden;
+  max-height: none;
+}
+
+/* ===========================
+   Custom Scrollbar Track
+   =========================== */
+
+.scrollbarTrack {
+  position: relative;
+  width: 24px;
+  flex-shrink: 0;
+  background: rgba(242, 180, 35, 0.5);
+  border: 1px solid #F2B423;
+  border-radius: 0;
+  /* 5px inset for thumb positioning */
+}
+
+/* ===========================
+   Custom Scrollbar Thumb
+   =========================== */
+
+.scrollbarThumb {
+  position: absolute;
+  width: 14px;
+  left: 4px;
+  border-radius: 0;
+  cursor: grab;
+
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)),
+    linear-gradient(rgba(230, 230, 230, 0.6), rgba(230, 230, 230, 0.6));
+  border: 1px solid rgba(242, 180, 35, 0.5);
+  min-height: 30px;
+}
+
+.scrollbarThumb:active {
+  cursor: grabbing;
+}
+
+/* ===========================
+   Empty State
+   =========================== */
+
+.emptyState {
+  width: 100%;
+  height: 595px;
+  font-size: 24px;
+  background: rgba(242, 180, 35, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  text-align: center;
+  color: #302F2F;
+  font-family: var(--font-nova-cut), sans-serif;
+}
