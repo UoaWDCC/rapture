@@ -4,8 +4,9 @@ import { CollectionConfig } from "payload";
 import { sendEmail } from "@/lib/email/send_email";
 import { render } from "@react-email/render";
 import Welcome from "@/lib/email/email_templates/welcome";
+import { User } from "@/payload-types";
 
-const adminCheck = (user: any) => {
+const adminCheck = (user: User | null) => {
   return user?.role === "admin";
 };
 
