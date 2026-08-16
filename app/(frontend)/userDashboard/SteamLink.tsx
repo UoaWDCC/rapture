@@ -1,6 +1,7 @@
 //Steam linking widget, simple and dumb
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 const MESSAGES: Record<string, string> = {
@@ -48,12 +49,12 @@ export default function SteamLink({
           </button>
         </>
       ) : (
-        <a
+        <Link
           href="/api/steam/login"
           className="px-4 py-2 border rounded bg-black text-white hover:opacity-90"
         >
           Sign in through Steam
-        </a>
+        </Link>
       )}
       {status && MESSAGES[status] && (
         <p className="text-gray-600">{MESSAGES[status]}</p>

@@ -28,7 +28,9 @@ type FakeUser = { id: string; email: string; steamId?: string | null };
 /** Minimal stand-in for the Payload local API over a users collection. */
 function fakePayload(seed: FakeUser[]) {
   const users = seed.map((u) => ({ ...u }));
-  const client = {
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const client: any = {
     async findByID({ id }: { id: string }) {
       const u = users.find((x) => x.id === id);
       if (!u) throw new Error("NotFound");
@@ -45,7 +47,6 @@ function fakePayload(seed: FakeUser[]) {
       return u;
     },
   };
-  // cast at call sites via `as any` — the fake implements only what the service uses
   return { client, users };
 }
 
@@ -71,30 +72,32 @@ describe("isValidSteamId64", () => {
 describe("linkSteamAccount", () => {
   it("links a valid Steam ID to a user with none", async () => {
     const { client, users } = fakePayload([{ id: "u1", email: "a@x.io" }]);
-    const updated = await linkSteamAccount("u1", VALID_ID, client as any);
+    const updated = await linkSteamAccount("u1", VALID_ID, client);
     expect(updated.steamId).toBe(VALID_ID);
     expect(users[0].steamId).toBe(VALID_ID); // persisted in the fake store
   });
 
   it("rejects an invalid Steam ID", async () => {
     const { client } = fakePayload([{ id: "u1", email: "a@x.io" }]);
-    await expect(linkSteamAccount("u1", "nope", client as any)).rejects.toBeInstanceOf(
+    await expect(linkSteamAccount("u1", "nope", client)).rejects.toBeInstanceOf(
       InvalidSteamIdError,
     );
   });
 
   it("rejects a missing Steam ID", async () => {
     const { client } = fakePayload([{ id: "u1", email: "a@x.io" }]);
-    await expect(linkSteamAccount("u1", undefined, client as any)).rejects.toBeInstanceOf(
-      InvalidSteamIdError,
-    );
+    await expect(
+      linkSteamAccount("u1", undefined, client),
+    ).rejects.toBeInstanceOf(InvalidSteamIdError);
   });
 
   it("rejects when this user is already linked (one Steam per account)", async () => {
-    const { client } = fakePayload([{ id: "u1", email: "a@x.io", steamId: OTHER_ID }]);
-    await expect(linkSteamAccount("u1", VALID_ID, client as any)).rejects.toBeInstanceOf(
-      UserAlreadyLinkedError,
-    );
+    const { client } = fakePayload([
+      { id: "u1", email: "a@x.io", steamId: OTHER_ID },
+    ]);
+    await expect(
+      linkSteamAccount("u1", VALID_ID, client),
+    ).rejects.toBeInstanceOf(UserAlreadyLinkedError);
   });
 
   it("rejects when another user already holds that Steam ID (no duplicates)", async () => {
@@ -102,33 +105,35 @@ describe("linkSteamAccount", () => {
       { id: "u1", email: "a@x.io" },
       { id: "u2", email: "b@x.io", steamId: VALID_ID },
     ]);
-    await expect(linkSteamAccount("u1", VALID_ID, client as any)).rejects.toBeInstanceOf(
-      SteamAlreadyLinkedError,
-    );
+    await expect(
+      linkSteamAccount("u1", VALID_ID, client),
+    ).rejects.toBeInstanceOf(SteamAlreadyLinkedError);
   });
 
   it("rejects when the user does not exist", async () => {
     const { client } = fakePayload([]);
-    await expect(linkSteamAccount("ghost", VALID_ID, client as any)).rejects.toBeInstanceOf(
-      UserNotFoundError,
-    );
+    await expect(
+      linkSteamAccount("ghost", VALID_ID, client),
+    ).rejects.toBeInstanceOf(UserNotFoundError);
   });
 });
 
 describe("getLinkedSteam", () => {
   it("returns null when nothing is linked", async () => {
     const { client } = fakePayload([{ id: "u1", email: "a@x.io" }]);
-    expect(await getLinkedSteam("u1", client as any)).toBeNull();
+    expect(await getLinkedSteam("u1", client)).toBeNull();
   });
 
   it("returns the linked Steam ID", async () => {
-    const { client } = fakePayload([{ id: "u1", email: "a@x.io", steamId: VALID_ID }]);
-    expect(await getLinkedSteam("u1", client as any)).toBe(VALID_ID);
+    const { client } = fakePayload([
+      { id: "u1", email: "a@x.io", steamId: VALID_ID },
+    ]);
+    expect(await getLinkedSteam("u1", client)).toBe(VALID_ID);
   });
 
   it("throws for an unknown user", async () => {
     const { client } = fakePayload([]);
-    await expect(getLinkedSteam("ghost", client as any)).rejects.toBeInstanceOf(
+    await expect(getLinkedSteam("ghost", client)).rejects.toBeInstanceOf(
       UserNotFoundError,
     );
   });
@@ -136,14 +141,16 @@ describe("getLinkedSteam", () => {
 
 describe("unlinkSteamAccount", () => {
   it("clears a linked Steam ID", async () => {
-    const { client, users } = fakePayload([{ id: "u1", email: "a@x.io", steamId: VALID_ID }]);
-    await unlinkSteamAccount("u1", client as any);
+    const { client, users } = fakePayload([
+      { id: "u1", email: "a@x.io", steamId: VALID_ID },
+    ]);
+    await unlinkSteamAccount("u1", client);
     expect(users[0].steamId).toBeNull();
   });
 
   it("is idempotent when nothing is linked", async () => {
     const { client, users } = fakePayload([{ id: "u1", email: "a@x.io" }]);
-    await unlinkSteamAccount("u1", client as any);
+    await unlinkSteamAccount("u1", client);
     expect(users[0].steamId).toBeNull();
   });
 });
