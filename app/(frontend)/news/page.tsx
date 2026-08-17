@@ -3,6 +3,7 @@ import config from "@/payload.config";
 import { headers as getHeaders } from "next/headers.js";
 import NewsTab from "./components/newsTabs";
 import NewsHeader from "./components/NewsHeader";
+import NewSubsButton from "./components/newSubsButton";
 
 import type { NewsItem } from "../components/NewsList";
 
@@ -24,6 +25,8 @@ export default async function ExampleCollectionPage({
   const params = await searchParams;
   const expandedArticleId = params.article ?? null;
 
+  console.log("API key exists:", !!process.env.RESEND_API_KEY);//test
+
   return (
     <div className="max-w-full max-h-full bg-[url('/PROP%20%232%201.png')] bg-fixed">
       {" "}
@@ -42,6 +45,7 @@ export default async function ExampleCollectionPage({
             </div>
           </div>
         </div>
+        <NewSubsButton /> {/*News Subs Testing !!*/}
       </div>
     </div>
   );

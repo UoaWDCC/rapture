@@ -1,14 +1,20 @@
-import { User } from "@/payload-types";
+// import { User } from "@/payload-types"; //avoid being dependant on it
 import { CollectionConfig } from "payload";
 
 /*to test email system further*/
 import { sendEmail } from "@/lib/email/send_email";
 import { render } from "@react-email/render";
 import Welcome from "@/lib/email/email_templates/welcome";
+import { bool } from "sharp";
 
-const adminCheck = (user: User | null) => {
+const adminCheck = (user: any) => {
   return user?.role === "admin";
 };
+
+//avoid being dependant on it
+// const adminCheck = (user: User | null) => {
+//   return user?.role === "admin";
+// };
 
 export const Users: CollectionConfig = {
   slug: "users",
@@ -48,6 +54,11 @@ export const Users: CollectionConfig = {
       type: "text",
       unique: true,
       index: true,
+    },
+    {
+      name: "newSubs",
+      type: "checkbox",
+      defaultValue: false,
     },
   ],
 
