@@ -6,6 +6,7 @@ import LeaderboardSearch from "./leaderboardSearch";
 import { LeaderboardTable } from "./LeaderboardTable";
 import { Pagination } from "./Pagination";
 import Image from "next/image";
+import GlitchReveal from "../components/GlitchReveal"
 
 export default function LeaderboardClient({ 
   topPlayers,
@@ -35,10 +36,14 @@ export default function LeaderboardClient({
 
   return (
     <div className="flex flex-col w-full font-nova">
+
+        <GlitchReveal delay={0.5}>
         <div className="w-full p-3.5 flex justify-center items-center text-center border-2 border-brand-blue text-xl [text-shadow:0_0_10px_#6060ff,0_0_20px_#ffffff]">
             <h5>WELCOME TO STUDIO RAPTURE LEADERBOARD</h5>
         </div>
+        </GlitchReveal>
 
+        <GlitchReveal delay={1.2}>
         <div className="h-15 w-full flex flex-row gap-3 justify-between items-center">
             <div className="w-10/20 p-2 text-white bg-brand-blue text-xl [text-shadow:0_0_10px_#6060ff,0_0_20px_#ffffff]">
                 <p>VITROL LEADERBOARD</p>
@@ -57,6 +62,7 @@ export default function LeaderboardClient({
                 <p className="text-xl text-brand-blue">VERS: ACT V</p>
             </div>
         </div>
+        </GlitchReveal>
 
         <div className="h-6 bg-brand-blue mb-3"></div>
 
@@ -65,7 +71,6 @@ export default function LeaderboardClient({
 
             <div className="w-90 flex flex-col gap-2 justify-center ml-auto">
                 <LeaderboardSearch onSearch={handleSearch} />
-
                 <div className="relative h-full max-h-15/20 w-full max-w-[250px] ml-auto border-2 border-dashed rounded-xs border-brand-blue overflow-hidden">
                     <Image src={"/images/ad.png"} alt={"leaderboard ad"} fill className="object-cover"/>
                     <div className="absolute inset-x-20 bottom-70 left-25 text-4xl text-white bg-black/40 py-1">GET YOURS TODAY</div>
