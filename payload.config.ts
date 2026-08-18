@@ -12,10 +12,9 @@ import { CartCollection } from "./collections/Cart.ts";
 import { Media } from "./collections/media.ts";
 import { News } from "./collections/News.ts";
 import { Category } from "./collections/category.ts"
-import { UsersTest } from "./collections/usersTest.ts";
-import { AccountsTest } from "./collections/accountsTest.ts";
 import { authPlugin } from "payload-auth-plugin";
 import { GoogleAuthProvider } from "payload-auth-plugin/providers";
+import { Accounts } from "./collections/accounts.ts";
 
 export default buildConfig({
   editor: lexicalEditor(),
@@ -24,17 +23,17 @@ export default buildConfig({
 
   plugins: [authPlugin({
     allowOAuthAutoSignUp: true,
-    name: 'test',
-    usersCollectionSlug: UsersTest.slug,
-    accountsCollectionSlug: AccountsTest.slug,
+    name: 'app',
+    usersCollectionSlug: Users.slug,
+    accountsCollectionSlug: Accounts.slug,
     successRedirectPath: '/',
     errorRedirectPath: '/',
     providers: [
-        GoogleAuthProvider({
-          client_id: process.env.GOOGLE_CLIENT_ID!,
-          client_secret: process.env.GOOGLE_CLIENT_SECRET!,
-        }),
-      ],
+      GoogleAuthProvider({
+        client_id: process.env.GOOGLE_CLIENT_ID!,
+        client_secret: process.env.GOOGLE_CLIENT_SECRET!,
+      }),
+    ],
   })],
 
   email: resendAdapter({
@@ -45,7 +44,7 @@ export default buildConfig({
   }),
 
   // Ensure created collections are added here
-  collections: [Users, ExampleCollection, Players, CartCollection, Products, OrderCollection, Media, News, Category, UsersTest, AccountsTest],
+  collections: [Users, ExampleCollection, Players, CartCollection, Products, OrderCollection, Media, News, Category, Accounts],
 
   secret: process.env.PAYLOAD_SECRET || "",
   db: mongooseAdapter({

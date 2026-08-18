@@ -64,7 +64,6 @@ export type SupportedTimezones =
 export interface Config {
   auth: {
     users: UserAuthOperations;
-    usersTest: UsersTestAuthOperations;
   };
   blocks: {};
   collections: {
@@ -77,8 +76,7 @@ export interface Config {
     media: Media;
     News: News;
     category: Category;
-    usersTest: UsersTest;
-    accounts: Account;
+    realaccounts: Realaccount;
     apiKeys: ApiKey;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -96,8 +94,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     News: NewsSelect<false> | NewsSelect<true>;
     category: CategorySelect<false> | CategorySelect<true>;
-    usersTest: UsersTestSelect<false> | UsersTestSelect<true>;
-    accounts: AccountsSelect<false> | AccountsSelect<true>;
+    realaccounts: RealaccountsSelect<false> | RealaccountsSelect<true>;
     apiKeys: ApiKeysSelect<false> | ApiKeysSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -114,31 +111,13 @@ export interface Config {
   widgets: {
     collections: CollectionsWidget;
   };
-  user: User | UsersTest;
+  user: User;
   jobs: {
     tasks: unknown;
     workflows: unknown;
   };
 }
 export interface UserAuthOperations {
-  forgotPassword: {
-    email: string;
-    password: string;
-  };
-  login: {
-    email: string;
-    password: string;
-  };
-  registerFirstUser: {
-    email: string;
-    password: string;
-  };
-  unlock: {
-    email: string;
-    password: string;
-  };
-}
-export interface UsersTestAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -164,6 +143,22 @@ export interface User {
   id: string;
   role: 'admin' | 'user';
   steamId?: string | null;
+  hashedPassword?: string | null;
+  hashSalt?: string | null;
+  hashIterations?: number | null;
+  verificationCode?: string | null;
+  verificationHash?: string | null;
+  verificationTokenExpire?: number | null;
+  verificationKind?: string | null;
+  claims?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -320,54 +315,13 @@ export interface Category {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "usersTest".
+ * via the `definition` "realaccounts".
  */
-export interface UsersTest {
-  id: string;
-  hashedPassword?: string | null;
-  hashSalt?: string | null;
-  hashIterations?: number | null;
-  verificationCode?: string | null;
-  verificationHash?: string | null;
-  verificationTokenExpire?: number | null;
-  verificationKind?: string | null;
-  claims?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
-  collection: 'usersTest';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "accounts".
- */
-export interface Account {
+export interface Realaccount {
   id: string;
   name?: string | null;
   picture?: string | null;
-  user: string | UsersTest;
+  user: string | User;
   issuerName: string;
   scope?: string | null;
   sub: string;
@@ -423,8 +377,7 @@ export interface ApiKey {
               | 'media'
               | 'News'
               | 'category'
-              | 'usersTest'
-              | 'accounts'
+              | 'realaccounts'
             )
           | null;
         id?: string | null;
@@ -494,27 +447,18 @@ export interface PayloadLockedDocument {
         value: string | Category;
       } | null)
     | ({
-        relationTo: 'usersTest';
-        value: string | UsersTest;
-      } | null)
-    | ({
-        relationTo: 'accounts';
-        value: string | Account;
+        relationTo: 'realaccounts';
+        value: string | Realaccount;
       } | null)
     | ({
         relationTo: 'apiKeys';
         value: string | ApiKey;
       } | null);
   globalSlug?: string | null;
-  user:
-    | {
-        relationTo: 'users';
-        value: string | User;
-      }
-    | {
-        relationTo: 'usersTest';
-        value: string | UsersTest;
-      };
+  user: {
+    relationTo: 'users';
+    value: string | User;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -524,15 +468,10 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: string;
-  user:
-    | {
-        relationTo: 'users';
-        value: string | User;
-      }
-    | {
-        relationTo: 'usersTest';
-        value: string | UsersTest;
-      };
+  user: {
+    relationTo: 'users';
+    value: string | User;
+  };
   key?: string | null;
   value?:
     | {
@@ -564,6 +503,14 @@ export interface PayloadMigration {
 export interface UsersSelect<T extends boolean = true> {
   role?: T;
   steamId?: T;
+  hashedPassword?: T;
+  hashSalt?: T;
+  hashIterations?: T;
+  verificationCode?: T;
+  verificationHash?: T;
+  verificationTokenExpire?: T;
+  verificationKind?: T;
+  claims?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -695,39 +642,9 @@ export interface CategorySelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "usersTest_select".
+ * via the `definition` "realaccounts_select".
  */
-export interface UsersTestSelect<T extends boolean = true> {
-  hashedPassword?: T;
-  hashSalt?: T;
-  hashIterations?: T;
-  verificationCode?: T;
-  verificationHash?: T;
-  verificationTokenExpire?: T;
-  verificationKind?: T;
-  claims?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  email?: T;
-  resetPasswordToken?: T;
-  resetPasswordExpiration?: T;
-  salt?: T;
-  hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
-  sessions?:
-    | T
-    | {
-        id?: T;
-        createdAt?: T;
-        expiresAt?: T;
-      };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "accounts_select".
- */
-export interface AccountsSelect<T extends boolean = true> {
+export interface RealaccountsSelect<T extends boolean = true> {
   name?: T;
   picture?: T;
   user?: T;
