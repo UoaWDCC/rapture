@@ -7,6 +7,9 @@ import Link from "next/link";
 import UserAccountForm, { type UpdateAccountState } from "./UserAccountForm";
 import LogoutButton from "../components/ui/LogoutButton";
 import SteamLink from "./SteamLink";
+import { sendEmail } from "@/lib/email/send_email";
+import { render } from "@react-email/render";
+import ResetPasswordConfirmation from "@/lib/email/email_templates/resetPasswordConfirmation";
 
 export default async function ProtectedPage({
   searchParams,
@@ -53,6 +56,19 @@ export default async function ProtectedPage({
     try {
       await payload.update({ collection: "users", id: user.id, data, user });
       revalidatePath("/userDashboard");
+
+      // Emails user about updated/reset password
+      try {
+        const html = await render(<ResetPasswordConfirmation name={user.email} />);
+        await sendEmail({
+          to: user.email,
+          subject: "(r) Account Password Updated",
+          html,
+        });
+      } catch (err) {
+        console.error("Welcome email failed.");
+      }
+      
       return { status: "success", message: "Account updated." };
     } catch (err) {
       if (err instanceof Error) {
@@ -74,6 +90,7 @@ export default async function ProtectedPage({
         Authentication successful. Logged in as:{" "}
         <strong className="text-blue-500">{user.email}</strong>
       </p>
+      <UserAccountForm action={updateAccount} currentEmail={user.email}/> {/* to send email */}
       <SteamLink initialSteamId={user.steamId ?? null} status={steam} />
       <LogoutButton />
     </main>

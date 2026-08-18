@@ -83,7 +83,7 @@ export default function NewSubsButton() {
         <button
             onClick={subscribed ? unsubscribe : subscribe}
             disabled={loading}
-            className={`h-12.25 bg-[#f2b423e6] cursor-pointer p-2.5 mb-3`}
+            className={`h-12.25 bg-[#f2b423e6] bg-[url('/images/news-list-heading-bg.png')] cursor-pointer px-5`}
         >
             {loading ? "Please wait..." : subscribed ? "UNSUBSCRIBE" : "SUBSCRIBE TO NEWS"}
         </button>
