@@ -1,22 +1,34 @@
 import type { CollectionAfterChangeHook } from "payload";
 import React from "react";
+import { getPayload } from "payload";
+import config from "@/payload.config";
 import { render } from "@react-email/render"; 
 import newNewsAlert from "../email_templates/newNewsAlert";
 
 export const newNews: CollectionAfterChangeHook = async ({
     doc, previousDoc, operation, req
 }) => {
+    console.log("NEWS HOOK RAN");
+console.log("Operation:", operation);
+console.log("Previous status:", previousDoc?._status);
+console.log("Current status:", doc._status);
+
+    const payload = await getPayload({ config });
     const wasPublished = previousDoc?._status === 'published';
     const isPublished = doc._status === 'published';
 
-    const justPublished = (operation === "create" && isPublished);
-    
-    if (!justPublished) {
-        return doc;
+    const justPublished = !wasPublished && isPublished;
+
+    const template = await payload.findGlobal({
+        slug: "email-templates",
+    });
+
+    if (!template) {
+        throw new Error("Email template not found.")
     }
 
     {/* send only when news is publshed, not again when edited */}
-    if (previousDoc?._status === 'published') {
+    if (justPublished) {
         return doc;
     }
 
@@ -29,12 +41,17 @@ export const newNews: CollectionAfterChangeHook = async ({
         }, limit: 1000,
     });
 
-    const html = await render(
-        React.createElement(newNewsAlert, { title: doc.title, subtitle: doc.subtitle })
-    );
-
     for (const user of users.docs) {
         try {
+            const html = await render(
+                React.createElement(newNewsAlert, { 
+                    name: user.email, 
+                    heading: template.newNews.heading,
+                    body: template.newNews.body,
+                    title: doc.title,
+                    subtitle: doc.subtitle,
+                })
+            );
             await req.payload.sendEmail({
                 to: user.email,
                 subject: `New (r) News! ${doc.title}`,

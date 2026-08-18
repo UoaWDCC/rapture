@@ -6,6 +6,7 @@ import { NextResponse } from "next/server";
 import { sendEmail } from "@/lib/email/send_email";
 import { render } from "@react-email/render";
 import NewSubsConfirmation from "@/lib/email/email_templates/newSubsConfirmation";
+import { EmailTemplates } from "@/globals/emailTemplates";
 
 export async function POST() {
     try {
@@ -13,6 +14,9 @@ export async function POST() {
         const headersList = await headers();
         const { user } = await payload.auth({
             headers: headersList,
+        });
+        const template = await payload.findGlobal({
+            slug: "email-templates",
         });
 
         if (!user) {
@@ -40,13 +44,21 @@ export async function POST() {
         })
 
         {/* Sends Email */}
+        if (!template) {
+            throw new Error("Email template not found.")
+        }
+        
         const html = await render(
-            React.createElement(NewSubsConfirmation, { name: user.email, })
+            React.createElement(NewSubsConfirmation, { 
+                name: user.email, 
+                heading: template.newSubs.heading,
+                body: template.newSubs.body,
+            })
         );
 
         await sendEmail({
             to: user.email,
-            subject: "News Subscription",
+            subject: template.newSubs.subject,
             html,
         })
 

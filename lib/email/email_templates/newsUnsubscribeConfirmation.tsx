@@ -2,16 +2,19 @@ import { Body, Html, Heading, Text } from "@react-email/components";
 /*import * as React from "react";
 import { Resend } from "resend";*/
 
-export default function NewsUnsubscribeConfirmation() {
+type props = {
+  name: string;
+  heading: string;
+  body: string;
+}
+
+export default function NewsUnsubscribeConfirmation(prop: props) {
   return (
     <Html>
       <Body>
-        <Heading>You have successfully unsubscribed for (r) news.</Heading>
-        <Text>
-          just some random text just some random text just some random text just
-          some random text just some random text just some random text just some
-          random text just some random text just some random text
-        </Text>
+        <Heading>{prop.heading}</Heading>
+        <Text>Hello {prop.name}!</Text>
+        <Text>{prop.body}</Text>
       </Body>
     </Html>
   );

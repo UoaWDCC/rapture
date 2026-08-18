@@ -14,6 +14,9 @@ export async function POST() {
         const { user } = await payload.auth({
             headers: headersList,
         });
+        const template = await payload.findGlobal({
+            slug: "email-templates",
+        });
 
         if (!user) {
             return NextResponse.json({
@@ -40,8 +43,16 @@ export async function POST() {
         })
 
         {/* Sends Email */}
+        if (!template) {
+            throw new Error("Email template not found.")
+        }
+        
         const html = await render(
-            React.createElement(NewsUnsubscribeConfirmation)
+            React.createElement(NewsUnsubscribeConfirmation, { 
+                name: user.email, 
+                heading: template.newsUnsubs.heading,
+                body: template.newsUnsubs.body,
+            })
         );
 
         await sendEmail({

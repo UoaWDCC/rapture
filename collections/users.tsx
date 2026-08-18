@@ -5,7 +5,9 @@ import { CollectionConfig } from "payload";
 import { sendEmail } from "@/lib/email/send_email";
 import { render } from "@react-email/render";
 import Welcome from "@/lib/email/email_templates/welcome";
-import { bool } from "sharp";
+import React from "react";
+import { getPayload } from "payload";
+import config from "@/payload.config";
 
 const adminCheck = (user: any) => {
   return user?.role === "admin";
@@ -68,7 +70,20 @@ export const Users: CollectionConfig = {
       async ({ doc, operation }) => {
         if (operation == "create") {
           try {
-            const html = await render(<Welcome name={doc.name} />);
+            const payload = await getPayload({ config });
+            const template = await payload.findGlobal({
+                slug: "email-templates",
+            });
+            if (!template) {
+                throw new Error("Email template not found.")
+            }
+            const html = await render(
+                React.createElement(Welcome, { 
+                    name: doc.email, 
+                    heading: template.welcome.heading,
+                    body: template.welcome.body,
+                })
+            );
             await sendEmail({
               to: doc.email,
               subject: "Welcome!",

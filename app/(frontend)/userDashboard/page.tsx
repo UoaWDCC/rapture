@@ -10,6 +10,7 @@ import SteamLink from "./SteamLink";
 import { sendEmail } from "@/lib/email/send_email";
 import { render } from "@react-email/render";
 import ResetPasswordConfirmation from "@/lib/email/email_templates/resetPasswordConfirmation";
+import React from "react";
 
 export default async function ProtectedPage({
   searchParams,
@@ -59,7 +60,20 @@ export default async function ProtectedPage({
 
       // Emails user about updated/reset password
       try {
-        const html = await render(<ResetPasswordConfirmation name={user.email} />);
+        const template = await payload.findGlobal({
+            slug: "email-templates",
+        });
+        if (!template) {
+            throw new Error("Email template not found.")
+        }
+        
+        const html = await render(
+            React.createElement(ResetPasswordConfirmation, { 
+                name: user.email, 
+                heading: template.resetPassword.heading,
+                body: template.resetPassword.body,
+            })
+        );
         await sendEmail({
           to: user.email,
           subject: "(r) Account Password Updated",

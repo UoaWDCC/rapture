@@ -12,8 +12,11 @@ import { CartCollection } from "./collections/Cart.ts";
 import { Media } from "./collections/media.ts";
 import { News } from "./collections/News.ts";
 import { Category } from "./collections/category.ts"
+import { EmailTemplates } from "./globals/emailTemplates.ts";
 
 export default buildConfig({
+  globals: [ EmailTemplates,],
+
   editor: lexicalEditor(),
 
   email: resendAdapter({

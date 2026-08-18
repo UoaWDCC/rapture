@@ -45,7 +45,19 @@ export async function POST(request: Request) {
 
     // Emails user about order
     try {
-      const html = await render(React.createElement(OrderConfirmation));
+      const template = await payload.findGlobal({
+          slug: "email-templates",
+      });
+      if (!template) {
+          throw new Error("Email template not found.")
+      }
+      const html = await render(
+          React.createElement(OrderConfirmation, { 
+              name: user.email, 
+              heading: template.orderConfirmation.heading,
+              body: template.orderConfirmation.body,
+          })
+      );
       await sendEmail({
         to: user.email,
         subject: "Order Confirmed",
