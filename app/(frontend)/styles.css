@@ -33,6 +33,7 @@
   --color-brand-blue: #0650DA;
   --color-brand-blue2: #84AFFF;
   --color-brand-white: #EEEEEE;
+  --color-brand-green: #20805A;
 
   /* Custom utility for Nova Cut font design */
   --font-nova: var(--font-nova-cut);
