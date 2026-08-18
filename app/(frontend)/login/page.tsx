@@ -6,11 +6,13 @@ import AuthButton from '../components/auth/authButton'
 import AuthFormCard from '../components/auth/authFormCard'
 import AuthSideCard from '../components/auth/authSideCard'
 import Image from 'next/image'
+import { testAuthClient } from '@/lib/auth'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const { oauth } = testAuthClient.signin()
 
   const router = useRouter()
 
@@ -95,7 +97,9 @@ export default function LoginPage() {
             {/* "or log in with" divider and Gmail OAuth icon */}
             <div className="flex flex-col items-center gap-3 mt-4">
               <p className="text-gray-400 font-mono text-xs">or log in with</p>
-              <div className="border-2 border-[#F2B423] rounded-3xl px-8 py-2">
+              <div className="border-2 border-[#F2B423] rounded-3xl px-8 py-2 cursor-pointer"
+                onClick={() => oauth('google')}
+              >
                 <div className="bg-white rounded-full w-8 h-8 flex items-center justify-center">
                   <Image src="/gmail.png" alt="or log in with" width={24} height={24} />
                 </div>

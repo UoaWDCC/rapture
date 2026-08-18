@@ -23,6 +23,7 @@ export default buildConfig({
   serverURL: 'http://localhost:3000',
 
   plugins: [authPlugin({
+    allowOAuthAutoSignUp: true,
     name: 'test',
     usersCollectionSlug: UsersTest.slug,
     accountsCollectionSlug: AccountsTest.slug,
