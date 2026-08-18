@@ -66,9 +66,9 @@ export default async function ProtectedPage({
           html,
         });
       } catch (err) {
-        console.error("Welcome email failed.");
+        console.error("Reset Password Alert email failed.");
       }
-      
+
       return { status: "success", message: "Account updated." };
     } catch (err) {
       if (err instanceof Error) {
