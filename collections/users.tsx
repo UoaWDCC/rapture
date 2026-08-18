@@ -62,7 +62,7 @@ export const Users: CollectionConfig = {
     },
   ],
 
-  /*for email system testing*/
+  /*sends email for new user*/
   hooks: {
     afterChange: [
       async ({ doc, operation }) => {

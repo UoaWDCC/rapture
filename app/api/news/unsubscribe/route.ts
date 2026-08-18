@@ -5,7 +5,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { sendEmail } from "@/lib/email/send_email";
 import { render } from "@react-email/render";
-import NewSubsConfirmation from "@/lib/email/email_templates/newSubsConfirmation";
+import NewsUnsubscribeConfirmation from "@/lib/email/email_templates/newsUnsubscribeConfirmation";
 
 export async function POST() {
     try {
@@ -23,10 +23,10 @@ export async function POST() {
             { status: 401 });
         }
 
-        if (user.newSubs) {
+        if (!user.newSubs) {
             return NextResponse.json({
                 success: false,
-                error: "Already subscribed.",
+                error: "Not subscribed.",
             },
             { status: 409 });
         }
@@ -35,18 +35,18 @@ export async function POST() {
             collection: "users",
             id: user.id,
             data: {
-                newSubs: true,
+                newSubs: false,
             },
         })
 
         {/* Sends Email */}
         const html = await render(
-            React.createElement(NewSubsConfirmation, { name: user.email, })
+            React.createElement(NewsUnsubscribeConfirmation)
         );
 
         await sendEmail({
             to: user.email,
-            subject: "News Subscription",
+            subject: "Unsubscribed from (r) News",
             html,
         })
 
@@ -58,7 +58,7 @@ export async function POST() {
         
         return NextResponse.json({
             success: false,
-            error: "failed to send subs email",
+            error: "failed to send unsubs email",
         },
         { status: 500 });
     }

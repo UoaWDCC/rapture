@@ -32,6 +32,7 @@ export default async function ExampleCollectionPage({
       {" "}
       {/*bg image is 'PROP #2 1.png' that I downloaded from Figma*/}
       <div className="m-[5%] w-[90%] self-center">
+        <NewSubsButton /> {/*News Subs Testing !!*/}
         {/*TITLE + ADMIN BUTTON*/}
         <NewsHeader isAdmin={isAdmin} />
         {/*NEWS ITEMS*/}
@@ -45,7 +46,6 @@ export default async function ExampleCollectionPage({
             </div>
           </div>
         </div>
-        <NewSubsButton /> {/*News Subs Testing !!*/}
       </div>
     </div>
   );
