@@ -12,7 +12,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  const { oauth } = testAuthClient.signin()
+  const { oauth, password: passwordSignIn } = testAuthClient.signin()
 
   const router = useRouter()
 
@@ -20,22 +20,17 @@ export default function LoginPage() {
     e.preventDefault()
     setError('')
 
-    const res = await fetch('/api/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email,
-        password
-      }),
+    const result = await passwordSignIn({
+      email,
+      password,
     })
 
-    if (res.ok) {
+    if (result.isSuccess) {
       router.push('/')
     } else {
-      setError('Invalid credentials. Please try again.');
+      setError(result.message || 'Invalid credentials. Please try again.');
     }
+
   }
 
   return (

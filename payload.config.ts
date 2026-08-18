@@ -13,8 +13,9 @@ import { Media } from "./collections/media.ts";
 import { News } from "./collections/News.ts";
 import { Category } from "./collections/category.ts"
 import { authPlugin } from "payload-auth-plugin";
-import { GoogleAuthProvider } from "payload-auth-plugin/providers";
+import { GoogleAuthProvider, PasswordProvider } from "payload-auth-plugin/providers";
 import { Accounts } from "./collections/accounts.ts";
+import ForgotPassword from "./lib/email/email_templates/forgotPassword.tsx";
 
 export default buildConfig({
   editor: lexicalEditor(),
@@ -32,6 +33,9 @@ export default buildConfig({
       GoogleAuthProvider({
         client_id: process.env.GOOGLE_CLIENT_ID!,
         client_secret: process.env.GOOGLE_CLIENT_SECRET!,
+      }),
+      PasswordProvider({
+        emailTemplates: { forgotPassword: ForgotPassword },
       }),
     ],
   })],
