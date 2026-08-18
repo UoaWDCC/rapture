@@ -101,8 +101,12 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'email-templates': EmailTemplate;
+  };
+  globalsSelect: {
+    'email-templates': EmailTemplatesSelect<false> | EmailTemplatesSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -139,6 +143,7 @@ export interface User {
   id: string;
   role: 'admin' | 'user';
   steamId?: string | null;
+  newSubs?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -282,6 +287,7 @@ export interface News {
   date: string;
   updatedAt: string;
   createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -402,6 +408,7 @@ export interface PayloadMigration {
 export interface UsersSelect<T extends boolean = true> {
   role?: T;
   steamId?: T;
+  newSubs?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -521,6 +528,7 @@ export interface NewsSelect<T extends boolean = true> {
   date?: T;
   updatedAt?: T;
   createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -570,6 +578,96 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "email-templates".
+ */
+export interface EmailTemplate {
+  id: string;
+  welcome: {
+    subject: string;
+    heading: string;
+    body: string;
+  };
+  resetPassword: {
+    subject: string;
+    heading: string;
+    body: string;
+  };
+  newSubs: {
+    subject: string;
+    heading: string;
+    body: string;
+  };
+  newsUnsubs: {
+    subject: string;
+    heading: string;
+    body: string;
+  };
+  newNews: {
+    subject: string;
+    heading: string;
+    body: string;
+  };
+  orderConfirmation: {
+    subject: string;
+    heading: string;
+    body: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "email-templates_select".
+ */
+export interface EmailTemplatesSelect<T extends boolean = true> {
+  welcome?:
+    | T
+    | {
+        subject?: T;
+        heading?: T;
+        body?: T;
+      };
+  resetPassword?:
+    | T
+    | {
+        subject?: T;
+        heading?: T;
+        body?: T;
+      };
+  newSubs?:
+    | T
+    | {
+        subject?: T;
+        heading?: T;
+        body?: T;
+      };
+  newsUnsubs?:
+    | T
+    | {
+        subject?: T;
+        heading?: T;
+        body?: T;
+      };
+  newNews?:
+    | T
+    | {
+        subject?: T;
+        heading?: T;
+        body?: T;
+      };
+  orderConfirmation?:
+    | T
+    | {
+        subject?: T;
+        heading?: T;
+        body?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

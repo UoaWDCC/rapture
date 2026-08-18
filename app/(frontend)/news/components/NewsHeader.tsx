@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import styles from "./NewsHeader.module.css";
+import NewSubsButton from "./newSubsButton";
 
 interface NewsHeaderProps {
   isAdmin: boolean;
@@ -12,6 +13,7 @@ export default function NewsHeader({ isAdmin }: NewsHeaderProps) {
       <div className={styles.newsfeedTitle}>
         <p className={styles.newsfeedTitleText}>RAPTURE NEWSFEED</p>
       </div>
+      <NewSubsButton/> {/* to subscribe to newsletter */}
       {isAdmin && (
         <Link
           href="/admin/collections/News"

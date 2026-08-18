@@ -8,7 +8,7 @@ type props = {
   body: string;
 }
 
-export default function Welcome(prop: props) {
+export default function NewSubsConfirmation(prop: props) {
   return (
     <Html>
       <Body>

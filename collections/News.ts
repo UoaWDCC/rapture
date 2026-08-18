@@ -1,9 +1,14 @@
 import type { CollectionConfig } from "payload";
+import { newNews } from "@/lib/email/hooks/newNews";
 
 export const News: CollectionConfig = {
   slug: "News", // Collection Name
   // What is stored in this collection
   timestamps: true,
+
+  versions: {
+    drafts: true,
+  },
 
   access: {
     read: () => true,
@@ -63,4 +68,10 @@ export const News: CollectionConfig = {
       required: true,
     },
   ],
+
+  hooks: {
+    afterChange: [
+      newNews,
+    ]
+  },
 };
