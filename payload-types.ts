@@ -76,7 +76,7 @@ export interface Config {
     media: Media;
     News: News;
     category: Category;
-    realaccounts: Realaccount;
+    accounts: Account;
     apiKeys: ApiKey;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -94,7 +94,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     News: NewsSelect<false> | NewsSelect<true>;
     category: CategorySelect<false> | CategorySelect<true>;
-    realaccounts: RealaccountsSelect<false> | RealaccountsSelect<true>;
+    accounts: AccountsSelect<false> | AccountsSelect<true>;
     apiKeys: ApiKeysSelect<false> | ApiKeysSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -315,9 +315,9 @@ export interface Category {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "realaccounts".
+ * via the `definition` "accounts".
  */
-export interface Realaccount {
+export interface Account {
   id: string;
   name?: string | null;
   picture?: string | null;
@@ -377,7 +377,7 @@ export interface ApiKey {
               | 'media'
               | 'News'
               | 'category'
-              | 'realaccounts'
+              | 'accounts'
             )
           | null;
         id?: string | null;
@@ -447,8 +447,8 @@ export interface PayloadLockedDocument {
         value: string | Category;
       } | null)
     | ({
-        relationTo: 'realaccounts';
-        value: string | Realaccount;
+        relationTo: 'accounts';
+        value: string | Account;
       } | null)
     | ({
         relationTo: 'apiKeys';
@@ -642,9 +642,9 @@ export interface CategorySelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "realaccounts_select".
+ * via the `definition` "accounts_select".
  */
-export interface RealaccountsSelect<T extends boolean = true> {
+export interface AccountsSelect<T extends boolean = true> {
   name?: T;
   picture?: T;
   user?: T;

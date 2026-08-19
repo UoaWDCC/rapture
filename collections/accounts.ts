@@ -4,7 +4,7 @@ import { Users } from './users.tsx'
 
 export const Accounts: CollectionConfig = withAccountCollection(
   {
-    slug: 'realaccounts',
+    slug: 'accounts',
   },
   Users.slug, 
 )
