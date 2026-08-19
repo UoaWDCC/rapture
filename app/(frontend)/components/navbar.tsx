@@ -41,7 +41,7 @@ export default function Navbar({item}: NavProps) {
         src="/LOGO.png"
       />
 
-      <Link href="/" className="w-50 h-8 mr-1 mt-4 bg-blue-800 border border-blue-500 opacity-70 text-xl flex items-center pl-2 pt-0.5 [clip-path:polygon(0_0,90%_0,93%_30%,100%_30%,100%_100%,0_100%)] hover:opacity-90">
+      <Link href="/" className="w-50 h-8 mr-1 mt-4 bg-blue-800 border border-blue-500 opacity-100 text-xl flex items-center pl-2 pt-0.5 [clip-path:polygon(0_0,90%_0,93%_30%,100%_30%,100%_100%,0_100%)] hover:opacity-80">
         Home
       </Link>
 
