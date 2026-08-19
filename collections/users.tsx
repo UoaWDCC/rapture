@@ -5,14 +5,15 @@ import { CollectionConfig } from "payload";
 import { sendEmail } from "@/lib/email/send_email";
 import { render } from "@react-email/render";
 import Welcome from "@/lib/email/email_templates/welcome";
+import { withUsersCollection } from "payload-auth-plugin/collection";
 
 const adminCheck = (user: User | null) => {
   return user?.role === "admin";
 };
 
-export const Users: CollectionConfig = {
+export const Users = withUsersCollection({
   slug: "users",
-  auth: true,
+  auth: { tokenExpiration: 60 * 60 * 24 * 7 },
   admin: {
     useAsTitle: "email",
   },
@@ -51,23 +52,23 @@ export const Users: CollectionConfig = {
     },
   ],
 
-  /*for email system testing*/
-  hooks: {
-    afterChange: [
-      async ({ doc, operation }) => {
-        if (operation == "create") {
-          try {
-            const html = await render(<Welcome name={doc.name} />);
-            await sendEmail({
-              to: doc.email,
-              subject: "Welcome!",
-              html,
-            });
-          } catch (err) {
-            console.error("Welcome email failed.");
-          }
-        }
-      },
-    ],
-  },
-};
+  /*for email system testing - temporarily disabled during auth migration*/
+  // hooks: {
+  //   afterChange: [
+  //     async ({ doc, operation }) => {
+  //       if (operation == "create") {
+  //         try {
+  //           const html = await render(<Welcome name={doc.name} />);
+  //           await sendEmail({
+  //             to: doc.email,
+  //             subject: "Welcome!",
+  //             html,
+  //           });
+  //         } catch (err) {
+  //           console.error("Welcome email failed.");
+  //         }
+  //       }
+  //     },
+  //   ],
+  // },
+});

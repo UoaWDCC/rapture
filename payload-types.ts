@@ -76,6 +76,8 @@ export interface Config {
     media: Media;
     News: News;
     category: Category;
+    accounts: Account;
+    apiKeys: ApiKey;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -92,6 +94,8 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     News: NewsSelect<false> | NewsSelect<true>;
     category: CategorySelect<false> | CategorySelect<true>;
+    accounts: AccountsSelect<false> | AccountsSelect<true>;
+    apiKeys: ApiKeysSelect<false> | ApiKeysSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -139,6 +143,22 @@ export interface User {
   id: string;
   role: 'admin' | 'user';
   steamId?: string | null;
+  hashedPassword?: string | null;
+  hashSalt?: string | null;
+  hashIterations?: number | null;
+  verificationCode?: string | null;
+  verificationHash?: string | null;
+  verificationTokenExpire?: number | null;
+  verificationKind?: string | null;
+  claims?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -295,6 +315,79 @@ export interface Category {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "accounts".
+ */
+export interface Account {
+  id: string;
+  name?: string | null;
+  picture?: string | null;
+  user: string | User;
+  issuerName: string;
+  scope?: string | null;
+  sub: string;
+  access_token?: string | null;
+  refresh_token?: string | null;
+  expires_in?: number | null;
+  passkey?: {
+    credentialId: string;
+    publicKey:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+    counter: number;
+    transports:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+    deviceType: string;
+    backedUp: boolean;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "apiKeys".
+ */
+export interface ApiKey {
+  id: string;
+  /**
+   * Select the collections to protect operations with API Key
+   */
+  collections?:
+    | {
+        collection?:
+          | (
+              | 'users'
+              | 'example'
+              | 'Players'
+              | 'Cart'
+              | 'products'
+              | 'order'
+              | 'media'
+              | 'News'
+              | 'category'
+              | 'accounts'
+            )
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -352,6 +445,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'category';
         value: string | Category;
+      } | null)
+    | ({
+        relationTo: 'accounts';
+        value: string | Account;
+      } | null)
+    | ({
+        relationTo: 'apiKeys';
+        value: string | ApiKey;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -402,6 +503,14 @@ export interface PayloadMigration {
 export interface UsersSelect<T extends boolean = true> {
   role?: T;
   steamId?: T;
+  hashedPassword?: T;
+  hashSalt?: T;
+  hashIterations?: T;
+  verificationCode?: T;
+  verificationHash?: T;
+  verificationTokenExpire?: T;
+  verificationKind?: T;
+  claims?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -528,6 +637,47 @@ export interface NewsSelect<T extends boolean = true> {
  */
 export interface CategorySelect<T extends boolean = true> {
   name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "accounts_select".
+ */
+export interface AccountsSelect<T extends boolean = true> {
+  name?: T;
+  picture?: T;
+  user?: T;
+  issuerName?: T;
+  scope?: T;
+  sub?: T;
+  access_token?: T;
+  refresh_token?: T;
+  expires_in?: T;
+  passkey?:
+    | T
+    | {
+        credentialId?: T;
+        publicKey?: T;
+        counter?: T;
+        transports?: T;
+        deviceType?: T;
+        backedUp?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "apiKeys_select".
+ */
+export interface ApiKeysSelect<T extends boolean = true> {
+  collections?:
+    | T
+    | {
+        collection?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

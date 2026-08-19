@@ -6,13 +6,15 @@ import AuthButton from '../components/auth/authButton'
 import AuthFormCard from '../components/auth/authFormCard'
 import AuthSideCard from '../components/auth/authSideCard'
 import Image from 'next/image'
+import { testAuthClient } from '@/lib/auth'
 
 export default function SignupPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [error, setError] = useState('')
-
+    const { oauth } = testAuthClient.signin()
+    const { password: passwordSignUp} = testAuthClient.register()
     const router = useRouter()
 
     const handleSignup = async (e: React.FormEvent) => {
@@ -24,18 +26,14 @@ export default function SignupPage() {
             return
         }
 
-        const res = await fetch('/api/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email,
-                password
-            }),
+        const result = await passwordSignUp({
+            email,
+            password,
         })
 
-        if (res.ok) {
+        console.log(result)
+
+        if (result.isSuccess) {
             router.push('/account')
         } else {
             setError('Could not create account. Please try again.')
@@ -107,7 +105,9 @@ export default function SignupPage() {
                         {/* "or sign up with" divider and Gmail OAuth icon */}
                         <div className="flex flex-col items-center gap-3 mt-4">
                             <p className="text-gray-400 font-mono text-xs">or log in with</p>
-                            <div className="border-2 border-[#0650DA] rounded-3xl px-8 py-2">
+                            <div className="border-2 border-[#0650DA] rounded-3xl px-8 py-2 cursor-pointer"
+                                onClick={() => oauth('google')}
+                            >
                                 <div className="bg-white rounded-full w-8 h-8 flex items-center justify-center">
                                     <Image src="/gmail.png" alt="or sign up with" width={24} height={24} />
                                 </div>
