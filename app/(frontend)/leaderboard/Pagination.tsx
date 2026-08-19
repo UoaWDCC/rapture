@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
+import GlitchReveal from "../components/GlitchReveal"
 
 interface PaginationProps {
   page: number;

@@ -1,6 +1,7 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import LeaderboardClient from "./leaderboardClient";
+import GlitchReveal from "../components/GlitchReveal"
 
 interface PageProps {
   searchParams: Promise<{ page?: string; limit?: string }>;
@@ -23,6 +24,8 @@ export default async function LeaderboardPage({ searchParams }: PageProps) {
   return (
     <div className="p-6 bg font-sans flex flex-col items-center">
       <div className="flex flex-col w-full max-w-5xl h-200 gap-6 mb-25">
+
+        <GlitchReveal delay={0.5}>
         <LeaderboardClient 
           topPlayers={topPlayers.docs}
           page={page}
@@ -31,6 +34,8 @@ export default async function LeaderboardPage({ searchParams }: PageProps) {
           hasNextPage={topPlayers.hasNextPage}
           hasPrevPage={topPlayers.hasPrevPage}
         />
+        </GlitchReveal>
+
       </div>
     </div>
   )
