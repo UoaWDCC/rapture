@@ -33,6 +33,7 @@
   --color-brand-blue: #0650da;
   --color-brand-blue2: #84afff;
   --color-brand-white: #eeeeee;
+  --color-brand-green: #20805a;
 
   /* Custom utility for Nova Cut font design */
   --font-nova: var(--font-nova-cut);
@@ -52,17 +53,21 @@
 }
 
 @keyframes disc-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .disc-ring {
-    transform-box: view-box;
-    transform-origin: 50px 50px;
+  transform-box: view-box;
+  transform-origin: 50px 50px;
 }
 
 .group:hover .disc-ring {
-    animation: disc-spin 4s linear infinite;
+  animation: disc-spin 4s linear infinite;
 }
 
 :root {
