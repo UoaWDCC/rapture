@@ -1,15 +1,63 @@
 import React from 'react';
+import { sendEmail } from "@/lib/email/send_email";
+import { render } from "@react-email/render";
+import ContactFormConfirmationToUser from '@/lib/email/email_templates/contactFormConfirmationToUser';
+import ContactFormConfirmation from '@/lib/email/email_templates/contactFormConfirmation';
 
 interface ContactFormProps {
   title?: string;
   description?: React.ReactNode;
-  onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
+}
+
+async function submitContactForm(formData: FormData) {
+  "use server";
+
+  const firstName = formData.get("firstName") as string; const lastName = formData.get("lastName") as string;
+  const name = `${firstName} ${lastName}`;
+  const emailValue = formData.get("email"); // as string;
+  // console.log("EMAIL:", emailValue);
+  const form = formData.get("message") as string;
+  const category = formData.get("enquiryCategory") as string;
+
+  if (typeof emailValue !== "string" || !emailValue.trim()) {
+    throw new Error("invalid email");
+  }
+
+  // USER
+  const email = emailValue.trim();
+  const htmlToUser = await render(
+    <ContactFormConfirmationToUser name={name} form={form} />
+  );
+
+  // ADMIN
+  const emailAdmin = "dummy@gmail.com"; //admin email
+  const htmlToAdmin = await render(
+    <ContactFormConfirmation name={name} email={email} form={form} category={category} />
+  );
+
+  try {
+    await Promise.all([
+      sendEmail({
+        to: emailAdmin,
+        subject: `${name} Reached out.`,
+        html: htmlToAdmin,
+      }),
+
+      sendEmail({
+        to: email,
+        subject: "Thank you for reaching out!",
+        html: htmlToUser,
+      })
+    ]);
+  } catch (error) {
+    throw new Error("Sorry, we couldn't send your message.")
+  }
 }
 
 export default function ContactForm({
   title = "Contact Us",
   description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nis.",
-  onSubmit,
+
 }: ContactFormProps) {
   return (
     <div className="w-full max-w-[870px] min-w-[320px] ml-95 @container z-0">
@@ -31,7 +79,7 @@ export default function ContactForm({
         {/* Form */}
         <form 
           className="flex flex-col mt-[4.373cqw]" 
-          onSubmit={onSubmit}
+          action={submitContactForm}
           autoComplete="off"
         >
           
@@ -52,6 +100,7 @@ export default function ContactForm({
                 data-form-type="other"
                 data-lpignore="true"
                 className="bg-transparent border-white font-fira-custom text-white outline-none transition-colors h-[4.833cqw] border-[0.115cqw] border-solid px-[1.381cqw] text-[1.611cqw]"
+                required
               />
             </div>
 
@@ -90,6 +139,7 @@ export default function ContactForm({
               data-form-type="other"
               data-lpignore="true"
               className="bg-transparent border-white font-fira-custom text-white outline-none transition-colors h-[4.833cqw] border-[0.115cqw] border-solid px-[1.381cqw] text-[1.611cqw]"
+              required
             />
           </div>
 
@@ -136,6 +186,7 @@ export default function ContactForm({
               id="message" 
               name="message"
               className="bg-transparent border-white font-fira-custom text-white outline-none transition-colors h-[31.645cqw] resize-none border-[0.115cqw] border-solid p-[1.381cqw] text-[1.611cqw]"
+              required
             ></textarea>
           </div>
 
