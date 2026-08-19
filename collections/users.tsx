@@ -98,6 +98,7 @@ export const Users: CollectionConfig = {
       type: "text",
       admin: {
         description: "Postal / ZIP code",
+      },
     },
     {
       name: "steamId",
