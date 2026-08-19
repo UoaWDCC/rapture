@@ -217,8 +217,7 @@ export interface Cart {
   user: string | User;
   items?:
     | {
-        productTitle: string;
-        productPrice: number;
+        product: string | Product;
         quantity: number;
         id?: string | null;
       }[]
@@ -239,6 +238,14 @@ export interface Product {
   price: number;
   currency: 'NZD' | 'AUD' | 'USD' | 'EUR' | 'GBP';
   description?: string | null;
+  /**
+   * Stripe product ID used as the canonical reference.
+   */
+  stripeProductId?: string | null;
+  /**
+   * Stripe price ID used for checkout.
+   */
+  stripePriceId?: string | null;
   image?: (string | null) | Media;
   additionalImage?: (string | Media)[] | null;
   updatedAt: string;
@@ -270,7 +277,7 @@ export interface Media {
  */
 export interface Order {
   id: string;
-  user: string | User;
+  user?: (string | null) | User;
   status:
     | 'pending'
     | 'payment_completed'
@@ -280,7 +287,25 @@ export interface Order {
     | 'completed'
     | 'cancelled'
     | 'refunded';
-  products: (string | Product)[];
+  items?:
+    | {
+        product: string | Product;
+        quantity: number;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Canonical Stripe checkout session ID for the order.
+   */
+  stripeCheckoutSessionId?: string | null;
+  /**
+   * Canonical Stripe payment intent ID for the order.
+   */
+  stripePaymentIntentId?: string | null;
+  /**
+   * Email captured from the checkout session.
+   */
+  customerEmail?: string | null;
   dateTime: string;
   totalPrice: number;
   /**
@@ -500,8 +525,7 @@ export interface CartSelect<T extends boolean = true> {
   items?:
     | T
     | {
-        productTitle?: T;
-        productPrice?: T;
+        product?: T;
         quantity?: T;
         id?: T;
       };
@@ -517,6 +541,8 @@ export interface ProductsSelect<T extends boolean = true> {
   price?: T;
   currency?: T;
   description?: T;
+  stripeProductId?: T;
+  stripePriceId?: T;
   image?: T;
   additionalImage?: T;
   updatedAt?: T;
@@ -530,7 +556,16 @@ export interface ProductsSelect<T extends boolean = true> {
 export interface OrderSelect<T extends boolean = true> {
   user?: T;
   status?: T;
-  products?: T;
+  items?:
+    | T
+    | {
+        product?: T;
+        quantity?: T;
+        id?: T;
+      };
+  stripeCheckoutSessionId?: T;
+  stripePaymentIntentId?: T;
+  customerEmail?: T;
   dateTime?: T;
   totalPrice?: T;
   shippingAddress?:

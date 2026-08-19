@@ -6,24 +6,24 @@ import { stripeClient, Stripe } from "@/lib/stripe";
 export async function POST(request: Request) {
   try {
     const headersList = await headers();
-    const origin = headersList.get("origin");
+    const requestOrigin = new URL(request.url).origin;
+    const origin = headersList.get("origin") ?? requestOrigin;
 
     const body = await request.json();
     const { price_id, line_items, userId } = body;
 
     const preparedLineItems = Array.isArray(line_items)
-      ? line_items.map((item: { price?: string; quantity?: number }) => ({
-          price: item.price,
-          quantity: item.quantity ?? 1,
-        }))
+      ? line_items
+          .map((item: { price?: string; quantity?: number }) => ({
+            price: String(item.price ?? "").trim(),
+            quantity: item.quantity ?? 1,
+          }))
+          .filter((item) => item.price.length > 0)
       : price_id
-        ? [{ price: price_id, quantity: 1 }]
+        ? [{ price: String(price_id).trim(), quantity: 1 }]
         : [];
 
-    if (
-      !preparedLineItems.length ||
-      preparedLineItems.some((item) => !item.price)
-    ) {
+    if (!preparedLineItems.length) {
       return NextResponse.json(
         { error: "Missing valid Stripe price(s)" },
         { status: 400 },

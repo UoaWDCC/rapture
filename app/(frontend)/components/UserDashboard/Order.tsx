@@ -2,18 +2,7 @@
 
 import { useState } from "react";
 import { colorToRgba } from "@/lib/colour";
-import { Order } from "@/payload-types";
-
-// ── Types ─────────────────────────────────────────────────────────────────────
-
-type ProductItem = {
-  id: string;
-  name: string;
-  price: number;
-  description?: string;
-};
-
-// ── Helpers ───────────────────────────────────────────────────────────────────
+import { Order, Product } from "@/payload-types";
 
 const STATUS_LABELS: Record<string, string> = {
   pending: "Pending",
@@ -26,20 +15,32 @@ const STATUS_LABELS: Record<string, string> = {
   refunded: "Refunded",
 };
 
-function resolveProducts(order: Order): ProductItem[] {
-  if (!order.products) return [];
-  return (order.products as any[]).map((p) => {
-    // populated relationship
-    if (typeof p === "object" && p !== null && "id" in p) {
-      return {
-        id: String(p.id),
-        name: p.name ?? "Unknown product",
-        price: p.price ?? 0,
-        description: p.description,
-      };
-    }
-    // unpopulated (just an id string)
-    return { id: String(p), name: String(p), price: 0 };
+function resolveProducts(order: Order): Array<{
+  id: string;
+  name: string;
+  description?: string | null;
+  unitPrice: number;
+  quantity: number;
+  lineTotal: number;
+}> {
+  const items = order.items ?? [];
+
+  return items.map((item) => {
+    const productDoc =
+      typeof item.product === "string"
+        ? null
+        : (item.product as Product | null);
+    const quantity = Number(item.quantity ?? 1);
+    const unitPrice = Number((productDoc?.price ?? 0) / 100);
+
+    return {
+      id: String(productDoc?.id ?? item.product ?? "unknown-product"),
+      name: productDoc?.name ?? "Unknown product",
+      description: productDoc?.description ?? undefined,
+      unitPrice,
+      quantity,
+      lineTotal: unitPrice * quantity,
+    };
   });
 }
 
@@ -105,14 +106,15 @@ function OrderRow({
         >
           <div className="pt-4 flex flex-col gap-2">
             <div
-              className="grid grid-cols-[1fr_auto] gap-4 px-4 pb-2 text-xs uppercase tracking-widest"
+              className="grid grid-cols-[1fr_auto_auto] gap-4 px-4 pb-2 text-xs uppercase tracking-widest"
               style={{
                 color: colorToRgba("#3b82f6", 0.6),
                 fontFamily: "monospace",
               }}
             >
               <span>Product</span>
-              <span className="text-right w-24">Price</span>
+              <span className="text-right w-20">Qty</span>
+              <span className="text-right w-24">Total</span>
             </div>
 
             {products.length === 0 && (
@@ -130,7 +132,7 @@ function OrderRow({
             {products.map((product) => (
               <div
                 key={product.id}
-                className="grid grid-cols-[1fr_auto] gap-4 px-4 py-3 rounded"
+                className="grid grid-cols-[1fr_auto_auto] gap-4 px-4 py-3 rounded"
                 style={{
                   backgroundColor: colorToRgba("#1e5fa8", 0.08),
                   border: `1px solid ${colorToRgba("#1e5fa8", 0.25)}`,
@@ -156,10 +158,16 @@ function OrderRow({
                   )}
                 </div>
                 <span
+                  className="font-bold text-sm self-center w-20 text-right"
+                  style={{ color: "#3b82f6", fontFamily: "monospace" }}
+                >
+                  x{product.quantity}
+                </span>
+                <span
                   className="font-bold text-sm self-center w-24 text-right"
                   style={{ color: "#3b82f6", fontFamily: "monospace" }}
                 >
-                  ${product.price.toFixed(2)}
+                  ${product.lineTotal.toFixed(2)}
                 </span>
               </div>
             ))}

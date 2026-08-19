@@ -21,12 +21,6 @@ export const CartCollection: CollectionConfig = {
           required: true,
         },
         {
-          name: "stripePriceId",
-          type: "text",
-          required: true,
-          admin: { description: "Stripe price ID used to checkout this item." },
-        },
-        {
           name: "quantity",
           type: "number",
           required: true,

@@ -45,7 +45,7 @@ async function syncProductToStripe(
 
     const nextPrice = await stripeClient.prices.create({
       product: existingProductId,
-      unit_amount: Math.round(price * 100),
+      unit_amount: Math.round(price),
       currency: currency.toLowerCase(),
       active: true,
     });
@@ -66,7 +66,7 @@ async function syncProductToStripe(
 
   const stripePrice = await stripeClient.prices.create({
     product: stripeProduct.id,
-    unit_amount: Math.round(price * 100),
+    unit_amount: Math.round(price),
     currency: currency.toLowerCase(),
     active: true,
   });
@@ -122,7 +122,7 @@ export const Products: CollectionConfig = {
       type: "number",
       required: true,
       admin: {
-        description: "Price in dollars (e.g., 10.00 = $10.00)",
+        description: "Price in cents (e.g., 1000 = $10.00)",
       },
     },
     {

@@ -27,15 +27,17 @@ export default async function SuccessPage({ searchParams }: SuccessProps) {
   const payload = await getPayload({ config: await payloadConfig });
   const { user } = await payload.auth({ headers: await headers() });
 
-  const stripeProductIds = (session.line_items?.data ?? [])
-    .map((item) => {
+  const orderItems = await Promise.all(
+    (session.line_items?.data ?? []).map(async (item) => {
       const product = item.price?.product;
-      return typeof product === "string" ? product : product?.id;
-    })
-    .filter(Boolean) as string[];
+      const stripeProductId =
+        typeof product === "string" ? product : product?.id;
+      const quantity = Number(item.quantity ?? 1);
 
-  const productIds = await Promise.all(
-    stripeProductIds.map(async (stripeProductId) => {
+      if (!stripeProductId) {
+        return null;
+      }
+
       const result = await payload.find({
         collection: "products",
         where: {
@@ -44,7 +46,15 @@ export default async function SuccessPage({ searchParams }: SuccessProps) {
         limit: 1,
       });
 
-      return result.docs[0]?.id;
+      const productDoc = result.docs[0];
+      if (!productDoc) {
+        return null;
+      }
+
+      return {
+        product: productDoc.id,
+        quantity,
+      };
     }),
   );
 
@@ -53,14 +63,14 @@ export default async function SuccessPage({ searchParams }: SuccessProps) {
     user:
       user?.id ?? (session.metadata?.userId as string | undefined) ?? undefined,
     status: orderStatus,
-    products: productIds.filter(Boolean) as string[],
+    items: orderItems.filter(Boolean),
     stripeCheckoutSessionId: session.id,
     stripePaymentIntentId:
       typeof session.payment_intent === "string"
         ? session.payment_intent
         : (session.payment_intent?.id ?? ""),
     customerEmail,
-    totalPrice: (session.amount_total ?? 0) / 100,
+    totalPrice: Number(((session.amount_total ?? 0) / 100).toFixed(2)),
     shippingAddress: {
       address: customer_details?.address?.line1 ?? "",
       state: customer_details?.address?.state ?? "",

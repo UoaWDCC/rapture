@@ -27,12 +27,23 @@ export const OrderCollection: CollectionConfig = {
       ],
     },
     {
-      name: "products",
-      type: "relationship",
-      relationTo: "products",
-      hasMany: true,
-      required: true,
-      label: "Products",
+      name: "items",
+      type: "array",
+      fields: [
+        {
+          name: "product",
+          type: "relationship",
+          relationTo: "products",
+          required: true,
+        },
+        {
+          name: "quantity",
+          type: "number",
+          required: true,
+          min: 1,
+          defaultValue: 1,
+        },
+      ],
     },
     {
       name: "stripeCheckoutSessionId",

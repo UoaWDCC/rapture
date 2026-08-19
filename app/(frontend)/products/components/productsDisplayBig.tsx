@@ -14,7 +14,13 @@ type productProps = {
 };
 
 export default function ProductsDisplay(props: productProps) {
-  const formattedPrice = props.product.price / 100;
+  const priceInDollars = Number(props.product.price ?? 0) / 100;
+  const formattedPrice = new Intl.NumberFormat("en-NZ", {
+    style: "currency",
+    currency: props.product.currency ?? "NZD",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(priceInDollars);
   const quantityCap = props.cap ? props.cap : 50;
   const isMedia = (image: string | Media): image is Media =>
     typeof image === "object" && image !== null && "url" in image;
@@ -112,7 +118,7 @@ export default function ProductsDisplay(props: productProps) {
           {props.product.name}
         </p>
         <p className="w-full font-mono text-2xl md:text-4xl text-center mt-[3%] mb-[7.5%]">
-          {formattedPrice} {props.product.currency}
+          {formattedPrice}
         </p>
         <div className="w-full flex flex-col mt-[7%] items-center justify-center">
           <IncrementorButton

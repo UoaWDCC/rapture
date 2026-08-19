@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import Button from "../components/ui/Button";
 import Image from "next/image";
+import { Product } from "@/payload-types";
 
 const IconX = () => (
   <svg
@@ -19,106 +20,153 @@ const IconX = () => (
     <line x1="4" y1="4" x2="20" y2="20" />
     <line x1="20" y1="4" x2="4" y2="20" />
   </svg>
-)
-
-const PRODUCTS = [
-  {
-    id: 'price_1TRQuyPgB8PggCocyrPvde6P', // can be found in product price in the Stripe dashboard
-    name: 'Rapture Shirt',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis',
-    price: 1,
-    currency: 'NZD',
-  }
-]
-
-type Product = {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  currency: string;
-};
+);
 
 type CartItem = {
   product: Product;
   quantity: number;
 };
 
-type ProductProps = {
-  product: Product;
-  onAdd: (product: Product) => void;
-};
-
-function Product({ product, onAdd }: ProductProps) {
-  return (
-    <div>
-      <p>Name: {product.name}</p>
-      <p>Description: {product.description}</p>
-      <p>Price: {product.price} {product.currency}</p>
-      <Button onClick={() => onAdd(product)}>Add to cart</Button>
-    </div>
-  )
-}
 interface CartProps {
-  searchParams: { canceled?: string };
+  searchParams: Promise<{ canceled?: string }>;
+}
+
+async function getCartFromServer(): Promise<CartItem[]> {
+  const res = await fetch("/api/cart", { cache: "no-store" });
+  if (!res.ok) return [];
+
+  const data = await res.json();
+  const items = Array.isArray(data.items) ? data.items : [];
+
+  return items
+    .filter((item: any) => item?.product)
+    .map((item: any) => ({
+      product: {
+        id: item.product.id,
+        name: item.product.name,
+        description: item.product.description ?? "",
+        price: Number(item.product.price ?? 0),
+        currency: item.product.currency ?? "NZD",
+        stripePriceId: item.product.stripePriceId ?? null,
+      },
+      quantity: Number(item.quantity ?? 1),
+    }));
 }
 
 export default function CartPage({ searchParams }: CartProps) {
   const router = useRouter();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
-  const [loading, setLoading] = useState<boolean>(false)
-  const [showPromo, setShowPromo] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(false);
+  const [showPromo, setShowPromo] = useState<boolean>(true);
+  const [isHydrating, setIsHydrating] = useState(true);
 
-  const { canceled } = searchParams
+  const { canceled } = use(searchParams);
+
+  useEffect(() => {
+    void (async () => {
+      const items = await getCartFromServer();
+      setCartItems(items);
+      setIsHydrating(false);
+    })();
+  }, []);
 
   if (canceled) {
     console.log(
-      'Order canceled -- continue to shop around and checkout when you’re ready.'
-    )
+      "Order canceled -- continue to shop around and checkout when you’re ready.",
+    );
   }
 
-  const handleAdd = (product: Product) => {
-    setCartItems((prev) => {
-      const existing = prev.find((i) => i.product.id === product.id);
-      if (existing) {
-        return prev.map((i) =>
-          i.product.id === product.id ? { ...i, quantity: i.quantity + 1 } : i
-        );
-      }
-      return [...prev, { product, quantity: 1 }];
+  const refreshCart = async () => {
+    const items = await getCartFromServer();
+    setCartItems(items);
+  };
+
+  const handleAdd = async (product: Product) => {
+    const res = await fetch("/api/cart", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ productId: product.id, quantity: 1 }),
     });
+
+    if (res.ok) {
+      await refreshCart();
+    }
   };
 
-  const handleQuantityChange = (id: string, delta: number) => {
-    setCartItems((prev) =>
-      prev.map((i) =>
-        i.product.id === id ? { ...i, quantity: Math.max(1, i.quantity + delta) } : i
-      )
-    );
+  const handleQuantityChange = async (id: string, delta: number) => {
+    const item = cartItems.find((i) => i.product.id === id);
+    if (!item) return;
+
+    const nextQty = Math.max(1, item.quantity + delta);
+    const res = await fetch("/api/cart", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ productId: id, quantity: nextQty }),
+    });
+
+    if (res.ok) {
+      await refreshCart();
+    }
   };
 
-  const handleRemove = (id: string) => {
-    setCartItems((prev) => prev.filter((i) => i.product.id !== id));
+  const handleRemove = async (id: string) => {
+    const res = await fetch("/api/cart", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ productId: id }),
+    });
+
+    if (res.ok) {
+      await refreshCart();
+    }
   };
 
-  const handleClearCart = () => setCartItems([]);
+  const handleClearCart = async () => {
+    const res = await fetch("/api/cart", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({}),
+    });
+
+    if (res.ok) {
+      await refreshCart();
+    }
+  };
 
   const itemCount = cartItems.reduce((sum, i) => sum + i.quantity, 0);
 
   const handleCheckout = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
+      cartItems.forEach((item) => console.log(item.product.stripePriceId));
+
       const res = await fetch("/api/checkout_sessions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ price_id: cartItems[0].product.id }),
+        body: JSON.stringify({
+          line_items: cartItems.map((item) => ({
+            price: item.product.stripePriceId,
+            quantity: item.quantity,
+          })),
+        }),
       });
-      const { url } = await res.json();
+
+      const data = await res.json();
+      const url = typeof data?.url === "string" ? data.url : "";
+
+      if (!res.ok || !url.startsWith("http")) {
+        throw new Error(data?.error ?? "Checkout could not start.");
+      }
+
       router.push(url);
-    } catch {
-      alert('Something went wrong on checkout. Please try again.')
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Something went wrong on checkout. Please try again.";
+      alert(message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -134,7 +182,7 @@ export default function CartPage({ searchParams }: CartProps) {
               <h4>{String(itemCount).padStart(2, "0")} items</h4>
             </div>
             <button
-              onClick={handleClearCart}
+              onClick={() => void handleClearCart()}
               disabled={cartItems.length === 0}
               className="bg-brand-white text-background px-6 font-bold cursor-pointer hover:opacity-70 transition disabled:opacity-40 disabled:cursor-not-allowed"
             >
@@ -143,7 +191,8 @@ export default function CartPage({ searchParams }: CartProps) {
           </div>
 
           <div className="flex flex-col gap-4">
-            {cartItems.length === 0 && (
+            {isHydrating && <p className="opacity-60">Loading cart...</p>}
+            {!isHydrating && cartItems.length === 0 && (
               <p className="opacity-60">Your cart is empty.</p>
             )}
 
@@ -153,7 +202,7 @@ export default function CartPage({ searchParams }: CartProps) {
                 className="p-5 relative border-5 border-brand-blue bg-brand-blue/25 flex flex-col xl:flex-row"
               >
                 <button
-                  onClick={() => handleRemove(product.id)}
+                  onClick={() => void handleRemove(product.id)}
                   aria-label="Remove item"
                   className="absolute top-3 right-4 cursor-pointer hover:opacity-60 transition text-xl leading-none"
                 >
@@ -165,10 +214,14 @@ export default function CartPage({ searchParams }: CartProps) {
 
                 <div className="bg-background/10 border border-brand-blue xl:border-l-0 mt-5 mb-5 mr-5 flex-1 flex flex-col xl:flex-row gap-6 sm:gap-8 p-5 sm:p-6 md:p-8">
                   <div className="flex flex-col justify-center gap-4 sm:gap-6 xl:w-56 shrink-0">
-                    <h3 className="text-2xl sm:text-3xl md:text-4xl break-words">{product.name}</h3>
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl break-words">
+                      {product.name}
+                    </h3>
                     <div className="flex items-center gap-6 sm:gap-8 text-base sm:text-lg">
                       <button
-                        onClick={() => handleQuantityChange(product.id, -1)}
+                        onClick={() =>
+                          void handleQuantityChange(product.id, -1)
+                        }
                         aria-label="Decrease quantity"
                         className="cursor-pointer hover:opacity-60 transition"
                       >
@@ -176,7 +229,7 @@ export default function CartPage({ searchParams }: CartProps) {
                       </button>
                       <span>{quantity}</span>
                       <button
-                        onClick={() => handleQuantityChange(product.id, 1)}
+                        onClick={() => void handleQuantityChange(product.id, 1)}
                         aria-label="Increase quantity"
                         className="cursor-pointer hover:opacity-60 transition"
                       >
@@ -186,33 +239,29 @@ export default function CartPage({ searchParams }: CartProps) {
                   </div>
 
                   <div className="flex-1 min-w-0 p-5 sm:p-6 text-right">
-                    <p className="text-xl sm:text-2xl mb-3 sm:mb-4">Description</p>
-                    <p className="text-sm leading-relaxed opacity-80">{product.description}</p>
+                    <p className="text-xl sm:text-2xl mb-3 sm:mb-4">
+                      Description
+                    </p>
+                    <p className="text-sm leading-relaxed opacity-80">
+                      {product.description}
+                    </p>
                   </div>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="my-10 p-4 border-1">
-            Add an item - for testing purposes only
-            {PRODUCTS.map((item, i) => (
-              <Product key={i} product={item} onAdd={handleAdd} />
-            ))}
-          </div>
-
           {/* Checkout */}
           <div className="flex items-center justify-center">
             <button
-              onClick={handleCheckout}
+              onClick={() => void handleCheckout()}
               disabled={cartItems.length === 0 || loading}
               className="bg-foreground text-background font-bold px-20 py-3 cursor-pointer hover:opacity-80 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? 'PLEASE WAIT...' : 'GO TO CHECKOUT'}
+              {loading ? "PLEASE WAIT..." : "GO TO CHECKOUT"}
             </button>
           </div>
         </div>
-
 
         <div className="w-full md:w-72 md:self-start shrink-0 flex flex-col text-foreground">
           {/* Top bar */}
