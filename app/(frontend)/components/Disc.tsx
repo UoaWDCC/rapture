@@ -19,7 +19,7 @@ interface DiscProps {
 export default function Disc({ name, url, image, icon, iconWidth, iconHeight, iconRight, iconTop, color, ringText = "RAPTURE", discColor = "#0650DA", ringColor = "#4C5091" }: DiscProps) {
     return (
         <Link href={url} target="_blank">
-            <div className={`group w-60 h-65 ${color} bg-opacity-10 rounded-xl overflow-hidden`}>
+            <div className={`group relative w-60 h-65 ${color} bg-opacity-10 rounded-xl overflow-hidden`}>
                 <Image src={image} width={122} height={154} alt={name} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full -mr-2" />
                 <svg viewBox="0 0 100 100" className="absolute top-1/2 left-1/2 w-20 h-20 pointer-events-none -translate-x-1/2 -translate-y-1/2" style={{ marginLeft: "-4px", marginTop: "5.5px" }}>
                     <defs>
