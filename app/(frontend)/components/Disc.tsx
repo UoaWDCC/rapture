@@ -23,12 +23,12 @@ export default function Disc({ name, url, image, icon, iconWidth, iconHeight, ic
                 <Image src={image} width={122} height={154} alt={name} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full -mr-2" />
                 <svg viewBox="0 0 100 100" className="absolute top-1/2 left-1/2 w-20 h-20 pointer-events-none -translate-x-1/2 -translate-y-1/2" style={{ marginLeft: "-4px", marginTop: "5.5px" }}>
                     <defs>
-                        <path id={`ring-${name}`} d="M 50,50 m -28,0 a 28,28 0 1,1 56,0 a 28,28 0 1,1 -56,0" fill="none" />
+                        <path id={`ring-${name}`} d="M 48,54 m -28,0 a 28,28 0 1,1 56,0 a 28,28 0 1,1 -56,0" fill="none" />
                     </defs>
-                    <circle cx="50" cy="50" r="36" fill={discColor} fillOpacity="0.35" />
-                    <circle cx="50" cy="52" r="14" fill="#000000" fillOpacity="0.5" />
-                    <circle cx="50" cy="52" r="14" fill="none" stroke={ringColor} strokeWidth="1" />
-                    <circle cx="50" cy="50" r="36" fill="none" stroke={ringColor} strokeWidth="1" />
+                    <circle cx="48" cy="56" r="36" fill={discColor} fillOpacity="0.35" />
+                    <circle cx="48" cy="56" r="14" fill="#000000" fillOpacity="0.5" />
+                    <circle cx="48" cy="56" r="14" fill="none" stroke={ringColor} strokeWidth="1" />
+                    <circle cx="48" cy="56" r="36" fill="none" stroke={ringColor} strokeWidth="1" />
                     <g className="disc-ring">
                         <text fill="#ffffff" fontSize="6" letterSpacing="1" style={{ fontFamily: "'Fira Mono'" }}>
                             <textPath href={`#ring-${name}`} startOffset="0%">{ringText}</textPath>
