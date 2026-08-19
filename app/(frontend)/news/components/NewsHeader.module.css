@@ -1,0 +1,76 @@
+/* ===========================
+   NewsHeader — Row container
+   =========================== */
+
+.headerRow {
+  display: flex;
+  align-items: stretch;
+  gap: 19px;
+  width: 100%;
+}
+
+/* ===========================
+   Newsfeed Title Bar
+   =========================== */
+
+.newsfeedTitle {
+  flex: 1;
+  min-width: 0;
+  background: url("/images/news-list-heading-bg.png") left center no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  align-items: center;
+  height: 49px;
+}
+
+.newsfeedTitleText {
+  padding: 0 clamp(10px, 2vw, 20px);
+  font-size: clamp(14px, 2.5vw, 24px);
+  color: #302F2F;
+  font-family: var(--font-nova-cut), sans-serif;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* ===========================
+   Admin Button
+   =========================== */
+
+.adminButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: clamp(200px, 35vw, 403px);
+  height: 49px;
+  background: rgba(242, 180, 35, 0.9);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: #000000;
+  transition: opacity 0.2s;
+}
+
+.adminButton:hover {
+  opacity: 0.85;
+}
+
+.adminButtonText {
+  font-family: var(--font-nova-cut), sans-serif;
+  font-size: clamp(12px, 2vw, 20px);
+  font-weight: 400;
+  color: #000000;
+  white-space: nowrap;
+  padding-left: clamp(5px, 1vw, 10px);
+}
+
+.adminButtonBox {
+  position: absolute;
+  width: clamp(35px, 5vw, 53px);
+  height: clamp(20px, 3vw, 30px);
+  top: clamp(10px, 1.5vw, 10px); /* Keeps it vertically centred approx */
+  right: clamp(4px, 1vw, 8px);
+  background: #DCCEAB;
+  border: 1px solid #F2B423;
+  box-sizing: border-box;
+  pointer-events: none;
+}

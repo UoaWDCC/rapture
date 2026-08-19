@@ -138,6 +138,7 @@ export interface UserAuthOperations {
 export interface User {
   id: string;
   role: 'admin' | 'user';
+  steamId?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -400,6 +401,7 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   role?: T;
+  steamId?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

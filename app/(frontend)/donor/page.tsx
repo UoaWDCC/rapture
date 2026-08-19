@@ -2,12 +2,23 @@ export const dynamic = 'force-dynamic';
 
 import DonorBox from "../components/Donor";
 import DonorBigBox from "../components/DonorBigBox";
+import { getPayload } from "payload";
+import config from "@/payload.config";
+import { headers as getHeaders } from "next/headers.js";
+import DonorAdminButton from "./components/DonorAdminButton";
 
 export default async function DonorPage() { 
+  const payload = await getPayload({ config: await config });
+  const headers = await getHeaders();
+  const { user } = await payload.auth({ headers });
+  const isAdmin = user?.role === "admin";
 
   return (
     <div className="mt-20 p-8 flex flex-col items-center">
-        <h1 className="mb-10">DONOR</h1>
+        <div className="w-[80%] md:w-[70%] relative mb-10 flex justify-center items-center">
+          <h1>DONOR</h1>
+          <DonorAdminButton isAdmin={isAdmin} />
+        </div>
 
         <div className="w-[80%] md:w-[70%] grid grid-cols-1 md:grid-cols-3 gap-1">
             

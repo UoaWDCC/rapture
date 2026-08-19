@@ -7,7 +7,7 @@ type FooterProps = {
 
 export default function Footer({ contactEmail }: FooterProps) {
   return (
-    <footer className="bg-[url(/images/FOOTER.png)]  w-full bg-cover bg-no-repeat text-white z-0 relative bg-[center_top_100px]">
+    <footer className="bg-[url(/images/FOOTER.png)] w-full bg-cover bg-no-repeat text-white z-0 relative bg-[center_top_100px]">
       <div className="flex items-center gap-4 w-full px-20 mb-10">
         <div className="flex-1 h-px bg-white opacity-30"></div>
         <span className="text-white text-2xl tracking-widest">
@@ -26,7 +26,9 @@ export default function Footer({ contactEmail }: FooterProps) {
           iconHeight={50}
           iconTop="top-8"
           iconRight="right-5.75"
-          color="bg-[#171947]/70"
+          color="bg-[#5865F2]/15"
+          discColor="#0650DA"
+          ringColor="#0650DA"
         />
         <Disc
           name="Youtube"
@@ -38,6 +40,8 @@ export default function Footer({ contactEmail }: FooterProps) {
           iconTop="top-2"
           iconRight="right-0"
           color="bg-[#4C1010]/70"
+          discColor="#FF0000"
+          ringColor="#FF0000"
         />
         <Disc
           name="Steam"
@@ -49,6 +53,8 @@ export default function Footer({ contactEmail }: FooterProps) {
           iconTop="top-7.5"
           iconRight="right-5.75"
           color="bg-[#171720]/70"
+          discColor="#FFFFFF"
+          ringColor="#FFFFFF"
         />
       </div>
 

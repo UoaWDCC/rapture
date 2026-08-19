@@ -1,6 +1,7 @@
 import { Player } from "@/payload-types";
 import React from "react";
 import Image from "next/image";
+import GlitchReveal from "../components/GlitchReveal"
 
 interface LeaderboardTableProps {
   players: Player[];
@@ -16,6 +17,8 @@ interface LeaderboardTableProps {
 export function LeaderboardTable({ players, startIndex = 1 }: LeaderboardTableProps) {
   return (
     <div className="w-full max-w-229 mx-auto @container">
+
+      <GlitchReveal delay={0.7}>
       <div 
         className="relative bg-black text-white border-[0.327cqw] border-[#3727EA] rounded-[0.327cqw] shadow-2xl overflow-hidden aspect-916/771"
       >
@@ -92,6 +95,8 @@ export function LeaderboardTable({ players, startIndex = 1 }: LeaderboardTablePr
           })}
         </div>
       </div>
+      </GlitchReveal>
+
     </div>
   );
 }
