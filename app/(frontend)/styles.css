@@ -59,7 +59,7 @@
 
 .disc-ring {
     transform-box: view-box;
-    transform-origin: 50px 50px;
+    transform-origin: 48px 54px;
 }
 
 .group:hover .disc-ring {

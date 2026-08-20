@@ -22,7 +22,7 @@ export default async function LeaderboardPage({ searchParams }: PageProps) {
   })
 
   return (
-    <div className="p-6 bg font-sans flex flex-col items-center">
+    <div className="px-6 bg font-sans flex flex-col items-center">
       <div className="flex flex-col w-full max-w-5xl h-200 gap-6 mb-25">
 
         <GlitchReveal delay={0.5}>

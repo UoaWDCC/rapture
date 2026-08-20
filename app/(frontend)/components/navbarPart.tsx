@@ -42,7 +42,7 @@ export default function Dropdown({ label, items }: DropdownProps) {
 
       <ul className={`w-full transition-all duration-300 overflow-hidden absolute ${open ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}>
         {items.map((item) => (
-          <li key={item.id} className="p-2 pl-8 text-xl bg-blue-300 hover:opacity-80 border-t-2 border-b-2 border-black">
+          <li key={item.id} className="p-1 pl-8 text-xl bg-blue-800 hover:opacity-80 border-t-2 border-b-2 border-black">
             <a href={item.link}>
                 <button onClick={() => {
                     setSelected(item.name);

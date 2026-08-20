@@ -14,7 +14,7 @@ export default async function DonorPage() {
   const isAdmin = user?.role === "admin";
 
   return (
-    <div className="mt-40 mb-40 p-8 flex flex-col items-center">
+    <div className="mt-20 p-8 flex flex-col items-center">
         <div className="w-[80%] md:w-[70%] relative mb-10 flex justify-center items-center">
           <h1>DONOR</h1>
           <DonorAdminButton isAdmin={isAdmin} />

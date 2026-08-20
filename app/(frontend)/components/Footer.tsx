@@ -2,11 +2,10 @@ import Disc from "@/app/(frontend)/components/Disc";
 import Image from "next/image";
 
 type FooterProps = {
-  studioTagline?: string;
   contactEmail?: string;
 };
 
-export default function Footer({ studioTagline, contactEmail }: FooterProps) {
+export default function Footer({ contactEmail }: FooterProps) {
   return (
     <footer className="bg-[url(/images/FOOTER.png)] w-full bg-cover bg-no-repeat text-white z-0 relative bg-[center_top_100px]">
       <div className="flex items-center gap-4 w-full px-20 mb-10">
@@ -20,40 +19,39 @@ export default function Footer({ studioTagline, contactEmail }: FooterProps) {
       <div className="flex gap-8 justify-center w-full flex-wrap">
         <Disc
           name="Discord"
-          url="https://discord.com"
+          url="https://www.discord.gg/w4D5rn6Tnf"
           image="/dvd_player_2.png"
           icon="/DISCORD.png"
-          iconWidth={35}
-          iconHeight={35}
-          iconTop="top-5.5"
-          iconRight="right-3.75"
+          iconWidth={50}
+          iconHeight={50}
+          iconTop="top-8"
+          iconRight="right-5.75"
           color="bg-[#5865F2]/15"
           discColor="#0650DA"
           ringColor="#0650DA"
-          
         />
         <Disc
           name="Youtube"
           url="https://www.youtube.com/@STUDIO_RAPTURE"
           image="/dvd_player_2.png"
           icon="/YT.png"
-          iconWidth={60}
-          iconHeight={60}
+          iconWidth={95}
+          iconHeight={95}
           iconTop="top-2"
-          iconRight="right-0.5"
+          iconRight="right-0"
           color="bg-[#4C1010]/70"
           discColor="#FF0000"
           ringColor="#FF0000"
         />
         <Disc
           name="Steam"
-          url="https://store.steampowered.com/search/?developer=Lee%20Wilson"
+          url="https://store.steampowered.com/app/2908090/VITRIOL/"
           image="/dvd_player_2.png"
           icon="/steam.png"
-          iconWidth={35}
-          iconHeight={35}
-          iconTop="top-5.5"
-          iconRight="right-3.75"
+          iconWidth={50}
+          iconHeight={50}
+          iconTop="top-7.5"
+          iconRight="right-5.75"
           color="bg-[#171720]/70"
           discColor="#FFFFFF"
           ringColor="#FFFFFF"
@@ -66,7 +64,7 @@ export default function Footer({ studioTagline, contactEmail }: FooterProps) {
 
       <div className="px-20">
         <div className="w-full border-2 border-amber-400 bg-black rounded-3xl flex flex-col gap-2 p-5">
-          <h5>STUDIO RAPTURE!: {studioTagline}</h5>
+          <h5>STUDIO RAPTURE!</h5>
           <h5>CONTACT: {contactEmail}</h5>
         </div>
       </div>

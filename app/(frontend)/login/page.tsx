@@ -120,8 +120,8 @@ export default function LoginPage() {
 
           <div className="hidden md:block relative z-10 bg-[#271E06] rounded">
             <AuthSideCard
-              title={`NEW\nCUSTOMER?`}
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+              title={`NEW\nUSER?`}
+              description="Create an account with us today."
               buttonLabel="sign up"
               onButtonClick={() => router.push('/signup')}
               theme="gold"
@@ -131,8 +131,8 @@ export default function LoginPage() {
           {/* Mobile view side card */}
           <div className="block md:hidden absolute -top-36 left-24 -right-24 z-10 bg-[#271E06] rounded">
             <AuthSideCard
-              title={`NEW\nCUSTOMER?`}
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+              title={`NEW\nUSER?`}
+              description="Create an account with us today."
               buttonLabel="sign up"
               onButtonClick={() => router.push('/signup')}
               theme="gold"
