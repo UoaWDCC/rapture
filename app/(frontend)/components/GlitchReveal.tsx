@@ -23,18 +23,25 @@ export default function GlitchReveal({
   className,
   duration = 0.6,
   delay = 0,
+  amount = 0.3,
 }: {
   children: ReactNode;
   className?: string;
   duration?: number;
   delay?: number;
+  /**
+   * Fraction of the element that must be visible before the reveal fires.
+   * Lower it for tall elements (e.g. news cards inside the scroll window)
+   * so they do not have to be almost fully on screen first.
+   */
+  amount?: number;
 }) {
   return (
-    <div className={className}>
+    <div className={className ? `glitch-reveal ${className}` : "glitch-reveal"}>
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={glitchKeyframes}
-        viewport={{ once: true, amount: 0.3 }}
+        viewport={{ once: true, amount }}
         transition={{ duration, delay, times, ease: "easeInOut" }}
       >
         {children}

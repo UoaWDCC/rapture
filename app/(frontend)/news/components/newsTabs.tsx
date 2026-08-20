@@ -3,11 +3,14 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import NewsFeed from "./newsfeed";
 import styles from "./newsTabs.module.css";
+import GlitchReveal from "../../components/GlitchReveal";
 
 import type { News } from "@/payload-types";
 
 const VISIBLE_CARDS = 3;
 const TRACK_PADDING = 10;
+/* Matches the 0.15s stagger the Home page sections use. */
+const REVEAL_STAGGER = 0.15;
 
 export default function NewsTabs({
   allNews,
@@ -156,17 +159,27 @@ export default function NewsTabs({
         }`}
         onScroll={handleScroll}
       >
-        {allNews.map((item) => (
-          <NewsFeed
+        {allNews.map((item, index) => (
+          /*
+           * Only the cards visible on load are staggered. Cards further down
+           * reveal as they are scrolled into the window, so an inherited delay
+           * would just make them feel sluggish.
+           */
+          <GlitchReveal
             key={item.id}
-            news={item}
-            onReadMore={() =>
-              setExpandedId(
-                expandedId === String(item.id) ? null : String(item.id),
-              )
-            }
-            isExpanded={expandedId === String(item.id)}
-          />
+            delay={index < VISIBLE_CARDS ? index * REVEAL_STAGGER : 0}
+            amount={0.2}
+          >
+            <NewsFeed
+              news={item}
+              onReadMore={() =>
+                setExpandedId(
+                  expandedId === String(item.id) ? null : String(item.id),
+                )
+              }
+              isExpanded={expandedId === String(item.id)}
+            />
+          </GlitchReveal>
         ))}
       </div>
 
