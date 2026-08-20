@@ -29,10 +29,34 @@ export const metadata = {
 };
 
 const itemsNav = [
-  { id: 1, name: "Games", link: "/games", childrenLinks: [{id: 1, name:"Vitriol", link:"/games/vitriol"}, {id: 2, name:"Leaderboard", link:"/leaderboard"}]},
-  { id: 2, name: "Community", link: "/community", childrenLinks: [{id: 7, name:"Store", link:"/merch"}, {id: 3, name:"News", link:"/news"}, {id: 4, name:"Donor", link:"/donor"}] },
-  { id: 3, name: "About", link: "/about", childrenLinks: [{id: 5, name:"Contacts", link:"/contacts"}, {id: 6, name:"Support", link:"/support"}] }
-  
+  {
+    id: 1,
+    name: "Games",
+    link: "/games",
+    childrenLinks: [
+      { id: 1, name: "Vitriol", link: "/games/vitriol" },
+      { id: 2, name: "Leaderboard", link: "/leaderboard" },
+    ],
+  },
+  {
+    id: 2,
+    name: "Community",
+    link: "/community",
+    childrenLinks: [
+      { id: 7, name: "Store", link: "/merch" },
+      { id: 3, name: "News", link: "/news" },
+      { id: 4, name: "Donor", link: "/donor" },
+    ],
+  },
+  {
+    id: 3,
+    name: "About",
+    link: "/about",
+    childrenLinks: [
+      { id: 5, name: "Contacts", link: "/contacts" },
+      { id: 6, name: "Support", link: "/support" },
+    ],
+  },
 ]; // navbar testing
 
 // Fill in with actual webpage links when they are done.
@@ -45,23 +69,16 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const payload = await getPayload({ config: payloadConfig });
   const headers = await getHeaders();
   const { user } = await payload.auth({ headers });
-  
 
   return (
     <html lang="en" className={`${firaMono.variable} ${novaCut.variable} z-10`}>
       <body>
         {/* REMOVDE SIDEBAR FOR NOW <Sidebar /> */}
-        <Navbar 
-          item={itemsNav} 
-          user={user} 
-        />
+        <Navbar item={itemsNav} user={user} />
 
         <main>{children}</main>
-        
-        <Footer
-          studioTagline={studioTagline}
-          contactEmail={contactEmail}
-        />
+
+        <Footer studioTagline={studioTagline} contactEmail={contactEmail} />
       </body>
     </html>
   );

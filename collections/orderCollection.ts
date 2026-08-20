@@ -9,6 +9,7 @@ export const OrderCollection: CollectionConfig = {
       relationTo: "users",
       index: true,
       label: "User (Email)",
+      required: true,
     },
     {
       name: "status",
