@@ -60,8 +60,7 @@ const itemsNav = [
 ]; // navbar testing
 
 // Fill in with actual webpage links when they are done.
-const studioTagline = "Tagline example";
-const contactEmail = "contact@gmail.com";
+const contactEmail = "contact@studiorapture.com";
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props;
@@ -73,12 +72,12 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${firaMono.variable} ${novaCut.variable} z-10`}>
       <body>
-        {/* REMOVDE SIDEBAR FOR NOW <Sidebar /> */}
+        {/* REMOVED SIDEBAR FOR NOW <Sidebar /> */}
         <Navbar item={itemsNav} user={user} />
 
-        <main>{children}</main>
+        <main className="mt-16 mb-16">{children}</main>
 
-        <Footer studioTagline={studioTagline} contactEmail={contactEmail} />
+        <Footer contactEmail={contactEmail} />
       </body>
     </html>
   );

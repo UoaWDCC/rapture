@@ -141,22 +141,20 @@ export function NewsSection({ latestNews }: { latestNews: News | null }) {
               className="relative bg-brand-yellow text-background p-5 md:w-xl"
               style={{ boxShadow: "0 0 12px 2px rgba(255, 220, 0, 0.5)" }}
             >
-              <div className="space-y-1">
+              <div className="space-y-3">
                 <div className="relative">
                   <h4 className="absolute left-[2px] blur-[1px]">
-                    NOTIFICATION
+                    SUBSCRIBE?
                   </h4>
-                  <h4>NOTIFICATION</h4>
+                  <h4>SUBSCRIBE?</h4>
                 </div>
                 <p className="opacity-70">
-                  Lorem ipsum dolor sit amet, consectetuer. Lorem ipsum dolor
-                  sit amet, consectetuer.
+                  Join our email newsletter subscription for fast and easy updates !
                 </p>
               </div>
               <div className="bg-background h-[1px] mt-5 mb-3" />
               <div className="flex flex-row justify-end space-x-2">
-                <NotificationButton>(Y) Accept</NotificationButton>
-                <NotificationButton>(N) Dismiss</NotificationButton>
+                <NotificationButton>(Y) Subscribe</NotificationButton>
               </div>
             </div>
           </GlitchReveal>

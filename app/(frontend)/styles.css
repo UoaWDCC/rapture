@@ -63,11 +63,21 @@
 
 .disc-ring {
   transform-box: view-box;
-  transform-origin: 50px 50px;
+  transform-origin: 48px 54px;
 }
 
 .group:hover .disc-ring {
   animation: disc-spin 4s linear infinite;
+}
+
+/* GlitchReveal — respect prefers-reduced-motion.
+   Motion writes opacity/filter as inline styles, so these need !important
+   to win. This kills the flicker while leaving the layout untouched. */
+@media (prefers-reduced-motion: reduce) {
+  .glitch-reveal > * {
+    opacity: 1 !important;
+    filter: none !important;
+  }
 }
 
 :root {

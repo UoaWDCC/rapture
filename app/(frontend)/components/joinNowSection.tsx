@@ -42,9 +42,9 @@ export function JoinNowSection() {
               style={{ boxShadow: "0 0 12px 2px rgba(32, 128, 90, 0.6)" }}
             >
               <div className=" border border-brand-green flex flex-col divide-y divide-brand-green md:min-w-90">
-                <JoinButton href="https://discord.gg" newTab>DISCORD</JoinButton>
+                <JoinButton href="https://discord.com/invite/w4D5rn6Tnf" newTab>DISCORD</JoinButton>
                 <div className="h-3"></div>
-                <JoinButton href="/">WEBSITE</JoinButton>
+                <JoinButton href="/signup">WEBSITE</JoinButton>
               </div>
             </div>
           </div>
