@@ -65,7 +65,7 @@ export default function Navbar({item}: NavProps) {
           alt="Account Profile"
           height={60}
           width={60}
-          src="Account.svg"
+          src="/Account.svg"
         />
       </Link>
     </nav>
