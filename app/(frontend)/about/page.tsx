@@ -4,10 +4,10 @@ import ContactFile from "../components/ui/ContactFileDesign.tsx";
 export default async function aboutPage() {
     return (
         <div className="mt-40 mb-80 flex flex-row">
-            <div className="absolute left-50 w-100 h-245 flex flex-row">
-                <ContactFile title="About Us (1)" bgColor="bg-red-800" sideHeight="100px" zIndex={3}>
-                    <div className="w-250 flex flex-col">
-                        <h1 className="mb-20">About Us</h1>
+            <div className="absolute left-50 h-245 flex flex-row">
+                <ContactFile title="About Us (1)" bgColor="bg-red-800" sideHeight="100px" zIndex={3} className="max-w-[70%]">
+                    <div className="w-250 flex flex-col items-end">
+                        <h1 className="mb-20 mr-10 mt-10">About Us</h1>
 
                         <p className="w-[70%] mb-10 text-left">Loren als ser pal Loren als ser pal Loren als ser pal
                            Loren als ser pal Loren als ser pal Loren als ser pal
@@ -41,9 +41,9 @@ export default async function aboutPage() {
                     </div>
                 </ContactFile>
 
-                <ContactFile title="About Us (2)" bgColor="bg-green-700" sideHeight="200px" zIndex={2} mlValue={-550} translateValueOpen="-translate-x-[137%]" translateValueClosed="translate-x-[-730px]">
-                    <div className="w-250 flex flex-col items-start">
-                        <h1 className="mb-20">About Us</h1>
+                <ContactFile title="About Us (2)" bgColor="bg-green-700" sideHeight="200px" zIndex={2} mlValue={-550} translateValueOpen="-translate-x-[137%]" translateValueClosed="translate-x-[-730px] max-w-full">
+                    <div className="w-250 flex flex-col items-end">
+                        <h1 className="mb-20 mr-10 mt-10">About Us</h1>
 
                         <p className="w-[70%] mb-10 text-left">Loren als ser pal Loren als ser pal Loren als ser pal
                            Loren als ser pal Loren als ser pal Loren als ser pal
@@ -78,7 +78,7 @@ export default async function aboutPage() {
                 </ContactFile>
 
                 <ContactFile title="About Us (3)" bgColor="bg-yellow-800" sideHeight="300px" zIndex={1} mlValue={-550} translateValueOpen="-translate-x-[175%]" translateValueClosed="translate-x-[-1260px]">
-                    <div className="w-250 flex flex-col items-start">
+                    <div className="w-250 flex flex-col items-end">
                         <h1 className="mb-20">About Us</h1>
 
                         <p className="w-[70%] mb-10 text-left">Loren als ser pal Loren als ser pal Loren als ser pal

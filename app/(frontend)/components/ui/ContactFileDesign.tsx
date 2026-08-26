@@ -20,12 +20,12 @@ export default function ContactFile(prop: contactFileProps) {
 
     return(
         <div className={`flex flex-row bg-transparent transition-transform duration-300 ${open ? prop.translateValueClosed ?? 'translate-x-[-200px]' : prop.translateValueOpen ?? '-translate-x-[100%]'} ${prop.className}`}
-                style={{ zIndex: open ? 50 : prop.zIndex ?? 20, 
+                style={{ zIndex: open ? prop.zIndex : prop.zIndex ?? 20, 
                          marginLeft: prop.mlValue ?? 0,
                 }}>
             {/*The main part*/}
-            <div className={`h-full w-full p-5 ${prop.bgColor}`}>
-                {prop.children}
+            <div className={`h-full w-full p-5 flex justify-end-safe shadow-black shadow-xl ${prop.bgColor}`}>
+                <div className={`transition-opacity duration-400 ease-in-out ${open ? 'opacity-100' : 'opacity-0' }`}>{prop.children}</div>
             </div>
             {/*The side piece*/}
             <div className={`flex flex-row relative -ml-0.5 h-fit writing-mode-vertical bg-transparent hover:cursor-pointer`}
