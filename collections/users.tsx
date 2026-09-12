@@ -5,6 +5,7 @@ import { sendEmail } from "@/lib/email/send_email";
 import { render } from "@react-email/render";
 import Welcome from "@/lib/email/email_templates/welcome";
 import { User } from "@/payload-types";
+import ResetPasswordEmail from "@/lib/email/email_templates/resetPassword";
 
 const adminCheck = (user: User | null) => {
   return user?.role === "admin";
@@ -12,7 +13,20 @@ const adminCheck = (user: User | null) => {
 
 export const Users: CollectionConfig = {
   slug: "users",
-  auth: true,
+  auth: {
+    forgotPassword: {
+      generateEmailHTML: async ({ token, user } = {}) => {
+        if (!user || ! token) {
+          throw new Error('no user/no token')
+        } // error safety net if there's no user or token found
+        const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/reset-password?token=${token}`;
+        return await render(
+          <ResetPasswordEmail name={user.email || ""} url={url} />
+        )
+      },
+      generateEmailSubject: () => "Reset Password",
+    }
+  }, //change auth:true with this for custom email template
   admin: {
     useAsTitle: "email",
   },
