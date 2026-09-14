@@ -102,6 +102,16 @@ export default function LoginPage() {
               </div>
             </div>
 
+            <div className="absolute left-1/2 -translate-x-1/2 top-full mt-8 w-40">
+              <AuthButton
+                type="button"
+                label="forgot password"
+                onClick={() => router.push('/forgot-password')}
+                theme="gold"
+                size="small"
+              />
+            </div>
+
           </AuthFormCard>
         </div>
 
