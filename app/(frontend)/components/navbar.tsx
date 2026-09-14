@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link"
 import Image from "next/image";
 import NavbarPart from "./navbarPart";
+import MobileNavbar from "./MobileNavbar";
 
 import Dropdown from "./Dropdown";
 
@@ -30,7 +31,8 @@ export default function Navbar({item}: NavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className="w-full top-0 flex flex-row flex-wrap items-start justify-center px-6 py-2 mt-10 mb-10 bg-transparent z-9999 relative">
+    <>
+    <nav className="hidden md:flex w-full top-0 flex-row flex-wrap items-start justify-center px-6 py-2 mt-10 mb-10 bg-transparent z-9999 relative">
 
       {/* Logo */}
       <Image
@@ -41,7 +43,8 @@ export default function Navbar({item}: NavProps) {
         src="/LOGO.png"
       />
 
-      <Link href="/" className="w-50 h-8 mr-1 mt-4 bg-blue-800 border border-blue-500 opacity-100 text-xl flex items-center pl-2 pt-0.5 [clip-path:polygon(0_0,90%_0,93%_30%,100%_30%,100%_100%,0_100%)] hover:opacity-80">
+    
+      <Link href="/" className="w-50 h-8 mr-1 mt-4 bg-blue-800 border border-blue-500 opacity-100 text-xl flex items-center [clip-path:polygon(0_0,90%_0,93%_30%,100%_30%,100%_100%,0_100%)] hover:opacity-80">
         Home
       </Link>
 
@@ -69,5 +72,10 @@ export default function Navbar({item}: NavProps) {
         />
       </Link>
     </nav>
+
+    <div className="md:hidden">
+      <MobileNavbar item={item}/>
+    </div>
+    </>
   );
 }
