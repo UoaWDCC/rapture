@@ -14,7 +14,9 @@ export const BinaryFlicker = ({
   const [digits, setDigits] = useState<number[]>(() => Array(length).fill(0));
 
   useEffect(() => {
-    setDigits(Array.from({ length }, () => Math.round(Math.random())));
+    const initialization = setTimeout(() => {
+      setDigits(Array.from({ length }, () => Math.round(Math.random())));
+    }, 0);
 
     const interval = setInterval(() => {
       setDigits((prev) =>
@@ -22,7 +24,10 @@ export const BinaryFlicker = ({
       );
     }, intervalMs);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearTimeout(initialization);
+      clearInterval(interval);
+    };
   }, [length, flipChance, intervalMs]);
 
   return (
