@@ -1,18 +1,17 @@
 import { Body, Html, Heading, Text, Img, Container, Section } from "@react-email/components";
 
-type WelcomeProps = {
-  name: string;
+type NewsletterProps = {
   text: string;
 };
 
-export default function Welcome({ name, text }: WelcomeProps) {
+export default function Newsletter({ text }: NewsletterProps) {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
   return (
     <Html>
       <Body style={{ fontFamily: "sans-serif", padding: "20px" }}>
         <Container>
-          <Heading>Welcome Aboard, {name}!</Heading>
+          <Heading>Welcome to the Newsletter!</Heading>
           <Section>
             <Text style={{ whiteSpace: "pre-wrap" }}>
               {text}

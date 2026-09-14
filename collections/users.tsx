@@ -53,10 +53,12 @@ export const Users: CollectionConfig = {
   /*for email system testing*/
   hooks: {
     afterChange: [
-      async ({ doc, operation }) => {
+      async ({ doc, operation, req }) => {
         if (operation == "create") {
           try {
-            const html = await render(<Welcome name={doc.email} />);
+            const settings = await req.payload.findGlobal({ slug: "emailSettings" }) as { welcomeEmailText?: string };
+            const text = settings?.welcomeEmailText || "Welcome!";
+            const html = await render(<Welcome name={doc.email} text={text} />);
             await sendEmail({
               to: doc.email,
               subject: "Welcome!",
