@@ -19,7 +19,7 @@ export const Users: CollectionConfig = {
         if (!user || ! token) {
           throw new Error('no user/no token')
         } // error safety net if there's no user or token found
-        const url = `${process.env.NEXT_PUBLIC_SERVER_URL}/reset-password?token=${token}`;
+        const url = `http://localhost:3000/resetPassword?token=${token}`;
         return await render(
           <ResetPasswordEmail name={user.email || ""} url={url} />
         )

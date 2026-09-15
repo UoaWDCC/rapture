@@ -143,10 +143,6 @@ export default function LoginPage() {
         </div>
 
       </div>
-      {/* <div className="absolute bottom-0 right-0 p-20">
-          <h2>FORGOT PASSOWRD</h2>
-          <ForgotPasswordButton/>
-      </div> */}
     </div>
   )
 }

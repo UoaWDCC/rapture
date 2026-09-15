@@ -1,15 +1,12 @@
 'use client';
 
 import { FormEvent, useState } from "react";
-import { useRouter } from "next/router";
-import Button from "../components/ui/Button";
 
 type props={
     token?: string;
 }
 
 export default function ResetForm({token}: props) {
-    const router = useRouter()
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const [success, setSuccess] = useState(false)
@@ -17,7 +14,56 @@ export default function ResetForm({token}: props) {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
-    async function handleSubmit() {}
+    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        setError("")
+        if (!token) {
+            setError("Password reset link invalid")
+            return
+        }
+        if (password.length < 8) {
+            setError("Password(s) must be at least 8 characters.")
+            return
+        }
+        if (password !== confirmPassword) {
+            setError("Passwords do not match.")
+            return
+        }
+
+        setLoading(true)
+
+        try {
+            const res = await fetch(
+                '/api/users/reset-password',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        token, password
+                    }
+                )
+            })
+
+            const data = await res.json()
+
+            if (!res.ok) {
+                setError("error: can't reset password")
+                return
+            }
+
+            setSuccess(true)
+        } catch {
+            setError("something went wrong")
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    if (success) {
+        return <p>Password reset successful</p>
+    }
 
     return(
         <form onSubmit={handleSubmit}>
@@ -26,6 +72,7 @@ export default function ResetForm({token}: props) {
             <button type="submit" disabled={loading} className="bg-blue-600 text-white font-medium truncate max-w-full">
                 {loading ? 'Resetting...' : 'Reset'}
             </button>
+            {error && (<p className="text-red-400 text-center font-mono">{error}</p>)}
         </form>
     )
 }

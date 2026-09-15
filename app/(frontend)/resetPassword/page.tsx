@@ -4,7 +4,7 @@ import ResetForm from "./ResetForm";
 type props={
     searchParams: Promise<{
         token?: string;
-    }
+    }>
 }
 
 export default async function ResetPasswordPage({ searchParams }: props) {
