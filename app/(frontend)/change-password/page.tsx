@@ -26,7 +26,7 @@ export default function ChangePasswordPage() {
   return (
     <div className="min-h-screen flex items-center justify-center p-8">
       <div className="relative w-full max-w-[450px]">
-        <AuthFormCard title="CHANGE PASSWORD" theme="green" titleSize="2.5rem" cardHeight="570px">
+        <AuthFormCard title="CHANGE PASSWORD" theme="green" titleSize="2.5rem" cardHeight="480px" titleAlign="center">
           {error && (
             <p className="text-red-400 text-center font-mono">{error}</p>
           )}
@@ -53,6 +53,7 @@ export default function ChangePasswordPage() {
                 label="CONTINUE"
                 onClick={() => {}}
                 theme="green"
+                font="display"
               />
             </div>
           </form>

@@ -18,7 +18,7 @@ export default function ForgotPasswordPage() {
   return (
     <div className="min-h-screen flex items-center justify-center p-8">
       <div className="relative w-full max-w-[450px]">
-        <AuthFormCard title="FORGOT PASSWORD" theme="green" titleSize="2.5rem" cardHeight="570px">
+        <AuthFormCard title="FORGOT PASSWORD" theme="green" titleSize="2.5rem" cardHeight="480px" titleAlign="center">
           <form onSubmit={handleContinue} className="flex flex-col gap-4">
             <label className="text-white font-mono text-xs">EMAIL</label>
             <AuthInput
@@ -34,6 +34,7 @@ export default function ForgotPasswordPage() {
                 label="CONTINUE"
                 onClick={() => {}}
                 theme="green"
+                font="display"
               />
             </div>
           </form>
