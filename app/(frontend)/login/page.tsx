@@ -109,6 +109,7 @@ export default function LoginPage() {
                 onClick={() => router.push('/forgot-password')}
                 theme="gold"
                 size="small"
+                showGlow={false}
               />
             </div>
 
