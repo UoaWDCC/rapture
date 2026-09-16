@@ -44,7 +44,12 @@ export default function Dropdown({ label, items }: DropdownProps) {
           className="w-full h-full flex items-center"
           onClick={() => setOpen(!open)}
         >
-          ▶ {label}
+          <span
+            className={`pr-1 transition-transform duration-300 ${open ? "rotate-90" : "rotate-0"}`}
+          >
+            ▶
+          </span>
+          {label}
         </button>
       </div>
 
@@ -54,7 +59,7 @@ export default function Dropdown({ label, items }: DropdownProps) {
         {items.map((item) => (
           <li
             key={item.id}
-            className="p-2 pl-8 text-xl bg-blue-300 hover:opacity-80 border-t-2 border-b-2 border-black"
+            className="p-1 pl-8 text-xl bg-blue-800 hover:bg-blue-950 border-t-2 border-b-2 border-black"
           >
             <a href={item.link}>
               <button

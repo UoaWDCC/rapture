@@ -70,14 +70,16 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { user } = await payload.auth({ headers });
 
   return (
-    <html lang="en" className={`${firaMono.variable} ${novaCut.variable} z-10`}>
+    <html lang="en" className={`${firaMono.variable} ${novaCut.variable}`}>
       <body>
-        {/* REMOVED SIDEBAR FOR NOW <Sidebar /> */}
-        <Navbar item={itemsNav} user={user} />
+        <div className="z-10">
+          {/* REMOVED SIDEBAR FOR NOW <Sidebar /> */}
+          <Navbar item={itemsNav} user={user} />
 
-        <main className="mt-16 mb-16">{children}</main>
+          <main className="mt-16 mb-16">{children}</main>
 
-        <Footer contactEmail={contactEmail} />
+          <Footer contactEmail={contactEmail} />
+        </div>
       </body>
     </html>
   );

@@ -30,7 +30,7 @@ export default function Navbar({item}: NavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className="w-full top-0 flex flex-row flex-wrap items-start justify-center px-6 py-2 mt-10 mb-10 bg-transparent">
+    <nav className="w-full top-0 flex flex-row flex-wrap items-start justify-center px-6 py-2 mt-10 mb-10 bg-transparent z-9999 relative">
 
       {/* Logo */}
       <Image
@@ -65,7 +65,7 @@ export default function Navbar({item}: NavProps) {
           alt="Account Profile"
           height={60}
           width={60}
-          src="Account.svg"
+          src="/Account.svg"
         />
       </Link>
     </nav>

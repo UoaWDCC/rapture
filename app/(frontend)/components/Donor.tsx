@@ -34,7 +34,7 @@ export default function DonorBox({ name, className, text, image, tabColor}: Dono
             <div ref={cardRef} className="w-full min-h-40 h-auto flex flex-col items-center bg-[#22180c] border p-4 rounded-b-md rounded-tr-md"
                 style={{borderColor: tabColor ?? '#c69825',}}>
                 <h2 className="pt-5 pb-5 text-center" style={{lineHeight: '1.5'}}>{name}</h2>
-                { image && <NextImage src={image} alt={name} width={150} height={150} className="mb-5 object-contain" />}
+                { image && <NextImage src={image.startsWith('/') || image.startsWith('http') ? image : `/${image}`} alt={name} width={150} height={150} className="mb-5 object-contain" />}
                 { text && <p>{text}</p>}
             </div>
         </div>
