@@ -36,18 +36,21 @@ export default function ForgotPasswordButton() {
     };
 
     if (success) {
-        return <p>If email exists, email have been sent successfully.</p>
+        console.log("successfully sent email")
+        return <p>If the email address exists, email have been sent successfully.</p>
     }
 
     return(
         <div>
-            <Button onClick={() => setOpen(true)}>Forgot Password</Button>
+            <Button onClick={() => setOpen(true)} className=" p-2 m-2">Forgot Password</Button>
 
             {open && (
-                <div className="z-20 min-h-screen min-w-screen bg-black/70">
-                    <input type="email" placeholder='Email Address' value={email} onChange={(e) => setEmail(e.target.value)}></input>
-                    <Button onClick={handleForgotPassword}>Send Reset Password Email</Button>
+                <div className="relative top-0 z-200 w-90vh min-h-screen bg-black/70 m-5 items-center">
+                    <div className="items-center mx-50% my-auto">
+                    <input type="email" placeholder='Email Address' value={email} onChange={(e) => setEmail(e.target.value)} className=" p-2 m-2"></input>
+                    <Button onClick={handleForgotPassword} className=" p-2 m-2">Send Reset Password Email</Button>
                     {error && (<p className="text-red-400 text-center font-mono">{error}</p>)}
+                    </div>
                 </div>
             )}
         </div>

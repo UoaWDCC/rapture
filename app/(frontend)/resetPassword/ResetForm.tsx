@@ -18,11 +18,19 @@ export default function ResetForm({token}: props) {
         e.preventDefault()
         setError("")
         if (!token) {
-            setError("Password reset link invalid")
+            setError("Password reset link invalid.")
             return
         }
         if (password.length < 8) {
-            setError("Password(s) must be at least 8 characters.")
+            setError("Password must be at least 8 characters.")
+            return
+        }
+        if (!(/[\d]/.test(password))) {
+            setError("Password must contain a number.")
+            return
+        }
+        if (!(/[a-z]/.test(password) && /[A-Z]/.test(password))) {
+            setError("Password must contain both upper and lowercase character.")
             return
         }
         if (password !== confirmPassword) {
@@ -62,16 +70,19 @@ export default function ResetForm({token}: props) {
     }
 
     if (success) {
+        console.log("successful password reset")
         return <p>Password reset successful</p>
     }
 
     return(
         <form onSubmit={handleSubmit}>
-            <input id="password" type="password" placeholder="New Password" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="new-password"></input>
-            <input id="confirm-password" type="password" placeholder="New Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required autoComplete="new-password"></input>
-            <button type="submit" disabled={loading} className="bg-blue-600 text-white font-medium truncate max-w-full">
-                {loading ? 'Resetting...' : 'Reset'}
-            </button>
+            <div className="flex flex-col">
+                <input id="password" type="password" placeholder="New Password" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="new-password" className=" p-2 m-2"></input>
+                <input id="confirm-password" type="password" placeholder="New Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required autoComplete="new-password" className=" p-2 m-2"></input>
+                <button type="submit" disabled={loading} className="bg-blue-600 text-white font-medium truncate max-w-full p-2 m-2">
+                    {loading ? 'Resetting...' : 'Reset'}
+                </button>
+            </div>
             {error && (<p className="text-red-400 text-center font-mono">{error}</p>)}
         </form>
     )
