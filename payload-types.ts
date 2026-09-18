@@ -103,8 +103,12 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    emailSettings: EmailSetting;
+  };
+  globalsSelect: {
+    emailSettings: EmailSettingsSelect<false> | EmailSettingsSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -249,6 +253,8 @@ export interface Order {
     productName: string;
     price: number;
     description?: string | null;
+    quantity?: number | null;
+    image?: (string | null) | Media;
     id?: string | null;
   }[];
   dateTime: string;
@@ -506,6 +512,8 @@ export interface OrderSelect<T extends boolean = true> {
         productName?: T;
         price?: T;
         description?: T;
+        quantity?: T;
+        image?: T;
         id?: T;
       };
   dateTime?: T;
@@ -606,6 +614,32 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "emailSettings".
+ */
+export interface EmailSetting {
+  id: string;
+  welcomeEmailText: string;
+  newsletterEmailText: string;
+  purchaseEmailText: string;
+  adminPurchaseEmailText: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "emailSettings_select".
+ */
+export interface EmailSettingsSelect<T extends boolean = true> {
+  welcomeEmailText?: T;
+  newsletterEmailText?: T;
+  purchaseEmailText?: T;
+  adminPurchaseEmailText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
