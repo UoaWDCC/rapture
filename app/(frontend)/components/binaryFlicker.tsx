@@ -11,19 +11,24 @@ export const BinaryFlicker = ({
   flipChance?: number;
   intervalMs?: number;
 }) => {
-  const [digits, setDigits] = useState<number[]>(() =>
-    Array.from({ length }, () => Math.round(Math.random())),
-  );
+  const [digits, setDigits] = useState<number[]>(() => Array(length).fill(0));
 
   useEffect(() => {
+    const initialization = setTimeout(() => {
+      setDigits(Array.from({ length }, () => Math.round(Math.random())));
+    }, 0);
+
     const interval = setInterval(() => {
       setDigits((prev) =>
         prev.map((digit) => (Math.random() < flipChance ? 1 - digit : digit)),
       );
     }, intervalMs);
 
-    return () => clearInterval(interval);
-  }, [flipChance, intervalMs]);
+    return () => {
+      clearTimeout(initialization);
+      clearInterval(interval);
+    };
+  }, [length, flipChance, intervalMs]);
 
   return (
     <div className="flex flex-col items-center text-white/40 text-[8px] font-mono leading-tight">
