@@ -7,17 +7,17 @@ export default async function Page() {
   return (
     <section className="relative">
       {/* LEFT - Folders */}
-      <div className="absolute  z-[3] left-[-300px] top-0 w-[560px] h-[620px]">
+      <div className="absolute z-[3] left-[-300px] top-0 w-[560px] h-[620px]">
         <div
           className="absolute inset-0 bg-[#20805A]"
-          style={{ clipPath: "polygon(0% 0%, 88% 0%, 88% 12%, 92% 12.2%, 92% 26%, 88% 31%, 88% 100%, 0% 100%)" }}
+          style={{ clipPath: "polygon(0% 0%, 88% 0%, 88% 12.2%, 92% 12.2%, 92% 33%, 88% 38%, 88% 100%, 0% 100%)" }}
         />
         <div
           className="absolute inset-[1.5px] bg-[#05130d]"
-          style={{ clipPath: "polygon(0% 0%, 88% 0%, 88% 12.3%, 92% 12.3%, 92% 25.6%, 88% 30.6%, 88% 100%, 0% 100%)" }}
+          style={{ clipPath: "polygon(0% 0%, 88% 0%, 88% 12.2%, 92% 12.2%, 92% 32.8%, 88% 37.8%, 88% 100%, 0% 100%)" }}
         />
         <span
-          className="absolute text-white text-xs top-24 right-12 uppercase whitespace-nowrap [writing-mode:vertical-rl] rotate-360"
+          className="absolute text-white text-xs top-22 right-13 uppercase whitespace-nowrap [writing-mode:vertical-rl] rotate-360"
         >
           ABOUT US
         </span>
@@ -26,14 +26,14 @@ export default async function Page() {
       <div className="absolute z-[2] left-[-200px] top-0  w-[560px] h-[620px]" >
         <div
           className="absolute inset-0 bg-[#F2B423]"
-          style={{ clipPath: "polygon(0% 0%, 88% 0%, 88% 12%, 92% 12.2%, 92% 26%, 88% 31%, 88% 100%, 0% 100%)" }}
+          style={{ clipPath: "polygon(0% 0%, 88% 0%, 88% 12.2%, 92% 12.2%, 92% 33%, 88% 38%, 88% 100%, 0% 100%)" }}
         />
         <div
           className="absolute inset-[1.5px] bg-[#070604]"
-          style={{ clipPath: "polygon(0% 0%, 88% 0%, 88% 12.3%, 92% 12.3%, 92% 25.6%, 88% 30.6%, 88% 100%, 0% 100%)" }}
+          style={{ clipPath: "polygon(0% 0%, 88% 0%, 88% 12.2%, 92% 12.2%, 92% 32.8%, 88% 37.8%, 88% 100%, 0% 100%)" }}
         />
         <span
-          className="absolute text-white text-xs top-24 right-12 uppercase whitespace-nowrap [writing-mode:vertical-rl] rotate-360"
+          className="absolute text-white text-xs top-22 right-13 uppercase whitespace-nowrap [writing-mode:vertical-rl] rotate-360"
         >
           MEET THE DEVS
         </span>
@@ -42,14 +42,14 @@ export default async function Page() {
       <div className="absolute z-[1] left-[-100px] top-0  w-[560px] h-[620px]" >
         <div
           className="absolute inset-0 bg-[#0650DA]"
-          style={{ clipPath: "polygon(0% 0%, 88% 0%, 88% 12%, 92% 12.2%, 92% 26%, 88% 31%, 88% 100%, 0% 100%)" }}
+          style={{ clipPath: "polygon(0% 0%, 88% 0%, 88% 12.2%, 92% 12.2%, 92% 33%, 88% 38%, 88% 100%, 0% 100%)" }}
         />
         <div
           className="absolute inset-[1.5px] bg-[#020A15]"
-          style={{ clipPath: "polygon(0% 0%, 88% 0%, 88% 12.3%, 92% 12.3%, 92% 25.6%, 88% 30.6%, 88% 100%, 0% 100%)" }}
+          style={{ clipPath: "polygon(0% 0%, 88% 0%, 88% 12.2%, 92% 12.2%, 92% 32.8%, 88% 37.8%, 88% 100%, 0% 100%)" }}
         />
         <span
-          className="absolute text-white text-xs top-24 right-12 uppercase whitespace-nowrap [writing-mode:vertical-rl] rotate-360"
+          className="absolute text-white text-xs top-22 right-13 uppercase whitespace-nowrap [writing-mode:vertical-rl] rotate-360"
         >
           CONTACT US
         </span>
