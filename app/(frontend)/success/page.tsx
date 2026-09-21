@@ -4,6 +4,7 @@ import { getPayload } from "payload";
 
 import payloadConfig from "@/payload.config";
 import { stripeClient, Stripe } from "@/lib/stripe";
+import type { Order } from "@/payload-types";
 import Link from "next/link";
 
 interface SuccessProps {
@@ -27,39 +28,53 @@ export default async function SuccessPage({ searchParams }: SuccessProps) {
   const payload = await getPayload({ config: await payloadConfig });
   const { user } = await payload.auth({ headers: await headers() });
 
-  const orderItems = await Promise.all(
-    (session.line_items?.data ?? []).map(async (item) => {
-      const product = item.price?.product;
-      const stripeProductId =
-        typeof product === "string" ? product : product?.id;
-      const quantity = Number(item.quantity ?? 1);
+  const orderItems = (
+    await Promise.all(
+      (session.line_items?.data ?? []).map(async (item) => {
+        const product = item.price?.product;
+        const stripeProductId =
+          typeof product === "string" ? product : product?.id;
+        const quantity = Number(item.quantity ?? 1);
 
-      if (!stripeProductId) {
-        return null;
-      }
+        if (!stripeProductId) {
+          return null;
+        }
 
-      const result = await payload.find({
-        collection: "products",
-        where: {
-          stripeProductId: { equals: stripeProductId },
-        },
-        limit: 1,
-      });
+        const result = await payload.find({
+          collection: "products",
+          where: {
+            stripeProductId: { equals: stripeProductId },
+          },
+          limit: 1,
+        });
 
-      const productDoc = result.docs[0];
-      if (!productDoc) {
-        return null;
-      }
+        const productDoc = result.docs[0];
+        if (!productDoc) {
+          return null;
+        }
 
-      return {
-        product: productDoc.id,
-        quantity,
-      };
-    }),
+        return {
+          product: productDoc.id,
+          quantity,
+        };
+      }),
+    )
+  ).filter(
+    (item): item is { product: string; quantity: number } => item !== null,
   );
 
   const orderStatus = status === "complete" ? "payment_completed" : "pending";
-  const orderData: any = {
+  const orderData: {
+    user?: string;
+    status: Order["status"];
+    items: { product: string; quantity: number }[];
+    stripeCheckoutSessionId: string;
+    stripePaymentIntentId: string;
+    customerEmail: string;
+    totalPrice: number;
+    shippingAddress: NonNullable<Order["shippingAddress"]>;
+    dateTime: string;
+  } = {
     user:
       user?.id ?? (session.metadata?.userId as string | undefined) ?? undefined,
     status: orderStatus,
@@ -77,7 +92,7 @@ export default async function SuccessPage({ searchParams }: SuccessProps) {
       country: customer_details?.address?.country ?? "",
       pincode: customer_details?.address?.postal_code ?? "",
     },
-    dateTime: new Date(),
+    dateTime: new Date().toISOString(),
   };
 
   const existingOrder = await payload.find({
@@ -92,7 +107,7 @@ export default async function SuccessPage({ searchParams }: SuccessProps) {
     await payload.update({
       collection: "order",
       id: existingOrder.docs[0].id,
-      data: orderData as any,
+      data: orderData,
       user: user ?? undefined,
     });
   } else if (user?.id || session.metadata?.userId) {
@@ -101,7 +116,7 @@ export default async function SuccessPage({ searchParams }: SuccessProps) {
       data: {
         ...orderData,
         user: user?.id ?? (session.metadata?.userId as string),
-      } as any,
+      },
       user: user ?? undefined,
     });
   }

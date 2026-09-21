@@ -36,13 +36,7 @@ export function ItalicTitle({
   );
 }
 
-export function LeaderboardBox({
-  rank,
-  entry,
-}: {
-  rank: number;
-  entry: LeaderboardEntry;
-}) {
+export function LeaderboardBox({ entry }: { entry: LeaderboardEntry }) {
   return (
     <div
       className="flex items-center justify-between px-4 py-5 border -mt-px"
@@ -67,13 +61,7 @@ export function LeaderboardBox({
   );
 }
 
-export function RankTabContent({
-  userRank = 1,
-  userName = "VITRIOL",
-}: {
-  userRank?: number;
-  userName?: string;
-}) {
+export function RankTabContent({ userRank = 1 }: { userRank?: number }) {
   return (
     <div className="relative h-full bg-[#FF000030]  border-[#8A0000] border-3">
       <div className="absolute inset-0 m-auto h-[60%] w-[80%] bg-black border-t-15 border-b-15 border-l-5 border-r-5 border-[#8A0000] ">
@@ -113,8 +101,8 @@ export function RankTabContent({
 
           {/* Three boxes flowing downward beneath the RANK label */}
           <div className="flex flex-col">
-            {leaderboardTest.map((entry, i) => (
-              <LeaderboardBox key={entry.id} rank={i + 1} entry={entry} />
+            {leaderboardTest.map((entry) => (
+              <LeaderboardBox key={entry.id} entry={entry} />
             ))}
           </div>
         </div>

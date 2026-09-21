@@ -2,10 +2,6 @@
 
 import { useState, useRef, useEffect } from "react";
 
-type DropdownItem = {
-  label: string;
-};
-
 type navLink = {
   id: number;
   name: string;
@@ -20,7 +16,6 @@ type DropdownProps = {
 
 export default function Dropdown({ label, items }: DropdownProps) {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(label);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -64,7 +59,6 @@ export default function Dropdown({ label, items }: DropdownProps) {
             <a href={item.link}>
               <button
                 onClick={() => {
-                  setSelected(item.name);
                   setOpen(false);
                 }}
               >

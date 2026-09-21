@@ -120,7 +120,7 @@ export const Users: CollectionConfig = {
               subject: "Welcome!",
               html,
             });
-          } catch (err) {
+          } catch {
             console.error("Welcome email failed.");
           }
         }

@@ -1,5 +1,4 @@
 import Disc from "@/app/(frontend)/components/Disc";
-import Image from "next/image";
 
 type FooterProps = {
   contactEmail?: string;

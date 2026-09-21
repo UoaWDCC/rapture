@@ -22,8 +22,6 @@ export default function ProductsDisplay(props: productProps) {
     maximumFractionDigits: 2,
   }).format(priceInDollars);
   const quantityCap = props.cap ? props.cap : 50;
-  const isMedia = (image: string | Media): image is Media =>
-    typeof image === "object" && image !== null && "url" in image;
   const [amount, setAmount] = useState(1);
 
   const galleryImages: Array<string | Media> = [];

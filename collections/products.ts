@@ -1,4 +1,4 @@
-import { User } from "@/payload-types";
+import { Product, User } from "@/payload-types";
 import { stripeClient } from "@/lib/stripe";
 import { CollectionConfig } from "payload";
 
@@ -6,9 +6,22 @@ const adminCheck = (user: User | null) => {
   return user?.role === "admin";
 };
 
+type ProductInput = Partial<
+  Pick<
+    Product,
+    | "id"
+    | "name"
+    | "description"
+    | "price"
+    | "currency"
+    | "stripeProductId"
+    | "stripePriceId"
+  >
+>;
+
 async function syncProductToStripe(
-  data: Record<string, any>,
-  originalDoc?: Record<string, any>,
+  data: ProductInput,
+  originalDoc?: ProductInput,
 ) {
   const name = String(data.name ?? originalDoc?.name ?? "").trim();
   const description = String(
@@ -86,8 +99,8 @@ export const Products: CollectionConfig = {
     beforeChange: [
       async ({ data, originalDoc }) => {
         return syncProductToStripe(
-          data as Record<string, any>,
-          originalDoc as Record<string, any> | undefined,
+          data as unknown as ProductInput,
+          originalDoc as unknown as ProductInput | undefined,
         );
       },
     ],

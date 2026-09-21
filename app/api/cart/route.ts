@@ -2,13 +2,23 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { getPayload } from "payload";
 import config from "@/payload.config";
+import type { Cart, Product } from "@/payload-types";
+
+type CartItem = {
+  product: string | Product;
+  quantity: number;
+  stripePriceId?: string | null;
+  id?: string | null;
+};
+
+type CartRecord = Omit<Cart, "items"> & { items?: CartItem[] | null };
 
 async function getCurrentCart() {
   const payload = await getPayload({ config: await config });
   const { user } = await payload.auth({ headers: await headers() });
 
   if (!user) {
-    return { payload, user: null, cart: null as any };
+    return { payload, user: null, cart: null as CartRecord | null };
   }
 
   const result = await payload.find({
@@ -18,12 +28,15 @@ async function getCurrentCart() {
     limit: 1,
   });
 
-  return { payload, user, cart: (result.docs[0] ?? null) as any };
+  return {
+    payload,
+    user,
+    cart: (result.docs[0] ?? null) as unknown as CartRecord | null,
+  };
 }
 
-function normalizeCartItem(item: any) {
-  const product =
-    typeof item?.product === "object" && item.product ? item.product : null;
+function normalizeCartItem(item: CartItem) {
+  const product = typeof item.product === "object" ? item.product : null;
   const productId =
     typeof item?.product === "string" ? item.product : (product?.id ?? null);
 
@@ -53,7 +66,7 @@ export async function GET() {
     }
 
     return NextResponse.json({
-      items: ((cart?.items ?? []) as any[]).map(normalizeCartItem),
+      items: (cart?.items ?? []).map(normalizeCartItem),
     });
   } catch {
     return NextResponse.json({ items: [] }, { status: 500 });
@@ -82,8 +95,10 @@ export async function POST(request: Request) {
       depth: 1,
     });
 
-    const nextItems: any[] = Array.isArray(cart?.items) ? [...cart.items] : [];
-    const existingIndex = nextItems.findIndex((item: any) => {
+    const nextItems: CartItem[] = Array.isArray(cart?.items)
+      ? [...cart.items]
+      : [];
+    const existingIndex = nextItems.findIndex((item) => {
       const itemProductId =
         typeof item.product === "string" ? item.product : item.product?.id;
       return itemProductId === productId;
@@ -106,7 +121,7 @@ export async function POST(request: Request) {
       nextItems.push(itemData);
     }
 
-    const updatedCart: any = cart
+    const updatedCart = cart
       ? await payload.update({
           collection: "Cart",
           id: cart.id,
@@ -122,7 +137,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      items: ((updatedCart?.items ?? []) as any[]).map(normalizeCartItem),
+      items: (updatedCart?.items ?? []).map(normalizeCartItem),
     });
   } catch (error) {
     const message =
@@ -151,14 +166,14 @@ export async function PATCH(request: Request) {
       return NextResponse.json({ error: "Missing productId" }, { status: 400 });
     }
 
-    const nextItems: any[] = (cart.items ?? []).filter((item: any) => {
+    const nextItems: CartItem[] = (cart.items ?? []).filter((item) => {
       const itemProductId =
         typeof item.product === "string" ? item.product : item.product?.id;
       return itemProductId !== productId;
     });
 
     if (quantity > 0) {
-      const target = (cart.items ?? []).find((item: any) => {
+      const target = (cart.items ?? []).find((item) => {
         const itemProductId =
           typeof item.product === "string" ? item.product : item.product?.id;
         return itemProductId === productId;
@@ -171,7 +186,7 @@ export async function PATCH(request: Request) {
       });
     }
 
-    const updatedCart: any = await payload.update({
+    const updatedCart = await payload.update({
       collection: "Cart",
       id: cart.id,
       data: { items: nextItems },
@@ -179,7 +194,7 @@ export async function PATCH(request: Request) {
 
     return NextResponse.json({
       success: true,
-      items: ((updatedCart?.items ?? []) as any[]).map(normalizeCartItem),
+      items: (updatedCart?.items ?? []).map(normalizeCartItem),
     });
   } catch (error) {
     const message =
@@ -203,15 +218,15 @@ export async function DELETE(request: Request) {
     const body = await request.json().catch(() => ({}));
     const productId = String(body.productId ?? "").trim();
 
-    const nextItems: any[] = productId
-      ? (cart.items ?? []).filter((item: any) => {
+    const nextItems: CartItem[] = productId
+      ? (cart.items ?? []).filter((item) => {
           const itemProductId =
             typeof item.product === "string" ? item.product : item.product?.id;
           return itemProductId !== productId;
         })
       : [];
 
-    const updatedCart: any = await payload.update({
+    const updatedCart = await payload.update({
       collection: "Cart",
       id: cart.id,
       data: { items: nextItems },
@@ -219,7 +234,7 @@ export async function DELETE(request: Request) {
 
     return NextResponse.json({
       success: true,
-      items: ((updatedCart?.items ?? []) as any[]).map(normalizeCartItem),
+      items: (updatedCart?.items ?? []).map(normalizeCartItem),
     });
   } catch (error) {
     const message =

@@ -1,4 +1,4 @@
-import { Button, Body, Html, Heading, Text } from "@react-email/components";
+import { Body, Html, Heading } from "@react-email/components";
 
 type ConfirmationFormProps = {
   name: string;

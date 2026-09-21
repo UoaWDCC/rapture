@@ -2,9 +2,7 @@ import { getPayload } from "payload";
 import config from "@/payload.config";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 import Link from "next/link";
-import UserAccountForm, { type UpdateAccountState } from "./UserAccountForm";
 import LogoutButton from "../components/ui/LogoutButton";
 import SteamLink from "./SteamLink";
 
@@ -18,48 +16,6 @@ export default async function ProtectedPage({
 
   if (!user) {
     redirect("/login");
-  }
-
-  async function updateAccount(
-    _prev: UpdateAccountState | null,
-    formData: FormData,
-  ): Promise<UpdateAccountState> {
-    "use server";
-    const payload = await getPayload({ config: await config });
-    const { user } = await payload.auth({ headers: await headers() });
-    if (!user) redirect("/login");
-
-    const currentPassword = String(formData.get("currentPassword") ?? "");
-    const newEmail = String(formData.get("email") ?? "").trim();
-    const newPassword = String(formData.get("newPassword") ?? "");
-
-    try {
-      await payload.login({
-        collection: "users",
-        data: { email: user.email, password: currentPassword },
-      });
-    } catch {
-      return { status: "error", message: "Current password is incorrect." };
-    }
-
-    const data: Record<string, unknown> = {};
-    if (newEmail && newEmail !== user.email) data.email = newEmail;
-    if (newPassword) data.password = newPassword;
-
-    if (Object.keys(data).length === 0) {
-      return { status: "error", message: "Nothing to update." };
-    }
-
-    try {
-      await payload.update({ collection: "users", id: user.id, data, user });
-      revalidatePath("/userDashboard");
-      return { status: "success", message: "Account updated." };
-    } catch (err) {
-      if (err instanceof Error) {
-        return { status: "error", message: err.message };
-      }
-      return { status: "error", message: "An unexpected error occurred" };
-    }
   }
 
   const { steam } = await searchParams;

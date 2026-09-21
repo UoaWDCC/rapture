@@ -5,8 +5,6 @@ import NewsTab from "./components/newsTabs";
 import NewsHeader from "./components/NewsHeader";
 import GlitchReveal from "../components/GlitchReveal";
 
-import type { NewsItem } from "../components/NewsList";
-
 export default async function ExampleCollectionPage({
   searchParams,
 }: {

@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
-import Button from "../components/ui/Button";
 import Image from "next/image";
 import { Product } from "@/payload-types";
 
@@ -23,8 +22,23 @@ const IconX = () => (
 );
 
 type CartItem = {
-  product: Product;
+  product: Pick<
+    Product,
+    "id" | "name" | "description" | "price" | "currency" | "stripePriceId"
+  >;
   quantity: number;
+};
+
+type CartResponseItem = {
+  product?: {
+    id: string;
+    name: string;
+    description?: string | null;
+    price?: number | null;
+    currency?: Product["currency"] | null;
+    stripePriceId?: string | null;
+  } | null;
+  quantity?: number | null;
 };
 
 interface CartProps {
@@ -38,16 +52,16 @@ async function getCartFromServer(): Promise<CartItem[]> {
   const data = await res.json();
   const items = Array.isArray(data.items) ? data.items : [];
 
-  return items
-    .filter((item: any) => item?.product)
-    .map((item: any) => ({
+  return (items as CartResponseItem[])
+    .filter((item) => item.product)
+    .map((item) => ({
       product: {
-        id: item.product.id,
-        name: item.product.name,
-        description: item.product.description ?? "",
-        price: Number(item.product.price ?? 0),
-        currency: item.product.currency ?? "NZD",
-        stripePriceId: item.product.stripePriceId ?? null,
+        id: item.product!.id,
+        name: item.product!.name,
+        description: item.product!.description ?? "",
+        price: Number(item.product!.price ?? 0),
+        currency: item.product!.currency ?? "NZD",
+        stripePriceId: item.product!.stripePriceId ?? null,
       },
       quantity: Number(item.quantity ?? 1),
     }));
@@ -57,7 +71,7 @@ export default function CartPage({ searchParams }: CartProps) {
   const router = useRouter();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [showPromo, setShowPromo] = useState<boolean>(true);
+  const [, setShowPromo] = useState<boolean>(true);
   const [isHydrating, setIsHydrating] = useState(true);
 
   const { canceled } = use(searchParams);
@@ -79,18 +93,6 @@ export default function CartPage({ searchParams }: CartProps) {
   const refreshCart = async () => {
     const items = await getCartFromServer();
     setCartItems(items);
-  };
-
-  const handleAdd = async (product: Product) => {
-    const res = await fetch("/api/cart", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ productId: product.id, quantity: 1 }),
-    });
-
-    if (res.ok) {
-      await refreshCart();
-    }
   };
 
   const handleQuantityChange = async (id: string, delta: number) => {
