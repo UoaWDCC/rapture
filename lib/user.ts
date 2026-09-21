@@ -21,7 +21,6 @@ export async function updateProfile(
     "email",
     "realName",
     "country",
-    "cardInfo",
     "address",
     "state",
     "paymentCountry",
@@ -29,8 +28,11 @@ export async function updateProfile(
   ];
   for (const field of fields) {
     const val = String(formData.get(field) ?? "").trim();
-    if (val) data[field] = val;
+    if (val && val !== "Not Inserted") data[field] = val;
   }
+
+  const newPassword = String(formData.get("newPassword") ?? "").trim();
+  if (newPassword) data.password = newPassword;
 
   if (Object.keys(data).length === 0) {
     return { status: "error", message: "Nothing to update." };

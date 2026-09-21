@@ -70,16 +70,16 @@ function OrderRow({
       }}
     >
       {/* Main row */}
-      <div className="flex items-center justify-between px-6 py-4">
+      <div className="flex flex-col items-stretch gap-2 px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-4">
         <span
-          className="font-bold tracking-wide text-lg"
+          className="break-all font-bold text-xs tracking-wide sm:text-lg"
           style={{ color: "#3b82f6", fontFamily: "monospace" }}
         >
           Order #{order.id}
         </span>
 
         <span
-          className="text-sm tracking-wide"
+          className="text-[10px] tracking-wide sm:text-sm"
           style={{ color: "#3b82f6", fontFamily: "monospace" }}
         >
           Status: {statusLabel}
@@ -88,7 +88,7 @@ function OrderRow({
         <button
           type="button"
           onClick={onToggle}
-          className="px-6 py-2 rounded text-sm font-bold tracking-wide text-white transition-colors"
+          className="rounded px-3 py-1.5 text-xs font-bold tracking-wide text-white transition-colors sm:px-6 sm:py-2 sm:text-sm"
           style={{
             backgroundColor: isOpen ? colorToRgba("#1e5fa8", 0.5) : "#1e5fa8",
             outline: isOpen ? `1px solid #3b82f6` : "none",
@@ -101,12 +101,12 @@ function OrderRow({
       {/* Expanded products */}
       {isOpen && (
         <div
-          className="px-6 pb-5"
+          className="px-3 pb-4 sm:px-6 sm:pb-5"
           style={{ borderTop: `1px solid ${colorToRgba("#1e5fa8", 0.3)}` }}
         >
           <div className="pt-4 flex flex-col gap-2">
             <div
-              className="grid grid-cols-[1fr_auto_auto] gap-4 px-4 pb-2 text-xs uppercase tracking-widest"
+              className="grid grid-cols-[1fr_auto_auto] gap-2 px-2 pb-2 text-[10px] uppercase tracking-widest sm:gap-4 sm:px-4 sm:text-xs"
               style={{
                 color: colorToRgba("#3b82f6", 0.6),
                 fontFamily: "monospace",
@@ -132,7 +132,7 @@ function OrderRow({
             {products.map((product) => (
               <div
                 key={product.id}
-                className="grid grid-cols-[1fr_auto_auto] gap-4 px-4 py-3 rounded"
+                className="grid grid-cols-[1fr_auto_auto] gap-2 rounded px-2 py-3 sm:gap-4 sm:px-4"
                 style={{
                   backgroundColor: colorToRgba("#1e5fa8", 0.08),
                   border: `1px solid ${colorToRgba("#1e5fa8", 0.25)}`,
@@ -204,11 +204,11 @@ export function OrdersDisplay({ orders }: { orders: Order[] }) {
 
   return (
     <div
-      className="rounded-lg border flex-1 p-8"
+      className="h-full min-h-0 flex-1 overflow-y-auto border p-3 sm:rounded-lg sm:p-8"
       style={{ borderColor: "#1e5fa8", backgroundColor: "#050d1f" }}
     >
       <h2
-        className="text-3xl font-bold tracking-wide mb-8"
+        className="mb-4 text-lg font-bold tracking-wide sm:mb-8 sm:text-3xl"
         style={{ color: "#3b82f6", fontFamily: "monospace" }}
       >
         Order History

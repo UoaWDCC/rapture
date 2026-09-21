@@ -44,7 +44,7 @@ export default function UserDashboardTab({
       </svg>
       <GlowingHeader
         intensity="low"
-        className="absolute top-0 left-2 text-sm font-semibold font-nova-cut italic"
+        className="absolute left-2 top-0 text-[9px] font-semibold italic leading-none sm:text-sm"
         style={{ color }}
       >
         {label}

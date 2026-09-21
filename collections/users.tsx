@@ -67,14 +67,6 @@ export const Users: CollectionConfig = {
     },
 
     {
-      name: "cardInfo",
-      type: "text",
-      admin: {
-        description:
-          "Last 4 digits or card label — do NOT store full card numbers",
-      },
-    },
-    {
       name: "address",
       type: "text",
     },

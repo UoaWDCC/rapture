@@ -152,10 +152,6 @@ export interface User {
    * Country of residence
    */
   country?: string | null;
-  /**
-   * Last 4 digits or card label — do NOT store full card numbers
-   */
-  cardInfo?: string | null;
   address?: string | null;
   /**
    * State or province
@@ -498,7 +494,6 @@ export interface UsersSelect<T extends boolean = true> {
   username?: T;
   realName?: T;
   country?: T;
-  cardInfo?: T;
   address?: T;
   state?: T;
   paymentCountry?: T;
