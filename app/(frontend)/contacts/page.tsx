@@ -2,14 +2,12 @@ import Image from "next/image";
 import ContactForm from "../components/ContactForm";
 import ContactFile from "../components/ui/ContactFileDesign";
 
-// TODO: Add back ContactForm
-
 export default async function Page() {
   return (
     <section className="relative">
       {/* LEFT - Folders */}
       <div className="absolute left-50 flex z-100 h-200 max-w-[100%]">
-        <div className="w-[100%] h-full">
+        <div className="w-[100%] h-full relative">
           <ContactFile
             title="ABOUT US"
             bgColor="bg-[#000000]"
@@ -17,15 +15,15 @@ export default async function Page() {
             sideHeight="100px"
             zIndex={3}
             mlValue={0}
-            translateValueOpen="-translate-x-[30%]"
-            translateValueClosed="translate-x-[90px]"
-            className=" h-full absolute -left-150"
+            className="h-full absolute"
+            closedWidthPercent={20}
+            openWidthPercent={90}
           >
-            <div className="w-250 flex flex-row max-w-fulloverflow-y-auto scrollbar-none">
+            <div className="w-full flex flex-row justify-end items-end max-w-full overflow-y-auto scrollbar-none">
               <div className="flex flex-col items-end">
                 <h1 className="mb-20 mr-10 mt-10">STUDIO RAPTURE!</h1>
 
-                <p className="w-[100%] mb-10 mr-10 text-right">
+                <p className="w-[60%] mb-10 mr-10 text-right">
                   we are very enthusiastic about VR
                 </p>
               </div>
@@ -39,14 +37,14 @@ export default async function Page() {
             sideHeight="300px"
             zIndex={2}
             mlValue={50}
-            translateValueOpen="-translate-x-[30%]"
-            translateValueClosed="translate-x-[90px]"
-            className=" h-full absolute -left-150"
+            className="h-full absolute left-5"
+            closedWidthPercent={20}
+            openWidthPercent={90}
           >
-            <div className="w-260 h-full flex flex-col items-end overflow-y-auto scrollbar-none">
-              <h1 className="mb-20 mr-10 mt-10">About Us</h1>
+            <div className="pl-20 w-full h-full flex flex-col items-end overflow-y-auto scrollbar-none">
+              <h1 className="mb-20 mr-10 mt-10">Meet the Devs</h1>
 
-              <p className="w-[60%] mb-10 text-left">
+              <p className="w-full mb-10 text-left">
                 Loren als ser pal Loren als ser pal Loren als ser pal
                 Loren als ser pal Loren als ser pal Loren als ser pal
                 Loren als ser pal Loren als ser pal Loren als ser pal
@@ -66,11 +64,11 @@ export default async function Page() {
             sideHeight="500px"
             zIndex={1}
             mlValue={50}
-            translateValueOpen="-translate-x-[30%]"
-            translateValueClosed="translate-x-[90px]"
-            className="h-full absolute -left-150"
+            className="h-full absolute left-20"
+            closedWidthPercent={30}
+            openWidthPercent={89}
           >
-            <div className="w-290 h-full flex flex-col items-end overflow-y-auto scrollbar-none">
+            <div className="w-full h-full flex flex-col items-end overflow-y-auto scrollbar-none">
               <ContactForm />
             </div>
           </ContactFile>

@@ -14,10 +14,14 @@ type contactFileProps = {
     mlValue?: number;
     translateValueOpen?: string;
     translateValueClosed?: string;
+    closedWidthClass?: string;
+    closedWidthPercent?: number;
+    openWidthPercent?: number;
 }
 
 export default function ContactFile(prop: contactFileProps) {
     const [open, setOpen] = useState(false);
+    const widthPercent = open ? prop.openWidthPercent ?? 100 : prop.closedWidthPercent;
 
     return (
         <div
@@ -26,10 +30,10 @@ export default function ContactFile(prop: contactFileProps) {
         >
             {/*The main part*/}
             <div
-                className={`h-full w-full p-5 border-2 flex justify-end-safe ${prop.bgColor}`}
-                style={{ borderColor: prop.borderColor }}
+                className={`h-full ${prop.closedWidthClass ?? 'w-full'} p-5 border-2 flex justify-end-safe transition-[width] duration-300 ${prop.bgColor}`}
+                style={{ borderColor: prop.borderColor, width: widthPercent !== undefined ? `${widthPercent}vw` : undefined }}
             >
-                <div className={`transition-opacity duration-400 ease-in-out ${open ? 'opacity-100' : 'opacity-0'}`}>{prop.children}</div>
+                <div className={`w-full min-w-0 transition-opacity duration-400 ease-in-out ${open ? 'opacity-100' : 'opacity-0'}`}>{prop.children}</div>
             </div>
             {/*The side piece*/}
             <div
