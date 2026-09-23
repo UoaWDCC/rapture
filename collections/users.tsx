@@ -78,21 +78,6 @@ export const Users: CollectionConfig = {
       },
     },
     {
-      name: "paymentCountry",
-      type: "text",
-      admin: {
-        description:
-          "Country on the payment/shipping address (may differ from residence)",
-      },
-    },
-    {
-      name: "pincode",
-      type: "text",
-      admin: {
-        description: "Postal / ZIP code",
-      },
-    },
-    {
       name: "steamId",
       type: "text",
       unique: true,

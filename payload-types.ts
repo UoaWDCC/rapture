@@ -157,14 +157,6 @@ export interface User {
    * State or province
    */
   state?: string | null;
-  /**
-   * Country on the payment/shipping address (may differ from residence)
-   */
-  paymentCountry?: string | null;
-  /**
-   * Postal / ZIP code
-   */
-  pincode?: string | null;
   steamId?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -496,8 +488,6 @@ export interface UsersSelect<T extends boolean = true> {
   country?: T;
   address?: T;
   state?: T;
-  paymentCountry?: T;
-  pincode?: T;
   steamId?: T;
   updatedAt?: T;
   createdAt?: T;
