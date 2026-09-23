@@ -25,11 +25,12 @@ export default function Footer({ contactEmail, className }: FooterProps) {
           icon="/DISCORD.png"
           iconWidth={50}
           iconHeight={50}
-          iconTop="top-8"
-          iconRight="right-5.75"
+          iconTop="lg:top-8 md:top-5.75 sm:top-4 top-3"
+          iconRight="lg:right-5.75 md:right-4.5 sm:right-[9.5%] right-2.25"
           color="bg-[#5865F2]/15"
           discColor="#0650DA"
           ringColor="#0650DA"
+          iconClassName="lg:w-12.5 lg:h-12.5 md:w-8.5 md:h-8.5 sm:w-6.5 w-5"
         />
         <Disc
           name="Youtube"
@@ -38,11 +39,12 @@ export default function Footer({ contactEmail, className }: FooterProps) {
           icon="/YT.png"
           iconWidth={95}
           iconHeight={95}
-          iconTop="top-2"
-          iconRight="right-0"
+          iconTop="lg:top-2 md:top-[2.25%] sm:top-1.25 top-0.5"
+          iconRight="lg:right-0 md:-right-0.25 sm:-right-0.25 -right-0.25"
           color="bg-[#4C1010]/70"
           discColor="#FF0000"
           ringColor="#FF0000"
+          iconClassName="lg:w-24 md:w-17.5 sm:w-12.5 w-10"
         />
         <Disc
           name="Steam"
@@ -51,11 +53,12 @@ export default function Footer({ contactEmail, className }: FooterProps) {
           icon="/steam.png"
           iconWidth={50}
           iconHeight={50}
-          iconTop="top-7.5"
-          iconRight="right-5.75"
+          iconTop="lg:top-4 md:top-5.5 sm:top-3.75 top-[9.25%]"
+          iconRight="lg:right-5.75 md:right-4.25 sm:right-[9.5%] right-[9.25%]"
           color="bg-[#171720]/70"
           discColor="#FFFFFF"
           ringColor="#FFFFFF"
+          iconClassName="lg:w-12.5 lg:h-20 md:w-8.5 md:h-8.5 sm:w-6.5 sm:h-7.5 w-5 h-6.5"
         />
       </div>
 
