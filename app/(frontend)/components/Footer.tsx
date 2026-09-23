@@ -3,11 +3,12 @@ import Image from "next/image";
 
 type FooterProps = {
   contactEmail?: string;
+  className?: string;
 };
 
-export default function Footer({ contactEmail }: FooterProps) {
+export default function Footer({ contactEmail, className }: FooterProps) {
   return (
-    <footer className="bg-[url(/images/FOOTER.png)] w-full bg-cover bg-no-repeat text-white z-0 relative bg-[center_top_100px]">
+    <footer className={`bg-[url(/images/FOOTER.png)] w-full bg-cover bg-no-repeat text-white z-0 relative bg-[center_top_100px] ${className}`}>
       <div className="flex items-center gap-4 w-full px-20 mb-10">
         <div className="flex-1 h-px bg-white opacity-30"></div>
         <span className="text-white text-2xl tracking-widest">
