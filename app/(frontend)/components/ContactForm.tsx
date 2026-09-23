@@ -64,7 +64,7 @@ export default function ContactForm({
       <div className="relative w-full text-white overflow-hidden aspect-[87/98] pt-[9cqw] pl-[14cqw] pr-[8cqw] pb-[12cqw]">
         
         {/* Background Overlay */}
-        <div className="absolute inset-0 bg-[#0650DA]/[0.34] pointer-events-none z-10" />
+        <div className="absolute inset-0 pointer-events-none z-10" />
 
         {/* Heading */}
         <h2 className="relative z-20 font-nova-custom font-normal text-[5.524cqw] leading-[4.604cqw] tracking-normal">
