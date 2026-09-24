@@ -38,6 +38,7 @@
   /* Custom utility for Nova Cut font design */
   --font-nova: var(--font-nova-cut);
   --font-fira: var(--font-fira-mono);
+  --font-dm: var(--font-dm-sans);
 }
 
 @utility text-stroke {
@@ -131,4 +132,8 @@
 
 .font-nova-custom {
   font-family: var(--font-nova-cut), sans-serif !important;
+}
+
+.font-dm-custom {
+  font-family: var(--font-dm-sans), sans-serif !important;
 }
