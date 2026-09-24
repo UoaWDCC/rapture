@@ -11,7 +11,7 @@ export default function Footer({ contactEmail, className }: FooterProps) {
     <footer className={`bg-[url(/images/FOOTER.png)] w-full bg-cover bg-no-repeat text-white z-0 relative bg-[center_top_100px] ${className}`}>
       <div className="flex items-center gap-4 w-full px-20 mb-10">
         <div className="flex-1 h-px bg-white opacity-30"></div>
-        <span className="text-white text-2xl tracking-widest">
+        <span className="text-white md:text-2xl text-xl tracking-widest">
           SOCIAL MEDIA
         </span>
         <div className="flex-1 h-px bg-white opacity-30"></div>
@@ -66,10 +66,10 @@ export default function Footer({ contactEmail, className }: FooterProps) {
         <div className="w-full h-px bg-white opacity-30 mb-10"></div>
       </div>
 
-      <div className="px-20">
+      <div className="md:px-20 md:pb-15 px-10 pb-7.5">
         <div className="w-full border-2 border-amber-400 bg-black rounded-3xl flex flex-col gap-2 p-5">
-          <h5>STUDIO RAPTURE!</h5>
-          <h5>CONTACT: {contactEmail}</h5>
+          <h5 className="md:text-l text-[80%]">STUDIO RAPTURE!</h5>
+          <h5 className="md:text-l text-[80%]">CONTACT: {contactEmail}</h5>
         </div>
       </div>
     </footer>
