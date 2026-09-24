@@ -5,9 +5,7 @@ import NewsTab from "./components/newsTabs";
 import NewsHeader from "./components/NewsHeader";
 import GlitchReveal from "../components/GlitchReveal";
 
-import type { NewsItem } from "../components/NewsList";
-
-export default async function ExampleCollectionPage({
+export default async function NewsPage({
   searchParams,
 }: {
   searchParams: Promise<{ article?: string }>;
@@ -26,45 +24,22 @@ export default async function ExampleCollectionPage({
   const expandedArticleId = params.article ?? null;
 
   return (
-    <div className="max-w-full max-h-full bg-[url('/PROP%20%232%201.png')] bg-fixed">
-      {" "}
-      {/*bg image is 'PROP #2 1.png' that I downloaded from Figma*/}
-      <div className="m-[5%] w-[90%] self-center">
-        {/*TITLE + ADMIN BUTTON*/}
+    <main className="min-h-screen w-full bg-[url('/PROP%20%232%201.png')] bg-fixed bg-cover bg-center">
+      {/* Container: 14px left, 16px right on mobile per Figma */}
+      <div className="w-full max-w-[1440px] mx-auto pl-[14px] pr-[16px] md:px-[5%] py-6 md:py-10">
+        {/* TITLE + ADMIN BUTTON */}
         <GlitchReveal>
           <NewsHeader isAdmin={isAdmin} />
         </GlitchReveal>
-        {/*NEWS ITEMS*/}
-        <div className="mx-auto max-w-full md:max-w-full md:pb-[5%] pb-[25%]">
-          <div className="md:flex">
-            <div className="md:w-full max-w-full">
-              <NewsTab
-                allNews={newsItems.docs}
-                expandedArticleId={expandedArticleId}
-              />
-            </div>
-          </div>
+
+        {/* NEWS ITEMS: 9px from heading box per Figma */}
+        <div className="w-full mt-[9px] md:mt-4 pb-[10%] md:pb-[5%]">
+          <NewsTab
+            allNews={newsItems.docs}
+            expandedArticleId={expandedArticleId}
+          />
         </div>
       </div>
-    </div>
+    </main>
   );
 }
-
-/*import { MOCK_POSTS } from "./mockData";
-import { NewsCard } from "./components/NewsCard";
-
-export default async function NewsPage() {
-  const posts = MOCK_POSTS;
-
-  return (
-    <div className="container mx-auto my-6 px-4 space-y-4">
-      <h1 className="text-xl font-bold">Latest News</h1>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {posts.map((post) => (
-          <NewsCard key={post.id} post={post} />
-        ))}
-      </div>
-    </div>
-  );
-} */
