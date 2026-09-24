@@ -15,7 +15,13 @@ export async function GET(request: Request) {
   let html = "";
 
   if (type === "newsletter") {
-    html = await render(React.createElement(Newsletter, { text: "Some newsletter text" }));
+        html = await render(React.createElement(Newsletter, {
+      text:
+        "Well thank you for signing up to the newsletter!\n" +
+        "You've made the right choice.\n\n" +
+        "Everything you need to know about STUDIO RAPTURE! News on our games that were, are not, and are to come.\n\n" +
+        "Right here. Straight to your inbox.",
+    }));
   } else if (type === "welcome") {
     html = await render(React.createElement(Welcome, { name: "Tester", text: "Some welcome text" }));
   } else {

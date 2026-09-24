@@ -17,20 +17,20 @@ const fontFamily = "'Nova Cut', Arial, sans-serif";
 export const headingStyle: CSSProperties = {
   color: yellow,
   fontFamily,
-  fontSize: "20px",
+  fontSize: "22px",
   fontWeight: "normal",
   textAlign: "center",
-  margin: "0 0 16px",
+  margin: "0 0 14px",
 };
 
 export const textStyle: CSSProperties = {
   color: yellow,
   fontFamily,
-  fontSize: "14px",
-  lineHeight: "22px",
+  fontSize: "15px",
+  lineHeight: "24px",
   textAlign: "center",
   whiteSpace: "pre-wrap",
-  margin: "0 0 16px",
+  margin: "0 0 14px",
 };
 
 type EmailButtonProps = {
@@ -40,16 +40,16 @@ type EmailButtonProps = {
 
 export function EmailButton({ href, children }: EmailButtonProps) {
   return (
-    <Section style={{ textAlign: "center", margin: "8px 0 16px" }}>
+    <Section style={{ textAlign: "center", margin: "8px 0 18px" }}>
       <Button
         href={href}
         style={{
           backgroundColor: yellow,
           color: darkBrown,
           fontFamily,
-          fontSize: "16px",
+          fontSize: "17px",
           textTransform: "uppercase",
-          padding: "12px 40px",
+          padding: "13px 44px",
           borderRadius: "4px",
           boxShadow: `0 0 12px ${yellow}`,
         }}
@@ -74,14 +74,14 @@ export function EmailLayout({ preview, children }: EmailLayoutProps) {
         <link href="https://fonts.googleapis.com/css2?family=Nova+Cut&display=swap" rel="stylesheet" />
       </Head>
       <Preview>{preview}</Preview>
-      <Body style={{ backgroundColor: "#000000", margin: 0, padding: "20px 0" }}>
-        <Container style={{ backgroundColor: darkBrown, maxWidth: "600px", width: "100%" }}>
+      <Body style={{ backgroundColor: "#000000", margin: 0, padding: "20px 0 0" }}>
+        <Container style={{ backgroundColor: darkBrown, maxWidth: "650px", width: "100%" }}>
           <Text
             style={{
               ...headingStyle,
               textTransform: "uppercase",
               letterSpacing: "1px",
-              padding: "28px 16px 12px",
+              padding: "20px 18px 12px",
               margin: 0,
             }}
           >
@@ -91,7 +91,7 @@ export function EmailLayout({ preview, children }: EmailLayoutProps) {
           {/* TODO: swap for the coloured banner exported from Figma */}
           <Img
             src={`${baseUrl}/rapture_emailbanner.png`}
-            width="600"
+            width="650"
             alt="Studio Rapture"
             style={{ width: "100%", height: "auto" }}
           />
@@ -104,7 +104,7 @@ export function EmailLayout({ preview, children }: EmailLayoutProps) {
               backgroundPosition: "center bottom",
               backgroundSize: "100% auto",
               backgroundRepeat: "no-repeat",
-              padding: "16px 16px 120px",
+              padding: "14px 18px 185px",
             }}
           >
             <Section
@@ -112,21 +112,21 @@ export function EmailLayout({ preview, children }: EmailLayoutProps) {
                 backgroundColor: cardBrown,
                 border: `1px solid ${mutedGold}`,
                 borderRadius: "6px",
-                padding: "24px 20px",
+                padding: "20px 22px",
               }}
             >
               {children}
 
-              <Hr style={{ borderColor: mutedGold, margin: "8px 0 16px" }} />
-              <Text style={{ ...textStyle, fontSize: "12px", margin: "0 0 8px" }}>Burn &amp; Fallow.</Text>
+              <Hr style={{ borderColor: mutedGold, margin: "4px 0 14px" }} />
+              <Text style={{ ...textStyle, fontSize: "13px", margin: 0 }}>Burn &amp; Fallow.</Text>
             </Section>
+            <Img
+              src={`${baseUrl}/LOGO.png`}
+              width="155"
+              alt="Studio Rapture Logo"
+              style={{ margin: "10px auto 0" }}
+            />
           </Section>
-          <Img
-            src={`${baseUrl}/LOGO.png`}
-            width="140"
-            alt="Studio Rapture Logo"
-            style={{ margin: "0 auto" }}
-          />
         </Container>
       </Body>
     </Html>
