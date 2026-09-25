@@ -1,6 +1,7 @@
 'use client'
 
 import Image from "next/image";
+import Link from "next/link"
 import GlitchReveal from "./GlitchReveal";
 import { useEffect, useRef, useState } from "react";
 
@@ -59,8 +60,10 @@ export function PromotedGameSection() {
     <section className="w-full container mx-auto text-brand-blue pt-16 md:pt-28 lg:pt-45">
       <GlitchReveal>
         <div className="relative flex justify-center -translate-x-[5%]">
-          <div
-            className="group relative z-4 @container w-[70%]"
+          <Link
+            href='/games/vitriol'
+            target="_blank"
+            className="group relative z-4 @container w-[70%] hover:cursor-pointer"
             onMouseEnter={() => setIsVitriolHovering(true)}
             onMouseLeave={() => setIsVitriolHovering(false)}
           >
@@ -93,7 +96,7 @@ export function PromotedGameSection() {
 
             {/* VITRIOL */}
             <VitriolRing playing={isVitriolHovering} />
-          </div>
+          </Link>
 
           <Image
             alt="DVD case closed 1"
