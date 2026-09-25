@@ -38,7 +38,7 @@ function VitriolRing({ playing }: { playing?: boolean }) {
       </defs>
       {/* rotate(angle centerX centerY) */}
       <g transform="rotate(140 840 370)">
-        <text className="text-[80px] tracking-[-0.08em] fill-[#FF0000]/50 stroke-[#FF0000] stroke-1">
+        <text className="text-[clamp(1rem,7.8cqw,5rem)] tracking-[-0.08em] fill-[#FF0000]/50 stroke-[#FF0000] stroke-1">
           <textPath ref={textPathRef} href='#vitriol-arc' startOffset="12.5%">
             VITRIOL
           </textPath>
@@ -56,7 +56,7 @@ export function PromotedGameSection() {
   const [isVitriolHovering, setIsVitriolHovering] = useState(false);
 
   return (
-    <section className="w-full container mx-auto text-brand-blue pt-45">
+    <section className="w-full container mx-auto text-brand-blue pt-16 md:pt-28 lg:pt-45">
       <GlitchReveal>
         <div className="relative flex justify-center -translate-x-[5%]">
           <div
@@ -75,21 +75,21 @@ export function PromotedGameSection() {
 
             {/* LEFT TEXT */}
             <div className="absolute top-[18%] left-[5%] w-[35%] h-[70%]">
-              <p className="mb-[10%] -skew-12 -rotate-11 leading-snug text-[#53A5F1] text-[1.5cqw]">
+              <p className="mb-[10%] -skew-12 -rotate-11 leading-snug text-[#53A5F1] text-[clamp(0.65rem,1.5cqw,1.1rem)]">
                 {leftPageContent1}
               </p>
 
-              <p className="mb-[10%] -skew-12 -rotate-11 leading-snug text-[#53A5F1] text-[1.5cqw]">
+              <p className="mb-[10%] -skew-12 -rotate-11 leading-snug text-[#53A5F1] text-[clamp(0.65rem,1.5cqw,1.1rem)]">
                 {leftPageContent2}
               </p>
 
-              <p className="-skew-12 -rotate-11 leading-snug text-[#53A5F1] text-[1.5cqw]">
+              <p className="-skew-12 -rotate-11 leading-snug text-[#53A5F1] text-[clamp(0.65rem,1.5cqw,1.1rem)]">
                 {leftPageContent3}
               </p>
             </div>
 
             {/* TEAM RAPTURE */}
-            <p className="absolute rotate-90 top-60 left-[50%] -translate-x-1/2 whitespace-nowrap text-[4cqw]">TEAM RAPTURE</p>
+            <p className="absolute rotate-90 top-[30%] left-[50%] -translate-x-1/2 whitespace-nowrap text-[clamp(1rem,4cqw,2.5rem)]">TEAM RAPTURE</p>
 
             {/* VITRIOL */}
             <VitriolRing playing={isVitriolHovering} />
@@ -100,21 +100,21 @@ export function PromotedGameSection() {
             width={515}
             height={828}
             src="/images/dvd-case-closed.png"
-            className="absolute z-3 -top-[6%] right-45 w-[35%] h-auto transition-transform duration-300 hover:-translate-y-[5%]"
+            className="absolute z-3 -top-[6%] right-[12%] w-[35%] h-auto transition-transform duration-300 hover:-translate-y-[5%]"
           />
           <Image
             alt="DVD case closed 2"
             width={515}
             height={828}
             src="/images/dvd-case-closed.png"
-            className="absolute z-2 -top-[11%] right-30 w-[35%] h-auto transition-transform duration-300 hover:-translate-y-[5%]"
+            className="absolute z-2 -top-[11%] right-[8%] w-[35%] h-auto transition-transform duration-300 hover:-translate-y-[5%]"
           />
           <Image
             alt="DVD case closed 3"
             width={515}
             height={828}
             src="/images/dvd-case-closed.png"
-            className="absolute z-1 -top-[16%] right-15 w-[35%] h-auto transition-transform duration-300 hover:-translate-y-[5%]"
+            className="absolute z-1 -top-[16%] right-[4%] w-[35%] h-auto transition-transform duration-300 hover:-translate-y-[5%]"
           />
         </div>
       </GlitchReveal>
