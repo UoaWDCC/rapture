@@ -13,7 +13,7 @@ async function submitContactForm(formData: FormData) {
   "use server";
 
   const firstName = formData.get("firstName") as string; const lastName = formData.get("lastName") as string;
-  const name = `${firstName} ${lastName}`;
+  const name = `${firstName ?? ""} ${lastName ?? ""}`.trim();
   const emailValue = formData.get("email"); // as string;
   // console.log("EMAIL:", emailValue);
   const form = formData.get("message") as string;

@@ -11,7 +11,7 @@ export const EmailSettings: GlobalConfig = {
       name: "welcomeEmailText",
       type: "textarea",
       required: true,
-      defaultValue: "Thank you for signing up!\nVITRIOL is our primary concern, and you have just unlocked the ability to upload your ARCADE MODE SCORES to our website using this account after completing an arcade run!\nSo get running!\n\nBurn & Fallow.",
+      defaultValue: "VITRIOL is our primary concern, and you have just unlocked the ability to upload your ARCADE MODE SCORES to our website using this account after completing an arcade run!",
       label: "Welcome Email Content",
     },
     {

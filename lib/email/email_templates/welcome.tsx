@@ -1,32 +1,19 @@
-import { Body, Html, Heading, Text, Img, Container, Section } from "@react-email/components";
+import { Text } from "@react-email/components";
+import { EmailLayout, baseUrl, textStyle } from "@/lib/email/components/EmailLayout";
 
 type WelcomeProps = {
-  name: string;
   text: string;
 };
 
-export default function Welcome({ name, text }: WelcomeProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-
+export default function Welcome({ text }: WelcomeProps) {
   return (
-    <Html>
-      <Body style={{ fontFamily: "sans-serif", padding: "20px" }}>
-        <Container>
-          <Heading>Welcome Aboard, {name}!</Heading>
-          <Section>
-            <Text style={{ whiteSpace: "pre-wrap" }}>
-              {text}
-            </Text>
-          </Section>
-          <Section style={{ marginTop: "40px" }}>
-            <Img
-              src={`${baseUrl}/LOGO.png`}
-              width="200"
-              alt="Studio Rapture Logo"
-            />
-          </Section>
-        </Container>
-      </Body>
-    </Html>
+    <EmailLayout
+      preview="Your Studio Rapture account is ready"
+      heading="Thank you for signing up!"
+      signOff="So get running!"
+      button={{ href: `${baseUrl}/leaderboard`, label: "Press here" }}
+    >
+      <Text style={textStyle}>{text}</Text>
+    </EmailLayout>
   );
 }

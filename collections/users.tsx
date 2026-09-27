@@ -4,6 +4,8 @@ import { CollectionConfig } from "payload";
 import { sendEmail } from "@/lib/email/send_email";
 import { render } from "@react-email/render";
 import Welcome from "@/lib/email/email_templates/welcome";
+import PasswordReset from "@/lib/email/email_templates/passwordReset";
+import { baseUrl } from "@/lib/email/components/EmailLayout";
 import { User } from "@/payload-types";
 
 const adminCheck = (user: User | null) => {
@@ -12,7 +14,18 @@ const adminCheck = (user: User | null) => {
 
 export const Users: CollectionConfig = {
   slug: "users",
-  auth: true,
+  auth: {
+    forgotPassword: {
+      generateEmailSubject: () => "Reset your Studio Rapture password",
+      generateEmailHTML: async (args) =>
+        render(
+          <PasswordReset
+            resetUrl={`${baseUrl}/change-password?token=${args?.token}`}
+            email={args?.user?.email}
+          />,
+        ),
+    },
+  },
   admin: {
     useAsTitle: "email",
   },
@@ -58,10 +71,10 @@ export const Users: CollectionConfig = {
           try {
             const settings = await req.payload.findGlobal({ slug: "emailSettings" }) as { welcomeEmailText?: string };
             const text = settings?.welcomeEmailText || "Welcome!";
-            const html = await render(<Welcome name={doc.email} text={text} />);
+            const html = await render(<Welcome text={text} />);
             await sendEmail({
               to: doc.email,
-              subject: "Welcome!",
+              subject: "Welcome to Studio Rapture",
               html,
             });
           } catch (err) {

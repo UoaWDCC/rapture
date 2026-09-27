@@ -18,8 +18,8 @@ describe("Newsletter email", () => {
 
     expect(html).toContain("Welcome to Studio Rapture");
     expect(html).toContain("Burn &amp; Fallow.");
-    expect(html).toContain("/LOGO.png");
-    expect(html).toContain("/images/FOOTER.png");
+    expect(html).toContain("/rapture_emailbanner.png");
+    expect(html).toContain("/email/footer.jpg");
   });
 
   it("escapes HTML in the settings text", async () => {
