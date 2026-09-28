@@ -57,10 +57,9 @@ async function submitContactForm(formData: FormData) {
 export default function ContactForm({
   title = "Contact Us",
   description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nis.",
-
 }: ContactFormProps) {
   return (
-    <div className='max-w-200 mt-10'>
+    <div className='w-full max-w-200 mx-auto mt-10'>
       <div className='flex flex-col mb-5 gap-5'>
         <h2>{title}</h2>
         <div className="font-fira-custom">{description}</div>
@@ -72,7 +71,7 @@ export default function ContactForm({
           <div className="flex flex-col w-full md:flex-1 gap-2">
             <label
               htmlFor="firstName"
-              className="text-xl"
+              className="text-base md:text-xl"
             >
               First Name
             </label>
@@ -83,7 +82,7 @@ export default function ContactForm({
               autoComplete="new-password"
               data-form-type="other"
               data-lpignore="true"
-              className="bg-[#0650DA]/10 border-white font-fira-custom text-white outline-none transition-colors h-12 border-1 border-solid px-3 text-md"
+              className="bg-[#0650DA]/10 border-white font-fira-custom text-white outline-none transition-colors h-10 md:h-12 border-1 border-solid px-2 md:px-3 text-sm md:text-base"
               required
             />
           </div>
@@ -91,7 +90,7 @@ export default function ContactForm({
           <div className="flex flex-col w-full md:flex-1 gap-2">
             <label
               htmlFor="lastName"
-              className="text-xl"
+              className="text-base md:text-xl"
             >
               Last Name
             </label>
@@ -102,7 +101,7 @@ export default function ContactForm({
               autoComplete="new-password"
               data-form-type="other"
               data-lpignore="true"
-              className="bg-[#0650DA]/10 border-white font-fira-custom text-white outline-none transition-colors h-12 border-1 border-solid px-3 text-md"
+              className="bg-[#0650DA]/10 border-white font-fira-custom text-white outline-none transition-colors h-10 md:h-12 border-1 border-solid px-2 md:px-3 text-sm md:text-base"
             />
           </div>
         </div>
@@ -111,7 +110,7 @@ export default function ContactForm({
         <div className="flex flex-col flex-1 gap-2">
           <label
             htmlFor="email"
-            className="text-xl"
+            className="text-base md:text-xl"
           >
             Email
           </label>
@@ -122,7 +121,7 @@ export default function ContactForm({
             autoComplete="new-password"
             data-form-type="other"
             data-lpignore="true"
-            className="bg-[#0650DA]/10 border-white font-fira-custom text-white outline-none transition-colors h-12 border-1 border-solid px-3 text-md"
+            className="bg-[#0650DA]/10 border-white font-fira-custom text-white outline-none transition-colors h-10 md:h-12 border-1 border-solid px-2 md:px-3 text-sm md:text-base"
             required
           />
         </div>
@@ -131,7 +130,7 @@ export default function ContactForm({
         <div className="flex flex-col flex-1 gap-2">
           <label
             htmlFor="enquiryCategory"
-            className="text-xl"
+            className="text-base md:text-xl"
           >
             Enquiry Category
           </label>
@@ -139,7 +138,7 @@ export default function ContactForm({
             <select
               id="enquiryCategory"
               name="enquiryCategory"
-              className="w-full bg-[#0650DA]/10 border-white font-fira-custom text-white outline-none transition-colors appearance-none cursor-pointer h-12 border-1 border-solid rounded-none px-3 text-md"
+              className="w-full bg-[#0650DA]/10 border-white font-fira-custom text-white outline-none transition-colors appearance-none cursor-pointer h-10 md:h-12 border-1 border-solid rounded-none px-2 md:px-3 text-sm md:text-base"
             >
               <option value="" className="bg-[#0650DA] text-white">Select a category...</option>
               <option value="general" className="bg-[#0650DA] text-white">General Inquiry</option>
@@ -162,14 +161,14 @@ export default function ContactForm({
         <div className="flex flex-col flex-1 gap-2">
           <label
             htmlFor="message"
-            className="text-xl"
+            className="text-base md:text-xl"
           >
             Message Here
           </label>
           <textarea
             id="message"
             name="message"
-            className="bg-[#0650DA]/10 border-white font-fira-custom text-white outline-none transition-colors h-50 resize-none border-1 border-solid p-3 text-md"
+            className="bg-[#0650DA]/10 border-white font-fira-custom text-white outline-none transition-colors h-32 md:h-50 resize-none border-1 border-solid p-2 md:p-3 text-sm md:text-base"
             required
           ></textarea>
         </div>
@@ -178,7 +177,7 @@ export default function ContactForm({
         {/* Submit Button */}
         <button
           type="submit"
-          className="text-white border-1 border-solid font-normal flex items-center justify-center w-60 h-15 font-fira-custom text-md cursor-pointer bg-[#0650DA]/10 hover:bg-[#0650DA]/50 transition-all"
+          className="text-white border-1 border-solid font-normal flex items-center justify-center w-full md:w-60 h-12 md:h-15 font-fira-custom text-sm md:text-base cursor-pointer bg-[#0650DA]/10 hover:bg-[#0650DA]/50 transition-all"
         >
           Submit
         </button>

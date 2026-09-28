@@ -12,28 +12,31 @@ type contactFileProps = {
     sideHeight?: string;
     zIndex?: number;
     mlValue?: number;
+    mlVw?: number;
     translateValueOpen?: string;
     translateValueClosed?: string;
     closedWidthClass?: string;
     closedWidthPercent?: number;
     openWidthPercent?: number;
+    widthOffsetPx?: number;
 }
 
 export default function ContactFile(prop: contactFileProps) {
     const [open, setOpen] = useState(false);
     const widthPercent = open ? prop.openWidthPercent ?? 100 : prop.closedWidthPercent;
+    const offsetPx = prop.widthOffsetPx ?? 0;
 
     return (
         <div
             className={`flex flex-row bg-transparent transition-transform duration-300 ${open ? prop.translateValueClosed ?? '-translate-x-50' : prop.translateValueOpen ?? '-translate-x-full'} ${prop.className}`}
-            style={{ zIndex: open ? prop.zIndex : prop.zIndex ?? 20, marginLeft: prop.mlValue ?? 0 }}
+            style={{ zIndex: open ? prop.zIndex : prop.zIndex ?? 20, marginLeft: prop.mlVw !== undefined ? `${prop.mlVw}vw` : prop.mlValue ?? 0 }}
         >
             {/*The main part*/}
             <div
                 className={`h-full ${prop.closedWidthClass ?? 'w-full'} p-5 border-2 flex justify-end-safe transition-[width] duration-300 ${prop.bgColor}`}
-                style={{ borderColor: prop.borderColor, width: widthPercent !== undefined ? `${widthPercent}vw` : undefined }}
+                style={{ borderColor: prop.borderColor, width: widthPercent !== undefined ? `calc(${widthPercent}vw - ${offsetPx}px)` : undefined }}
             >
-                <div className={`w-full min-w-0 transition-opacity duration-400 ease-in-out ${open ? 'opacity-100' : 'opacity-0'}`}>{prop.children}</div>
+                <div className={`min-w-0 max-w-150 transition-opacity duration-400 ease-in-out ${open ? 'opacity-100' : 'opacity-0'}`}>{prop.children}</div>
             </div>
             {/*The side piece*/}
             <div
