@@ -6,7 +6,7 @@ export default async function Page() {
   return (
     <section className="relative">
       {/* LEFT - Folders */}
-      <div className="absolute left-0 -top-16 flex z-100 h-200 max-w-[100%]">
+      <div className="absolute left-0 -top-16 flex z-100 h-200 w-full max-w-[100%]">
         <div className="w-[100%] h-full relative">
           <ContactFile
             title="ABOUT US"
@@ -14,10 +14,9 @@ export default async function Page() {
             borderColor="#20805A"
             sideHeight="100px"
             zIndex={3}
-            mlVw={20}
             className="h-full absolute"
-            closedWidthPercent={26}
-            openWidthPercent={64}
+            closedWidthClass="w-0 md:w-[8vw] lg:w-[16vw] xl:w-[28vw]"
+            openWidthClass="w-[100vw] md:w-[65vw] lg:w-[70vw] xl:w-[72vw]"
           >
             <div className="w-full flex flex-row justify-end items-end max-w-full overflow-y-auto scrollbar-none">
               <div className="flex flex-col items-end">
@@ -36,10 +35,9 @@ export default async function Page() {
             borderColor="#F2B423"
             sideHeight="300px"
             zIndex={2}
-            mlVw={25}
             className="h-full absolute"
-            closedWidthPercent={26}
-            openWidthPercent={61}
+            closedWidthClass="w-0 md:w-[14vw] lg:w-[21vw] xl:w-[31vw]"
+            openWidthClass="w-[100vw] md:w-[70vw] lg:w-[75vw] xl:w-[76vw]"
           >
             <div className="pl-20 w-full h-full flex flex-col items-end overflow-y-auto scrollbar-none">
               <h1 className="mb-20 mr-10 mt-10">Meet the Devs</h1>
@@ -63,11 +61,9 @@ export default async function Page() {
             borderColor="#0650DA"
             sideHeight="500px"
             zIndex={1}
-            mlVw={25}
-            className="h-full absolute left-20"
-            closedWidthPercent={36}
-            openWidthPercent={70}
-            widthOffsetPx={170}
+            className="h-full absolute"
+            closedWidthClass="w-0 md:w-[20vw] lg:w-[26vw] xl:w-[34vw]"
+            openWidthClass="w-[100vw] md:w-[75vw] lg:w-[80vw] xl:w-[80vw]"
           >
             <div className="w-full h-full flex flex-col items-center overflow-y-auto scrollbar-none">
               <ContactForm />

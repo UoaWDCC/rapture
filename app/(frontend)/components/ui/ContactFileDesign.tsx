@@ -13,34 +13,40 @@ type contactFileProps = {
     zIndex?: number;
     mlValue?: number;
     mlVw?: number;
+    mlClassName?: string;
     translateValueOpen?: string;
     translateValueClosed?: string;
     closedWidthClass?: string;
     closedWidthPercent?: number;
+    openWidthClass?: string;
     openWidthPercent?: number;
     widthOffsetPx?: number;
 }
 
 export default function ContactFile(prop: contactFileProps) {
     const [open, setOpen] = useState(false);
-    const widthPercent = open ? prop.openWidthPercent ?? 100 : prop.closedWidthPercent;
+    const widthPercent = open ? prop.openWidthPercent : prop.closedWidthPercent;
     const offsetPx = prop.widthOffsetPx ?? 0;
 
     return (
         <div
-            className={`flex flex-row bg-transparent transition-transform duration-300 ${open ? prop.translateValueClosed ?? '-translate-x-50' : prop.translateValueOpen ?? '-translate-x-full'} ${prop.className}`}
-            style={{ zIndex: open ? prop.zIndex : prop.zIndex ?? 20, marginLeft: prop.mlVw !== undefined ? `${prop.mlVw}vw` : prop.mlValue ?? 0 }}
+            className={`flex flex-row bg-transparent w-full pointer-events-none transition-transform duration-300 ${open ? prop.translateValueClosed ?? '' : prop.translateValueOpen ?? ''} ${prop.className}`}
+            style={{ zIndex: open ? prop.zIndex : prop.zIndex ?? 20 }}
         >
             {/*The main part*/}
             <div
-                className={`h-full ${prop.closedWidthClass ?? 'w-full'} p-5 border-2 flex justify-end-safe transition-[width] duration-300 ${prop.bgColor}`}
-                style={{ borderColor: prop.borderColor, width: widthPercent !== undefined ? `calc(${widthPercent}vw - ${offsetPx}px)` : undefined }}
+                className={`h-full pointer-events-auto ${open ? (prop.openWidthClass ?? 'w-full') : (prop.closedWidthClass ?? 'w-full')} p-0 md:p-5 border-2 flex justify-end-safe transition-[width,margin-left] duration-300 ${prop.mlClassName ?? ''} ${prop.bgColor}`}
+                style={{
+                    borderColor: prop.borderColor,
+                    width: widthPercent !== undefined ? `calc(${widthPercent}% - ${offsetPx}px)` : undefined,
+                    marginLeft: prop.mlClassName !== undefined ? undefined : (prop.mlVw !== undefined ? `${prop.mlVw}vw` : prop.mlValue ?? 0),
+                }}
             >
                 <div className={`min-w-0 max-w-150 transition-opacity duration-400 ease-in-out ${open ? 'opacity-100' : 'opacity-0'}`}>{prop.children}</div>
             </div>
             {/*The side piece*/}
             <div
-                className={`flex flex-row relative -ml-[2px] h-fit writing-mode-vertical bg-transparent border-t-2 hover:cursor-pointer`}
+                className={`flex flex-row relative -ml-[2px] h-fit writing-mode-vertical bg-transparent border-t-2 pointer-events-auto hover:cursor-pointer`}
                 style={{ marginTop: prop.sideHeight ?? '7px', borderColor: prop.borderColor }}
                 onClick={() => setOpen(!open)}
             >
