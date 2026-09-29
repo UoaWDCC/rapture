@@ -59,7 +59,7 @@ export default function ContactForm({
   description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nis.",
 }: ContactFormProps) {
   return (
-    <div className='w-full max-w-200 mx-auto mt-10'>
+    <div className='w-full max-w-200 mx-auto mt-10 p-2'>
       <div className='flex flex-col mb-5 gap-5'>
         <h2>{title}</h2>
         <div className="font-fira-custom">{description}</div>

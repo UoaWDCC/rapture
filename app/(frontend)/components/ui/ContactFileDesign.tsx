@@ -35,14 +35,14 @@ export default function ContactFile(prop: contactFileProps) {
         >
             {/*The main part*/}
             <div
-                className={`h-full pointer-events-auto ${open ? (prop.openWidthClass ?? 'w-full') : (prop.closedWidthClass ?? 'w-full')} p-0 md:p-5 border-2 flex justify-end-safe transition-[width,margin-left] duration-300 ${prop.mlClassName ?? ''} ${prop.bgColor}`}
+                className={`h-full pointer-events-auto overflow-hidden ${open ? (prop.openWidthClass ?? 'w-full') : (prop.closedWidthClass ?? 'w-full')} p-0 md:p-5 border-2 flex justify-end-safe transition-[width,margin-left] duration-300 ${prop.mlClassName ?? ''} ${prop.bgColor}`}
                 style={{
                     borderColor: prop.borderColor,
                     width: widthPercent !== undefined ? `calc(${widthPercent}% - ${offsetPx}px)` : undefined,
                     marginLeft: prop.mlClassName !== undefined ? undefined : (prop.mlVw !== undefined ? `${prop.mlVw}vw` : prop.mlValue ?? 0),
                 }}
             >
-                <div className={`min-w-0 max-w-150 transition-opacity duration-400 ease-in-out ${open ? 'opacity-100' : 'opacity-0'}`}>{prop.children}</div>
+                <div className={`min-w-0 max-w-150 transition-opacity duration-400 ease-in-out ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>{prop.children}</div>
             </div>
             {/*The side piece*/}
             <div
