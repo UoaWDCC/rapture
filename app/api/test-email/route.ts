@@ -3,6 +3,7 @@ import { render } from "@react-email/render";
 import Welcome from "@/lib/email/email_templates/welcome";
 import Newsletter from "@/lib/email/email_templates/newsletter";
 import Purchase from "@/lib/email/email_templates/purchase";
+import NewsUpdate from "@/lib/email/email_templates/newsUpdate";
 import { getPayload } from "payload";
 import config from "@/payload.config";
 import React from "react";
@@ -10,7 +11,7 @@ import React from "react";
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const to = searchParams.get("to");
-  const type = searchParams.get("type"); // welcome, newsletter, purchase, purchaseAdmin
+  const type = searchParams.get("type"); // welcome, newsletter, newsUpdate, purchase, purchaseAdmin
 
   if (!to || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)) {
     return Response.json({ success: false, error: "Please provide a valid 'to' email address (e.g. ?to=your@email.com)" }, { status: 400 });
@@ -31,6 +32,13 @@ export async function GET(request: Request) {
       subject = "Test: Newsletter Subscription";
       const text = settings?.newsletterEmailText || "Newsletter content";
       html = await render(React.createElement(Newsletter, { text: text }));
+    } else if (type === "newsUpdate") {
+      subject = "Test: News Update";
+      html = await render(React.createElement(NewsUpdate, {
+        title: "Test News Post",
+        subtitle: "This is what subscribers receive when a new news post is published.",
+        url: `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/news`,
+      }));
     } else if (type === "purchase") {
       subject = "Test: Order Confirmation";
       const text = settings?.purchaseEmailText || "Thank you for purchasing!";
@@ -45,7 +53,7 @@ export async function GET(request: Request) {
           { productName: "Test Game", price: 50.00, quantity: 1 },
         ]}));
     } else {
-      return Response.json({ success: false, error: "Please specify a valid email type (welcome, newsletter, purchase, purchaseAdmin)" }, { status: 400 });
+      return Response.json({ success: false, error: "Please specify a valid email type (welcome, newsletter, newsUpdate, purchase, purchaseAdmin)" }, { status: 400 });
     }
 
     const response = await sendEmail({

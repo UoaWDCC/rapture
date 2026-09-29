@@ -1,6 +1,7 @@
 'use client'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { Suspense, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { getAuthRedirectQuery, getPostLoginPath } from '@/lib/safeRedirect'
 import AuthInput from '../components/auth/authInput'
 import AuthButton from '../components/auth/authButton'
 import AuthFormCard from '../components/auth/authFormCard'
@@ -8,12 +9,24 @@ import AuthSideCard from '../components/auth/authSideCard'
 import Image from 'next/image'
 // import ForgotPasswordButton from '../components/ui/ForgotPasswordButton'
 
+// useSearchParams needs a Suspense boundary in the app router
 export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginPageContent />
+    </Suspense>
+  )
+}
+
+function LoginPageContent() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
   const router = useRouter()
+  const searchParams = useSearchParams()
+  // Keeps ?next=...&intent=... when going to signup and back
+  const authRedirectQuery = getAuthRedirectQuery(searchParams)
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -31,7 +44,8 @@ export default function LoginPage() {
     })
 
     if (res.ok) {
-      router.push('/')
+      // e.g. back to /news?intent=subscribe so the subscription completes automatically
+      router.push(getPostLoginPath(searchParams))
     } else {
       setError('Invalid credentials. Please try again.');
     }
@@ -135,7 +149,7 @@ export default function LoginPage() {
               title={`NEW\nUSER?`}
               description="Create an account with us today."
               buttonLabel="sign up"
-              onButtonClick={() => router.push('/signup')}
+              onButtonClick={() => router.push(`/signup${authRedirectQuery}`)}
               theme="gold"
             />
           </div>
@@ -146,7 +160,7 @@ export default function LoginPage() {
               title={`NEW\nUSER?`}
               description="Create an account with us today."
               buttonLabel="sign up"
-              onButtonClick={() => router.push('/signup')}
+              onButtonClick={() => router.push(`/signup${authRedirectQuery}`)}
               theme="gold"
             />
           </div>

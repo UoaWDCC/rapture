@@ -1,19 +1,32 @@
 'use client'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { Suspense, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { getAuthRedirectQuery } from '@/lib/safeRedirect'
 import AuthInput from '../components/auth/authInput'
 import AuthButton from '../components/auth/authButton'
 import AuthFormCard from '../components/auth/authFormCard'
 import AuthSideCard from '../components/auth/authSideCard'
 import Image from 'next/image'
 
+// useSearchParams needs a Suspense boundary in the app router
 export default function SignupPage() {
+    return (
+        <Suspense fallback={null}>
+            <SignupPageContent />
+        </Suspense>
+    )
+}
+
+function SignupPageContent() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [error, setError] = useState('')
 
     const router = useRouter()
+    const searchParams = useSearchParams()
+    // Keeps ?next=...&intent=... so login can resume the action (e.g. subscribe)
+    const authRedirectQuery = getAuthRedirectQuery(searchParams)
 
     const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -36,7 +49,8 @@ export default function SignupPage() {
         })
 
         if (res.ok) {
-            router.push('/account')
+            // Signing up doesn't log you in, so if an action is pending send them to login to finish it
+            router.push(authRedirectQuery ? `/login${authRedirectQuery}` : '/account')
         } else {
             setError('Could not create account. Please try again.')
         }
@@ -135,7 +149,7 @@ export default function SignupPage() {
                             title={`SIGNED\nUP?`}
                             description="Log in with your existing account."
                             buttonLabel="login"
-                            onButtonClick={() => router.push('/login')}
+                            onButtonClick={() => router.push(`/login${authRedirectQuery}`)}
                             theme="blue"
                         />
                     </div>
@@ -146,7 +160,7 @@ export default function SignupPage() {
                             title={`SIGNED\nUP?`}
                             description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                             buttonLabel="login"
-                            onButtonClick={() => router.push('/login')}
+                            onButtonClick={() => router.push(`/login${authRedirectQuery}`)}
                             theme="blue"
                         />
                     </div>

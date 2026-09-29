@@ -1,7 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import GlitchReveal from "./GlitchReveal";
+import PopUp from "./ui/PopUp";
+import { buildLoginUrl } from "@/lib/safeRedirect";
 
 import type { News } from "@/payload-types";
 
@@ -62,17 +68,62 @@ const BottomArrow = () => (
 
 const Divider = () => <div className="bg-brand-yellow h-[1px]" />;
 
-const NotificationButton = ({ children }: { children: string }) => {
+const NotificationButton = ({
+  children,
+  onClick,
+  disabled,
+}: {
+  children: string;
+  onClick: () => void;
+  disabled?: boolean;
+}) => {
   return (
-    <Link href="#">
-      <div className="relative px-8 py-0.5 cursor-pointer hover:opacity-60 transition-all">
-        <div className="absolute inset-0 border blur-[2px] opacity-70" />
-        <div className="absolute inset-0 border" />
-        <p className="relative opacity-70">{children}</p>
-      </div>
-    </Link>
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      className="relative px-8 py-0.5 cursor-pointer hover:opacity-60 transition-all disabled:opacity-50 disabled:cursor-wait"
+    >
+      <span className="absolute inset-0 border blur-[2px] opacity-70" />
+      <span className="absolute inset-0 border" />
+      <span className="relative block opacity-70">{children}</span>
+    </button>
   );
 };
+
+const SUBSCRIBE_POPUPS = {
+  subscribed: {
+    title: "SUBSCRIBE SUCCESS",
+    text: "You're now subscribed to Studio Rapture news. Check your inbox for a confirmation email.",
+  },
+  already_subscribed: {
+    title: "EMAIL ALREADY SUBSCRIBED",
+    text: "This email is already subscribed to news updates.",
+  },
+  error: {
+    title: "SUBSCRIBE FAILED",
+    text: "Something went wrong. Please try again later.",
+  },
+};
+
+type SubscribePopup = keyof typeof SUBSCRIBE_POPUPS;
+
+/** Calls the subscribe endpoint and returns which popup to show. */
+async function requestSubscribe(): Promise<SubscribePopup | "unauthenticated"> {
+  try {
+    const res = await fetch("/api/newsletter/subscribe", { method: "POST" });
+    const data: { status?: string } | null = await res.json().catch(() => null);
+
+    if (data?.status === "subscribed") return "subscribed";
+    if (data?.status === "already_subscribed") return "already_subscribed";
+    if (res.status === 401) return "unauthenticated";
+    return "error";
+  } catch {
+    return "error";
+  }
+}
+
+const LOGIN_TO_SUBSCRIBE_URL = buildLoginUrl("/", "subscribe");
 
 const ReadMoreButton = ({ articleId }: { articleId?: string }) => {
   const href = articleId ? `/news?article=${articleId}` : "/news";
@@ -87,7 +138,50 @@ const ReadMoreButton = ({ articleId }: { articleId?: string }) => {
   );
 };
 
-export function NewsSection({ latestNews }: { latestNews: News | null }) {
+export function NewsSection({
+  latestNews,
+  isLoggedIn,
+}: {
+  latestNews: News | null;
+  isLoggedIn: boolean;
+}) {
+  const router = useRouter();
+  const [popup, setPopup] = useState<SubscribePopup | null>(null);
+  const [subscribing, setSubscribing] = useState(false);
+  // Stops React Strict Mode (dev) from auto-subscribing twice, which would show "already subscribed"
+  const autoSubscribeRan = useRef(false);
+
+  const showPopup = useCallback((key: SubscribePopup) => {
+    setPopup(key);
+    setTimeout(() => setPopup(null), 3000);
+  }, []);
+
+  // Back from login with /?intent=subscribe: clear the param and subscribe automatically
+  useEffect(() => {
+    if (autoSubscribeRan.current) return;
+    if (new URLSearchParams(window.location.search).get("intent") !== "subscribe") return;
+    autoSubscribeRan.current = true;
+
+    router.replace("/", { scroll: false });
+    void requestSubscribe().then((result) => {
+      if (result !== "unauthenticated") showPopup(result);
+    });
+  }, [router, showPopup]);
+
+  const handleSubscribe = () => {
+    if (!isLoggedIn) {
+      router.push(LOGIN_TO_SUBSCRIBE_URL);
+      return;
+    }
+    setSubscribing(true);
+    void requestSubscribe()
+      .then((result) => {
+        if (result === "unauthenticated") router.push(LOGIN_TO_SUBSCRIBE_URL);
+        else showPopup(result);
+      })
+      .finally(() => setSubscribing(false));
+  };
+
   const description = latestNews
     ? extractPlainText(latestNews.description)
     : "";
@@ -154,8 +248,24 @@ export function NewsSection({ latestNews }: { latestNews: News | null }) {
               </div>
               <div className="bg-background h-[1px] mt-5 mb-3" />
               <div className="flex flex-row justify-end space-x-2">
-                <NotificationButton>(Y) Subscribe</NotificationButton>
+                <NotificationButton onClick={handleSubscribe} disabled={subscribing}>
+                  (Y) Subscribe
+                </NotificationButton>
               </div>
+
+              {/* Subscribe result popup, centred over this box (click to close, auto-closes after 3s) */}
+              {popup && (
+                <div
+                  className="absolute inset-0 z-40 flex items-center justify-center p-2 cursor-pointer"
+                  onClick={() => setPopup(null)}
+                >
+                  <PopUp
+                    title={SUBSCRIBE_POPUPS[popup].title}
+                    text={SUBSCRIBE_POPUPS[popup].text}
+                    className="w-full max-w-md"
+                  />
+                </div>
+              )}
             </div>
           </GlitchReveal>
 

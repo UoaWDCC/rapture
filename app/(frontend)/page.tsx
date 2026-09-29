@@ -69,7 +69,7 @@ export default async function HomePage() {
 
       <PromotedGameSection />
 
-      <NewsSection latestNews={latestNews.docs[0] ?? null} />
+      <NewsSection latestNews={latestNews.docs[0] ?? null} isLoggedIn={!!user} />
 
       <div className="relative w-full overflow-hidden"></div>
     </div>
