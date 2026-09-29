@@ -62,6 +62,13 @@ export const Users: CollectionConfig = {
       unique: true,
       index: true,
     },
+    {
+      name: "newsSubscribed",
+      label: "Subscribed to news",
+      type: "checkbox",
+      defaultValue: false,
+      index: true,
+    },
   ],
 
   /*for email system testing*/

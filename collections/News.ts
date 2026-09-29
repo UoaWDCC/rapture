@@ -1,5 +1,7 @@
 import type { CollectionConfig } from "payload";
 
+import { sendNewsUpdateToSubscribers } from "@/lib/email/newsSubscription";
+
 export const News: CollectionConfig = {
   slug: "News", // Collection Name
   // What is stored in this collection
@@ -14,6 +16,22 @@ export const News: CollectionConfig = {
 
   admin: {
     useAsTitle: "title",
+  },
+
+  hooks: {
+    afterChange: [
+      async ({ doc, operation, req }) => {
+        // Only email subscribers for new posts, not edits
+        if (operation !== "create") return doc;
+
+        // Not awaited so a slow/failed send never blocks the admin saving the post
+        void sendNewsUpdateToSubscribers(req.payload, doc).catch((err) => {
+          req.payload.logger.error({ err }, "News update email failed");
+        });
+
+        return doc;
+      },
+    ],
   },
 
   fields: [
