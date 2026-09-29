@@ -162,6 +162,8 @@ export interface User {
    */
   state?: string | null;
   steamId?: string | null;
+  pincode?: string | null;
+  paymentCountry?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -494,6 +496,8 @@ export interface UsersSelect<T extends boolean = true> {
   address?: T;
   state?: T;
   steamId?: T;
+  pincode?: T;
+  paymentCountry?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
