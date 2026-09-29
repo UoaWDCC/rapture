@@ -7,7 +7,7 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
 type SendEmailTypes = {
-    to: string,
+    to: string | string[],
     subject: string,
     html: string,
 }
@@ -21,12 +21,18 @@ export async function sendEmail({
 
     /*const payload = await getPayload({ config }); temp*/
 
-    return await resend.emails.send({
+    const response = await resend.emails.send({
         from: "onboarding@resend.dev",
         to,
         subject,
         html
     });
+
+    if (response.error) {
+        console.error("Resend API Error:", response.error);
+    }
+
+    return response;
 
     /*console.log("Email sent to", result) temp*/
 }

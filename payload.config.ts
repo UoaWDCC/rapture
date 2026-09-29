@@ -14,6 +14,8 @@ import { News } from "./collections/News.ts";
 import { Category } from "./collections/category.ts"
 import { Donors } from "./collections/Donors.ts"
 
+import { EmailSettings } from "./collections/EmailSettings.ts";
+
 export default buildConfig({
   editor: lexicalEditor(),
 
@@ -24,6 +26,7 @@ export default buildConfig({
     apiKey: process.env.RESEND_API_KEY || "",
   }),
 
+  globals: [EmailSettings],
   // Ensure created collections are added here
   collections: [Users, ExampleCollection, Players, CartCollection, Products, OrderCollection, Media, News, Category, Donors],
 
