@@ -15,7 +15,7 @@ export default async function Page() {
             sideHeight="100px"
             zIndex={3}
             className="h-full absolute"
-            closedWidthClass="w-0 md:w-[8vw] lg:w-[16vw] xl:w-[28vw]"
+            closedWidthClass="w-0 md:w-[2vw] lg:w-[10vw] xl:w-[21vw]"
             openWidthClass="w-[100vw] md:w-[65vw] lg:w-[70vw] xl:w-[72vw]"
           >
             <div className="w-full flex flex-row justify-end items-end max-w-full overflow-y-auto scrollbar-none">
@@ -36,7 +36,7 @@ export default async function Page() {
             sideHeight="300px"
             zIndex={2}
             className="h-full absolute"
-            closedWidthClass="w-0 md:w-[14vw] lg:w-[21vw] xl:w-[31vw]"
+            closedWidthClass="w-0 md:w-[6vw] lg:w-[16vw] xl:w-[26vw]"
             openWidthClass="w-[100vw] md:w-[70vw] lg:w-[75vw] xl:w-[76vw]"
           >
             <div className="pl-20 w-full h-full flex flex-col items-end overflow-y-auto scrollbar-none">
@@ -62,10 +62,10 @@ export default async function Page() {
             sideHeight="500px"
             zIndex={1}
             className="h-full absolute"
-            closedWidthClass="w-0 md:w-[20vw] lg:w-[26vw] xl:w-[34vw]"
+            closedWidthClass="w-0 md:w-[7vw] lg:w-[22vw] xl:w-[31vw]"
             openWidthClass="w-[100vw] md:w-[75vw] lg:w-[80vw] xl:w-[80vw]"
           >
-            <div className="w-full h-full flex flex-col items-center overflow-y-auto scrollbar-none">
+            <div className="h-full overflow-y-auto scrollbar-none">
               <ContactForm />
             </div>
           </ContactFile>
