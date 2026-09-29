@@ -73,14 +73,14 @@ export default async function Page() {
       </div>
 
       {/* RIGHT - Computer */}
-      <div className="container mx-auto my-6 px-4 space-y-4 relative max-w-6xl min-h-[850px]">
+      <div className="container mx-auto my-6 px-4 space-y-4 relative max-w-6xl min-h-[850px] overflow-hidden sm:overflow-visible">
         <div className="relative">
           <Image
             alt="Computer"
             width={600}
             height={600}
             src="/images/computer.png"
-            className="absolute right-50"
+            className="absolute -right-[100px] sm:right-20 lg:right-50 min-w-[600px]"
           />
 
           <Image
@@ -88,14 +88,14 @@ export default async function Page() {
             width={650}
             height={650}
             src="/images/computer-detail.png"
-            className="absolute right-25 top-90 h-auto"
+            className="absolute -right-[150px] sm:-right-[10px] lg:right-25 top-90 h-auto  min-w-[650px]"
           />
 
-          <div className="absolute top-28 right-78 max-w-100">
-            <h3 className="text-brand-yellow/30">
+          <div className="absolute top-28 sm:top-28 -right-[10px] sm:right-48 lg:right-78 max-w-100">
+            <h1 className="text-brand-yellow/30 text-stroke text-stroke-brand-yellow">
               USER
-            </h3>
-            <p className="text-brand-yellow/30 leading-snug mt-2">
+            </h1>
+            <p className="font-fira-custom text-brand-yellow/30 leading-snug mt-2">
               this is where the text will be written that will be a
               short description of the donor page, each text
               will be place random in this box
@@ -104,23 +104,24 @@ export default async function Page() {
             </p>
           </div>
 
-          <span className="absolute top-88 right-115 text-brand-yellow/30">
+          <span className="font-fira-custom absolute top-88 right-40 sm:right-90 lg:right-115 text-brand-yellow/30">
             open it
           </span>
 
-          <p className="absolute text-white/30 top-161 right-124 leading-snug max-w-[220px] text-right">
+          <p className="font-fira-custom absolute text-white/30 top-153 right-60 sm:right-100 lg:right-124 leading-snug max-w-[200px] text-right">
             more text will overlap
             here as well to explain the user to press to donate
           </p>
 
-          <p className="absolute text-white/30 top-152 right-48 leading-snug max-w-[150px] text-right">
+          <p className="font-fira-custom absolute text-white/30 top-152 right-0 sm:right-20 lg:right-48 leading-snug max-w-[150px] text-right">
             more text will overlap
             here as well for maybe an
             easter egg
           </p>
 
-          <p className="absolute text-white/30 [writing-mode:vertical-rl] rotate-360 top-193 right-58 leading-snug max-h-[120px]">
-            WANT TO JOIN?
+          <p className="absolute text-white/30 [writing-mode:vertical-rl] rotate-360 top-193 right-10 sm:right-30 lg:right-58 leading-snug">
+            <span className="block h-18">WANT TO</span>
+            <span className="block">JOIN?</span>
           </p>
         </div>
       </div>
