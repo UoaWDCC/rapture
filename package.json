@@ -8,7 +8,8 @@
     "dev": "docker compose up -d && next dev",
     "build": "pnpm types && next build && eslint",
     "start": "next start -H 0.0.0.0 -p 3000",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@lexical/extension": "0.41.0",
@@ -46,6 +47,7 @@
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.7.10",
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -55,7 +57,6 @@
     "eslint-config-next": "16.1.6",
     "postcss": "^8.5.8",
     "tailwindcss": "^4.2.1",
-    "typescript": "^5",
-    "vitest": "^4.1.10"
+    "typescript": "^5"
   }
 }
