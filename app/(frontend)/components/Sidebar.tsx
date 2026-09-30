@@ -10,7 +10,6 @@ const navItems = [
   { name: "Games", href: "/games" },
   { name: "News", href: "/news" },
   { name: "Leaderboard", href: "/leaderboard" },
-  { name: "Donor", href: "/donor" },
   { name: "About Us", href: "/about" },
   { name: "Account", href: "/account" },
 ];

@@ -51,7 +51,8 @@ const itemsNav = [
     childrenLinks: [
       { id: 3, name: "News", link: "/news" },
       { id: 2, name: "Leaderboard", link: "/leaderboard" },
-      { id: 5, name: "Contacts", link: "/contacts" },
+      { id: 7, name: "Store", link: "/merch" },
+
     ],
   },
   {
@@ -59,8 +60,8 @@ const itemsNav = [
     name: "Support",
     link: "/about",
     childrenLinks: [
-      { id: 7, name: "Store", link: "/merch" },
-      { id: 4, name: "Donor", link: "/donor" },
+      { id: 6, name: "About Us", link: "/contacts"},
+      { id: 5, name: "Contact", link: "/contacts" },
     ],
   },
 ]; // navbar testing
