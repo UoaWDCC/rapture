@@ -89,35 +89,31 @@ function FilterSection({
   const isDesktop = !!pxPage
 
   if (isDesktop) {
+    const sectionWidth = 'clamp(250px, calc(318 * var(--scale)), 318px)'
+
     return (
       <div className="relative">
         {/* Section header row (clickable) */}
         <button
           onClick={onToggle}
-          className="flex items-center cursor-pointer bg-transparent border-none p-0"
+          className="flex items-center justify-between cursor-pointer bg-transparent border-none p-0"
           style={{
-            paddingLeft: pxPage(10),
+            width: sectionWidth,
+            paddingLeft: '10px',
           }}
         >
           <div
             className="text-white text-left"
             style={{
-              width: pxPage(172),
-              height: pxPage(20),
               fontFamily: "var(--font-fira-mono), monospace",
-              fontSize: pxPage(15),
-              lineHeight: pxPage(20),
+              fontSize: '15px',
+              lineHeight: '20px',
             }}
           >
             {title}
           </div>
-          <div
-            style={{
-              marginLeft: pxPage(88),
-              marginTop: pxPage(4),
-            }}
-          >
-            <DropdownTriangle expanded={expanded} />
+          <div>
+            <DropdownTriangle expanded={expanded} size={18} />
           </div>
         </button>
 
@@ -125,12 +121,12 @@ function FilterSection({
         <div
           className="overflow-hidden"
           style={{
-            maxHeight: expanded ? `${options.length * 30}px` : '0',
+            maxHeight: expanded ? `${options.length * 32}px` : '0',
             opacity: expanded ? 1 : 0,
-            marginTop: expanded ? pxPage(12) : '0',
+            marginTop: expanded ? '12px' : '0',
           }}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: pxPage(8), paddingLeft: pxPage(10) }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingLeft: '10px', width: sectionWidth }}>
             {options.map((option) => {
               const isSelected = selectedValues.includes(option)
               return (
@@ -138,17 +134,15 @@ function FilterSection({
                   key={option}
                   onClick={() => onSelect(option)}
                   className="flex items-center cursor-pointer bg-transparent border-none p-0"
-                  style={{ gap: pxPage(8) }}
+                  style={{ gap: '8px' }}
                 >
                   <RadioBullet selected={isSelected} size={16} />
                   <div
                     className="text-white text-left"
                     style={{
-                      width: pxPage(267),
-                      height: pxPage(16),
                       fontFamily: "var(--font-fira-mono), monospace",
-                      fontSize: pxPage(14),
-                      lineHeight: pxPage(16),
+                      fontSize: '14px',
+                      lineHeight: '18px',
                       display: 'flex',
                       alignItems: 'center',
                     }}
@@ -166,9 +160,9 @@ function FilterSection({
           className="bg-white"
           style={{
             height: '1px',
-            width: pxPage(318),
-            marginLeft: pxPage(10),
-            marginTop: pxPage(18),
+            width: sectionWidth,
+            marginLeft: '10px',
+            marginTop: '18px',
           }}
         />
       </div>
@@ -283,16 +277,18 @@ export default function MerchFilterSort({
 
   // DESKTOP/TABLET
   if (isDesktop) {
+    const sectionWidth = 'clamp(250px, calc(318 * var(--scale)), 318px)'
+
     return (
       <div>
         {/* Title */}
         <div
           className="text-white"
           style={{
-            paddingLeft: pxPage(10),
+            paddingLeft: '10px',
             fontFamily: "var(--font-fira-mono), monospace",
-            fontSize: pxPage(15),
-            lineHeight: '0',
+            fontSize: '15px',
+            lineHeight: '20px',
             textAlign: 'left',
           }}
         >
@@ -304,14 +300,14 @@ export default function MerchFilterSort({
           className="bg-white"
           style={{
             height: '1px',
-            width: pxPage(318),
-            marginLeft: pxPage(10),
-            marginTop: pxPage(42),
+            width: sectionWidth,
+            marginLeft: '10px',
+            marginTop: '18px',
           }}
         />
 
         {/* Sort by section */}
-        <div style={{ marginTop: pxPage(18) }}>
+        <div style={{ marginTop: '18px' }}>
           <FilterSection
             title="Sort by :"
             options={SORT_OPTIONS}
@@ -324,7 +320,7 @@ export default function MerchFilterSort({
         </div>
 
         {/* Product type section */}
-        <div style={{ marginTop: pxPage(18) }}>
+        <div style={{ marginTop: '18px' }}>
           <FilterSection
             title="Product type :"
             options={PRODUCT_TYPES}

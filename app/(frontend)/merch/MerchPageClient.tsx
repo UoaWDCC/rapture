@@ -1,9 +1,12 @@
 'use client'
+
 import { useState } from "react";
 import Link from "next/link";
 import MerchSearch from "./MerchSearch";
 import MerchFilterSort from "./MerchFilterSort";
-import ProductCard, { Product } from "./ProductCard";
+import { Product } from "./ProductCard";
+import MerchGrid from "./components/MerchGrid";
+import MerchPagination from "./components/MerchPagination";
 
 // Mock Data
 const DUMMY_PRODUCTS: Product[] = [
@@ -81,34 +84,59 @@ export default function MerchPageClient({ isAdmin }: { isAdmin: boolean }) {
 
   // Base 1440px scaling
   const pxPage = (val: number) => `calc(${val} * var(--scale))`;
-  // Grid scaling
-  const px = (val: number) => `calc(${val} / 908 * 100cqw)`;
-
-  // Always 2 per row
-  const rows: Product[][] = [];
-  for (let i = 0; i < productsToDisplay.length; i += 2) {
-    rows.push(productsToDisplay.slice(i, i + 2));
-  }
 
   return (
     <div 
-      className="merch-wrapper min-h-screen bg-black text-white w-full max-w-[1440px] mx-auto relative flex flex-col md:flex-row pt-24 md:pt-32 z-10" 
+      className="merch-wrapper min-h-screen bg-black text-white w-full max-w-[1440px] mx-auto relative flex z-10 overflow-x-clip" 
     >
       <style>{`
         .merch-wrapper {
           /* Mobile: 1px scale */
-          --scale: 1px; 
+          --scale: 1px;
+          flex-direction: column;
+          padding-top: 6rem;
         }
-        @media (min-width: 768px) and (max-width: 1023px) {
+        .merch-mobile-header {
+          display: flex;
+        }
+        .merch-desktop-header {
+          display: none;
+        }
+        .merch-grid {
+          align-items: center;
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+
+        /* Desktop side-by-side layout begins above 800px */
+        @media (min-width: 801px) {
+          .merch-wrapper {
+            flex-direction: row;
+            padding-top: 8rem;
+          }
+          .merch-mobile-header {
+            display: none;
+          }
+          .merch-desktop-header {
+            display: block;
+          }
+          .merch-grid {
+            align-items: flex-start;
+            padding-left: 0;
+            padding-right: 0;
+          }
+        }
+
+        @media (min-width: 801px) and (max-width: 1023px) {
           .merch-wrapper {
             /* Tablet scaling */
             --scale: calc(900px / 1440);
           }
           .merch-grid {
             /* Left column offset */
-            width: calc(100% - 270px);
-            margin-left: 270px;
-            margin-right: 24px;
+            width: calc(100% - 310px);
+            margin-left: 310px;
+            margin-right: 20px;
           }
         }
         @media (min-width: 1024px) {
@@ -130,10 +158,11 @@ export default function MerchPageClient({ isAdmin }: { isAdmin: boolean }) {
           }
         }
       `}</style>
+
       {/* ========================================= */}
-      {/* Mobile Left Column                        */}
+      {/* Mobile Left Column (Stacked Header)       */}
       {/* ========================================= */}
-      <div className="flex flex-col md:hidden w-full px-8 pb-12 gap-8 items-center text-center">
+      <div className="merch-mobile-header flex-col w-full px-8 pb-12 gap-8 items-center text-center">
         <div>
           <h1 
             className="text-4xl font-bold" 
@@ -151,7 +180,7 @@ export default function MerchPageClient({ isAdmin }: { isAdmin: boolean }) {
 
         <MerchSearch onSearch={handleSearch} />
 
-        {/* NOTE: Filter/Sort mobile. Remove if unused. */}
+        {/* Filter/Sort mobile */}
         <MerchFilterSort
           isDesktop={false}
           selectedSort={selectedSort}
@@ -182,9 +211,9 @@ export default function MerchPageClient({ isAdmin }: { isAdmin: boolean }) {
       </div>
 
       {/* ========================================= */}
-      {/* Desktop Left Column                       */}
+      {/* Desktop Left Column (Side-by-side)        */}
       {/* ========================================= */}
-      <div className="hidden md:block absolute" style={{ top: '8rem', left: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
+      <div className="merch-desktop-header absolute" style={{ top: '8rem', left: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
         {/* Title */}
         <h1 
           className="absolute font-bold text-white whitespace-nowrap"
@@ -249,13 +278,13 @@ export default function MerchPageClient({ isAdmin }: { isAdmin: boolean }) {
               href="/admin/collections/products"
               className="flex items-center justify-center hover:opacity-85 transition-opacity duration-200"
               style={{
-                marginTop: '58px',
-                width: pxPage(317),
-                height: pxPage(44),
+                marginTop: '36px',
+                width: 'clamp(250px, calc(317 * var(--scale)), 317px)',
+                height: '44px',
                 backgroundColor: 'rgba(32, 128, 90, 0.5)',
                 border: '1px solid #20805A',
                 fontFamily: 'var(--font-fira-mono), monospace',
-                fontSize: pxPage(20),
+                fontSize: '16px',
                 color: 'rgba(255, 255, 255, 0.9)',
                 textDecoration: 'none',
               }}
@@ -267,81 +296,18 @@ export default function MerchPageClient({ isAdmin }: { isAdmin: boolean }) {
       </div>
 
       {/* ========================================= */}
-      {/* Product Grid                              */}
+      {/* Product Grid & Pagination                 */}
       {/* ========================================= */}
       <div 
-        className="merch-grid flex flex-col items-center md:items-start px-4 md:px-0"
+        className="merch-grid flex flex-col w-full"
       >
-        <div className="flex flex-col w-full" style={{ gap: '18px' }}>
-          {rows.map((row, rowIndex) => (
-            <div 
-              key={`row-${rowIndex}`}
-              className="w-full relative"
-              style={{ clipPath: 'inset(0 0 -200px 0)' }}
-            >
-              <div 
-                className="flex flex-row w-full"
-                style={{ padding: '8px 18px 0 21px', gap: '27px' }}
-              >
-                {row.map((card) => (
-                  <div key={card.id} className="flex-1 min-w-0">
-                    <ProductCard product={card} />
-                  </div>
-                ))}
-                {/* Invisible placeholder */}
-                {row.length === 1 && (
-                  <div className="flex-1 min-w-0 pointer-events-none"></div>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
+        <MerchGrid products={productsToDisplay} />
 
-        {/* Pagination */}
-        <div 
-          className="w-full mt-24 mb-24"
-          style={{ maxWidth: '908px', containerType: 'inline-size' }}
-        >
-          <div 
-            className="w-full flex flex-col items-center"
-            style={{ marginTop: px(57) }}
-          >
-            {/* Load status */}
-            <div 
-              className="text-white flex items-center justify-center text-center whitespace-nowrap"
-              style={{
-                width: px(193),
-                height: px(13),
-                fontFamily: "var(--font-fira-mono), monospace",
-                fontSize: px(10),
-                lineHeight: px(26)
-              }}
-            >
-              you have loaded {productsToDisplay.length} out of {filteredProducts.length} product{filteredProducts.length === 1 ? '' : 's'}
-            </div>
-
-            {/* Load more button */}
-            {visibleCount < filteredProducts.length && (
-              <button 
-                onClick={handleLoadMore}
-                className="text-white flex items-center justify-center hover:bg-[#1a6b4a]"
-                style={{
-                  marginTop: px(18),
-                  width: px(260),
-                  height: px(35),
-                  backgroundColor: '#20805A',
-                  border: '1px solid #FFFFFF',
-                  boxSizing: 'border-box',
-                  fontFamily: "var(--font-fira-mono), monospace",
-                  fontSize: px(13),
-                  lineHeight: px(26)
-                }}
-              >
-                LOAD MORE
-              </button>
-            )}
-          </div>
-        </div>
+        <MerchPagination
+          visibleCount={productsToDisplay.length}
+          totalCount={filteredProducts.length}
+          onLoadMore={handleLoadMore}
+        />
       </div>
     </div>
   );
