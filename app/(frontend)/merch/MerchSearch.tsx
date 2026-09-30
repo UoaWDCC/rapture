@@ -20,9 +20,6 @@ export default function MerchSearch({
         }
     }
 
-    // Base 1440px scaling
-    const pxPage = (val: number) => `calc(${val} * var(--scale))`
-
     const showPlaceholder = !isFocused && !searchTerm
 
     // Desktop layout
@@ -31,8 +28,8 @@ export default function MerchSearch({
             <div 
                 className="relative bg-transparent border border-white box-border flex items-center"
                 style={{
-                    width: pxPage(317),
-                    height: pxPage(35),
+                    width: 'clamp(250px, calc(317 * var(--scale)), 317px)',
+                    height: '35px',
                     borderWidth: '1px'
                 }}
             >
@@ -46,9 +43,9 @@ export default function MerchSearch({
                     className="absolute inset-0 w-full h-full bg-transparent text-white outline-none ring-0 border-none z-10"
                     style={{
                         fontFamily: "var(--font-fira-mono), monospace",
-                        fontSize: pxPage(16),
-                        paddingLeft: pxPage(10),
-                        paddingRight: pxPage(10)
+                        fontSize: '16px',
+                        paddingLeft: '10px',
+                        paddingRight: '10px'
                     }}
                 />
 
@@ -56,11 +53,11 @@ export default function MerchSearch({
                     <div 
                         className="absolute text-white pointer-events-none"
                         style={{
-                            left: pxPage(10),
+                            left: '10px',
                             top: '50%',
                             transform: 'translateY(-50%)',
                             fontFamily: "var(--font-fira-mono), monospace",
-                            fontSize: pxPage(16),
+                            fontSize: '16px',
                             letterSpacing: '0px'
                         }}
                     >
