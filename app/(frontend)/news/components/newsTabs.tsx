@@ -58,7 +58,11 @@ export default function NewsTabs({
       for (let i = 0; i < VISIBLE_CARDS; i++) {
         exactHeight += (children[i] as HTMLElement).offsetHeight;
       }
-      el.style.maxHeight = `${exactHeight}px`;
+      if (exactHeight > 0) {
+        el.style.maxHeight = `${exactHeight}px`;
+      }
+    } else {
+      el.style.maxHeight = "none";
     }
 
     /* ---- Scrollbar visibility & thumb sizing ---- */
@@ -141,7 +145,7 @@ export default function NewsTabs({
   /* ---- Render ---- */
   if (allNews.length === 0) {
     return (
-      <div className="my-7.5">
+      <div className="w-full">
         <div className={styles.emptyState}>
           <p>No news to display yet.</p>
         </div>
@@ -150,7 +154,7 @@ export default function NewsTabs({
   }
 
   return (
-    <div className="my-7.5">
+    <div className="w-full">
       <div className={styles.newsContainer}>
       <div
         ref={scrollRef}

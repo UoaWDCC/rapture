@@ -1,10 +1,10 @@
-/* ===========================
+/* ================================
    NewsTabs — Scrollable Container
-   =========================== */
+   ================================ */
 
 .newsContainer {
   display: flex;
-  gap: 13px;
+  gap: clamp(6px, 1vw, 13px);
   width: 100%;
   position: relative;
 }
@@ -15,6 +15,7 @@
   max-height: 1050px; /* ~3 collapsed news cards */
   overflow-y: auto;
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 
   /* Hide native scrollbar */
   scrollbar-width: none;          /* Firefox */
@@ -31,28 +32,27 @@
   max-height: none;
 }
 
-/* ===========================
+/* =======================
    Custom Scrollbar Track
-   =========================== */
+   ======================= */
 
 .scrollbarTrack {
   position: relative;
-  width: 24px;
+  width: clamp(14px, 1.8vw, 24px);
   flex-shrink: 0;
   background: rgba(242, 180, 35, 0.5);
   border: 1px solid #F2B423;
   border-radius: 0;
-  /* 5px inset for thumb positioning */
 }
 
-/* ===========================
+/* =======================
    Custom Scrollbar Thumb
-   =========================== */
+   ======================= */
 
 .scrollbarThumb {
   position: absolute;
-  width: 14px;
-  left: 4px;
+  width: calc(100% - 6px);
+  left: 3px;
   border-radius: 0;
   cursor: grab;
 
@@ -60,21 +60,21 @@
     linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)),
     linear-gradient(rgba(230, 230, 230, 0.6), rgba(230, 230, 230, 0.6));
   border: 1px solid rgba(242, 180, 35, 0.5);
-  min-height: 30px;
+  min-height: 24px;
 }
 
 .scrollbarThumb:active {
   cursor: grabbing;
 }
 
-/* ===========================
+/* ============
    Empty State
-   =========================== */
+   ============ */
 
 .emptyState {
   width: 100%;
-  height: 595px;
-  font-size: 24px;
+  height: clamp(280px, 45vh, 595px);
+  font-size: clamp(16px, 2.5vw, 24px);
   background: rgba(242, 180, 35, 0.7);
   display: flex;
   align-items: center;
@@ -83,4 +83,31 @@
   text-align: center;
   color: #302F2F;
   font-family: var(--font-nova-cut), sans-serif;
+}
+
+/* =====================================
+   Mobile: proportional scrollbar track
+   ===================================== */
+@media (max-width: 768px) {
+  .newsContainer {
+    gap: clamp(4px, 1vw, 8px);
+  }
+
+  .scrollbarTrack {
+    width: clamp(8px, 2vw, 14px);
+  }
+
+  .scrollbarThumb {
+    width: calc(100% - 4px);
+    left: 2px;
+  }
+}
+
+/* Very small phones: solid thumb so gold track doesn't bleed through */
+@media (max-width: 480px) {
+  .scrollbarThumb {
+    background: #E6E6E6;
+    background-image: none;
+    border: 1px solid rgba(242, 180, 35, 0.7);
+  }
 }
