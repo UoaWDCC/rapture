@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
@@ -28,20 +28,30 @@ function PageButton({
   const sharedClass = `${baseClass} ${className} ${disabled ? "opacity-40 cursor-not-allowed pointer-events-none" : "cursor-pointer"}`;
 
   return (
-    <span onClick={() => !disabled && router.push(href)} className={sharedClass}>
+    <span
+      onClick={() => !disabled && router.push(href)}
+      className={sharedClass}
+    >
       {children}
     </span>
   );
 }
 
-export function Pagination({ page, totalPages, hasNextPage, hasPrevPage }: PaginationProps) {
+export function Pagination({
+  page,
+  totalPages,
+  hasNextPage,
+  hasPrevPage,
+}: PaginationProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   function handleNavigate() {
     const inputValue = inputRef.current?.value ?? String(page);
     const parsed = parseInt(inputValue, 10);
-    const clamped = isNaN(parsed) ? page : Math.min(Math.max(parsed, 1), totalPages);
+    const clamped = isNaN(parsed)
+      ? page
+      : Math.min(Math.max(parsed, 1), totalPages);
     if (inputRef.current) {
       inputRef.current.value = String(clamped);
     }

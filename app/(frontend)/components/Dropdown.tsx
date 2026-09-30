@@ -2,10 +2,6 @@
 
 import { useState, useRef, useEffect } from "react";
 
-type DropdownItem = {
-  label: string;
-};
-
 type DropdownProps = {
   label: string;
   items: string[];
@@ -13,7 +9,6 @@ type DropdownProps = {
 
 export default function Dropdown({ label, items }: DropdownProps) {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState(label);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -53,7 +48,6 @@ export default function Dropdown({ label, items }: DropdownProps) {
           >
             <button
               onClick={() => {
-                setSelected(item);
                 setOpen(false);
               }}
             >
