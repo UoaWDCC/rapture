@@ -5,7 +5,7 @@ import NewsTab from "./components/newsTabs";
 import NewsHeader from "./components/NewsHeader";
 import GlitchReveal from "../components/GlitchReveal";
 
-export default async function NewsPage({
+export default async function ExampleCollectionPage({
   searchParams,
 }: {
   searchParams: Promise<{ article?: string }>;
