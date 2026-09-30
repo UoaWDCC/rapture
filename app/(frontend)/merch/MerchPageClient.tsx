@@ -227,8 +227,8 @@ export default function MerchPageClient({
         <div
           className="absolute"
           style={{
-            left: pxPage(78),
-            top: pxPage(69 + 35 + 34),
+            left: pxPage(68),
+            top: pxPage(69 + 30),
             pointerEvents: "auto",
           }}
         >
