@@ -1,12 +1,15 @@
 'use client'
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
+import type { Product as PayloadProduct } from "@/payload-types";
 import MerchSearch from "./MerchSearch";
 import MerchFilterSort from "./MerchFilterSort";
-import { Product } from "./ProductCard";
 import MerchGrid from "./components/MerchGrid";
 import MerchPagination from "./components/MerchPagination";
+
+const normalizeProductType = (product: PayloadProduct): string => {
+  const name = product.name.toLowerCase();
 
   if (name.includes("hoodie") || name.includes("jacket")) return "Hoodie";
   if (name.includes("sweater")) return "Sweater";
@@ -26,8 +29,10 @@ import MerchPagination from "./components/MerchPagination";
 
 export default function MerchPageClient({
   initialProducts,
+  isAdmin = false,
 }: {
   initialProducts: PayloadProduct[];
+  isAdmin?: boolean;
 }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [visibleCount, setVisibleCount] = useState(4);
@@ -207,6 +212,26 @@ export default function MerchPageClient({
           selectedTypes={selectedTypes}
           onTypeChange={handleTypeChange}
         />
+
+        {isAdmin && (
+          <div className="w-full">
+            <Link
+              href="/admin/collections/products"
+              className="flex items-center justify-center w-full hover:opacity-85 transition-opacity duration-200"
+              style={{
+                height: '44px',
+                backgroundColor: 'rgba(32, 128, 90, 0.5)',
+                border: '1px solid #20805A',
+                fontFamily: 'var(--font-fira-mono), monospace',
+                fontSize: '14px',
+                color: 'rgba(255, 255, 255, 0.9)',
+                textDecoration: 'none',
+              }}
+            >
+              ADMIN
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* ========================================= */}

@@ -1,10 +1,11 @@
 'use client'
 
 import React from 'react';
-import ProductCard, { Product } from '../ProductCard';
+import ProductCard from '../ProductCard';
+import type { Product as PayloadProduct } from "@/payload-types";
 
 export interface MerchGridProps {
-  products: Product[];
+  products: PayloadProduct[];
   className?: string;
   columns?: 1 | 2;
 }
