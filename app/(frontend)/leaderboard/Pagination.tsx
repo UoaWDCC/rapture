@@ -59,9 +59,9 @@ export function Pagination({
   }
 
   return (
-    <div className="px-2 flex justify-end items-center gap-3 rounded-xs border-2 border-dashed border-brand-blue">
-      <PageButton href={`?page=${1}`} disabled={!hasPrevPage}>
-        {`|<`}
+    <div className="flex items-center justify-end gap-1 rounded-xs border-2 border-dashed border-brand-blue px-1 py-1 md:gap-3 md:px-2">
+      <PageButton href={`?page=${1}`} disabled={!hasPrevPage} className="text-xs md:text-xl">
+        {`<|`}
       </PageButton>
 
       <PageButton
@@ -72,7 +72,7 @@ export function Pagination({
         {`<`}
       </PageButton>
 
-      <div className="h-10 border-l border-r border-dashed border-brand-blue pl-4 pr-4 pt-1">
+      <div className="h-8 border-l border-r border-dashed border-brand-blue px-2 pt-1 md:h-10 md:px-4">
         <input
           key={page}
           ref={inputRef}
@@ -82,7 +82,7 @@ export function Pagination({
           defaultValue={page}
           onBlur={handleNavigate}
           onKeyDown={(e) => e.key === "Enter" && handleNavigate()}
-          className="text-center text-lg outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+          className="w-8 text-center text-sm outline-none [appearance:textfield] md:w-10 md:text-lg [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
         />
       </div>
 
@@ -94,8 +94,8 @@ export function Pagination({
         {`>`}
       </PageButton>
 
-      <PageButton href={`?page=${totalPages}`} disabled={!hasNextPage}>
-        {`>|`}
+      <PageButton href={`?page=${totalPages}`} disabled={!hasNextPage} className="text-xs md:text-xl">
+        {`|>`}
       </PageButton>
     </div>
   );
