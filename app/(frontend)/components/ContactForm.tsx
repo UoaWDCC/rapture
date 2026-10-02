@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import { sendEmail } from "@/lib/email/send_email";
 import { render } from "@react-email/render";
-import ContactFormConfirmationToUser from '@/lib/email/email_templates/contactFormConfirmationToUser';
-import ContactFormConfirmation from '@/lib/email/email_templates/contactFormConfirmation';
+import ContactFormConfirmationToUser from "@/lib/email/email_templates/contactFormConfirmationToUser";
+import ContactFormConfirmation from "@/lib/email/email_templates/contactFormConfirmation";
 
 interface ContactFormProps {
   title?: string;
@@ -12,7 +12,8 @@ interface ContactFormProps {
 async function submitContactForm(formData: FormData) {
   "use server";
 
-  const firstName = formData.get("firstName") as string; const lastName = formData.get("lastName") as string;
+  const firstName = formData.get("firstName") as string;
+  const lastName = formData.get("lastName") as string;
   const name = `${firstName} ${lastName}`;
   const emailValue = formData.get("email"); // as string;
   // console.log("EMAIL:", emailValue);
@@ -26,13 +27,18 @@ async function submitContactForm(formData: FormData) {
   // USER
   const email = emailValue.trim();
   const htmlToUser = await render(
-    <ContactFormConfirmationToUser name={name} form={form} />
+    <ContactFormConfirmationToUser name={name} form={form} />,
   );
 
   // ADMIN
   const emailAdmin = "dummy@gmail.com"; //admin email
   const htmlToAdmin = await render(
-    <ContactFormConfirmation name={name} email={email} form={form} category={category} />
+    <ContactFormConfirmation
+      name={name}
+      email={email}
+      form={form}
+      category={category}
+    />,
   );
 
   try {
@@ -47,10 +53,10 @@ async function submitContactForm(formData: FormData) {
         to: email,
         subject: "Thank you for reaching out!",
         html: htmlToUser,
-      })
+      }),
     ]);
-  } catch (error) {
-    throw new Error("Sorry, we couldn't send your message.")
+  } catch {
+    throw new Error("Sorry, we couldn't send your message.");
   }
 }
 
