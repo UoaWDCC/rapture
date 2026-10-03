@@ -111,14 +111,14 @@ export default function ProductsDisplay(props: productProps) {
         )}
       </div>
       {/*writing BOX - text fixed at center as there is no long descriptions/text implemented*/}
-      <div className="flex flex-col w-[90%] h-full m-[5%] p-[5%] md:w-[88%] md:h-[90%] md:mr-[10%] md:ml-[1.5%] md:my-[5%] md:p-[3%] bg-black border-white border items-center justify-center overflow-y-auto">
-        <p className="w-full font-mono text-3xl md:text-5xl text-center">
+      <div className="flex flex-col w-[90%] h-full m-[5%] p-[5%] md:w-[88%] md:h-[90%] md:mr-[10%] md:ml-[1.5%] md:my-[5%] md:p-[3%] bg-black border-brand-yellow border items-center justify-center overflow-y-auto">
+        <p className="w-full font-mono text-3xl md:text-5xl text-center text-brand-yellow">
           {props.product.name}
         </p>
-        <p className="w-full font-mono text-2xl md:text-4xl text-center mt-[3%] mb-[7.5%]">
+        <p className="w-full font-mono text-2xl text-brand-yellow md:text-4xl text-center mt-[3%] mb-[7.5%]">
           {formattedPrice}
         </p>
-        <div className="w-full flex flex-col mt-[7%] items-center justify-center">
+        <div className="w-full flex flex-col text-brand-yellow mt-[7%] items-center justify-center">
           <IncrementorButton
             amount={amount}
             setCounter={setAmount}
@@ -128,7 +128,7 @@ export default function ProductsDisplay(props: productProps) {
           <AddToCartButton
             productId={props.product.id}
             amount={amount}
-            className="w-[90%] mt-[10%] hover:scale-105 hover:shadow-md hover:shadow-white"
+            className="w-[90%] mt-[10%] hover:scale-105"
           />
         </div>
       </div>
