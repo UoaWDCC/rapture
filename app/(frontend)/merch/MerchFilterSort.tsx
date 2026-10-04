@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 
 // Sort options
 const SORT_OPTIONS = [
@@ -302,6 +303,7 @@ export default function MerchFilterSort({
 
       {/* Full-screen modal */}
       {modalOpen && (
+        createPortal(
         <div className="fixed inset-0 z-[10000] bg-black flex flex-col">
           {/* Header */}
           <div className="flex items-center justify-between pl-4 pr-8 pt-8 pb-4">
@@ -368,7 +370,9 @@ export default function MerchFilterSort({
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body,
+        )
       )}
     </>
   )
