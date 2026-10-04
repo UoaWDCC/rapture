@@ -62,7 +62,6 @@ export function PromotedGameSection() {
         <div className="relative flex justify-center -translate-x-[5%]">
           <Link
             href='/games/vitriol'
-            target="_blank"
             className="group relative z-4 @container w-[70%] hover:cursor-pointer"
             onMouseEnter={() => setIsVitriolHovering(true)}
             onMouseLeave={() => setIsVitriolHovering(false)}
