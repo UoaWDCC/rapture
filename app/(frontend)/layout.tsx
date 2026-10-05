@@ -4,10 +4,17 @@ import "./styles.css";
 import { headers as getHeaders } from "next/headers.js";
 import { getPayload } from "payload";
 import config from "@/payload.config";
-import { Fira_Mono, Nova_Cut } from "next/font/google";
+import { DM_Sans, Fira_Mono, Nova_Cut } from "next/font/google";
 
 import Navbar from "@/app/(frontend)/components/navbar.tsx";
 import Footer from "./components/Footer";
+
+const dmSans = DM_Sans({
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-dm-sans",
+});
 
 const firaMono = Fira_Mono({
   weight: ["400", "500", "700"],
@@ -35,7 +42,6 @@ const itemsNav = [
     link: "/games",
     childrenLinks: [
       { id: 1, name: "Vitriol", link: "/games/vitriol" },
-      { id: 2, name: "Leaderboard", link: "/leaderboard" },
     ],
   },
   {
@@ -43,18 +49,18 @@ const itemsNav = [
     name: "Community",
     link: "/community",
     childrenLinks: [
-      { id: 7, name: "Store", link: "/merch" },
       { id: 3, name: "News", link: "/news" },
-      { id: 4, name: "Donor", link: "/donor" },
+      { id: 2, name: "Leaderboard", link: "/leaderboard" },
+      { id: 5, name: "Contacts", link: "/contacts" },
     ],
   },
   {
     id: 3,
-    name: "About",
+    name: "Support",
     link: "/about",
     childrenLinks: [
-      { id: 5, name: "Contacts", link: "/contacts" },
-      { id: 6, name: "Support", link: "/support" },
+      { id: 7, name: "Store", link: "/merch" },
+      { id: 4, name: "Donor", link: "/donor" },
     ],
   },
 ]; // navbar testing
@@ -70,7 +76,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const { user } = await payload.auth({ headers });
 
   return (
-    <html lang="en" className={`${firaMono.variable} ${novaCut.variable}`}>
+    <html lang="en" className={`${firaMono.variable} ${novaCut.variable} ${dmSans.variable}`}>
       <body>
         <div className="z-10">
           {/* REMOVED SIDEBAR FOR NOW <Sidebar /> */}

@@ -1,5 +1,6 @@
 import PopUp from "@/app/(frontend)/components/ui/PopUp";
 import ContactFile from "@/app/(frontend)/components/ui/ContactFileDesign";
+import ForgotPasswordButton from "../components/ui/ForgotPasswordButton";
 
 export default async function Page() {
   const example_text =
@@ -7,6 +8,8 @@ export default async function Page() {
 
   return (
     <div className="container mx-auto my-6 px-4 space-y-4">
+      <ForgotPasswordButton/>
+
       <PopUp
         title="Hello World"
         text={example_text}
