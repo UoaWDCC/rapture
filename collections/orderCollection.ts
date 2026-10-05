@@ -153,21 +153,8 @@ export const OrderCollection: CollectionConfig = {
               }),
             );
 
-            const userHtml = await render(
-              React.createElement(Purchase, {
-                text: userText,
-                items: items,
-                totalPrice: doc.totalPrice,
-              }),
-            );
-            const adminHtml = await render(
-              React.createElement(Purchase, {
-                text: adminText,
-                items: items,
-                totalPrice: doc.totalPrice,
-                purchaserEmail: userEmail,
-              }),
-            );
+            const userHtml = await render(React.createElement(Purchase, { text: userText, items: items, totalPrice: doc.totalPrice, orderId: doc.id, orderDate: doc.dateTime }));
+            const adminHtml = await render(React.createElement(Purchase, { text: adminText, items: items, totalPrice: doc.totalPrice, purchaserEmail: userEmail, orderId: doc.id, orderDate: doc.dateTime }));
 
             const admins = await req.payload.find({
               collection: "users",
