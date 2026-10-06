@@ -1,44 +1,71 @@
-import { Body, Html, Heading, Text, Img, Container, Section, Button } from "@react-email/components";
+import { Img, Text } from "@react-email/components";
+import {
+  EmailLayout,
+  baseUrl,
+  textStyle,
+} from "@/lib/email/components/EmailLayout";
 
 type NewsUpdateProps = {
   title: string;
   subtitle: string;
+  // Link to the full post, e.g. `${baseUrl}/news/${id}`
   url: string;
   imageUrl?: string;
+  date?: string | Date;
 };
 
-export default function NewsUpdate({ title, subtitle, url, imageUrl }: NewsUpdateProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+// Sent to newsletter subscribers when a new News post goes up
+export default function NewsUpdate({
+  title,
+  subtitle,
+  url,
+  imageUrl,
+  date,
+}: NewsUpdateProps) {
+  const imageSrc =
+    imageUrl &&
+    (imageUrl.startsWith("http") ? imageUrl : `${baseUrl}${imageUrl}`);
+  const dateText =
+    date &&
+    new Date(date).toLocaleDateString("en-NZ", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
 
   return (
-    <Html>
-      <Body style={{ fontFamily: "sans-serif", padding: "20px" }}>
-        <Container>
-          <Text style={{ textTransform: "uppercase", letterSpacing: "2px", color: "#888888" }}>
-            New from Studio Rapture
-          </Text>
-          <Heading>{title}</Heading>
-          {imageUrl && (
-            <Section>
-              <Img src={imageUrl} width="560" alt={title} style={{ maxWidth: "100%", height: "auto" }} />
-            </Section>
-          )}
-          <Section>
-            <Text style={{ whiteSpace: "pre-wrap" }}>{subtitle}</Text>
-          </Section>
-          <Section style={{ marginTop: "20px" }}>
-            <Button
-              href={url}
-              style={{ backgroundColor: "#F2B423", color: "#000000", padding: "12px 24px" }}
-            >
-              Read more
-            </Button>
-          </Section>
-          <Section style={{ marginTop: "40px" }}>
-            <Img src={`${baseUrl}/LOGO.png`} width="200" alt="Studio Rapture Logo" />
-          </Section>
-        </Container>
-      </Body>
-    </Html>
+    <EmailLayout
+      preview={`Fresh from the studio: ${title}`}
+      heading={title}
+      button={{ href: url, label: "Read more" }}
+    >
+      {imageSrc && (
+        <Img
+          src={imageSrc}
+          width="502"
+          alt={title}
+          style={{
+            display: "block",
+            width: "100%",
+            height: "auto",
+            borderRadius: "3px",
+            margin: "4px 0 16px",
+          }}
+        />
+      )}
+      {dateText && (
+        <Text
+          style={{
+            ...textStyle,
+            fontSize: "12px",
+            margin: "0 0 8px",
+            opacity: 0.8,
+          }}
+        >
+          {dateText}
+        </Text>
+      )}
+      <Text style={textStyle}>{subtitle}</Text>
+    </EmailLayout>
   );
 }

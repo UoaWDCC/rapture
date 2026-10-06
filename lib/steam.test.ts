@@ -1,7 +1,7 @@
 // Service-layer tests for Steam linking.  Proposed location: lib/steam.test.ts
 // Run:  pnpm test
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 
 // The service imports these at module load; stub them so we don't pull in the
 // real Payload runtime. Every service fn takes an injected client, so the real

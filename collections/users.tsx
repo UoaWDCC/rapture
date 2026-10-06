@@ -4,6 +4,8 @@ import { CollectionConfig } from "payload";
 import { sendEmail } from "@/lib/email/send_email";
 import { render } from "@react-email/render";
 import Welcome from "@/lib/email/email_templates/welcome";
+import PasswordReset from "@/lib/email/email_templates/passwordReset";
+import { baseUrl } from "@/lib/email/components/EmailLayout";
 import { User } from "@/payload-types";
 import ResetPasswordEmail from "@/lib/email/email_templates/resetPassword";
 
@@ -15,29 +17,27 @@ export const Users: CollectionConfig = {
   slug: "users",
   auth: {
     forgotPassword: {
-      generateEmailHTML: async ({ token, user } = {}) => {
-        if (!user || ! token) {
-          throw new Error('no user/no token')
-        } // error safety net if there's no user or token found
-        const url = `http://localhost:3000/resetPassword?token=${token}`;
-        return await render(
-          <ResetPasswordEmail name={user.email || ""} url={url} />
-        )
-      },
-      generateEmailSubject: () => "Reset Password",
-    }
-  }, //change auth:true with this for custom email template
+      generateEmailSubject: () => "Reset your Studio Rapture password",
+      generateEmailHTML: async (args) =>
+        render(
+          <PasswordReset
+            resetUrl={`${baseUrl}/change-password?token=${args?.token}`}
+            email={args?.user?.email}
+          />,
+        ),
+    },
+  },
   admin: {
     useAsTitle: "email",
   },
 
   access: {
     create: () => true,
-    read: ({ req: { user } }) => adminCheck(user),
+    read: ({ req: { user } }) =>
+      adminCheck(user) || { id: { equals: user?.id } },
     update: ({ req: { user } }) =>
       adminCheck(user) || { id: { equals: user?.id } },
     delete: ({ req: { user } }) => adminCheck(user),
-
     admin: ({ req: { user } }) => adminCheck(user),
   },
 
@@ -56,6 +56,41 @@ export const Users: CollectionConfig = {
         { label: "User", value: "user" },
       ],
     },
+
+    {
+      name: "username",
+      type: "text",
+      unique: true,
+      admin: {
+        description: "Public display name",
+      },
+    },
+    {
+      name: "realName",
+      type: "text",
+      admin: {
+        description: "Full legal name",
+      },
+    },
+    {
+      name: "country",
+      type: "text",
+      admin: {
+        description: "Country of residence",
+      },
+    },
+
+    {
+      name: "address",
+      type: "text",
+    },
+    {
+      name: "state",
+      type: "text",
+      admin: {
+        description: "State or province",
+      },
+    },
     {
       name: "steamId",
       type: "text",
@@ -69,6 +104,14 @@ export const Users: CollectionConfig = {
       defaultValue: false,
       index: true,
     },
+    {
+      name: "pincode",
+      type: "text",
+    },
+    {
+      name: "paymentCountry",
+      type: "text",
+    },
   ],
 
   /*for email system testing*/
@@ -77,15 +120,17 @@ export const Users: CollectionConfig = {
       async ({ doc, operation, req }) => {
         if (operation == "create") {
           try {
-            const settings = await req.payload.findGlobal({ slug: "emailSettings" }) as { welcomeEmailText?: string };
+            const settings = (await req.payload.findGlobal({
+              slug: "emailSettings",
+            })) as { welcomeEmailText?: string };
             const text = settings?.welcomeEmailText || "Welcome!";
-            const html = await render(<Welcome name={doc.email} text={text} />);
+            const html = await render(<Welcome text={text} />);
             await sendEmail({
               to: doc.email,
-              subject: "Welcome!",
+              subject: "Welcome to Studio Rapture",
               html,
             });
-          } catch (err) {
+          } catch {
             console.error("Welcome email failed.");
           }
         }

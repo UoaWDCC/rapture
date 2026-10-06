@@ -144,8 +144,27 @@ export interface UserAuthOperations {
 export interface User {
   id: string;
   role: 'admin' | 'user';
+  /**
+   * Public display name
+   */
+  username?: string | null;
+  /**
+   * Full legal name
+   */
+  realName?: string | null;
+  /**
+   * Country of residence
+   */
+  country?: string | null;
+  address?: string | null;
+  /**
+   * State or province
+   */
+  state?: string | null;
   steamId?: string | null;
   newsSubscribed?: boolean | null;
+  pincode?: string | null;
+  paymentCountry?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -196,8 +215,7 @@ export interface Cart {
   user: string | User;
   items?:
     | {
-        productTitle: string;
-        productPrice: number;
+        product: string | Product;
         quantity: number;
         id?: string | null;
       }[]
@@ -218,6 +236,14 @@ export interface Product {
   price: number;
   currency: 'NZD' | 'AUD' | 'USD' | 'EUR' | 'GBP';
   description?: string | null;
+  /**
+   * Stripe product ID used as the canonical reference.
+   */
+  stripeProductId?: string | null;
+  /**
+   * Stripe price ID used for checkout.
+   */
+  stripePriceId?: string | null;
   image?: (string | null) | Media;
   additionalImage?: (string | Media)[] | null;
   updatedAt: string;
@@ -250,16 +276,50 @@ export interface Media {
 export interface Order {
   id: string;
   user: string | User;
-  products: {
-    productName: string;
-    price: number;
-    description?: string | null;
-    quantity?: number | null;
-    image?: (string | null) | Media;
-    id?: string | null;
-  }[];
+  status:
+    | 'pending'
+    | 'payment_completed'
+    | 'waiting_on_details'
+    | 'processing'
+    | 'delivery'
+    | 'completed'
+    | 'cancelled'
+    | 'refunded';
+  items?:
+    | {
+        product: string | Product;
+        quantity: number;
+        image?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Canonical Stripe checkout session ID for the order.
+   */
+  stripeCheckoutSessionId?: string | null;
+  /**
+   * Canonical Stripe payment intent ID for the order.
+   */
+  stripePaymentIntentId?: string | null;
+  /**
+   * Email captured from the checkout session.
+   */
+  customerEmail?: string | null;
   dateTime: string;
   totalPrice: number;
+  /**
+   * Snapshot of shipping address at time of order
+   */
+  shippingAddress?: {
+    address?: string | null;
+    state?: string | null;
+    country?: string | null;
+    pincode?: string | null;
+  };
+  /**
+   * Internal admin notes about this order
+   */
+  notes?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -431,8 +491,15 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   role?: T;
+  username?: T;
+  realName?: T;
+  country?: T;
+  address?: T;
+  state?: T;
   steamId?: T;
   newsSubscribed?: T;
+  pincode?: T;
+  paymentCountry?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -479,8 +546,7 @@ export interface CartSelect<T extends boolean = true> {
   items?:
     | T
     | {
-        productTitle?: T;
-        productPrice?: T;
+        product?: T;
         quantity?: T;
         id?: T;
       };
@@ -496,6 +562,8 @@ export interface ProductsSelect<T extends boolean = true> {
   price?: T;
   currency?: T;
   description?: T;
+  stripeProductId?: T;
+  stripePriceId?: T;
   image?: T;
   additionalImage?: T;
   updatedAt?: T;
@@ -508,18 +576,29 @@ export interface ProductsSelect<T extends boolean = true> {
  */
 export interface OrderSelect<T extends boolean = true> {
   user?: T;
-  products?:
+  status?: T;
+  items?:
     | T
     | {
-        productName?: T;
-        price?: T;
-        description?: T;
+        product?: T;
         quantity?: T;
         image?: T;
         id?: T;
       };
+  stripeCheckoutSessionId?: T;
+  stripePaymentIntentId?: T;
+  customerEmail?: T;
   dateTime?: T;
   totalPrice?: T;
+  shippingAddress?:
+    | T
+    | {
+        address?: T;
+        state?: T;
+        country?: T;
+        pincode?: T;
+      };
+  notes?: T;
   updatedAt?: T;
   createdAt?: T;
 }
