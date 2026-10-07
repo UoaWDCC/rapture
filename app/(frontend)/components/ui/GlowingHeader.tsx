@@ -38,6 +38,7 @@ export default function GlowingHeader({
       style={style}
       animate={{ filter: glowMap[intensity] }}
       transition={{ duration: 2, repeat: Infinity }}
+      data-testid="glowing-header" //for testing with playwright
     >
       {children}
     </motion.span>
