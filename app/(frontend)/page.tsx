@@ -6,11 +6,12 @@ import { HomeHeroSection } from "./components/homeHeroSection";
 import { JoinNowSection } from "./components/joinNowSection";
 import { NewsSection } from "./components/newsSection";
 import { PromotedGameSection } from "./components/promotedGameSection";
-
+import { headers as getHeaders } from "next/headers";
 export default async function HomePage() {
   const payloadConfig = await config;
   const payload = await getPayload({ config: payloadConfig });
-
+  const headers = await getHeaders();
+  const { user } = await payload.auth({ headers });
   const latestNews = await payload.find({
     collection: "News",
     sort: "-createdAt",
@@ -30,7 +31,10 @@ export default async function HomePage() {
 
       <PromotedGameSection />
 
-      <NewsSection latestNews={latestNews.docs[0] ?? null} isLoggedIn={!!user} />
+      <NewsSection
+        latestNews={latestNews.docs[0] ?? null}
+        isLoggedIn={!!user}
+      />
 
       <div className="relative w-full overflow-hidden"></div>
     </div>
