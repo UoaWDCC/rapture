@@ -4,6 +4,8 @@ import { test, expect } from "@playwright/test";
 
 const testEmail = "justin_case@fordummies.com";
 const testPassword = "justin4daW1N";
+const testUsername = "Justin Case - The Just";
+const testRealName = "Justin";
 
 test.describe("Account Page", () => {
     test("go to login if you're not a user", async ({ page }) => {
@@ -74,6 +76,10 @@ test.describe("Account Page", () => {
         test("shows the expected profile tab components", async ({ page }) => {
             //top part
             await expect(page.getByText(testEmail).first()).toBeVisible(); //a user may or may not have a username
+            await expect(page.getByText(testUsername).first()).toBeVisible();
+            await expect(page.getByRole("button", {
+                name: "Update Detail"
+            })).toBeVisible();
             await expect(page.getByRole("button", {
                 name: "Log Out"
             })).toBeVisible();
@@ -84,7 +90,35 @@ test.describe("Account Page", () => {
             //right side
             await expect(page.getByText("Show Information")).toBeVisible();
             await expect(page.getByText("Change Password")).toBeVisible();
-        })
+        });
+
+        //Profile tab - does an updated detail stay/not as expected?
+        test("doesn't save details", async ({ page }) => {
+            await page.getByLabel("Real Name").fill("Not a Real Person");
+
+            await page.reload();
+
+            await expect(page.getByLabel("Real Name")).toHaveValue(testRealName);
+        });
+        test("does save details", async ({ page }) => {
+            await page.getByLabel("Real Name").fill("Not a Real Person");
+            await page.getByRole("button", {
+                name: "Update Detail"
+            }).click();
+
+            await expect(page.getByText("Profile updated successfully.")).toBeVisible();
+            await page.reload();
+
+            await expect(page.getByLabel("Real Name")).toHaveValue("Not a Real Person");
+            
+            //turns the real name back
+            await page.getByLabel("Real Name").fill(testRealName);
+            await page.getByRole("button", {
+                name: "Update Detail"
+            }).click();
+            await expect(page.getByText("Profile updated successfully.")).toBeVisible();
+            await expect(page.getByLabel("Real Name")).toHaveValue(testRealName);
+        });
 
         //Rank tab
         test("shows the expected rank tab components", async ({ page }) => {
