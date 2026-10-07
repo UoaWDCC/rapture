@@ -1,5 +1,9 @@
 import { Img, Text } from "@react-email/components";
-import { EmailLayout, baseUrl, textStyle } from "@/lib/email/components/EmailLayout";
+import {
+  EmailLayout,
+  baseUrl,
+  textStyle,
+} from "@/lib/email/components/EmailLayout";
 
 type NewsUpdateProps = {
   title: string;
@@ -11,10 +15,23 @@ type NewsUpdateProps = {
 };
 
 // Sent to newsletter subscribers when a new News post goes up
-export default function NewsUpdate({ title, subtitle, url, imageUrl, date }: NewsUpdateProps) {
-  const imageSrc = imageUrl && (imageUrl.startsWith("http") ? imageUrl : `${baseUrl}${imageUrl}`);
+export default function NewsUpdate({
+  title,
+  subtitle,
+  url,
+  imageUrl,
+  date,
+}: NewsUpdateProps) {
+  const imageSrc =
+    imageUrl &&
+    (imageUrl.startsWith("http") ? imageUrl : `${baseUrl}${imageUrl}`);
   const dateText =
-    date && new Date(date).toLocaleDateString("en-NZ", { day: "numeric", month: "long", year: "numeric" });
+    date &&
+    new Date(date).toLocaleDateString("en-NZ", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
 
   return (
     <EmailLayout
@@ -27,10 +44,27 @@ export default function NewsUpdate({ title, subtitle, url, imageUrl, date }: New
           src={imageSrc}
           width="502"
           alt={title}
-          style={{ display: "block", width: "100%", height: "auto", borderRadius: "3px", margin: "4px 0 16px" }}
+          style={{
+            display: "block",
+            width: "100%",
+            height: "auto",
+            borderRadius: "3px",
+            margin: "4px 0 16px",
+          }}
         />
       )}
-      {dateText && <Text style={{ ...textStyle, fontSize: "12px", margin: "0 0 8px", opacity: 0.8 }}>{dateText}</Text>}
+      {dateText && (
+        <Text
+          style={{
+            ...textStyle,
+            fontSize: "12px",
+            margin: "0 0 8px",
+            opacity: 0.8,
+          }}
+        >
+          {dateText}
+        </Text>
+      )}
       <Text style={textStyle}>{subtitle}</Text>
     </EmailLayout>
   );

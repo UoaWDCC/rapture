@@ -98,6 +98,13 @@ export const Users: CollectionConfig = {
       index: true,
     },
     {
+      name: "newsSubscribed",
+      label: "Subscribed to news",
+      type: "checkbox",
+      defaultValue: false,
+      index: true,
+    },
+    {
       name: "pincode",
       type: "text",
     },
