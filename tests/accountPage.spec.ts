@@ -9,7 +9,21 @@ test.describe("Account Page", () => {
         await expect(page).toHaveURL(/login/);
     });
 
-    test.describe("logged in user", () => {
+    test("go to account after log in", async ({ page }) => {
+        await page.goto("http://localhost:3000/login");
+
+        await page.getByPlaceholder("email").fill("justin_case@fordummies.com");
+        await page.getByPlaceholder("password").fill("justin4daW1N");
+
+        await page.getByRole("button", { name: /sign in/i }).click();
+
+        await page.waitForTimeout(2000); //give it a second for smooth navigation to the account page
+        
+        await expect(page).toHaveURL(/account/);
+        await expect(page.getByText("Welcome Back")).toBeVisible();
+    });
+
+    test.describe("shows the expected components in an account page", () => {
         test.beforeEach(async ({ page }) => {
             await page.goto("http://localhost:3000/login");
 
@@ -22,10 +36,6 @@ test.describe("Account Page", () => {
 
             await page.goto("http://localhost:3000/account");
         })
-
-        test("shows the account page when logged in", async ({ page }) => {
-            await expect(page.getByText("Welcome Back")).toBeVisible();
-        });
 
         //Profile tab
         test("shows the expected profile tab components", async ({ page }) => {
