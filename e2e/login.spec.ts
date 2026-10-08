@@ -11,7 +11,7 @@ test.afterAll(async () => {
     await deleteTestUser(user)
 })
 
-test('user can log in with valid credentials', async ({ page }: { page: Page }) => {
+test('user can log in with valid credentials', async ({ page }) => {
     await page.goto('/login')
 
     await page.getByPlaceholder('email').fill(user.email)
