@@ -27,8 +27,8 @@ export default async function ProductsPage({ searchParams }: PageProps) {
   return (
     <div className="container mx-auto">
       <div className="my-[5%] md:mx-0">
-        {result.docs[1] && ( //1 is just the first product.
-          <ProductsDisplayBig product={result.docs[1]} cap={30} />
+        {result.docs[0] && ( //0 is just the first product.
+          <ProductsDisplayBig product={result.docs[0]} cap={30} />
           //cap = quantity cap for the quantity can one add into cart each time.
         )}
       </div>

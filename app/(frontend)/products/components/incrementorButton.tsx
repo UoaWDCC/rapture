@@ -14,7 +14,7 @@ export default function IncrementorButton(props: props) {
     >
       <button
         className={`font-mono text-white rounded-sm hover:text-shadow-white hover:text-shadow-xs hover:cursor-pointer`}
-        onClick={() => props.setCounter((c) => Math.max(0, c - 1))}
+        onClick={() => props.setCounter((c) => Math.max(1, c - 1))}
       >
         -
       </button>

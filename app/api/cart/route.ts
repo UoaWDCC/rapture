@@ -57,6 +57,15 @@ function normalizeCartItem(item: CartItem) {
   };
 }
 
+function toStoredItems(items: CartItem[]) {
+  return items.flatMap((item) => {
+    const productId =
+      typeof item.product === "string" ? item.product : item.product?.id;
+    if (!productId) return [];
+    return [{ id: item.id, product: productId, quantity: item.quantity }];
+  });
+}
+
 export async function GET() {
   try {
     const { user, cart } = await getCurrentCart();
@@ -125,13 +134,13 @@ export async function POST(request: Request) {
       ? await payload.update({
           collection: "Cart",
           id: cart.id,
-          data: { items: nextItems },
+          data: { items: toStoredItems(nextItems) },
         })
       : await payload.create({
           collection: "Cart",
           data: {
             user: user.id,
-            items: nextItems,
+            items: toStoredItems(nextItems),
           },
         });
 
@@ -189,7 +198,7 @@ export async function PATCH(request: Request) {
     const updatedCart = await payload.update({
       collection: "Cart",
       id: cart.id,
-      data: { items: nextItems },
+      data: { items: toStoredItems(nextItems) },
     });
 
     return NextResponse.json({
@@ -229,7 +238,7 @@ export async function DELETE(request: Request) {
     const updatedCart = await payload.update({
       collection: "Cart",
       id: cart.id,
-      data: { items: nextItems },
+      data: { items: toStoredItems(nextItems) },
     });
 
     return NextResponse.json({
