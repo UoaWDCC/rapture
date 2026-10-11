@@ -64,11 +64,7 @@ export function Pagination({
         {`<|`}
       </PageButton>
 
-      <PageButton
-        href={`?page=${page - 1}`}
-        disabled={!hasPrevPage}
-        className="text-2xl"
-      >
+      <PageButton href={`?page=${page - 1}`} disabled={!hasPrevPage} className="text-sm md:text-2xl">
         {`<`}
       </PageButton>
 
@@ -86,11 +82,7 @@ export function Pagination({
         />
       </div>
 
-      <PageButton
-        href={`?page=${page + 1}`}
-        disabled={!hasNextPage}
-        className="text-2xl"
-      >
+      <PageButton href={`?page=${page + 1}`} disabled={!hasNextPage} className="text-sm md:text-2xl">
         {`>`}
       </PageButton>
 
