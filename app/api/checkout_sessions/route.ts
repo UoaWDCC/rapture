@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     const origin = headersList.get("origin") ?? requestOrigin;
 
     const body = await request.json();
-    const { price_id, line_items, userId } = body;
+    const { price_id, quantity, line_items, userId } = body;
 
     const preparedLineItems = Array.isArray(line_items)
       ? line_items
@@ -20,12 +20,23 @@ export async function POST(request: Request) {
           }))
           .filter((item) => item.price.length > 0)
       : price_id
-        ? [{ price: String(price_id).trim(), quantity: 1 }]
+        ? [{ price: String(price_id).trim(), quantity: quantity ?? 1 }]
         : [];
 
     if (!preparedLineItems.length) {
       return NextResponse.json(
         { error: "Missing valid Stripe price(s)" },
+        { status: 400 },
+      );
+    }
+
+    if (
+      preparedLineItems.some(
+        (item) => !Number.isInteger(item.quantity) || item.quantity < 1,
+      )
+    ) {
+      return NextResponse.json(
+        { error: "Quantity must be a whole number of at least 1" },
         { status: 400 },
       );
     }
