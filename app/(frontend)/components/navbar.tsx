@@ -27,7 +27,7 @@ type NavProps = {
   user: User | null;
 };
 
-export default function Navbar({ item }: NavProps) {
+export default function Navbar({ item, user }: NavProps) {
   const pathname = usePathname();
 
   return (
@@ -63,7 +63,7 @@ export default function Navbar({ item }: NavProps) {
         </div>
 
         {/* Account Profile */}
-        <Link href="/login">
+        <Link href={user ? "/account" : "/login"}>
           <Image
             className="pt-3 pl-4 hover:filter-grey"
             alt="Account Profile"
@@ -75,7 +75,7 @@ export default function Navbar({ item }: NavProps) {
       </nav>
 
       <div className="md:hidden">
-        <MobileNavbar item={item} />
+        <MobileNavbar item={item} user={user} />
       </div>
     </>
   );
