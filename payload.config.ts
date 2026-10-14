@@ -17,6 +17,17 @@ import { Donors } from "./collections/Donors.ts"
 
 import { EmailSettings } from "./collections/EmailSettings.ts";
 
+//if required env values are missing/empty, it will throw an error.
+const requiredENV = (name: string) : string => {
+  const value = process.env[name];
+
+  if (!value) {
+    throw new Error(`Missing ${name}`);
+  }
+
+  return value;
+}
+
 export default buildConfig({
   editor: lexicalEditor(),
 
@@ -24,34 +35,28 @@ export default buildConfig({
     defaultFromAddress: "onboarding@resend.dev",
     defaultFromName: "Rapture",
 
-    apiKey: process.env.RESEND_API_KEY || "",
+    apiKey: requiredENV("RESEND_API_KEY"),
   }),
 
   globals: [EmailSettings],
   // Ensure created collections are added here
   collections: [Users, ExampleCollection, Players, CartCollection, Products, OrderCollection, Media, News, Category, Donors],
 
+
   plugins: [
     s3Storage({
-      enabled: Boolean(process.env.R2_BUCKET),
       collections: {
-        media: {
-          disablePayloadAccessControl:true,
-          generateFileURL: ({ filename, prefix }) => {
-            const key = prefix ? `${prefix}/${filename}` : filename
-            return `${process.env.R2_PUBLIC_URL}/${key}`
-          },
-        },
+        media: true,
       },
-      bucket: process.env.R2_BUCKET,
+      bucket: process.env.S3_BUCKET || "",
+      clientUploads: true,
       config: {
+        endpoint: requiredENV("S3_ENDPOINT"),
         credentials: {
-          accessKeyId: process.env.R2_ACCESS_KEY_ID,
-          secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
+          accessKeyId: requiredENV("S3_ACCESS_KEY_ID"),
+          secretAccessKey: requiredENV("S3_SECRET_ACCESS_KEY"),
         },
-        region: 'auto',
-        endpoint: process.env.R2_ENDPOINT,
-        forcePathStyle: true,
+        region: requiredENV("S3_REGION"),
       },
     }),
   ],
