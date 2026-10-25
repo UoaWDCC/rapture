@@ -1,49 +1,71 @@
-'use client'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import AuthInput from '../components/auth/authInput'
-import AuthButton from '../components/auth/authButton'
-import AuthFormCard from '../components/auth/authFormCard'
-import AuthSideCard from '../components/auth/authSideCard'
-import Image from 'next/image'
+"use client";
+import { Suspense, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { getAuthRedirectQuery, getPostLoginPath } from "@/lib/safeRedirect";
+import AuthInput from "../components/auth/authInput";
+import AuthButton from "../components/auth/authButton";
+import AuthFormCard from "../components/auth/authFormCard";
+import AuthSideCard from "../components/auth/authSideCard";
+import Image from "next/image";
+import { getErrorMessage } from "@/lib/getErrorMessage";
 // import ForgotPasswordButton from '../components/ui/ForgotPasswordButton'
 
+// useSearchParams needs a Suspense boundary in the app router
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  return (
+    <Suspense fallback={null}>
+      <LoginPageContent />
+    </Suspense>
+  );
+}
 
-  const router = useRouter()
+function LoginPageContent() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const authRedirectQuery = getAuthRedirectQuery(searchParams);
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
+    e.preventDefault();
+    setError("");
 
-    const res = await fetch('/api/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email,
-        password
-      }),
-    })
+    try {
+      const res = await fetch("/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    if (res.ok) {
-      router.push('/')
-    } else {
-      setError('Invalid credentials. Please try again.');
+      const data = await res.json().catch(() => null);
+
+      if (res.ok) {
+        // e.g. back to /news?intent=subscribe so the subscription completes automatically
+        router.refresh();
+        router.push(getPostLoginPath(searchParams));
+      } else {
+        setError(
+          getErrorMessage(
+            data,
+            res.status,
+            "Invalid credentials. Please try again.",
+          ),
+        );
+      }
+    } catch (err) {
+      setError(
+        "Unable to reach the server. Check your connection and try again.",
+      );
     }
-  }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-8">
       <div className="flex flex-col md:flex-row gap-8">
-
         {/* Main login form card */}
         <div className="relative w-[450px] h-[600px]">
-
           {/* Decorative accent panel - form card bottom left */}
           <div className="absolute bottom-6 -left-42 w-60 h-36 border-4 border-[#F2B423] rounded p-0.25 z-20">
             <div className="w-full h-full border-2 border-[#F2B423] rounded bg-[#271E06]/80"></div>
@@ -73,21 +95,21 @@ export default function LoginPage() {
                 type="email"
                 placeholder="email"
                 value={email}
-                onChange={e => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 theme="gold"
               />
               <AuthInput
                 type="password"
                 placeholder="password"
                 value={password}
-                onChange={e => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 theme="gold"
               />
               <div className="mt-4">
                 <AuthButton
                   type="submit"
                   label="sign in"
-                  onClick={() => { }}
+                  onClick={() => {}}
                   theme="gold"
                 />
               </div>
@@ -98,7 +120,12 @@ export default function LoginPage() {
               <p className="text-gray-400 font-mono text-xs">or log in with</p>
               <div className="border-2 border-[#F2B423] rounded-3xl px-8 py-2">
                 <div className="bg-white rounded-full w-8 h-8 flex items-center justify-center">
-                  <Image src="/gmail.png" alt="or log in with" width={24} height={24} />
+                  <Image
+                    src="/gmail.png"
+                    alt="or log in with"
+                    width={24}
+                    height={24}
+                  />
                 </div>
               </div>
             </div>
@@ -107,19 +134,17 @@ export default function LoginPage() {
               <AuthButton
                 type="button"
                 label="forgot password"
-                onClick={() => router.push('/forgot-password')}
+                onClick={() => router.push("/forgot-password")}
                 theme="gold"
                 size="small"
                 showGlow={false}
               />
             </div>
-
           </AuthFormCard>
         </div>
 
         {/* Side card linking to sign up */}
         <div className="relative w-[275px] mt-4">
-
           {/* Decorative accent panel - side card top right (behind) */}
           <div className="hidden md:block absolute -top-18 -right-56 w-[400px] h-45 border-4 border-[#F2B423] rounded p-0.25 z-0">
             <div className="w-full h-full border-2 border-[#F2B423] rounded bg-[#271E06]/80"></div>
@@ -135,7 +160,7 @@ export default function LoginPage() {
               title={`NEW\nUSER?`}
               description="Create an account with us today."
               buttonLabel="sign up"
-              onButtonClick={() => router.push('/signup')}
+              onButtonClick={() => router.push(`/signup${authRedirectQuery}`)}
               theme="gold"
             />
           </div>
@@ -146,14 +171,12 @@ export default function LoginPage() {
               title={`NEW\nUSER?`}
               description="Create an account with us today."
               buttonLabel="sign up"
-              onButtonClick={() => router.push('/signup')}
+              onButtonClick={() => router.push(`/signup${authRedirectQuery}`)}
               theme="gold"
             />
           </div>
-
         </div>
-
       </div>
     </div>
-  )
+  );
 }
