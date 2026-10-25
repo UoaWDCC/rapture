@@ -5,6 +5,7 @@
 //Editing News as Admin Testing
 //To Test: only admin are allowed, is required fields required (except for image)
 
+import type { ReactNode } from "react";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi, beforeEach } from "vitest";
@@ -13,6 +14,11 @@ import { NewsPost } from "../../mockData";
 
 import { cleanup } from "@testing-library/react";
 import { afterEach } from "vitest";
+
+type MockEditorState = {
+    read: (callback: () => void) => void;
+    toJSON: () => unknown;
+};
 
 // type FakeUser = { id: string; email: string; steamId?: string | null };
 
@@ -24,19 +30,19 @@ vi.mock('next/navigation', () => ({
 }))
 
 vi.mock('next/link', () => ({
-    default: ({children, href}: any) => (
+    default: ({children, href}: { children: ReactNode; href: string }) => (
         <a href={href}>{children}</a>
     )
 }))
 
 vi.mock('@/components/ui/RichTextEditor', () => ({
-  RichTextEditor: ({ onChange }: any) => (
+  RichTextEditor: ({ onChange }: { onChange: (editorState: MockEditorState) => void }) => (
     <>
         <button
         data-testid="set-content"
         onClick={() =>
             onChange({
-            read: (callback: any) => {
+            read: (callback: () => void) => {
                 callback()
             },
             toJSON: () => ({
@@ -63,7 +69,7 @@ vi.mock('@/components/ui/RichTextEditor', () => ({
         data-testid="set-empty-content"
         onClick={() =>
             onChange({
-            read: (callback: any) => {
+            read: (callback: () => void) => {
                 callback()
             },
             toJSON: () => ({
