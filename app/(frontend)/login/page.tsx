@@ -43,6 +43,7 @@ function LoginPageContent() {
 
       if (res.ok) {
         // e.g. back to /news?intent=subscribe so the subscription completes automatically
+        router.refresh();
         router.push(getPostLoginPath(searchParams));
       } else {
         setError(
