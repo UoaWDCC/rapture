@@ -2,119 +2,90 @@ import ContactForm from "../components/ContactForm";
 import ContactFile from "../components/ui/ContactFileDesign.tsx";
 
 export default async function aboutPage() {
-    return (
-        <div className="mt-40 mb-80 flex flex-row">
-            <div className="absolute left-50 w-100 h-245 flex flex-row">
-                <ContactFile title="About Us (1)" bgColor="bg-red-800" sideHeight="100px" zIndex={3}>
-                    <div className="w-250 flex flex-col">
-                        <h1 className="mb-20">About Us</h1>
+  const open = false;
+  return (
+    <div className="mt-40 mb-80 flex flex-row w-[95%]">
+      <div className="absolute left-50 flex z-100 h-245 max-w-[100%]">
+        <div className="w-[100%] h-full">
+          <ContactFile
+            title="ABOUT US"
+            bgColor="bg-[#000000]"
+            borderColor="#20805A"
+            sideHeight="100px"
+            zIndex={3}
+            mlValue={0}
+            translateValueOpen="-translate-x-[30%]"
+            translateValueClosed="translate-x-[90px]"
+            className="h-full absolute -left-150"
+          >
+            <div className="w-250 flex flex-row max-w-fulloverflow-y-auto scrollbar-none">
+              <div className="flex flex-col items-end">
+                <h1 className="mb-20 mr-10 mt-10">STUDIO RAPTURE!</h1>
 
-                        <p className="w-[70%] mb-10 text-left">Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                        </p>
-
-                        <p className="w-[70%] mb-10 text-left">Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                        </p>
-
-                        <p className="w-[70%] mb-10 text-left">Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                        </p>
-                    </div>
-                </ContactFile>
-
-                <ContactFile title="About Us (2)" bgColor="bg-green-700" sideHeight="200px" zIndex={2} mlValue={-550} translateValueOpen="-translate-x-[137%]" translateValueClosed="translate-x-[-730px]">
-                    <div className="w-250 flex flex-col items-start">
-                        <h1 className="mb-20">About Us</h1>
-
-                        <p className="w-[70%] mb-10 text-left">Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                        </p>
-
-                        <p className="w-[70%] mb-10 text-left">Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                        </p>
-
-                        <p className="w-[70%] mb-10 text-left">Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                        </p>
-                    </div>
-                </ContactFile>
-
-                <ContactFile title="About Us (3)" bgColor="bg-yellow-800" sideHeight="300px" zIndex={1} mlValue={-550} translateValueOpen="-translate-x-[175%]" translateValueClosed="translate-x-[-1260px]">
-                    <div className="w-250 flex flex-col items-start">
-                        <h1 className="mb-20">About Us</h1>
-
-                        <p className="w-[70%] mb-10 text-left">Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                        </p>
-
-                        <p className="w-[70%] mb-10 text-left">Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                        </p>
-
-                        <p className="w-[70%] mb-10 text-left">Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                           Loren als ser pal Loren als ser pal Loren als ser pal
-                        </p>
-                    </div>
-                </ContactFile>
+                <p className="w-[70%] mb-10 text-left">
+                  we are very enthusiastic about VR
+                </p>
+              </div>
             </div>
+          </ContactFile>
 
-            <ContactForm />
+          <ContactFile
+            title="MEET THE DEVS"
+            bgColor="bg-[#070604]"
+            borderColor="#F2B423"
+            sideHeight="300px"
+            zIndex={2}
+            mlValue={50}
+            translateValueOpen="-translate-x-[30%]"
+            translateValueClosed="translate-x-[90px]"
+            className=" h-full absolute -left-150"
+          >
+            <div className="w-260 h-full flex flex-col items-end overflow-y-auto scrollbar-none">
+              <h1 className="mb-20 mr-10 mt-10">About Us</h1>
+
+              <p className="w-[60%] mb-10 text-left">
+                Loren als ser pal Loren als ser pal Loren als ser pal
+                Loren als ser pal Loren als ser pal Loren als ser pal
+                Loren als ser pal Loren als ser pal Loren als ser pal
+                Loren als ser pal Loren als ser pal Loren als ser pal
+                Loren als ser pal Loren als ser pal Loren als ser pal
+                Loren als ser pal Loren als ser pal Loren als ser pal
+                Loren als ser pal Loren als ser pal Loren als ser pal
+                Loren als ser pal Loren als ser pal Loren als ser pal
+              </p>
+            </div>
+          </ContactFile>
+
+          <ContactFile
+            title="CONTACT US"
+            bgColor="bg-[#020A15]"
+            borderColor="#0650DA"
+            sideHeight="500px"
+            zIndex={1}
+            mlValue={50}
+            translateValueOpen="-translate-x-[30%]"
+            translateValueClosed="translate-x-[90px]"
+            className=" h-full absolute -left-150"
+          >
+            <div className="w-290 h-full flex flex-col items-end overflow-y-auto scrollbar-none">
+              <h1 className="mb-20 mr-10 mt-10">About Us</h1>
+
+              <p className="w-[70%] mb-10 text-left">
+                Loren als ser pal Loren als ser pal Loren als ser pal
+                Loren als ser pal Loren als ser pal Loren als ser pal
+                Loren als ser pal Loren als ser pal Loren als ser pal
+                Loren als ser pal Loren als ser pal Loren als ser pal
+                Loren als ser pal Loren als ser pal Loren als ser pal
+                Loren als ser pal Loren als ser pal Loren als ser pal
+                Loren als ser pal Loren als ser pal Loren als ser pal
+                Loren als ser pal Loren als ser pal Loren als ser pal
+              </p>
+            </div>
+          </ContactFile>
         </div>
-    )
+      </div>
+
+      <ContactForm />
+    </div>
+  )
 }

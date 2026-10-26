@@ -1,5 +1,5 @@
 import { AuthClient } from 'payload-auth-plugin/client'
 
-export const testAuthClient = new AuthClient('app', {  
-    payloadBaseURL: 'http://localhost:3000'
+export const authClient = new AuthClient('app', {  
+    payloadBaseURL: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
 })

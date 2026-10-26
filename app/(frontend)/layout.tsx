@@ -4,10 +4,17 @@ import "./styles.css";
 import { headers as getHeaders } from "next/headers.js";
 import { getPayload } from "payload";
 import config from "@/payload.config";
-import { Fira_Mono, Nova_Cut } from "next/font/google";
+import { DM_Sans, Fira_Mono, Nova_Cut } from "next/font/google";
 
 import Navbar from "@/app/(frontend)/components/navbar.tsx";
 import Footer from "./components/Footer";
+
+const dmSans = DM_Sans({
+  weight: ["400", "500", "700"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-dm-sans",
+});
 
 const firaMono = Fira_Mono({
   weight: ["400", "500", "700"],
@@ -29,15 +36,37 @@ export const metadata = {
 };
 
 const itemsNav = [
-  { id: 1, name: "Games", link: "/games", childrenLinks: [{id: 1, name:"Vitriol", link:"/vitriol"}, {id: 2, name:"Leaderboard", link:"/leaderboard"}]},
-  { id: 2, name: "Community", link: "/community", childrenLinks: [{id: 7, name:"Store", link:"/merch"}, {id: 3, name:"News", link:"/news"}, {id: 4, name:"Donor", link:"/donor"}] },
-  { id: 3, name: "About", link: "/about", childrenLinks: [{id: 5, name:"Contacts", link:"/contacts"}, {id: 6, name:"Support", link:"/support"}] }
-  
+  {
+    id: 1,
+    name: "Games",
+    link: "/games",
+    childrenLinks: [
+      { id: 1, name: "Vitriol", link: "/games/vitriol" },
+    ],
+  },
+  {
+    id: 2,
+    name: "Community",
+    link: "/community",
+    childrenLinks: [
+      { id: 3, name: "News", link: "/news" },
+      { id: 2, name: "Leaderboard", link: "/leaderboard" },
+      { id: 5, name: "Contacts", link: "/contacts" },
+    ],
+  },
+  {
+    id: 3,
+    name: "Support",
+    link: "/about",
+    childrenLinks: [
+      { id: 7, name: "Store", link: "/merch" },
+      { id: 4, name: "Donor", link: "/donor" },
+    ],
+  },
 ]; // navbar testing
 
 // Fill in with actual webpage links when they are done.
-const studioTagline = "Tagline example";
-const contactEmail = "contact@gmail.com";
+const contactEmail = "contact@studiorapture.com";
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props;
@@ -45,23 +74,18 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   const payload = await getPayload({ config: payloadConfig });
   const headers = await getHeaders();
   const { user } = await payload.auth({ headers });
-  
 
   return (
-    <html lang="en" className={`${firaMono.variable} ${novaCut.variable} z-10`}>
+    <html lang="en" className={`${firaMono.variable} ${novaCut.variable} ${dmSans.variable}`}>
       <body>
-        {/* REMOVDE SIDEBAR FOR NOW <Sidebar /> */}
-        <Navbar 
-          item={itemsNav} 
-          user={user} 
-        />
+        <div className="z-10">
+          {/* REMOVED SIDEBAR FOR NOW <Sidebar /> */}
+          <Navbar item={itemsNav} user={user} />
 
-        <main>{children}</main>
-        
-        <Footer
-          studioTagline={studioTagline}
-          contactEmail={contactEmail}
-        />
+          <main className="mt-16 mb-16">{children}</main>
+
+          <Footer contactEmail={contactEmail} />
+        </div>
       </body>
     </html>
   );

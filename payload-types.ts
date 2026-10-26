@@ -76,6 +76,7 @@ export interface Config {
     media: Media;
     News: News;
     category: Category;
+    donors: Donor;
     accounts: Account;
     apiKeys: ApiKey;
     'payload-kv': PayloadKv;
@@ -94,6 +95,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     News: NewsSelect<false> | NewsSelect<true>;
     category: CategorySelect<false> | CategorySelect<true>;
+    donors: DonorsSelect<false> | DonorsSelect<true>;
     accounts: AccountsSelect<false> | AccountsSelect<true>;
     apiKeys: ApiKeysSelect<false> | ApiKeysSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -105,8 +107,12 @@ export interface Config {
     defaultIDType: string;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    emailSettings: EmailSetting;
+  };
+  globalsSelect: {
+    emailSettings: EmailSettingsSelect<false> | EmailSettingsSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -142,7 +148,27 @@ export interface UserAuthOperations {
 export interface User {
   id: string;
   role: 'admin' | 'user';
+  /**
+   * Public display name
+   */
+  username?: string | null;
+  /**
+   * Full legal name
+   */
+  realName?: string | null;
+  /**
+   * Country of residence
+   */
+  country?: string | null;
+  address?: string | null;
+  /**
+   * State or province
+   */
+  state?: string | null;
   steamId?: string | null;
+  newsSubscribed?: boolean | null;
+  pincode?: string | null;
+  paymentCountry?: string | null;
   hashedPassword?: string | null;
   hashSalt?: string | null;
   hashIterations?: number | null;
@@ -195,8 +221,8 @@ export interface Example {
  */
 export interface Player {
   id: string;
-  userId?: string | null;
-  score?: number | null;
+  userId: string;
+  score: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -209,8 +235,7 @@ export interface Cart {
   user: string | User;
   items?:
     | {
-        productTitle: string;
-        productPrice: number;
+        product: string | Product;
         quantity: number;
         id?: string | null;
       }[]
@@ -231,6 +256,14 @@ export interface Product {
   price: number;
   currency: 'NZD' | 'AUD' | 'USD' | 'EUR' | 'GBP';
   description?: string | null;
+  /**
+   * Stripe product ID used as the canonical reference.
+   */
+  stripeProductId?: string | null;
+  /**
+   * Stripe price ID used for checkout.
+   */
+  stripePriceId?: string | null;
   image?: (string | null) | Media;
   additionalImage?: (string | Media)[] | null;
   updatedAt: string;
@@ -263,14 +296,50 @@ export interface Media {
 export interface Order {
   id: string;
   user: string | User;
-  products: {
-    productName: string;
-    price: number;
-    description?: string | null;
-    id?: string | null;
-  }[];
+  status:
+    | 'pending'
+    | 'payment_completed'
+    | 'waiting_on_details'
+    | 'processing'
+    | 'delivery'
+    | 'completed'
+    | 'cancelled'
+    | 'refunded';
+  items?:
+    | {
+        product: string | Product;
+        quantity: number;
+        image?: (string | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Canonical Stripe checkout session ID for the order.
+   */
+  stripeCheckoutSessionId?: string | null;
+  /**
+   * Canonical Stripe payment intent ID for the order.
+   */
+  stripePaymentIntentId?: string | null;
+  /**
+   * Email captured from the checkout session.
+   */
+  customerEmail?: string | null;
   dateTime: string;
   totalPrice: number;
+  /**
+   * Snapshot of shipping address at time of order
+   */
+  shippingAddress?: {
+    address?: string | null;
+    state?: string | null;
+    country?: string | null;
+    pincode?: string | null;
+  };
+  /**
+   * Internal admin notes about this order
+   */
+  notes?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -310,6 +379,23 @@ export interface News {
 export interface Category {
   id: string;
   name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "donors".
+ */
+export interface Donor {
+  id: string;
+  name: string;
+  tier: 'featured' | 'standard';
+  text?: string | null;
+  image?: (string | null) | Media;
+  /**
+   * Hex color for the tab (e.g. #c69825). Defaults to gold if empty.
+   */
+  tabColor?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -377,6 +463,7 @@ export interface ApiKey {
               | 'media'
               | 'News'
               | 'category'
+              | 'donors'
               | 'accounts'
             )
           | null;
@@ -447,6 +534,10 @@ export interface PayloadLockedDocument {
         value: string | Category;
       } | null)
     | ({
+        relationTo: 'donors';
+        value: string | Donor;
+      } | null)
+    | ({
         relationTo: 'accounts';
         value: string | Account;
       } | null)
@@ -502,7 +593,15 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   role?: T;
+  username?: T;
+  realName?: T;
+  country?: T;
+  address?: T;
+  state?: T;
   steamId?: T;
+  newsSubscribed?: T;
+  pincode?: T;
+  paymentCountry?: T;
   hashedPassword?: T;
   hashSalt?: T;
   hashIterations?: T;
@@ -557,8 +656,7 @@ export interface CartSelect<T extends boolean = true> {
   items?:
     | T
     | {
-        productTitle?: T;
-        productPrice?: T;
+        product?: T;
         quantity?: T;
         id?: T;
       };
@@ -574,6 +672,8 @@ export interface ProductsSelect<T extends boolean = true> {
   price?: T;
   currency?: T;
   description?: T;
+  stripeProductId?: T;
+  stripePriceId?: T;
   image?: T;
   additionalImage?: T;
   updatedAt?: T;
@@ -586,16 +686,29 @@ export interface ProductsSelect<T extends boolean = true> {
  */
 export interface OrderSelect<T extends boolean = true> {
   user?: T;
-  products?:
+  status?: T;
+  items?:
     | T
     | {
-        productName?: T;
-        price?: T;
-        description?: T;
+        product?: T;
+        quantity?: T;
+        image?: T;
         id?: T;
       };
+  stripeCheckoutSessionId?: T;
+  stripePaymentIntentId?: T;
+  customerEmail?: T;
   dateTime?: T;
   totalPrice?: T;
+  shippingAddress?:
+    | T
+    | {
+        address?: T;
+        state?: T;
+        country?: T;
+        pincode?: T;
+      };
+  notes?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -637,6 +750,19 @@ export interface NewsSelect<T extends boolean = true> {
  */
 export interface CategorySelect<T extends boolean = true> {
   name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "donors_select".
+ */
+export interface DonorsSelect<T extends boolean = true> {
+  name?: T;
+  tier?: T;
+  text?: T;
+  image?: T;
+  tabColor?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -720,6 +846,32 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "emailSettings".
+ */
+export interface EmailSetting {
+  id: string;
+  welcomeEmailText: string;
+  newsletterEmailText: string;
+  purchaseEmailText: string;
+  adminPurchaseEmailText: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "emailSettings_select".
+ */
+export interface EmailSettingsSelect<T extends boolean = true> {
+  welcomeEmailText?: T;
+  newsletterEmailText?: T;
+  purchaseEmailText?: T;
+  adminPurchaseEmailText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

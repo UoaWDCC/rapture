@@ -12,7 +12,7 @@ export default function ForgotPassword({ code }: { code: string }) {
                     {code}
                 </Text>
                 <Text>
-                    If you didn't request this, you can ignore this email.
+                    If you didn&apos;t request this, you can ignore this email.
                 </Text>
             </Body>
         </Html>

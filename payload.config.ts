@@ -13,14 +13,24 @@ import { Media } from "./collections/media.ts";
 import { News } from "./collections/News.ts";
 import { Category } from "./collections/category.ts"
 import { authPlugin } from "payload-auth-plugin";
-import { GoogleAuthProvider, PasswordProvider } from "payload-auth-plugin/providers";
+import { GoogleAuthProvider } from "payload-auth-plugin/providers";
 import { Accounts } from "./collections/accounts.ts";
-import ForgotPassword from "./lib/email/email_templates/forgotPassword.tsx";
+import { Donors } from "./collections/Donors.ts"
+
+import { EmailSettings } from "./collections/EmailSettings.ts";
 
 export default buildConfig({
   editor: lexicalEditor(),
 
-  serverURL: 'http://localhost:3000',
+  serverURL: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+
+  admin: {
+    routes: {
+      // A logged-in site user (Google or email login) who isn't an admin would otherwise be stuck on
+      // "Unauthorized" with no login form. Send them through logout so the admin login page shows.
+      unauthorized: '/logout',
+    },
+  },
 
   plugins: [authPlugin({
     allowOAuthAutoSignUp: true,
@@ -28,14 +38,13 @@ export default buildConfig({
     usersCollectionSlug: Users.slug,
     accountsCollectionSlug: Accounts.slug,
     successRedirectPath: '/',
-    errorRedirectPath: '/',
+    errorRedirectPath: '/login',
+    // Issue a normal Payload session (payload-token) so Google users are logged in across the site
+    useAdmin: true,
     providers: [
       GoogleAuthProvider({
         client_id: process.env.GOOGLE_CLIENT_ID!,
         client_secret: process.env.GOOGLE_CLIENT_SECRET!,
-      }),
-      PasswordProvider({
-        emailTemplates: { forgotPassword: ForgotPassword },
       }),
     ],
   })],
@@ -47,8 +56,9 @@ export default buildConfig({
     apiKey: process.env.RESEND_API_KEY || "",
   }),
 
+  globals: [EmailSettings],
   // Ensure created collections are added here
-  collections: [Users, ExampleCollection, Players, CartCollection, Products, OrderCollection, Media, News, Category, Accounts],
+  collections: [Users, ExampleCollection, Players, CartCollection, Products, OrderCollection, Media, News, Category, Donors, Accounts],
 
   secret: process.env.PAYLOAD_SECRET || "",
   db: mongooseAdapter({

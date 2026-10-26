@@ -1,18 +1,19 @@
-import { Body, Html, Heading, Text } from "@react-email/components";
-/*import * as React from "react";
-import { Resend } from "resend";*/
+import { Text } from "@react-email/components";
+import { EmailLayout, baseUrl, textStyle } from "@/lib/email/components/EmailLayout";
 
-export default function Welcome({ name }: { name: string }) {
+type WelcomeProps = {
+  text: string;
+};
+
+export default function Welcome({ text }: WelcomeProps) {
   return (
-    <Html>
-      <Body>
-        <Heading>Welcome Aboard, {name}!</Heading>
-        <Text>
-          just some random text just some random text just some random text just
-          some random text just some random text just some random text just some
-          random text just some random text just some random text
-        </Text>
-      </Body>
-    </Html>
+    <EmailLayout
+      preview="Your Studio Rapture account is ready"
+      heading="Thank you for signing up!"
+      signOff="So get running!"
+      button={{ href: `${baseUrl}/leaderboard`, label: "Press here" }}
+    >
+      <Text style={textStyle}>{text}</Text>
+    </EmailLayout>
   );
 }

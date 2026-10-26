@@ -8,8 +8,8 @@ type HamburgerButtonProps = {
 export default function HamburgerButton({ isOpen, onClick }: HamburgerButtonProps) {
   const lineBase: React.CSSProperties = {
     display: "block",
-    width: "24px",
-    height: "2px",
+    width: "34px",
+    height: "4px",
     backgroundColor: "#ffffff",
     borderRadius: "2px",
     transformOrigin: "center",
@@ -17,7 +17,7 @@ export default function HamburgerButton({ isOpen, onClick }: HamburgerButtonProp
 
   const topLineStyle: React.CSSProperties = {
     ...lineBase,
-    transform: isOpen ? "translateY(7px) rotate(45deg)" : "none",
+    transform: isOpen ? "translateY(9px) rotate(45deg)" : "none",
   };
 
   const midLineStyle: React.CSSProperties = {
@@ -27,7 +27,7 @@ export default function HamburgerButton({ isOpen, onClick }: HamburgerButtonProp
 
   const botLineStyle: React.CSSProperties = {
     ...lineBase,
-    transform: isOpen ? "translateY(-7px) rotate(-45deg)" : "none",
+    transform: isOpen ? "translateY(-9px) rotate(-45deg)" : "none",
   };
 
   return (
@@ -36,22 +36,26 @@ export default function HamburgerButton({ isOpen, onClick }: HamburgerButtonProp
       aria-label="Toggle navigation menu"
       aria-expanded={isOpen}
       style={{
-        position: "fixed",
-        top: "1rem",
-        left: "1rem",
-        zIndex: 1100,
+        position: "absolute",
+        top: "0.5rem",
+        right: "0.5rem",
+        zIndex: 1200,
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        gap: "5px",
-        width: "44px",
-        height: "44px",
+        gap: "6px",
+        width: "54px",
+        height: "54px",
         padding: "8px",
         background: "transparent",
         border: "none",
+        borderRadius: 0,
+        boxShadow: "none",
         cursor: "pointer",
         outline: "none",
+        opacity: 1,
+        visibility: "visible",
       }}
     >
       <span style={topLineStyle} />

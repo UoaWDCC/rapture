@@ -16,12 +16,11 @@ export async function GET() {
 
     return NextResponse.json({
       success: true,
-      data: result.docs.map(player => ({
+      data: result.docs.map((player) => ({
         userId: player.userId,
         score: player.score,
       })),
     });
-
   } catch {
     return NextResponse.json({
       success: false,
@@ -34,40 +33,81 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const payload = await getPayload({ config });
-    const body = await request.json();
+    const { user } = await payload.auth({ headers: request.headers });
 
-    if (!body.userId || body.score === undefined) {
+    if (!user) {
       return NextResponse.json({
         success: false,
-        error: "Missing userId or score",
-      }, { status: 400 });
+        error: "Unauthorized",
+      }, { status: 401 });
     }
 
-    if (typeof body.score !== "number") {
+    const body = await request.json();
+    const providedUserId = body.userId != null ? String(body.userId).trim() : "";
+    const currentUserId = String(user.id);
+
+    if (providedUserId && providedUserId !== currentUserId) {
+      return NextResponse.json({
+        success: false,
+        error: "You can only submit scores for your own account",
+      }, { status: 403 });
+    }
+
+    if (body.score === undefined || typeof body.score !== "number" || Number.isNaN(body.score)) {
       return NextResponse.json({
         success: false,
         error: "Score must be a number",
       }, { status: 400 });
     }
 
-    const newEntry = await payload.create({
+    if (body.score < 0) {
+      return NextResponse.json({
+        success: false,
+        error: "Score must be zero or greater",
+      }, { status: 400 });
+    }
+
+    const existingPlayerResult = await payload.find({
       collection: "Players",
-      data: {
-        userId: body.userId,
-        score: body.score,
+      where: {
+        userId: {
+          equals: currentUserId,
+        },
       },
+      limit: 1,
       overrideAccess: true,
     });
 
+    const playerRecord = existingPlayerResult.docs[0];
+    const nextEntry = playerRecord
+      ? await payload.update({
+          collection: "Players",
+          id: playerRecord.id,
+          data: {
+            userId: currentUserId,
+            score: body.score,
+          },
+          overrideAccess: true,
+        })
+      : await payload.create({
+          collection: "Players",
+          data: {
+            userId: currentUserId,
+            score: body.score,
+          },
+          overrideAccess: true,
+        });
+
     return NextResponse.json({
       success: true,
-      data: newEntry,
-    }, { status: 201 });
+      data: nextEntry,
+    }, { status: playerRecord ? 200 : 201 });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Failed to submit score";
 
-  } catch {
     return NextResponse.json({
       success: false,
-      error: "Failed to submit score",
+      error: message,
     }, { status: 500 });
   }
 }

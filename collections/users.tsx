@@ -1,4 +1,3 @@
-import { User } from "@/payload-types";
 import { CollectionConfig } from "payload";
 
 /*to test email system further*/
@@ -6,6 +5,10 @@ import { sendEmail } from "@/lib/email/send_email";
 import { render } from "@react-email/render";
 import Welcome from "@/lib/email/email_templates/welcome";
 import { withUsersCollection } from "payload-auth-plugin/collection";
+import PasswordReset from "@/lib/email/email_templates/passwordReset";
+import { baseUrl } from "@/lib/email/components/EmailLayout";
+import { User } from "@/payload-types";
+import ResetPasswordEmail from "@/lib/email/email_templates/resetPassword";
 
 const adminCheck = (user: User | null) => {
   return user?.role === "admin";
@@ -13,20 +16,31 @@ const adminCheck = (user: User | null) => {
 
 export const Users = withUsersCollection({
   slug: "users",
-  auth: { tokenExpiration: 60 * 60 * 24 * 7 },
+  auth: {
+    tokenExpiration: 60 * 60 * 24 * 7,
+    forgotPassword: {
+      generateEmailSubject: () => "Reset your Studio Rapture password",
+      generateEmailHTML: async (args) =>
+        render(
+          <PasswordReset
+            resetUrl={`${baseUrl}/change-password?token=${args?.token}`}
+            email={args?.user?.email}
+          />,
+        ),
+    },
+  },
   admin: {
     useAsTitle: "email",
   },
 
   access: {
-    // restricting Create, Read, Update and Delete(CRUD) access for this collection
     create: () => true,
-    read: ({ req: { user } }) => adminCheck(user),
+    read: ({ req: { user } }) =>
+      adminCheck(user) || { id: { equals: user?.id } },
     update: ({ req: { user } }) =>
       adminCheck(user) || { id: { equals: user?.id } },
     delete: ({ req: { user } }) => adminCheck(user),
-
-    admin: ({ req: { user } }) => adminCheck(user), // Whether a user from this collection can access the admin panel or not
+    admin: ({ req: { user } }) => adminCheck(user),
   },
 
   fields: [
@@ -44,31 +58,85 @@ export const Users = withUsersCollection({
         { label: "User", value: "user" },
       ],
     },
+
+    {
+      name: "username",
+      type: "text",
+      unique: true,
+      admin: {
+        description: "Public display name",
+      },
+    },
+    {
+      name: "realName",
+      type: "text",
+      admin: {
+        description: "Full legal name",
+      },
+    },
+    {
+      name: "country",
+      type: "text",
+      admin: {
+        description: "Country of residence",
+      },
+    },
+
+    {
+      name: "address",
+      type: "text",
+    },
+    {
+      name: "state",
+      type: "text",
+      admin: {
+        description: "State or province",
+      },
+    },
     {
       name: "steamId",
       type: "text",
       unique: true,
       index: true,
     },
+    {
+      name: "newsSubscribed",
+      label: "Subscribed to news",
+      type: "checkbox",
+      defaultValue: false,
+      index: true,
+    },
+    {
+      name: "pincode",
+      type: "text",
+    },
+    {
+      name: "paymentCountry",
+      type: "text",
+    },
   ],
 
-  /*for email system testing - temporarily disabled during auth migration*/
-  // hooks: {
-  //   afterChange: [
-  //     async ({ doc, operation }) => {
-  //       if (operation == "create") {
-  //         try {
-  //           const html = await render(<Welcome name={doc.name} />);
-  //           await sendEmail({
-  //             to: doc.email,
-  //             subject: "Welcome!",
-  //             html,
-  //           });
-  //         } catch (err) {
-  //           console.error("Welcome email failed.");
-  //         }
-  //       }
-  //     },
-  //   ],
-  // },
+  /*for email system testing*/
+  hooks: {
+    afterChange: [
+      async ({ doc, operation, req }) => {
+        if (operation == "create") {
+          try {
+            const settings = (await req.payload.findGlobal({
+              slug: "emailSettings",
+            })) as { welcomeEmailText?: string };
+            const text = settings?.welcomeEmailText || "Welcome!";
+            const html = await render(<Welcome text={text} />);
+            await sendEmail({
+              to: doc.email,
+              subject: "Welcome to Studio Rapture",
+              html,
+            });
+          } catch {
+            console.error("Welcome email failed.");
+          }
+        }
+      },
+    ],
+  },
 });
