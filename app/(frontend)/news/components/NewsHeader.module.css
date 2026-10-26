@@ -5,13 +5,13 @@
 .headerRow {
   display: flex;
   align-items: stretch;
-  gap: 19px;
+  gap: clamp(6px, 1.2vw, 19px);
   width: 100%;
 }
 
-/* ===========================
+/* ===================
    Newsfeed Title Bar
-   =========================== */
+   =================== */
 
 .newsfeedTitle {
   flex: 1;
@@ -20,34 +20,38 @@
   background-size: 100% 100%;
   display: flex;
   align-items: center;
-  height: 49px;
+  height: clamp(21px, 3.5vw, 49px);
 }
 
 .newsfeedTitleText {
-  padding: 0 clamp(10px, 2vw, 20px);
-  font-size: clamp(14px, 2.5vw, 24px);
+  padding: 0 clamp(8px, 1.5vw, 20px);
+  font-size: clamp(10px, 1.6vw, 24px);
   color: #302F2F;
   font-family: var(--font-nova-cut), sans-serif;
   margin: 0;
   white-space: nowrap;
+  letter-spacing: -0.01em;
 }
 
-/* ===========================
+/* =============
    Admin Button
-   =========================== */
+   ============= */
 
 .adminButton {
   position: relative;
   display: flex;
   align-items: center;
-  width: clamp(200px, 35vw, 403px);
-  height: 49px;
+  flex: 0 0 clamp(110px, 26%, 403px);
+  max-width: 403px;
+  height: clamp(20px, 3.5vw, 49px);
   background: rgba(242, 180, 35, 0.9);
   border: none;
   cursor: pointer;
   text-decoration: none;
   color: #000000;
   transition: opacity 0.2s;
+  padding-right: clamp(22px, 4.5vw, 65px);
+  box-sizing: border-box;
 }
 
 .adminButton:hover {
@@ -56,21 +60,57 @@
 
 .adminButtonText {
   font-family: var(--font-nova-cut), sans-serif;
-  font-size: clamp(12px, 2vw, 20px);
+  font-size: clamp(9px, 1.5vw, 20px);
   font-weight: 400;
   color: #000000;
   white-space: nowrap;
-  padding-left: clamp(5px, 1vw, 10px);
+  padding-left: clamp(4px, 0.8vw, 10px);
 }
 
 .adminButtonBox {
   position: absolute;
-  width: clamp(35px, 5vw, 53px);
-  height: clamp(20px, 3vw, 30px);
-  top: clamp(10px, 1.5vw, 10px); /* Keeps it vertically centred approx */
-  right: clamp(4px, 1vw, 8px);
+  width: clamp(18px, 3.8vw, 53px);
+  height: clamp(13px, 2.6vw, 30px);
+  top: 50%;
+  transform: translateY(-50%);
+  right: clamp(4px, 0.8vw, 8px);
   background: #DCCEAB;
   border: 1px solid #F2B423;
   box-sizing: border-box;
   pointer-events: none;
+}
+
+/* =========================
+   Mobile Responsive Styles
+   ========================= */
+
+/* Scales header components and typography for mobile
+   viewports while omitting decorative button accents (the pale box next to Admin Button in desktop). 
+*/
+
+@media (max-width: 768px) {
+  .headerRow {
+    gap: 6px;
+  }
+
+  .newsfeedTitle {
+    height: clamp(28px, 7vw, 42px);
+  }
+
+  .newsfeedTitleText {
+    display: none;
+  }
+
+  .adminButton {
+    height: clamp(28px, 7vw, 42px);
+    padding-right: 6px;
+  }
+
+  .adminButtonText {
+    font-size: clamp(11px, 2.8vw, 15px);
+  }
+
+  .adminButtonBox {
+    display: none;
+  }
 }

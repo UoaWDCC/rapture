@@ -2,8 +2,10 @@ import { defineConfig, devices } from '@playwright/test'
 try { process.loadEnvFile('.env') } catch {}
 
 export default defineConfig({
-    testDir: './e2e',
+    testDir: '.',
+    testMatch: ['e2e/**/*.spec.ts', 'tests/**/*.spec.ts'],
     fullyParallel: false,          // auth tests share a DB, so keep them sequential for now
+    forbidOnly: !!process.env.CI,  // fail on CI if a test.only is left in
     retries: process.env.CI ? 2 : 0,
     reporter: 'html',
     use: {
@@ -19,4 +21,4 @@ export default defineConfig({
         reuseExistingServer: true,   // if you already have the dev server running, it uses that
         timeout: 120_000,            // Next's first compile can be slow
     },
-    })
+})

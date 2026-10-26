@@ -1,0 +1,618 @@
+/* ================================================
+   NewsFeedCard — Mobile-first layered card design
+   ================================================ */
+
+/* ===== Layout Toggle ===== */
+
+.mobileLayout {
+  position: relative;
+  width: 100%;
+  background: rgba(242, 180, 35, 0.15);
+  border: 1px solid #F2B423;
+  overflow: visible;
+}
+
+.desktopLayout {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .mobileLayout {
+    display: none;
+  }
+
+  .desktopLayout {
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: 1273px;
+    min-height: 210px;
+    background: rgba(242, 180, 35, 0.15);
+    border: 1px solid #F2B423;
+    overflow: visible;
+  }
+}
+
+/* ====================
+   DESKTOP CARD LAYERS
+   ====================*/
+
+@media (min-width: 769px) {
+  /* Connecting horizontal lines spanning gaps */
+  .desktopLineLeft,
+  .desktopLineAmberToDate,
+  .desktopLineDateToBox,
+  .desktopLineBoxToEdge {
+    position: absolute;
+    top: 50%;
+    height: 1px;
+    background: #F2B423;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .desktopLineLeft {
+    left: 0;
+    width: 15.43%;
+  }
+
+  .desktopLineAmberToDate {
+    left: 81.43%;
+    width: 1.17%;
+  }
+
+  .desktopLineDateToBox {
+    left: 85.80%;
+    width: 0.69%;
+  }
+
+  .desktopLineBoxToEdge {
+    left: 97.80%;
+    width: 2.20%;
+  }
+
+
+  /* Flat amber rectangle (no radius) — sits behind curved panel */
+  .desktopAmberRectFlat {
+    position: absolute;
+    left: 15.40%;
+    top: 0;
+    bottom: 0;
+    width: 66%;
+    background: rgba(242, 180, 35, 0.5);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* Amber curved rectangle panel — flush with top */
+  .desktopAmberPanel {
+    position: relative;
+    margin-left: 15.43%;
+    width: 66%;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 12px 16px 8px 16px;
+    border-radius: 10px;
+    background: rgba(242, 180, 35, 0.5);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Gray inner card */
+  .desktopInnerCard {
+    position: relative;
+    background: rgba(230, 230, 230, 0.6);
+    border: 1px solid #9F9F9F;
+    border-radius: 10px;
+    padding: 16px 24px 14px 25px;
+    z-index: 4;
+    opacity: 0.95;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 155px;
+  }
+
+  .desktopInnerCard::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(242, 180, 35, 0.5);
+    border-radius: 10px;
+    pointer-events: none;
+  }
+
+  /* Left text content — takes 3/5 (60%) of the card */
+  .desktopTextArea {
+    flex: 0 0 calc(60% - 12px);
+    max-width: calc(60% - 12px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .desktopSubtitleRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+    margin-bottom: 6px;
+  }
+
+  .desktopBullet {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #302F2F;
+    flex-shrink: 0;
+  }
+
+  .desktopSubtitleText {
+    font-family: var(--font-dm-sans), sans-serif;
+    font-size: 13px;
+    line-height: 15px;
+    color: #302F2F;
+    font-weight: 400;
+  }
+
+  .desktopCardTitle {
+    font-family: var(--font-nova-cut), sans-serif;
+    font-size: 36px;
+    line-height: 28px;
+    letter-spacing: -0.01em;
+    color: #302F2F;
+    margin: 6px 0 10px 3px;
+  }
+
+  .desktopCardDescription {
+    font-family: var(--font-fira-mono), monospace;
+    font-size: 12px;
+    line-height: 16px;
+    color: #302F2F;
+    width: 100%;
+    max-width: 100%;
+    max-height: 52px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-align: left;
+    margin-left: 3px;
+  }
+
+  .desktopCardDescription p {
+    margin: 0;
+  }
+
+  .desktopCardDescription.desktopExpanded {
+    max-height: none;
+    display: block;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    overflow: visible;
+  }
+
+  /* Right image container on desktop — takes remaining 2/5 (40%) */
+  .desktopImageContainer {
+    flex: 0 0 calc(40% - 8px);
+    max-width: calc(40% - 8px);
+    height: 135px;
+    max-height: 135px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(242, 180, 35, 0.4);
+    align-self: flex-start;
+  }
+
+  .desktopImage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* Read More button on desktop */
+  .desktopReadMoreBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    padding: 2px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    z-index: 5;
+  }
+
+  .desktopReadMoreBtn:hover {
+    opacity: 0.75;
+  }
+
+  .desktopReadMoreCircleWrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+
+  .desktopPlayIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 15px;
+    height: 15px;
+    z-index: 1;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .desktopReadMoreCircle {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid white;
+    background: rgba(242, 180, 35, 0.6);
+    flex-shrink: 0;
+  }
+
+  .desktopReadMoreDot {
+    display: block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: white;
+  }
+
+  .desktopReadMoreLabel {
+    font-family: var(--font-fira-mono), monospace;
+    font-size: 13px;
+    line-height: 15px;
+    color: #FFFFFF;
+  }
+
+  /* Date badge on desktop */
+  .desktopDateBadge {
+    position: absolute;
+    right: 14.20%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3.2%;
+    height: 86%;
+    background: rgba(0, 0, 0, 0.75);
+    border: 1px solid #F2B423;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+  }
+
+  .desktopDateText {
+    font-family: var(--font-nova-cut), sans-serif;
+    font-size: clamp(15px, 1.4vw, 21px);
+    line-height: 1;
+    color: #F2B423;
+    white-space: nowrap;
+    transform: rotate(-90deg);
+    transform-origin: center center;
+    letter-spacing: 0.04em;
+    text-align: center;
+  }
+
+  /* Black box on desktop */
+  .desktopBlackBox {
+    position: absolute;
+    right: 2.20%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 11.31%;
+    height: 86%;
+    background: rgba(0, 0, 0, 0.75);
+    border: 1px solid #F2B423;
+    z-index: 3;
+  }
+}
+
+/* ======================
+   TABLET RESPONSIVENESS 
+   ====================== */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .desktopCardDescription {
+    font-size: 10.5px;
+    line-height: 14.5px;
+    max-height: 45px;
+  }
+}
+
+/* ===================
+   MOBILE CARD LAYERS 
+   =================== */
+
+/* Horizontal center lines (segmented to avoid bleeding through semi-transparent amber panel/gray card) */
+.lineLeft,
+.lineAmberToDate,
+.lineDateToBox,
+.lineBoxToEdge {
+  position: absolute;
+  top: 50%;
+  height: 1px;
+  background: #F2B423;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.lineLeft {
+  left: 0;
+  width: 15.43%;
+}
+
+.lineAmberToDate {
+  left: 80.43%;
+  width: 0.98%;
+}
+
+.lineDateToBox {
+  left: 86.41%;
+  width: 0.63%;
+}
+
+.lineBoxToEdge {
+  left: 98.35%;
+  width: 1.65%;
+}
+
+/* Flat amber rectangle (no border-radius) Sits behind the curved amber panel so its square corners peek out.*/
+.amberRectFlat {
+  position: absolute;
+  left: 15.40%;
+  top: 1px;
+  bottom: 0;
+  width: 65%;
+  background: rgba(242, 180, 35, 0.5);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Amber curved rectangle panel */
+.amberPanel {
+  position: relative;
+  margin-left: 15.43%;
+  width: 65%;
+  margin-top: 1px;
+  margin-bottom: 0;
+  padding: 6px 6px 4px 6px;
+  border-radius: 10px;
+  background: rgba(242, 180, 35, 0.5);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Gray inner card */
+.innerCard {
+  position: relative;
+  background: rgba(230, 230, 230, 0.6);
+  border: 1px solid #9F9F9F;
+  border-radius: 10px;
+  padding: 8px 14px 8px 24px;
+  z-index: 3;
+  opacity: 0.95;
+}
+
+/* Gold stroke overlay on gray card */
+.innerCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(242, 180, 35, 0.5);
+  border-radius: 10px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* ===============================
+   TEXT CONTENT (inside gray card)
+   =============================== */
+
+/* --- Subtitle row with bullet --- */
+.subtitleRow {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 0;
+}
+
+/*
+   Bullet: small filled circle.
+*/
+.bullet {
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #302F2F;
+  flex-shrink: 0;
+}
+
+.subtitleText {
+  font-family: var(--font-fira-mono), monospace;
+  font-size: clamp(11px, 2.0vw, 13.5px);
+  line-height: 1.3;
+  color: #302F2F;
+}
+
+/* --- Title --- */
+.cardTitle {
+  font-family: var(--font-nova-cut), sans-serif;
+  font-size: clamp(19px, 3.8vw, 24px);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: #302F2F;
+  margin: 0;
+}
+
+/* --- Description --- */
+/* Max 3 lines on mobile, truncate with ... */
+.cardDescription {
+  font-family: var(--font-fira-mono), monospace;
+  font-size: clamp(9.5px, 1.8vw, 12px);
+  line-height: 1.45;
+  color: #302F2F;
+  margin-top: 2px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Strip default RichText paragraph margins */
+.cardDescription p {
+  margin: 0;
+}
+
+/* Expanded state: remove truncation */
+.expanded {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  overflow: visible;
+}
+
+/* --- Expanded Image (at bottom of inner card on mobile) --- */
+.expandedImageWrapper {
+  margin-top: 8px;
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(242, 180, 35, 0.4);
+}
+
+.expandedImage {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ==================================================
+   READ MORE BUTTON (on amber panel, below gray card)
+   ================================================== */
+
+/* Within the amber panel flow, this sits below the innerCard with a small gap. */
+.readMoreBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  padding: 2px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.readMoreBtn:hover {
+  opacity: 0.75;
+}
+
+/* Circle icon: two circles, gold-filled. */
+.readMoreCircle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid white;
+  background: #F2B423;
+  flex-shrink: 0;
+}
+
+.readMoreDot {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: white;
+}
+
+/* Font: Fira Mono Regular 11, line-height 15, white */
+.readMoreLabel {
+  font-family: var(--font-fira-mono), monospace;
+  font-size: 11px;
+  line-height: 15px;
+  color: #FFFFFF;
+}
+
+/* ======================================
+   DATE BADGE (right side, vertical text)
+   ====================================== */
+
+/*
+   Both date badge and black box stretch close to the top and bottom (86% height)
+   and share the same dark fill for a consistent look.
+*/
+.dateBadge {
+  position: absolute;
+  right: 13.59%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5%;
+  height: 86%;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid #F2B423;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+/* Date text: rotated -90° (reads bottom-to-top), gold fill. */
+.dateText {
+  font-family: var(--font-nova-cut), sans-serif;
+  font-size: clamp(10px, 2.8vw, 16px);
+  line-height: 1;
+  color: #F2B423;
+  white-space: nowrap;
+  transform: rotate(-90deg);
+  transform-origin: center center;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+/* ================================================================
+   BLACK BOX (far right) — same dark fill and height as date badge
+   ================================================================ */
+
+.blackBox {
+  position: absolute;
+  right: 1.65%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 11.31%;
+  height: 86%;
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid #F2B423;
+  z-index: 3;
+}
+

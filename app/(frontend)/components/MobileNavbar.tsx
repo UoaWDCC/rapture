@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import type { User } from "@/payload-types";
 import Sidebar from "./Sidebar";
 
 type navLink = {
@@ -20,9 +21,10 @@ type itemNav = {
 
 type NavProps = {
   item: itemNav[];
+  user: User | null;
 };
 
-export default function MobileNavbar({ item }: NavProps) {
+export default function MobileNavbar({ item, user }: NavProps) {
   const [openItemIds, setOpenItemIds] = useState<Record<number, boolean>>({});
 
   const toggleItem = (id: number) => {
@@ -35,7 +37,7 @@ export default function MobileNavbar({ item }: NavProps) {
   return (
     <div className="mx-auto w-full bg-[#04080e] px-3 pb-2 pt-2 shadow-[0_0_0_1px_rgba(58,118,255,0.35)]">
       <div className="flex items-center justify-between gap-3 pb-3">
-        <Link href="/login">
+        <Link href={user ? "/account" : "/login"}>
           <Image
             className="pt-3 pl-4 hover:filter-grey"
             alt="Account Profile"

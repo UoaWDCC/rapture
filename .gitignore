@@ -43,3 +43,11 @@ next-env.d.ts
 
 # media
 /media
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
