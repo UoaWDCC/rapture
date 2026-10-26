@@ -1,5 +1,7 @@
 import { test, expect, type Page } from '@playwright/test'
 
+type CheckoutRequestBody = { price_id?: string; quantity?: number }
+
 const PRICE_ID = 'price_1TRQuyPgB8PggCocyrPvde6P' // hard-coded test product in cart/page.tsx
 
 const addTestItem = (page: Page) => page.getByRole('button', { name: 'Add to cart' }).click()
@@ -46,7 +48,7 @@ test.describe('checkout', () => {
   })
 
   test('sends the item to the checkout API and follows the redirect', async ({ page }) => {
-    let body: any
+    let body: CheckoutRequestBody | undefined
     await page.route('**/api/checkout_sessions', async route => {
       body = route.request().postDataJSON()
       await route.fulfill({ json: { url: '/' } })
@@ -54,7 +56,7 @@ test.describe('checkout', () => {
     await addTestItem(page)
     await checkoutBtn(page).click()
     await expect(page).toHaveURL('/')
-    expect(body.price_id).toBe(PRICE_ID)
+    expect(body?.price_id).toBe(PRICE_ID)
   })
 
   test('shows an error if checkout fails', async ({ page }) => {
@@ -71,7 +73,7 @@ test.describe('checkout', () => {
 
   // KNOWN ISSUE (fails until fixed): only price_id of the first item is sent; quantity is hard-coded to 1 in the API route
   test('sends the quantity to the checkout API', async ({ page }) => {
-    let body: any
+    let body: CheckoutRequestBody | undefined
     await page.route('**/api/checkout_sessions', async route => {
       body = route.request().postDataJSON()
       await route.fulfill({ json: { url: '/' } })
