@@ -201,8 +201,8 @@ export interface Example {
  */
 export interface Player {
   id: string;
-  userId?: string | null;
-  score?: number | null;
+  userId: string;
+  score: number;
   updatedAt: string;
   createdAt: string;
 }

@@ -5,7 +5,6 @@
 //
 // ISSUES found while testing (not fixed):
 // - A malformed JSON body returns 500 instead of 400.
-// - Quantities (0, negative, non-numeric) are not validated before Stripe.
 // - userId is taken from the request body with no auth check.
 // - success/cancel urls are built from the client-controlled Origin header.
 
@@ -66,6 +65,27 @@ describe("POST /api/checkout_sessions", () => {
       { price: "price_a", quantity: 1 },
     ]);
   });
+
+  it("uses the quantity given with a single price_id", async () => {
+    const res = await POST(makeRequest({ price_id: "price_a", quantity: 3 }));
+
+    expect(res.status).toBe(200);
+    expect(createSession.mock.calls[0][0].line_items).toEqual([
+      { price: "price_a", quantity: 3 },
+    ]);
+  });
+
+  it.each([0, -1, 1.5, "2"])(
+    "returns 400 for an invalid quantity (%s)",
+    async (quantity) => {
+      const res = await POST(
+        makeRequest({ line_items: [{ price: "price_a", quantity }] }),
+      );
+
+      expect(res.status).toBe(400);
+      expect(createSession).not.toHaveBeenCalled();
+    },
+  );
 
   it("returns 400 when no valid price is given", async () => {
     const res = await POST(makeRequest({ line_items: [] }));

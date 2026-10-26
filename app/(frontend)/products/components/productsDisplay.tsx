@@ -23,7 +23,7 @@ export default async function ProductsDisplay(props: productProps) {
         </div>
         <div className="inline-block overflow-y-hidden max-w-full ml-[-100%] pr-[10%] p-3 bg-black rounded-l-md transition ease-in-out duration-500 opacity-0 group-hover:opacity-100">
           <div className="hover:underline hover:cursor-pointer hover:text-bold">
-            <Link href="/">
+            <Link href={`/products/${props.product.id}`}>
               <p className="font-bold text-[150%] p-[5%]">{props.product.name}</p>
               <p className="text-[80%] px-[5%]">{formattedPrice} {props.product.currency}</p>
               {/*<p className="hidden md:text-[70%] md:px-[5%] md:block">{props.product.description}</p>*/}

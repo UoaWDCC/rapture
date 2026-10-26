@@ -43,7 +43,7 @@ export function getAuthRedirectQuery(params: ParamsLike): string {
 }
 
 /** Where to send the user after a successful login. */
-export function getPostLoginPath(params: ParamsLike, fallback = "/"): string {
+export function getPostLoginPath(params: ParamsLike, fallback = "/account"): string {
   const path = getSafeRedirectPath(params.get("next"), fallback);
   const intent = params.get("intent");
   if (!isLoginIntent(intent)) return path;

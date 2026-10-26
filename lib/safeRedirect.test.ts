@@ -31,8 +31,8 @@ describe("buildLoginUrl", () => {
 });
 
 describe("getPostLoginPath", () => {
-  it("defaults to home", () => {
-    expect(getPostLoginPath(params(""))).toBe("/");
+  it("defaults to the account page after login", () => {
+    expect(getPostLoginPath(params(""))).toBe("/account");
   });
 
   it("returns next with the intent attached", () => {
@@ -44,7 +44,9 @@ describe("getPostLoginPath", () => {
 
   it("drops unknown intents and unsafe targets", () => {
     expect(getPostLoginPath(params("next=/news&intent=deleteAccount"))).toBe("/news");
-    expect(getPostLoginPath(params("next=//evil.com&intent=subscribe"))).toBe("/?intent=subscribe");
+    expect(getPostLoginPath(params("next=//evil.com&intent=subscribe"))).toBe(
+      "/account?intent=subscribe",
+    );
   });
 });
 
