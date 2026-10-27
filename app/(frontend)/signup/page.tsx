@@ -8,6 +8,9 @@ import AuthFormCard from "../components/auth/authFormCard";
 import AuthSideCard from "../components/auth/authSideCard";
 import Image from "next/image";
 import { getErrorMessage } from "@/lib/getErrorMessage";
+import { authClient } from "@/lib/auth";
+import { rememberGoogleSignup } from "@/lib/oauthIntent";
+import { getOAuthLoginError } from "@/lib/oauthLoginErrors";
 
 // useSearchParams needs a Suspense boundary in the app router
 export default function SignupPage() {
@@ -19,13 +22,15 @@ export default function SignupPage() {
 }
 
 function SignupPageContent() {
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
+  // A failed Google signup comes back as /signup?error=<code>
+  const [error, setError] = useState(() => getOAuthLoginError(searchParams.get("error")));
+  const { oauth } = authClient.signin();
 
   const router = useRouter();
-  const searchParams = useSearchParams();
   // Keeps ?next=...&intent=... so login can resume the action (e.g. subscribe)
   const authRedirectQuery = getAuthRedirectQuery(searchParams);
 
@@ -132,7 +137,14 @@ function SignupPageContent() {
             {/* "or sign up with" divider and Gmail OAuth icon */}
             <div className="flex flex-col items-center gap-3 mt-4">
               <p className="text-gray-400 font-mono text-xs">or log in with</p>
-              <div className="border-2 border-[#0650DA] rounded-3xl px-8 py-2">
+              <div
+                className="border-2 border-[#0650DA] rounded-3xl px-8 py-2 cursor-pointer"
+                onClick={() => {
+                  // Tells the server this is a signup, so a new Google account gets created
+                  rememberGoogleSignup();
+                  oauth("google");
+                }}
+              >
                 <div className="bg-white rounded-full w-8 h-8 flex items-center justify-center">
                   <Image
                     src="/gmail.png"

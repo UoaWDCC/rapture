@@ -4,6 +4,7 @@ import { CollectionConfig } from "payload";
 import { sendEmail } from "@/lib/email/send_email";
 import { render } from "@react-email/render";
 import Welcome from "@/lib/email/email_templates/welcome";
+import { withUsersCollection } from "payload-auth-plugin/collection";
 import PasswordReset from "@/lib/email/email_templates/passwordReset";
 import { baseUrl } from "@/lib/email/components/EmailLayout";
 import { User } from "@/payload-types";
@@ -13,9 +14,10 @@ const adminCheck = (user: User | null) => {
   return user?.role === "admin";
 };
 
-export const Users: CollectionConfig = {
+export const Users = withUsersCollection({
   slug: "users",
   auth: {
+    tokenExpiration: 60 * 60 * 24 * 7,
     forgotPassword: {
       generateEmailSubject: () => "Reset your Studio Rapture password",
       generateEmailHTML: async (args) =>
@@ -44,7 +46,7 @@ export const Users: CollectionConfig = {
   fields: [
     {
       name: "email",
-      type: "text",
+      type: "email",
     },
     {
       name: "role",
@@ -137,4 +139,4 @@ export const Users: CollectionConfig = {
       },
     ],
   },
-};
+});
