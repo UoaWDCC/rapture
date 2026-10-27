@@ -3,7 +3,7 @@
 import { UpdateProfileState } from "@/app/(frontend)/components/UserDashboard/Profile";
 import payloadConfig from "@/payload.config";
 import { revalidatePath } from "next/cache";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getPayload } from "payload";
 import { logout as payloadLogout } from "@payloadcms/next/auth";
@@ -52,12 +52,11 @@ export async function updateProfile(
 }
 
 export async function logout(): Promise<void> {
-  // Payload's own logout: ends the session on the server (so the old token stops working)
-  // and deletes the auth cookie by its real name. Only deleting the cookie here left the
-  // session valid, so users who "logged out" could still subscribe/unsubscribe etc.
   await payloadLogout({ config: payloadConfig });
 
-  // Make sure server components (navbar, news page) re-render as logged out
+  const payload = await getPayload({ config: payloadConfig });
+  (await cookies()).delete(`${payload.config.cookiePrefix}-token`);
+
   revalidatePath("/", "layout");
   redirect("/login");
 }

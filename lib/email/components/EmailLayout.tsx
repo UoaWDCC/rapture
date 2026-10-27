@@ -1,23 +1,35 @@
-import { Body, Html, Head, Preview, Text, Img, Container, Section, Hr, Button, Heading } from "@react-email/components";
+import {
+  Body,
+  Html,
+  Head,
+  Preview,
+  Text,
+  Img,
+  Container,
+  Section,
+  Hr,
+  Button,
+  Heading,
+} from "@react-email/components";
 import type { CSSProperties, ReactNode } from "react";
 
-export const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+export const baseUrl =
+  process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 
-// Brand colours, same as --color-brand-* in app/(frontend)/styles.css
+const PUBLIC_SITE_URL = "https://rapture.wdcc.co.nz";
+const isLocal = /\/\/(localhost|127\.0\.0\.1)(:|\/|$)/.test(baseUrl);
+export const emailAssetUrl =
+  process.env.EMAIL_ASSET_URL || (isLocal ? PUBLIC_SITE_URL : baseUrl);
+
 export const yellow = "#f2b423";
 const darkBrown = "#150703";
 const cardBrown = "#130604";
 export const mutedGold = "#8a6d3b";
 
-// Email clients can't load next/font, so the Google Fonts link is used instead.
-// Clients that block web fonts (e.g. Gmail) fall back to Arial.
 const fontFamily = "'Nova Cut', Arial, sans-serif";
 
-// Soft glow on the yellow text, as in the Figma design. Clients that don't
-// support text-shadow just show flat text.
 const glow = "0 0 6px rgba(242, 180, 35, 0.45)";
 
-// Shared styles for the content inside the card, so every template looks the same
 export const headingStyle: CSSProperties = {
   color: yellow,
   fontFamily,
@@ -40,7 +52,6 @@ export const textStyle: CSSProperties = {
   margin: "0 0 18px",
 };
 
-// Smaller, left-aligned text for labelled details (order lines, enquiry info)
 export const detailStyle: CSSProperties = {
   ...textStyle,
   textAlign: "left",
@@ -52,7 +63,6 @@ export const linkStyle: CSSProperties = {
   textDecoration: "underline",
 };
 
-// Inner box for quoted or tabular content (message copies, order lines)
 export const boxStyle: CSSProperties = {
   border: `1px solid ${mutedGold}`,
   borderRadius: "4px",
@@ -60,8 +70,6 @@ export const boxStyle: CSSProperties = {
   margin: "0 0 18px",
 };
 
-// Inline styles above are the source of truth; these only tweak spacing on
-// narrow screens for clients that support <style>.
 const responsiveCss = `
   @media only screen and (max-width: 480px) {
     .rp-header { padding: 40px 12px 20px !important; }
@@ -136,12 +144,23 @@ export function EmailLayout({
         {/* The design is dark already; stop mail apps from inverting it */}
         <meta name="color-scheme" content="dark" />
         <meta name="supported-color-schemes" content="dark" />
-        <link href="https://fonts.googleapis.com/css2?family=Nova+Cut&display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Nova+Cut&display=swap"
+          rel="stylesheet"
+        />
         <style>{responsiveCss}</style>
       </Head>
       <Preview>{preview}</Preview>
-      <Body style={{ backgroundColor: "#000000", margin: 0, padding: "32px 0 0" }}>
-        <Container style={{ backgroundColor: darkBrown, maxWidth: "600px", width: "100%" }}>
+      <Body
+        style={{ backgroundColor: "#000000", margin: 0, padding: "32px 0 0" }}
+      >
+        <Container
+          style={{
+            backgroundColor: darkBrown,
+            maxWidth: "600px",
+            width: "100%",
+          }}
+        >
           <Section className="rp-header" style={{ padding: "64px 20px 26px" }}>
             <Text
               className="rp-header-text"
@@ -162,13 +181,16 @@ export function EmailLayout({
           </Section>
 
           <Img
-            src={`${baseUrl}/rapture_emailbanner.png`}
+            src={`${emailAssetUrl}/rapture_emailbanner.png`}
             width="600"
             alt="Studio Rapture"
             style={{ display: "block", width: "100%", height: "auto" }}
           />
 
-          <Section className="rp-card-wrap" style={{ padding: "32px 26px 24px" }}>
+          <Section
+            className="rp-card-wrap"
+            style={{ padding: "32px 26px 24px" }}
+          >
             <Section
               className="rp-card"
               style={{
@@ -203,14 +225,14 @@ export function EmailLayout({
                 {signOff}
               </Text>
 
-              {button && <EmailButton href={button.href}>{button.label}</EmailButton>}
+              {button && (
+                <EmailButton href={button.href}>{button.label}</EmailButton>
+              )}
             </Section>
           </Section>
 
-          {/* Logo and gothic pattern are one image so they line up in every
-              client, including the ones that drop background images. */}
           <Img
-            src={`${baseUrl}/email/footer.jpg`}
+            src={`${emailAssetUrl}/email/footer.jpg`}
             width="600"
             alt="Studio Rapture"
             style={{ display: "block", width: "100%", height: "auto" }}
