@@ -5,7 +5,8 @@ import GlitchReveal from "../components/GlitchReveal";
 // Left edge of the centred desktop navbar: half of (page width - navbar content width).
 // Content = logo (156px) + mr-8 (32px) + 4 nav buttons at clamp(8rem,16vw,12.5rem)
 // + gaps (12px) + account icon (60px). Update if the navbar layout changes.
-const NAVBAR_LEFT_EDGE = "max(0px, calc(50% - 130px - 2 * clamp(8rem, 16vw, 12.5rem)))";
+const NAVBAR_LEFT_EDGE =
+  "max(0px, calc(50% - 130px - 2 * clamp(8rem, 16vw, 12.5rem)))";
 
 type TeamMember = { role: string; name: string };
 
@@ -40,7 +41,9 @@ export default async function Page() {
         {/* LEFT - Folders */}
         <div
           className="absolute left-0 right-0 top-0 flex z-100 h-172.5 nav-desktop:left-(--navbar-left-edge)"
-          style={{ "--navbar-left-edge": NAVBAR_LEFT_EDGE } as React.CSSProperties}
+          style={
+            { "--navbar-left-edge": NAVBAR_LEFT_EDGE } as React.CSSProperties
+          }
         >
           <div className="w-[100%] h-full relative">
             <ContactFile
@@ -76,21 +79,30 @@ export default async function Page() {
                 <h1 className="mt-10 mb-15 text-left">TEAM RAP!</h1>
 
                 <p className="w-full mb-5 text-right">
-                  This dedicated website for Studio Rapture was created by team RAP from the Web Development
-                  & Coding Club (WDCC) at the University of Auckland. As a team of 9 with 6 developers, 1 designer
-                  and 2 leads, we&apos;ve worked hard for a full year on this website and was able to complete it
-                  before the expected deadline. Despite some challenges, late nights, and last minute edits, 
-                  this experience was definitely worthwhile for the whole team.
+                  This dedicated website for Studio Rapture was created by team
+                  RAP from the Web Design & Coding Club (WDCC) at the University
+                  of Auckland. As a team of 9 with 6 developers, 1 designer and
+                  2 leads, we&apos;ve worked hard for a full year on this
+                  website and was able to complete it before the expected
+                  deadline. Despite some challenges, late nights, and last
+                  minute edits, this experience was definitely worthwhile for
+                  the whole team.
                 </p>
                 <p className="w-full mb-10 text-right">
-                  We hope all users (including Studio Rapture) loves this website, as much as we do.
+                  We hope all users (including Studio Rapture) loves this
+                  website, as much as we do.
                 </p>
                 <div className="flex flex-col gap-y-6">
                   {TEAM_ROWS.map((row, rowIndex) => (
-                    <div key={rowIndex} className={`grid gap-x-8 gap-y-6 ${ROW_COLUMNS[row.length]}`}>
+                    <div
+                      key={rowIndex}
+                      className={`grid gap-x-8 gap-y-6 ${ROW_COLUMNS[row.length]}`}
+                    >
                       {row.map((member, i) => (
                         <div key={i} className="text-center">
-                          <p className="font-fira-custom text-sm opacity-60">{member.role}</p>
+                          <p className="font-fira-custom text-sm opacity-60">
+                            {member.role}
+                          </p>
                           <p>{member.name}</p>
                         </div>
                       ))}
@@ -119,8 +131,8 @@ export default async function Page() {
                 ABOUT US
               </h1>
               <p className="font-fira-custom text-brand-yellow/30 leading-snug mt-2">
-                click on the file buttons on the left to view information
-                about the studio and the developers !
+                click on the file buttons on the left to view information about
+                the studio and the developers !
               </p>
             </div>
           </div>

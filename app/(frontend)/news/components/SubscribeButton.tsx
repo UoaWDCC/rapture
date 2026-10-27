@@ -62,6 +62,11 @@ export default function SubscribeButton({
     const endpoint = subscribed ? "unsubscribe" : "subscribe";
     try {
       const res = await fetch(`/api/newsletter/${endpoint}`, { method: "POST" });
+      // Not logged in (e.g. session expired): send them to login, then subscribe automatically
+      if (res.status === 401) {
+        router.push(LOGIN_TO_SUBSCRIBE_URL);
+        return;
+      }
       if (res.ok) setSubscribed(!subscribed);
     } finally {
       setLoading(false);
