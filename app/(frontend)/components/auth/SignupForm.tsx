@@ -53,9 +53,9 @@ export default function SignupForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <div className="flex flex-col md:flex-row gap-8">
-        <div className="relative w-[450px] h-[600px]">
+    <div className="min-h-screen w-full overflow-x-clip flex items-center justify-center px-4 py-8 md:p-8">
+      <div className="flex flex-col md:flex-row gap-8 w-full max-w-[450px] md:w-auto md:max-w-none">
+        <div className="relative w-full md:w-[450px] h-[600px]">
           <div className="absolute bottom-6 -left-42 w-60 h-36 border-4 border-[#0650DA] rounded p-0.25 z-20">
             <div className="w-full h-full border-2 border-[#0650DA] rounded bg-[#010C21]/80"></div>
           </div>
@@ -119,11 +119,22 @@ export default function SignupForm() {
                   />
                 </div>
               </div>
+              {/* Small screens: the side card is hidden, so link here instead */}
+              <div className="md:hidden w-40 mt-2">
+                <AuthButton
+                  type="button"
+                  label="login"
+                  onClick={() => router.push("/login")}
+                  theme="blue"
+                  size="small"
+                  showGlow={false}
+                />
+              </div>
             </div>
           </AuthFormCard>
         </div>
 
-        <div className="relative w-[275px] mt-4">
+        <div className="hidden md:block relative w-[275px] mt-4">
           <div className="hidden md:block absolute -top-18 -right-56 w-[400px] h-45 border-4 border-[#0650DA] rounded p-0.25 z-0">
             <div className="w-full h-full border-2 border-[#0650DA] rounded bg-[#0650DA]/15"></div>
           </div>
@@ -132,20 +143,10 @@ export default function SignupForm() {
             <div className="w-full h-full border-2 border-[#0650DA] rounded bg-[#010C21]/80"></div>
           </div>
 
-          <div className="hidden md:block relative z-10 bg-[#010C21] rounded">
+          <div className="relative z-10 bg-[#010C21] rounded">
             <AuthSideCard
               title={`SIGNED\nUP?`}
               description="Log in with your existing account."
-              buttonLabel="login"
-              onButtonClick={() => router.push("/login")}
-              theme="blue"
-            />
-          </div>
-
-          <div className="block md:hidden absolute -top-28 left-24 -right-24 z-10 bg-[#010C21] rounded">
-            <AuthSideCard
-              title={`SIGNED\nUP?`}
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
               buttonLabel="login"
               onButtonClick={() => router.push("/login")}
               theme="blue"
