@@ -11,6 +11,11 @@ type UserDashboardTabProps = {
   className?: string;
 };
 
+// Tab outline in a 130 x 44 box: softly rounded top corners, then a stepped tail on the right that runs
+// past the box (to x=148) so it extends under the next tab. vectorEffect keeps the line an even thickness when the box is stretched.
+const TAB_OUTLINE = "M0,44 L0,6 Q0,2 4,2 L96,2 Q98,2 99,4 L105,26 L141,26 L148,44";
+const TAB_FILL = `${TAB_OUTLINE} Z`;
+
 export default function UserDashboardTab({
   label,
   active,
@@ -30,21 +35,23 @@ export default function UserDashboardTab({
     >
       <svg
         viewBox="0 0 130 44"
-        className="absolute inset-0 w-full h-full"
+        className="absolute inset-0 h-full w-full overflow-visible"
         preserveAspectRatio="none"
       >
-        <polygon points="0,2 90,2 100,21 120,21 128,44 0,44" fill={fillColor} />
+        <path d={TAB_FILL} fill={fillColor} />
         <path
-          d="M0,44 L0,2 L90,2 L100,21 L120,21 L128,44"
+          d={TAB_OUTLINE}
           stroke={color}
-          strokeWidth={2}
+          strokeWidth={2.5}
           strokeLinejoin="round"
+          strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
           fill="none"
         />
       </svg>
       <GlowingHeader
         intensity="low"
-        className="absolute left-2 top-0 text-[9px] font-semibold italic leading-none sm:text-sm"
+        className="absolute left-2.5 top-1.5 text-[15px] font-semibold uppercase italic leading-none sm:left-3.5 sm:top-2 sm:text-[22px]"
         style={{ color }}
       >
         {label}
