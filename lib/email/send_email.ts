@@ -3,6 +3,7 @@ import payload  from "payload";
 import config from "@/payload.config";*/
 
 import { Resend } from "resend";
+import { EMAIL_FROM } from "./from";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
@@ -22,7 +23,7 @@ export async function sendEmail({
     /*const payload = await getPayload({ config }); temp*/
 
     const response = await resend.emails.send({
-        from: "onboarding@resend.dev",
+        from: EMAIL_FROM,
         to,
         subject,
         html
@@ -47,7 +48,7 @@ const BATCH_LIMIT = 100;
 export async function sendBatchEmails(emails: SendEmailTypes[]) {
     for (let i = 0; i < emails.length; i += BATCH_LIMIT) {
         const chunk = emails.slice(i, i + BATCH_LIMIT).map((email) => ({
-            from: "onboarding@resend.dev",
+            from: EMAIL_FROM,
             ...email,
         }));
 

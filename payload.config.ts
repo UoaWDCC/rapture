@@ -19,8 +19,20 @@ import { Accounts } from "./collections/accounts.ts";
 import { redirectOAuthErrorsToLogin } from "./lib/oauthErrorRedirect.ts";
 
 import { EmailSettings } from "./collections/EmailSettings.ts";
+import { EMAIL_FROM_ADDRESS, EMAIL_FROM_NAME } from "./lib/email/from.ts";
 
-const serverURL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+const serverURL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+
+const allowedOrigins = [
+  serverURL,
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+  "https://rapture.wdcc.co.nz",
+  process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`,
+  process.env.VERCEL_BRANCH_URL && `https://${process.env.VERCEL_BRANCH_URL}`,
+  process.env.VERCEL_PROJECT_PRODUCTION_URL &&
+    `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`,
+].filter((origin): origin is string => Boolean(origin));
 
 //if required env values are missing/empty, it will throw an error.
 const requiredENV = (name: string): string => {
@@ -37,18 +49,19 @@ export default buildConfig({
   editor: lexicalEditor(),
 
   serverURL,
+  csrf: allowedOrigins,
 
   admin: {
     routes: {
       // A logged-in site user (Google or email login) who isn't an admin would otherwise be stuck on
       // "Unauthorized" with no login form. Send them through logout so the admin login page shows.
-      unauthorized: '/logout',
+      unauthorized: "/logout",
     },
   },
 
   email: resendAdapter({
-    defaultFromAddress: "onboarding@resend.dev",
-    defaultFromName: "Rapture",
+    defaultFromAddress: EMAIL_FROM_ADDRESS,
+    defaultFromName: EMAIL_FROM_NAME,
 
     apiKey: requiredENV("RESEND_API_KEY"),
   }),
@@ -71,11 +84,11 @@ export default buildConfig({
   plugins: [
     authPlugin({
       allowOAuthAutoSignUp: true,
-      name: 'app',
+      name: "app",
       usersCollectionSlug: Users.slug,
       accountsCollectionSlug: Accounts.slug,
-      successRedirectPath: '/',
-      errorRedirectPath: '/login',
+      successRedirectPath: "/",
+      errorRedirectPath: "/login",
       // Issue a normal Payload session (payload-token) so Google users are logged in across the site
       useAdmin: true,
       providers: [
