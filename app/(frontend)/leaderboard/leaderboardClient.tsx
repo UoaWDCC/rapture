@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Player } from "@/payload-types";
+import type { LeaderboardEntry } from "@/lib/leaderboard";
 import LeaderboardSearch from "./leaderboardSearch";
 import { LeaderboardTable } from "./LeaderboardTable";
 import { Pagination } from "./Pagination";
@@ -16,18 +16,18 @@ export default function LeaderboardClient({
   hasNextPage,
   hasPrevPage,
 }: { 
-  topPlayers: Player[];
+  topPlayers: LeaderboardEntry[];
   page: number;
   limit: number;
   totalPages: number;
   hasNextPage: boolean;
   hasPrevPage: boolean;
 }) {
-  const [searchResults, setSearchResults] = useState<Player[] | null>(null);
+  const [searchResults, setSearchResults] = useState<LeaderboardEntry[] | null>(null);
   const results = searchResults ?? topPlayers;
 
   async function handleSearch(username: string) {
-    const response = await fetch(`/api/leaderboard/search?username=${username}`);
+    const response = await fetch(`/api/leaderboard/search?username=${encodeURIComponent(username)}`);
     const data = await response.json();
     if (data.success) {
       setSearchResults(data.data);

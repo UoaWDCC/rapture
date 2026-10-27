@@ -62,7 +62,7 @@ describe("LeaderboardPage", () => {
 
     const client = findElement(tree, (element) => element.type === LeaderboardClient);
     expect(client?.props).toEqual({
-      topPlayers: [{ id: "player-1", userId: "Rapture", score: 1200 }],
+      topPlayers: [{ id: "player-1", userId: "Rapture", score: 1200, displayName: "Rapture" }],
       page: 1,
       limit: 10,
       totalPages: 4,

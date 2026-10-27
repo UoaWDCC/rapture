@@ -1,10 +1,10 @@
-import { Player } from "@/payload-types";
+import type { LeaderboardEntry } from "@/lib/leaderboard";
 import React from "react";
 import Image from "next/image";
 import GlitchReveal from "../components/GlitchReveal"
 
 interface LeaderboardTableProps {
-  players: Player[];
+  players: LeaderboardEntry[];
   startIndex?: number;
 }
 
@@ -70,7 +70,7 @@ export function LeaderboardTable({ players, startIndex = 1 }: LeaderboardTablePr
                       {rank}
                     </div>
                     <div className="absolute left-[18.341%] top-1/2 -translate-y-1/2 w-[42.47%] text-[2.62cqw] font-nova font-normal leading-none truncate">
-                      {player.userId || "Unknown Player"}
+                      {player.displayName}
                     </div>
                     <div className="absolute left-[64.629%] top-1/2 -translate-y-1/2 w-[35.26%] text-[2.62cqw] font-nova font-normal leading-none">
                       {player.score}
