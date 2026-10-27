@@ -124,7 +124,7 @@ export default function Navbar({ item, user }: NavProps) {
       </div>
 
       <div className={isOverflowing ? "block" : "md:hidden"}>
-        <MobileNavbar item={item} />
+        <MobileNavbar item={item} user={user}/>
       </div>
     </>
   );

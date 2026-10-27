@@ -13,7 +13,6 @@ import { CartCollection } from "./collections/Cart.ts";
 import { Media } from "./collections/media.ts";
 import { News } from "./collections/News.ts";
 import { Category } from "./collections/category.ts";
-import { Donors } from "./collections/Donors.ts";
 
 import { EmailSettings } from "./collections/EmailSettings.ts";
 
@@ -50,7 +49,6 @@ export default buildConfig({
     Media,
     News,
     Category,
-    Donors,
   ],
 
   plugins: [
