@@ -58,10 +58,10 @@ const itemsNav = [
   {
     id: 3,
     name: "Support",
-    link: "/about",
+    link: "/aboutus",
     childrenLinks: [
-      { id: 6, name: "About Us", link: "/contacts"},
-      { id: 5, name: "Contact", link: "/contacts" },
+      { id: 6, name: "About Us", link: "/aboutus" },
+      { id: 5, name: "Contact", link: "/contact" },
     ],
   },
 ]; // navbar testing

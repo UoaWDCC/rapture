@@ -1,5 +1,4 @@
 import Image from "next/image";
-import ContactForm from "../components/ContactForm";
 import ContactFile from "../components/ui/ContactFileDesign";
 import GlitchReveal from "../components/GlitchReveal";
 
@@ -54,21 +53,6 @@ export default async function Page() {
                   Loren als ser pal Loren als ser pal Loren als ser pal
                   Loren als ser pal Loren als ser pal Loren als ser pal
                 </p>
-              </div>
-            </ContactFile>
-
-            <ContactFile
-              title="CONTACT US"
-              bgColor="bg-[#020A15]"
-              borderColor="#0650DA"
-              sideHeight="500px"
-              zIndex={1}
-              className="h-full absolute"
-              closedWidthClass="w-0 md:w-[7vw] lg:w-[22vw] xl:w-[31vw]"
-              openWidthClass="w-[100vw] md:w-[75vw] lg:w-[80vw] xl:w-[80vw]"
-            >
-              <div className="h-auto pb-5">
-                <ContactForm />
               </div>
             </ContactFile>
           </div>
