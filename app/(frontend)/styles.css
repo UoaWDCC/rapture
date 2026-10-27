@@ -1,5 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Nova+Cut&display=swap");
 @import "tailwindcss";
+
+@utility scrollbar-hidden {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility fade-bottom {
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 4rem), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 4rem), transparent);
+}
+
+@custom-variant nav-desktop {
+  @media (width >= 48rem) {
+    :root:not([data-nav-mobile]) & {
+      @slot;
+    }
+  }
+}
 /* @plugin '@tailwindcss/typography'; */
 
 @theme {

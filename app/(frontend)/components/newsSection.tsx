@@ -301,9 +301,6 @@ export function NewsSection({
         <Divider />
         <Divider />
       </div>
-
-      {/* Spacing */}
-      <div className="h-20 md:h-30" />
     </section>
   );
 }

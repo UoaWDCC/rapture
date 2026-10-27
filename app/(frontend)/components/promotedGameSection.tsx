@@ -50,9 +50,9 @@ function VitriolRing({ playing }: { playing?: boolean }) {
 }
 
 export function PromotedGameSection() {
-  const leftPageContent1 = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa Cum sociis natoque penatibus et magnis dis parturient montes,Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa Cum sociis natoque penatibus et magnis dis parturient montes,Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor."
-  const leftPageContent2 = "enean commodo ligula eget dolor. Aenean massa Cum sociis natoque penatibus et magnis dis parturient montes,Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor."
-  const leftPageContent3 = "enean commodo ligula eget dolor. Aenean massa Cum sociis natoque penatibus et magnis dis parturient montes,Lorem ipsum dolor sit amet, con"
+  const leftPageContent1 = "VITRIOL"
+  const leftPageContent2 = "bullets will fly, demons will explode, and blood will rain over a world of ashes."
+  const leftPageContent3 = ""
 
   const [isVitriolHovering, setIsVitriolHovering] = useState(false);
 
@@ -62,7 +62,6 @@ export function PromotedGameSection() {
         <div className="relative flex justify-center -translate-x-[5%]">
           <Link
             href='/games/vitriol'
-            target="_blank"
             className="group relative z-4 @container w-[70%] hover:cursor-pointer"
             onMouseEnter={() => setIsVitriolHovering(true)}
             onMouseLeave={() => setIsVitriolHovering(false)}
@@ -77,16 +76,16 @@ export function PromotedGameSection() {
             />
 
             {/* LEFT TEXT */}
-            <div className="absolute top-[18%] left-[5%] w-[35%] h-[70%]">
-              <p className="mb-[10%] -skew-12 -rotate-11 leading-snug text-[#53A5F1] text-[clamp(0.65rem,1.5cqw,1.1rem)]">
+            <div className="absolute top-[18%] left-[5%] w-[35%] h-[70%] flex flex-col justify-center pb-[15%]">
+              <h3 className="mb-[8%] text-center whitespace-nowrap -skew-12 -rotate-11 leading-tight text-[#53A5F1] font-nova-custom text-[clamp(1.5rem,5cqw,3rem)]">
                 {leftPageContent1}
-              </p>
+              </h3>
 
-              <p className="mb-[10%] -skew-12 -rotate-11 leading-snug text-[#53A5F1] text-[clamp(0.65rem,1.5cqw,1.1rem)]">
+              <p className="mb-[10%] -skew-12 -rotate-11 leading-snug text-[#53A5F1] font-nova-custom text-[clamp(1rem,3cqw,2rem)]">
                 {leftPageContent2}
               </p>
 
-              <p className="-skew-12 -rotate-11 leading-snug text-[#53A5F1] text-[clamp(0.65rem,1.5cqw,1.1rem)]">
+              <p className="-skew-12 -rotate-11 leading-snug text-[#53A5F1] font-nova-custom text-[clamp(1rem,3cqw,2rem)]">
                 {leftPageContent3}
               </p>
             </div>

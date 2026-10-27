@@ -33,8 +33,8 @@ export default function Dropdown({ label, items }: DropdownProps) {
   }, []);
 
   return (
-    <div ref={dropdownRef} className="relative">
-      <div className="w-50 h-8 bg-blue-800 border border-blue-500 text-xl flex items-center pl-2 pt-0.5 [clip-path:polygon(0_0,90%_0,93%_30%,100%_30%,100%_100%,0_100%)] hover:opacity-80">
+    <div ref={dropdownRef} className="relative shrink-0">
+      <div className="w-[clamp(8rem,16vw,12.5rem)] h-8 bg-blue-800 border border-blue-500 text-xl flex items-center pl-2 pt-0.5 [clip-path:polygon(0_0,90%_0,93%_30%,100%_30%,100%_100%,0_100%)] hover:opacity-80">
         <button
           className="w-full h-full flex items-center"
           onClick={() => setOpen(!open)}

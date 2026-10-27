@@ -17,7 +17,6 @@ import { authPlugin } from "payload-auth-plugin";
 import { GoogleAuthProvider } from "payload-auth-plugin/providers";
 import { Accounts } from "./collections/accounts.ts";
 import { redirectOAuthErrorsToLogin } from "./lib/oauthErrorRedirect.ts";
-import { Donors } from "./collections/Donors.ts";
 
 import { EmailSettings } from "./collections/EmailSettings.ts";
 
@@ -66,7 +65,6 @@ export default buildConfig({
     Media,
     News,
     Category,
-    Donors,
     Accounts,
   ],
 

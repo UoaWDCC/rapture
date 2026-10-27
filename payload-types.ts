@@ -76,7 +76,6 @@ export interface Config {
     media: Media;
     News: News;
     category: Category;
-    donors: Donor;
     accounts: Account;
     apiKeys: ApiKey;
     'payload-kv': PayloadKv;
@@ -95,7 +94,6 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     News: NewsSelect<false> | NewsSelect<true>;
     category: CategorySelect<false> | CategorySelect<true>;
-    donors: DonorsSelect<false> | DonorsSelect<true>;
     accounts: AccountsSelect<false> | AccountsSelect<true>;
     apiKeys: ApiKeysSelect<false> | ApiKeysSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -384,23 +382,6 @@ export interface Category {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "donors".
- */
-export interface Donor {
-  id: string;
-  name: string;
-  tier: 'featured' | 'standard';
-  text?: string | null;
-  image?: (string | null) | Media;
-  /**
-   * Hex color for the tab (e.g. #c69825). Defaults to gold if empty.
-   */
-  tabColor?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "accounts".
  */
 export interface Account {
@@ -463,7 +444,6 @@ export interface ApiKey {
               | 'media'
               | 'News'
               | 'category'
-              | 'donors'
               | 'accounts'
             )
           | null;
@@ -532,10 +512,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'category';
         value: string | Category;
-      } | null)
-    | ({
-        relationTo: 'donors';
-        value: string | Donor;
       } | null)
     | ({
         relationTo: 'accounts';
@@ -750,19 +726,6 @@ export interface NewsSelect<T extends boolean = true> {
  */
 export interface CategorySelect<T extends boolean = true> {
   name?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "donors_select".
- */
-export interface DonorsSelect<T extends boolean = true> {
-  name?: T;
-  tier?: T;
-  text?: T;
-  image?: T;
-  tabColor?: T;
   updatedAt?: T;
   createdAt?: T;
 }

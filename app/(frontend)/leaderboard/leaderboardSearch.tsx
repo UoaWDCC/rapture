@@ -4,10 +4,8 @@ import GlitchReveal from "../components/GlitchReveal"
 
 export default function LeaderBoardSearch({
     onSearch,
-    onFindMe,
 }: {
     onSearch?: (username : string) => void
-    onFindMe?: () => void
 }) {
     const [username, setUsername] = useState('')
 
@@ -16,7 +14,7 @@ export default function LeaderBoardSearch({
 
     return (
         <>
-            <GlitchReveal delay={1} className="hidden w-full md:block">
+            <GlitchReveal delay={1} className="hidden w-full nav-desktop:block">
                 <div className="ml-auto flex w-full max-w-[250px] flex-col gap-2 self-end rounded-xs border-2 border-dashed border-[#3B28FF] bg-[#0a0a1a] p-3">
                     <input
                         type="text"
@@ -34,18 +32,10 @@ export default function LeaderBoardSearch({
                     >
                         SEARCH
                     </button>
-
-                    <button
-                        onClick={() => onFindMe?.()}
-                        className={commonButtonClasses}
-                        style={{ fontFamily: "'Nova Cut', cursive" }}
-                    >
-                        FIND ME
-                    </button>
                 </div>
             </GlitchReveal>
 
-            <GlitchReveal delay={1} className="block w-full md:hidden">
+            <GlitchReveal delay={1} className="block w-full nav-desktop:hidden">
                 <div className="mx-auto flex h-20 w-full flex-row gap-2 rounded-xs border-2 border-dashed border-[#3B28FF] bg-[#0a0a1a] p-3">
                     <input
                         type="text"
@@ -63,14 +53,6 @@ export default function LeaderBoardSearch({
                             style={{ fontFamily: "'Nova Cut', cursive" }}
                         >
                             SEARCH
-                        </button>
-
-                        <button
-                            onClick={() => onFindMe?.()}
-                            className={`${commonButtonClasses} flex-1`}
-                            style={{ fontFamily: "'Nova Cut', cursive" }}
-                        >
-                            FIND ME
                         </button>
                     </div>
                 </div>

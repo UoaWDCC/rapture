@@ -59,16 +59,16 @@ export function Pagination({
   }
 
   return (
-    <div className="flex items-center justify-end gap-1 rounded-xs border-2 border-dashed border-brand-blue px-1 py-1 md:gap-3 md:px-2">
-      <PageButton href={`?page=${1}`} disabled={!hasPrevPage} className="text-xs md:text-xl">
+    <div className="flex items-center justify-end gap-1 rounded-xs border-2 border-dashed border-brand-blue px-1 py-1 nav-desktop:gap-3 nav-desktop:px-2">
+      <PageButton href={`?page=${1}`} disabled={!hasPrevPage} className="text-xs nav-desktop:text-xl">
         {`<|`}
       </PageButton>
 
-      <PageButton href={`?page=${page - 1}`} disabled={!hasPrevPage} className="text-sm md:text-2xl">
+      <PageButton href={`?page=${page - 1}`} disabled={!hasPrevPage} className="text-sm nav-desktop:text-2xl">
         {`<`}
       </PageButton>
 
-      <div className="h-8 border-l border-r border-dashed border-brand-blue px-2 pt-1 md:h-10 md:px-4">
+      <div className="h-8 border-l border-r border-dashed border-brand-blue px-2 pt-1 nav-desktop:h-10 nav-desktop:px-4">
         <input
           key={page}
           ref={inputRef}
@@ -78,15 +78,15 @@ export function Pagination({
           defaultValue={page}
           onBlur={handleNavigate}
           onKeyDown={(e) => e.key === "Enter" && handleNavigate()}
-          className="w-8 text-center text-sm outline-none [appearance:textfield] md:w-10 md:text-lg [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+          className="w-8 text-center text-sm outline-none [appearance:textfield] nav-desktop:w-10 nav-desktop:text-lg [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
         />
       </div>
 
-      <PageButton href={`?page=${page + 1}`} disabled={!hasNextPage} className="text-sm md:text-2xl">
+      <PageButton href={`?page=${page + 1}`} disabled={!hasNextPage} className="text-sm nav-desktop:text-2xl">
         {`>`}
       </PageButton>
 
-      <PageButton href={`?page=${totalPages}`} disabled={!hasNextPage} className="text-xs md:text-xl">
+      <PageButton href={`?page=${totalPages}`} disabled={!hasNextPage} className="text-xs nav-desktop:text-xl">
         {`|>`}
       </PageButton>
     </div>

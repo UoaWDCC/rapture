@@ -28,7 +28,7 @@ export default function MerchSearch({
             <div 
                 className="relative bg-transparent border border-white box-border flex items-center"
                 style={{
-                    width: 'clamp(250px, calc(317 * var(--scale)), 317px)',
+                    width: '100%',
                     height: '35px',
                     borderWidth: '1px'
                 }}

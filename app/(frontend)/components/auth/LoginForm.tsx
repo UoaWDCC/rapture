@@ -48,10 +48,10 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <div className="flex flex-col md:flex-row gap-8">
+    <div className="min-h-screen w-full overflow-x-clip flex items-center justify-center px-4 py-8 md:p-8">
+      <div className="flex flex-col md:flex-row gap-8 w-full max-w-[450px] md:w-auto md:max-w-none">
         {/* Main login form card */}
-        <div className="relative w-[450px] h-[600px]">
+        <div className="relative w-full md:w-[450px] h-[600px]">
           {/* Decorative accent panel - form card bottom left */}
           <div className="absolute bottom-6 -left-42 w-60 h-36 border-4 border-[#F2B423] rounded p-0.25 z-20">
             <div className="w-full h-full border-2 border-[#F2B423] rounded bg-[#271E06]/80"></div>
@@ -114,6 +114,17 @@ export default function LoginForm() {
                   />
                 </div>
               </div>
+              {/* Small screens: the side card is hidden */}
+              <div className="md:hidden w-40 mt-2">
+                <AuthButton
+                  type="button"
+                  label="sign up"
+                  onClick={() => router.push("/signup")}
+                  theme="gold"
+                  size="small"
+                  showGlow={false}
+                />
+              </div>
             </div>
 
             <div className="absolute left-1/2 -translate-x-1/2 top-full mt-8 w-40">
@@ -130,7 +141,7 @@ export default function LoginForm() {
         </div>
 
         {/* Side card linking to sign up */}
-        <div className="relative w-[275px] mt-4">
+        <div className="hidden md:block relative w-[275px] mt-4">
           {/* Decorative accent panel - side card top right (behind) */}
           <div className="hidden md:block absolute -top-18 -right-56 w-[400px] h-45 border-4 border-[#F2B423] rounded p-0.25 z-0">
             <div className="w-full h-full border-2 border-[#F2B423] rounded bg-[#271E06]/80"></div>
@@ -141,18 +152,7 @@ export default function LoginForm() {
             <div className="w-full h-full border-2 border-[#F2B423] rounded bg-[#271E06]/80"></div>
           </div>
 
-          <div className="hidden md:block relative z-10 bg-[#271E06] rounded">
-            <AuthSideCard
-              title={`NEW\nUSER?`}
-              description="Create an account with us today."
-              buttonLabel="sign up"
-              onButtonClick={() => router.push("/signup")}
-              theme="gold"
-            />
-          </div>
-
-          {/* Mobile view side card */}
-          <div className="block md:hidden absolute -top-36 left-24 -right-24 z-10 bg-[#271E06] rounded">
+          <div className="relative z-10 bg-[#271E06] rounded">
             <AuthSideCard
               title={`NEW\nUSER?`}
               description="Create an account with us today."

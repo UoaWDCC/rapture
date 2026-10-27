@@ -1,29 +1,17 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 
 // Sort options
 const SORT_OPTIONS = [
   'Featured',
-  'Most relevant',
-  'Best Selling',
-  'Price : high to low',
-  'Price : low to high',
   'Alphabetically : A-Z',
   'Alphabetically : Z-A',
+  'Price : high to low',
+  'Price : low to high',
   'Date : old to new',
   'Date : new to old',
-]
-
-// Product type filter options
-const PRODUCT_TYPES = [
-  'Hoodie',
-  'Sweater',
-  'Top',
-  'Pants',
-  'Shorts',
-  'Accessories',
-  'Decor',
 ]
 
 interface MerchFilterSortProps {
@@ -74,7 +62,6 @@ function FilterSection({
   options,
   selectedValues,
   onSelect,
-  expanded,
   onToggle,
   pxPage,
 }: {
@@ -82,90 +69,50 @@ function FilterSection({
   options: string[]
   selectedValues: string[]
   onSelect: (value: string) => void
-  expanded: boolean
   onToggle: () => void
   pxPage?: (val: number) => string
 }) {
   const isDesktop = !!pxPage
 
   if (isDesktop) {
-    const sectionWidth = 'clamp(250px, calc(318 * var(--scale)), 318px)'
-
     return (
-      <div className="relative">
-        {/* Section header row (clickable) */}
-        <button
-          onClick={onToggle}
-          className="flex items-center justify-between cursor-pointer bg-transparent border-none p-0"
-          style={{
-            width: sectionWidth,
-            paddingLeft: '10px',
-          }}
-        >
-          <div
-            className="text-white text-left"
-            style={{
-              fontFamily: "var(--font-fira-mono), monospace",
-              fontSize: '15px',
-              lineHeight: '20px',
-            }}
-          >
-            {title}
-          </div>
-          <div>
-            <DropdownTriangle expanded={expanded} size={18} />
-          </div>
-        </button>
-
-        {/* Expandable bullet list */}
-        <div
-          className="overflow-hidden"
-          style={{
-            maxHeight: expanded ? `${options.length * 32}px` : '0',
-            opacity: expanded ? 1 : 0,
-            marginTop: expanded ? '12px' : '0',
-          }}
-        >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingLeft: '10px', width: sectionWidth }}>
-            {options.map((option) => {
-              const isSelected = selectedValues.includes(option)
-              return (
-                <button
-                  key={option}
-                  onClick={() => onSelect(option)}
-                  className="flex items-center cursor-pointer bg-transparent border-none p-0"
-                  style={{ gap: '8px' }}
+      <div className="relative w-full">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingLeft: '10px' }}>
+          {options.map((option) => {
+            const isSelected = selectedValues.includes(option)
+            return (
+              <button
+                key={option}
+                onClick={() => onSelect(option)}
+                className="flex items-center cursor-pointer bg-transparent border-none p-0"
+                style={{ gap: '8px' }}
+              >
+                <RadioBullet selected={isSelected} size={16} />
+                <div
+                  className="text-white text-left"
+                  style={{
+                    fontFamily: "var(--font-fira-mono), monospace",
+                    fontSize: '14px',
+                    lineHeight: '16px',
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
                 >
-                  <RadioBullet selected={isSelected} size={16} />
-                  <div
-                    className="text-white text-left"
-                    style={{
-                      fontFamily: "var(--font-fira-mono), monospace",
-                      fontSize: '14px',
-                      lineHeight: '18px',
-                      display: 'flex',
-                      alignItems: 'center',
-                    }}
-                  >
-                    {option}
-                  </div>
-                </button>
-              )
-            })}
-          </div>
+                  {option}
+                </div>
+              </button>
+            )
+          })}
         </div>
-
-        {/* Bottom line */}
-        <div
-          className="bg-white"
-          style={{
-            height: '1px',
-            width: sectionWidth,
-            marginLeft: '10px',
-            marginTop: '18px',
-          }}
-        />
-      </div>
+      {/* Bottom line */}
+      <div
+        className="bg-white w-full"
+        style={{
+          height: '1px',
+          marginTop: '18px',
+        }}
+      />
+    </div>
     )
   }
 
@@ -187,44 +134,32 @@ function FilterSection({
         >
           {title}
         </div>
-        <DropdownTriangle expanded={expanded} />
       </button>
-
-      {/* Expandable bullet list */}
-      <div
-        className="overflow-hidden"
-        style={{
-          maxHeight: expanded ? `${options.length * 36}px` : '0',
-          opacity: expanded ? 1 : 0,
-          marginTop: expanded ? '12px' : '0',
-        }}
-      >
-        <div className="flex flex-col gap-2 px-4">
-          {options.map((option) => {
-            const isSelected = selectedValues.includes(option)
-            return (
-              <button
-                key={option}
-                onClick={() => onSelect(option)}
-                className="flex items-center gap-2 cursor-pointer bg-transparent border-none p-0"
+      <div className="flex flex-col gap-2 px-4">
+        {options.map((option) => {
+          const isSelected = selectedValues.includes(option)
+          return (
+            <button
+              key={option}
+              onClick={() => onSelect(option)}
+              className="flex items-center gap-2 cursor-pointer bg-transparent border-none p-0"
+            >
+              <RadioBullet selected={isSelected} size={16} />
+              <div
+                className="text-white text-left"
+                style={{
+                  fontFamily: "var(--font-fira-mono), monospace",
+                  fontSize: '14px',
+                  lineHeight: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
               >
-                <RadioBullet selected={isSelected} size={16} />
-                <div
-                  className="text-white text-left"
-                  style={{
-                    fontFamily: "var(--font-fira-mono), monospace",
-                    fontSize: '14px',
-                    lineHeight: '16px',
-                    display: 'flex',
-                    alignItems: 'center',
-                  }}
-                >
-                  {option}
-                </div>
-              </button>
-            )
-          })}
-        </div>
+                {option}
+              </div>
+            </button>
+          )
+        })}
       </div>
 
       {/* Bottom line */}
@@ -247,7 +182,6 @@ export default function MerchFilterSort({
   onTypeChange,
 }: MerchFilterSortProps) {
   const [sortExpanded, setSortExpanded] = useState(true)
-  const [typeExpanded, setTypeExpanded] = useState(true)
   // Mobile modal state
   const [modalOpen, setModalOpen] = useState(false)
 
@@ -277,31 +211,13 @@ export default function MerchFilterSort({
 
   // DESKTOP/TABLET
   if (isDesktop) {
-    const sectionWidth = 'clamp(250px, calc(318 * var(--scale)), 318px)'
-
     return (
-      <div>
-        {/* Title */}
-        <div
-          className="text-white"
-          style={{
-            paddingLeft: '10px',
-            fontFamily: "var(--font-fira-mono), monospace",
-            fontSize: '15px',
-            lineHeight: '20px',
-            textAlign: 'left',
-          }}
-        >
-          filter &amp; sort by :
-        </div>
-
+      <div className="w-full">
         {/* First line */}
         <div
-          className="bg-white"
+          className="bg-white w-full"
           style={{
             height: '1px',
-            width: sectionWidth,
-            marginLeft: '10px',
             marginTop: '18px',
           }}
         />
@@ -313,21 +229,7 @@ export default function MerchFilterSort({
             options={SORT_OPTIONS}
             selectedValues={[selectedSort]}
             onSelect={handleSortSelect}
-            expanded={sortExpanded}
             onToggle={() => setSortExpanded(!sortExpanded)}
-            pxPage={pxPage}
-          />
-        </div>
-
-        {/* Product type section */}
-        <div style={{ marginTop: '18px' }}>
-          <FilterSection
-            title="Product type :"
-            options={PRODUCT_TYPES}
-            selectedValues={selectedTypes}
-            onSelect={handleTypeSelect}
-            expanded={typeExpanded}
-            onToggle={() => setTypeExpanded(!typeExpanded)}
             pxPage={pxPage}
           />
         </div>
@@ -339,10 +241,8 @@ export default function MerchFilterSort({
   const openModal = (preExpand: 'sort' | 'filter') => {
     if (preExpand === 'sort') {
       setSortExpanded(true)
-      setTypeExpanded(false)
     } else {
       setSortExpanded(false)
-      setTypeExpanded(false)
     }
     setModalOpen(true)
   }
@@ -353,18 +253,8 @@ export default function MerchFilterSort({
 
   return (
     <>
-      {/* Filter & Sort buttons */}
+      {/* Filter buttons */}
       <div className="flex flex-row gap-3 w-full">
-        <button
-          onClick={() => openModal('filter')}
-          className="flex-1 h-[40px] border border-white bg-transparent text-white cursor-pointer hover:opacity-70"
-          style={{
-            fontFamily: "var(--font-fira-mono), monospace",
-            fontSize: '14px',
-          }}
-        >
-          Filter
-        </button>
         <button
           onClick={() => openModal('sort')}
           className="flex-1 h-[40px] border border-white bg-transparent text-white cursor-pointer hover:opacity-70"
@@ -373,12 +263,13 @@ export default function MerchFilterSort({
             fontSize: '14px',
           }}
         >
-          Sort
+          Sort by
         </button>
       </div>
 
       {/* Full-screen modal */}
       {modalOpen && (
+        createPortal(
         <div className="fixed inset-0 z-[10000] bg-black flex flex-col">
           {/* Header */}
           <div className="flex items-center justify-between pl-4 pr-8 pt-8 pb-4">
@@ -389,7 +280,7 @@ export default function MerchFilterSort({
                 fontSize: '18px',
               }}
             >
-              filter &amp; sort
+              sort by:
             </h2>
             <button
               onClick={closeModal}
@@ -405,21 +296,11 @@ export default function MerchFilterSort({
           {/* Content — only scrolls if expanded sections overflow */}
           <div className="flex-1 overflow-y-auto py-6 space-y-6">
             <FilterSection
-              title="Sort by :"
+              title=""
               options={SORT_OPTIONS}
               selectedValues={[selectedSort]}
               onSelect={handleSortSelect}
-              expanded={sortExpanded}
               onToggle={() => setSortExpanded(!sortExpanded)}
-            />
-
-            <FilterSection
-              title="Product type :"
-              options={PRODUCT_TYPES}
-              selectedValues={selectedTypes}
-              onSelect={handleTypeSelect}
-              expanded={typeExpanded}
-              onToggle={() => setTypeExpanded(!typeExpanded)}
             />
           </div>
 
@@ -455,7 +336,9 @@ export default function MerchFilterSort({
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body,
+        )
       )}
     </>
   )

@@ -39,8 +39,8 @@ export default function AddToCartButton(props: props) {
     <button
       className={`font-mono p-[2%] rounded-sm transition-colors duration-200 ${
         added
-          ? "bg-gray-500 text-gray-200 cursor-not-allowed"
-          : "bg-white text-black hover:cursor-pointer hover:opacity-90"
+          ? "bg-brand-yellow text-black cursor-not-allowed"
+          : "bg-brand-yellow text-black hover:cursor-pointer hover:opacity-80"
       } ${props.className ?? ""}`}
       onClick={handleClick}
       disabled={added}

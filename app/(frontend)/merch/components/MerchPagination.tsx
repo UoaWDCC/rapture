@@ -13,47 +13,29 @@ export default function MerchPagination({
   totalCount,
   onLoadMore,
 }: MerchPaginationProps) {
-  // Desktop 908px grid scaling
-  const px = (val: number) => `calc(${val} / 908 * 100cqw)`;
-
   return (
-    <div 
-      className="merch-pagination w-full mt-16 md:mt-24 mb-16 md:mb-24"
-      style={{ maxWidth: '908px', containerType: 'inline-size' }}
+    <div
+      className="merch-pagination w-full mt-16 md:mt-24"
+      style={{ maxWidth: '908px' }}
     >
       <style>{`
         .merch-pagination-status {
           font-family: var(--font-fira-mono), monospace;
-          font-size: 13px;
+          font-size: 15px;
           line-height: 22px;
           color: #FFFFFF;
         }
         .merch-load-more-btn {
           margin-top: 16px;
-          width: 240px;
+          width: 260px;
           height: 44px;
           background-color: #20805A;
           border: 1px solid #FFFFFF;
           box-sizing: border-box;
           font-family: var(--font-fira-mono), monospace;
-          font-size: 14px;
+          font-size: 16px;
           line-height: 26px;
           color: #FFFFFF;
-        }
-        @media (min-width: 1024px) {
-          .merch-pagination-status {
-            width: ${px(193)};
-            height: ${px(13)};
-            font-size: ${px(10)};
-            line-height: ${px(26)};
-          }
-          .merch-load-more-btn {
-            margin-top: ${px(18)};
-            width: ${px(260)};
-            height: ${px(35)};
-            font-size: ${px(13)};
-            line-height: ${px(26)};
-          }
         }
       `}</style>
       <div className="w-full flex flex-col items-center">

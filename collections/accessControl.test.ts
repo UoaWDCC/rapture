@@ -13,7 +13,6 @@ vi.mock("@react-email/render", () => ({ render: vi.fn() }));
 import { Users } from "@/collections/users";
 import { Products } from "@/collections/products";
 import { News } from "@/collections/News";
-import { Donors } from "@/collections/Donors";
 import { EmailSettings } from "@/collections/EmailSettings";
 import { OrderCollection } from "@/collections/orderCollection";
 import { CartCollection } from "@/collections/Cart";
@@ -145,27 +144,6 @@ describe("News Collection Access Rights", () => {
     expect(runAccess(News.access?.update, regularUser)).toBe(false);
     expect(runAccess(News.access?.delete, regularUser)).toBe(false);
     expect(runAccess(News.access?.create, null)).toBe(false);
-  });
-});
-
-describe("Donors Collection Access Rights", () => {
-  it("allows public read access to donor listings", () => {
-    expect(runAccess(Donors.access?.read, null)).toBe(true);
-    expect(runAccess(Donors.access?.read, regularUser)).toBe(true);
-    expect(runAccess(Donors.access?.read, adminUser)).toBe(true);
-  });
-
-  it("allows admin users to create, update, and delete donor records", () => {
-    expect(runAccess(Donors.access?.create, adminUser)).toBe(true);
-    expect(runAccess(Donors.access?.update, adminUser)).toBe(true);
-    expect(runAccess(Donors.access?.delete, adminUser)).toBe(true);
-  });
-
-  it("denies regular users and guests from mutating donor records", () => {
-    expect(runAccess(Donors.access?.create, regularUser)).toBe(false);
-    expect(runAccess(Donors.access?.update, regularUser)).toBe(false);
-    expect(runAccess(Donors.access?.delete, regularUser)).toBe(false);
-    expect(runAccess(Donors.access?.create, null)).toBe(false);
   });
 });
 

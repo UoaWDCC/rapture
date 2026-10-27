@@ -16,7 +16,7 @@ interface LeaderboardTableProps {
  */
 export function LeaderboardTable({ players, startIndex = 1 }: LeaderboardTableProps) {
   return (
-    <div className="mx-auto w-full max-w-[560px] md:max-w-229 @container">
+    <div className="mx-auto w-full max-w-[560px] nav-desktop:max-w-229 @container">
 
       <GlitchReveal delay={0.7}>
       <div 
