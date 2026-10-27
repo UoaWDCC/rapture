@@ -2,12 +2,22 @@ import Image from "next/image";
 import ContactFile from "../components/ui/ContactFileDesign";
 import GlitchReveal from "../components/GlitchReveal";
 
+// Left edge of the centred desktop navbar: half of (page width - navbar content width).
+// Content = logo (156px) + mr-8 (32px) + 4 nav buttons at clamp(8rem,16vw,12.5rem)
+// + gaps (12px) + account icon (60px). Update if the navbar layout changes.
+// From xl up the nav buttons hit their 12.5rem cap, so the navbar is a fixed 1060px wide;
+// the xl open widths below keep the files within 3/4 of it (795px).
+const NAVBAR_LEFT_EDGE = "max(0px, calc(50% - 130px - 2 * clamp(8rem, 16vw, 12.5rem)))";
+
 export default async function Page() {
   return (
     <section className="relative pb-10">
       <GlitchReveal>
         {/* LEFT - Folders */}
-        <div className="absolute left-0 top-0 flex z-100 h-230 w-full max-w-[100%]">
+        <div
+          className="absolute right-0 top-0 flex z-100 h-230"
+          style={{ left: NAVBAR_LEFT_EDGE }}
+        >
           <div className="w-[100%] h-full relative">
             <ContactFile
               title="ABOUT US"
@@ -16,8 +26,8 @@ export default async function Page() {
               sideHeight="100px"
               zIndex={3}
               className="h-full absolute"
-              closedWidthClass="w-0 md:w-[2vw] lg:w-[10vw] xl:w-[21vw]"
-              openWidthClass="w-[100vw] md:w-[65vw] lg:w-[70vw] xl:w-[72vw]"
+              closedWidthClass="w-0 md:w-[2vw] lg:w-[10vw] xl:w-32"
+              openWidthClass="w-[100vw] md:w-[65vw] lg:w-[70vw] xl:w-[735px]"
             >
               <div className="w-full flex flex-row justify-end items-end max-w-full">
                 <div className="flex flex-col items-end">
@@ -37,8 +47,8 @@ export default async function Page() {
               sideHeight="300px"
               zIndex={2}
               className="h-full absolute"
-              closedWidthClass="w-0 md:w-[6vw] lg:w-[16vw] xl:w-[26vw]"
-              openWidthClass="w-[100vw] md:w-[70vw] lg:w-[75vw] xl:w-[76vw]"
+              closedWidthClass="w-0 md:w-[6vw] lg:w-[16vw] xl:w-45"
+              openWidthClass="w-[100vw] md:w-[70vw] lg:w-[75vw] xl:w-[795px]"
             >
               <div className="pl-20 w-full h-full flex flex-col items-end">
                 <h1 className="mb-20 mr-10 mt-10">Meet the Devs</h1>
@@ -59,32 +69,25 @@ export default async function Page() {
         </div>
 
         {/* RIGHT - Computer */}
-        <div className="container mx-auto my-6 px-4 space-y-4 relative max-w-6xl min-h-[850px] overflow-hidden sm:overflow-visible">
-          <div className="relative">
+        <div className="container mx-auto my-6 px-4 relative max-w-6xl min-h-[850px] flex items-center justify-center overflow-hidden sm:overflow-visible">
+          <div className="relative w-150 h-150 shrink-0">
             <Image
               alt="Computer"
               width={600}
               height={600}
               src="/images/computer.png"
-              className="absolute -right-[100px] sm:right-20 lg:right-50 min-w-[600px]"
+              className="absolute inset-0 w-full"
             />
 
-            <div className="absolute top-28 sm:top-28 -right-[10px] sm:right-48 lg:right-78 max-w-100">
+            <div className="absolute top-28 right-28 max-w-100">
               <h1 className="text-brand-yellow/30 text-stroke text-stroke-brand-yellow">
-                USER
+                ABOUT US
               </h1>
               <p className="font-fira-custom text-brand-yellow/30 leading-snug mt-2">
-                this is where the text will be written that will be a
-                short description of the donor page, each text
-                will be place random in this box
-                similar to this, it can also overlay the details
-                and etc
+                click on the file buttons on the left to view information
+                about the studio and the developers !
               </p>
             </div>
-
-            <span className="font-fira-custom absolute top-88 right-40 sm:right-90 lg:right-115 text-brand-yellow/30">
-              open it
-            </span>
           </div>
         </div>
       </GlitchReveal>
