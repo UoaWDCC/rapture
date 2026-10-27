@@ -62,7 +62,7 @@ async function submitContactForm(formData: FormData) {
 
 export default function ContactForm({
   title = "Contact Us",
-  description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nis.",
+  description = "Please fill in this form for any queries; we will get back to you as soon as possible via email.",
 }: ContactFormProps) {
   return (
     <div className='w-full max-w-200 mx-auto mt-10 p-2'>

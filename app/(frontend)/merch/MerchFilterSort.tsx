@@ -75,40 +75,9 @@ function FilterSection({
   const isDesktop = !!pxPage
 
   if (isDesktop) {
-    const sectionWidth = 'clamp(250px, calc(318 * var(--scale)), 318px)'
-
     return (
-      <div className="relative">
-        {/* Section header row (clickable) */}
-        <button
-          onClick={onToggle}
-          className="flex items-center justify-between cursor-pointer bg-transparent border-none p-0"
-          style={{
-            width: sectionWidth,
-            paddingLeft: '10px',
-          }}
-        >
-          <div
-            className="text-white text-left"
-            style={{
-              width: pxPage(172),
-              height: pxPage(30),
-              fontFamily: "var(--font-fira-mono), monospace",
-              fontSize: '15px',
-              lineHeight: '20px',
-            }}
-          >
-            {title}
-          </div>
-          <div
-            style={{
-              marginLeft: pxPage(88),
-              marginTop: pxPage(4),
-            }}
-          >
-          </div>
-        </button>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: pxPage(8), paddingLeft: pxPage(10) }}>
+      <div className="relative w-full">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingLeft: '10px' }}>
           {options.map((option) => {
             const isSelected = selectedValues.includes(option)
             return (
@@ -116,17 +85,15 @@ function FilterSection({
                 key={option}
                 onClick={() => onSelect(option)}
                 className="flex items-center cursor-pointer bg-transparent border-none p-0"
-                style={{ gap: pxPage(8) }}
+                style={{ gap: '8px' }}
               >
                 <RadioBullet selected={isSelected} size={16} />
                 <div
                   className="text-white text-left"
                   style={{
-                    width: pxPage(267),
-                    height: pxPage(16),
                     fontFamily: "var(--font-fira-mono), monospace",
-                    fontSize: pxPage(14),
-                    lineHeight: pxPage(16),
+                    fontSize: '14px',
+                    lineHeight: '16px',
                     display: 'flex',
                     alignItems: 'center',
                   }}
@@ -139,12 +106,10 @@ function FilterSection({
         </div>
       {/* Bottom line */}
       <div
-        className="bg-white"
+        className="bg-white w-full"
         style={{
           height: '1px',
-          width: pxPage(318),
-          marginLeft: pxPage(10),
-          marginTop: pxPage(18),
+          marginTop: '18px',
         }}
       />
     </div>
@@ -246,17 +211,13 @@ export default function MerchFilterSort({
 
   // DESKTOP/TABLET
   if (isDesktop) {
-    const sectionWidth = 'clamp(250px, calc(318 * var(--scale)), 318px)'
-
     return (
-      <div>
+      <div className="w-full">
         {/* First line */}
         <div
-          className="bg-white"
+          className="bg-white w-full"
           style={{
             height: '1px',
-            width: sectionWidth,
-            marginLeft: '10px',
             marginTop: '18px',
           }}
         />

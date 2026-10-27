@@ -133,56 +133,49 @@ export default function MerchPageClient({
           padding-right: 1rem;
         }
 
-        /* Desktop side-by-side layout begins above 800px */
-        @media (min-width: 801px) {
-          .merch-wrapper {
+        /* Desktop side-by-side layout: from the navbar's md breakpoint, and only while
+           the navbar itself is in desktop mode (it sets data-nav-mobile on <html> when it switches) */
+        @media (min-width: 768px) {
+          :root:not([data-nav-mobile]) .merch-wrapper {
             flex-direction: row;
             padding-top: 8rem;
           }
-          .merch-mobile-header {
+          :root:not([data-nav-mobile]) .merch-mobile-header {
             display: none;
           }
-          .merch-desktop-header {
+          :root:not([data-nav-mobile]) .merch-desktop-header {
             display: block;
           }
-          .merch-grid {
+          :root:not([data-nav-mobile]) .merch-grid {
             align-items: flex-start;
             padding-left: 0;
             padding-right: 0;
           }
         }
 
-        @media (min-width: 801px) and (max-width: 1023px) {
-          .merch-wrapper {
-            --scale: calc(900px / 1440);
-          }
-          .merch-grid {
-            /* Left column offset */
-            width: calc(100% - 310px);
-            margin-left: 310px;
-            margin-right: 20px;
-          }
-        }
-        @media (min-width: 1024px) {
-          .merch-wrapper {
+        /* One continuous formula for every desktop width, so nothing jumps as the screen resizes.
+           The sidebar never goes below 310px; the grid takes the rest of the row. */
+        @media (min-width: 768px) {
+          :root:not([data-nav-mobile]) .merch-wrapper {
             --scale: calc(100vw / 1440);
+            --sidebar-width: max(310px, calc(456 * var(--scale)));
           }
-          .merch-grid {
-            width: calc(908 * var(--scale));
-            margin-left: calc(456 * var(--scale));
+          :root:not([data-nav-mobile]) .merch-sidebar {
+            width: var(--sidebar-width);
+          }
+          :root:not([data-nav-mobile]) .merch-grid {
+            width: calc(100% - var(--sidebar-width) - 76 * var(--scale));
+            margin-left: var(--sidebar-width);
             margin-right: calc(76 * var(--scale));
           }
         }
         @media (min-width: 1440px) {
-          .merch-wrapper {
+          :root:not([data-nav-mobile]) .merch-wrapper {
             --scale: 1px;
           }
         }
       `}</style>
 
-      {/* ========================================= */}
-      {/* Mobile Left Column (Stacked Header)       */}
-      {/* ========================================= */}
       <div className="merch-mobile-header flex-col w-full px-8 pb-12 gap-8 items-center text-center">
         <div>
           <h1
@@ -192,14 +185,8 @@ export default function MerchPageClient({
               letterSpacing: "-0.01em",
             }}
           >
-            Title Here
+            MERCH
           </h1>
-          <h2
-            className="mt-2 text-xl text-gray-300"
-            style={{ fontFamily: "var(--font-fira-mono), monospace" }}
-          >
-            S u b t e x t
-          </h2>
         </div>
 
         <MerchSearch onSearch={handleSearch} />
@@ -234,59 +221,30 @@ export default function MerchPageClient({
         )}
       </div>
 
-      {/* ========================================= */}
-      {/* Desktop Left Column (Side-by-side)        */}
-      {/* ========================================= */}
-      <div className="merch-desktop-header absolute" style={{ top: '8rem', left: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
-        {/* Title */}
-        <h1 
-          className="absolute font-bold text-white whitespace-nowrap"
-          style={{
-            left: pxPage(78),
-            top: pxPage(-51),
-            width: pxPage(308),
-            height: pxPage(33),
-            fontFamily: "var(--font-nova-cut), cursive",
-            fontSize: pxPage(67.47),
-            lineHeight: pxPage(32.4),
-            letterSpacing: "-0.01em",
-            pointerEvents: "auto",
-          }}
-        >
-          Title Here
-        </h1>
-
-        <h2
-          className="absolute text-gray-300 whitespace-nowrap"
-          style={{
-            left: pxPage(97),
-            top: pxPage(15),
-            width: pxPage(211),
-            height: pxPage(21),
-            fontFamily: "var(--font-fira-mono), monospace",
-            fontSize: pxPage(30),
-            lineHeight: pxPage(20.2),
-            pointerEvents: "auto",
-          }}
-        >
-          S u b t e x t
-        </h2>
-
+      <div
+        className="merch-desktop-header merch-sidebar absolute"
+        style={{ top: `calc(8rem + ${pxPage(-51)})`, left: 0 }}
+      >
         <div
-          className="absolute"
-          style={{ left: pxPage(78), top: pxPage(69), pointerEvents: "auto" }}
+          className="flex flex-col mx-auto"
+          style={{ width: 'clamp(250px, calc(318 * var(--scale)), 318px)' }}
         >
+          {/* Title */}
+          <h1
+            className="font-bold text-white whitespace-nowrap text-center"
+            style={{
+              fontFamily: "var(--font-nova-cut), cursive",
+              fontSize: 'clamp(28px, calc(48 * var(--scale)), 48px)',
+              lineHeight: 1,
+              letterSpacing: "-0.01em",
+              marginBottom: '24px',
+            }}
+          >
+            MERCH
+          </h1>
+
           <MerchSearch isDesktop onSearch={handleSearch} />
-        </div>
 
-        <div
-          className="absolute"
-          style={{
-            left: pxPage(68),
-            top: pxPage(69 + 30),
-            pointerEvents: "auto",
-          }}
-        >
           <MerchFilterSort
             isDesktop
             selectedSort={selectedSort}
@@ -294,14 +252,14 @@ export default function MerchPageClient({
             selectedTypes={selectedTypes}
             onTypeChange={handleTypeChange}
           />
-          
+
           {isAdmin && (
             <Link
               href="/admin/collections/products"
               className="flex items-center justify-center hover:opacity-85 transition-opacity duration-200"
               style={{
                 marginTop: '36px',
-                width: 'clamp(250px, calc(317 * var(--scale)), 317px)',
+                width: '100%',
                 height: '44px',
                 backgroundColor: 'rgba(32, 128, 90, 0.5)',
                 border: '1px solid #20805A',
@@ -317,9 +275,6 @@ export default function MerchPageClient({
         </div>
       </div>
 
-      {/* ========================================= */}
-      {/* Product Grid & Pagination                 */}
-      {/* ========================================= */}
       <div 
         className="merch-grid flex flex-col w-full"
       >

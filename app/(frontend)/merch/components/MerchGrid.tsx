@@ -24,7 +24,7 @@ export default function MerchGrid({ products, className = '', columns }: MerchGr
         .merch-products-grid {
           display: grid;
           width: 100%;
-          /* Mobile & small desktop (< 1024px): 1 card per row */
+          /* Mobile: 1 card per row */
           grid-template-columns: 1fr;
           row-gap: 20px;
           column-gap: 27px;
@@ -32,9 +32,9 @@ export default function MerchGrid({ products, className = '', columns }: MerchGr
           padding: 8px 0 0 0;
         }
 
-        /* Full desktop side-by-side (>= 1024px): 2 cards per row */
-        @media (min-width: 1024px) {
-          .merch-products-grid {
+        /* Desktop side-by-side (>= 768px, navbar not in mobile mode): 2 cards per row */
+        @media (min-width: 768px) {
+          :root:not([data-nav-mobile]) .merch-products-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
             justify-items: stretch;
             padding: 8px 18px 0 21px;
@@ -51,7 +51,7 @@ export default function MerchGrid({ products, className = '', columns }: MerchGr
         {products.map((product) => (
           <div 
             key={product.id} 
-            className="w-full max-w-[421px] flex justify-center"
+            className="merch-product-item w-full max-w-[421px] flex justify-center"
             data-testid={`merch-product-item-${product.id}`}
           >
             <ProductCard product={product} />

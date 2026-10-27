@@ -5,6 +5,7 @@ import NewsTab from "./components/newsTabs";
 import NewsHeader from "./components/NewsHeader";
 import GlitchReveal from "../components/GlitchReveal";
 
+
 export default async function ExampleCollectionPage({
   searchParams,
 }: {
@@ -26,14 +27,14 @@ export default async function ExampleCollectionPage({
   return (
     <main className="min-h-screen w-full bg-[url('/PROP%20%232%201.png')] bg-fixed bg-cover bg-center">
       {/* Container: 14px left, 16px right on mobile per Figma */}
-      <div className="w-full max-w-[1440px] mx-auto pl-[14px] pr-[16px] md:px-[5%] py-6 md:py-10">
+      <div className="w-full max-w-[1440px] mx-auto pl-[14px] pr-[16px] md:px-[5%] pt-6 md:pt-10">
         {/* TITLE + ADMIN BUTTON */}
         <GlitchReveal>
           <NewsHeader isAdmin={isAdmin} />
         </GlitchReveal>
 
         {/* NEWS ITEMS: 9px from heading box per Figma */}
-        <div className="w-full mt-[9px] md:mt-4 pb-[10%] md:pb-[5%]">
+        <div className="w-full mt-[9px] md:mt-4">
           <NewsTab
             allNews={newsItems.docs}
             expandedArticleId={expandedArticleId}

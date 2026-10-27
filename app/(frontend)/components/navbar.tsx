@@ -67,6 +67,13 @@ export default function Navbar({ item, user }: NavProps) {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isOverflowing) root.setAttribute("data-nav-mobile", "");
+    else root.removeAttribute("data-nav-mobile");
+    return () => root.removeAttribute("data-nav-mobile");
+  }, [isOverflowing]);
+
   return (
     <>
       <div
