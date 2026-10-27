@@ -80,6 +80,12 @@
   pointer-events: none;
 }
 
+/* Subscribe button: its labels are longer than the admin button's,
+   so reserve room on the right for the pale box */
+.subscribeButton {
+  padding-right: calc(clamp(18px, 3.8vw, 53px) + clamp(4px, 0.8vw, 8px) + clamp(6px, 1vw, 12px));
+}
+
 /* =========================
    Mobile Responsive Styles
    ========================= */
@@ -112,5 +118,10 @@
 
   .adminButtonBox {
     display: none;
+  }
+
+  /* No pale box on mobile, so no extra room needed */
+  .subscribeButton {
+    padding-right: 6px;
   }
 }

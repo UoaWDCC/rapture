@@ -33,7 +33,7 @@ export default function NewsHeader({
         <SubscribeButton
           isLoggedIn={isLoggedIn}
           isSubscribed={isSubscribed}
-          className={styles.adminButton}
+          className={`${styles.adminButton} ${styles.subscribeButton}`}
           labelClassName={styles.adminButtonText}
         >
           <div className={styles.adminButtonBox} />
