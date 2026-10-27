@@ -1,6 +1,7 @@
 import { getPayload } from "payload";
 import config from "@/payload.config";
 import { NextResponse } from "next/server";
+import { withDisplayNames } from "@/lib/leaderboard";
 
 export async function GET(request: Request) {
     try {
@@ -16,19 +17,35 @@ export async function GET(request: Request) {
 
         const payload = await getPayload({config});
 
+        const term = username.trim();
+
+        // Scores are stored under account IDs, so find the accounts whose username matches first
+        const matchingUsers = await payload.find({
+            collection: "users",
+            where: { username: { like: term } },
+            limit: 50,
+            depth: 0,
+            overrideAccess: true,
+            select: { username: true },
+        });
+        const userIds = matchingUsers.docs.map((user) => String(user.id));
+
         const result = await payload.find({
             collection: "Players",
             where: {
-                userId: {
-                    like: username,
-                },
+                or: [
+                    // names an admin typed in by hand
+                    { userId: { like: term } },
+                    ...(userIds.length > 0 ? [{ userId: { in: userIds } }] : []),
+                ],
             },
+            sort: "-score",
             overrideAccess: true,
         });
 
         return NextResponse.json({
             success: true,
-            data: result.docs,
+            data: await withDisplayNames(payload, result.docs),
         });
     } catch {
         return NextResponse.json({

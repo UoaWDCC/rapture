@@ -41,7 +41,7 @@ export default function UserDashboardVisual({
             active={activeTab === "profile"}
             onClick={() => setActiveTab("profile")}
             color="#146543"
-            className="mr-0 h-8 w-[104px] shrink-0 sm:h-10 sm:w-[170px]"
+            className="mr-0 h-10 w-[116px] shrink-0 sm:h-14 sm:w-[170px]"
           />
 
           <UserDashboardTab
@@ -49,7 +49,7 @@ export default function UserDashboardVisual({
             active={activeTab === "rank"}
             onClick={() => setActiveTab("rank")}
             color="#a82a2a"
-            className="-ml-6 mr-0 h-8 w-[104px] shrink-0 sm:-ml-10 sm:h-10 sm:w-[170px]"
+            className="-ml-6 mr-0 h-10 w-[116px] shrink-0 sm:-ml-9 sm:h-14 sm:w-[170px]"
           />
 
           <UserDashboardTab
@@ -57,7 +57,7 @@ export default function UserDashboardVisual({
             active={activeTab === "orders"}
             onClick={() => setActiveTab("orders")}
             color="#1e5fa8"
-            className="-ml-6 h-8 w-[104px] shrink-0 sm:-ml-10 sm:h-10 sm:w-[170px]"
+            className="-ml-6 h-10 w-[116px] shrink-0 sm:-ml-9 sm:h-14 sm:w-[170px]"
           />
         </div>
       </div>
