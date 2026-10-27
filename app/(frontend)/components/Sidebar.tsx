@@ -7,7 +7,6 @@ import HamburgerButton from "@/app/(frontend)/components/ui/HamburgerButton";
 
 const navItems = [
   { name: "Home", href: "/" },
-  { name: "Games", href: "/games" },
   { name: "News", href: "/news" },
   { name: "Leaderboard", href: "/leaderboard" },
   { name: "About Us", href: "/aboutus" },
