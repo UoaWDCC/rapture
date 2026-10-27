@@ -78,7 +78,7 @@ export default async function Page() {
                 <p className="w-full mb-5 text-right">
                   This dedicated website for Studio Rapture was created by team RAP from the Web Development
                   & Coding Club (WDCC) at the University of Auckland. As a team of 9 with 6 developers, 1 designer
-                  and 2 leads, we've worked hard for a full year on this website and was able to complete it
+                  and 2 leads, we&apos;ve worked hard for a full year on this website and was able to complete it
                   before the expected deadline. Despite some challenges, late nights, and last minute edits, 
                   this experience was definitely worthwhile for the whole team.
                 </p>
