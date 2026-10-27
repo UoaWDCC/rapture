@@ -35,9 +35,9 @@ export default function LeaderboardClient({
   }
 
   return (
-    <div className="flex w-full flex-col px-2 pb-6 font-nova sm:px-3 md:px-0">
+    <div className="flex w-full flex-col px-2 pb-6 font-nova sm:px-3 nav-desktop:px-0">
       <GlitchReveal delay={0.5}>
-        <div className="w-full border-2 border-brand-blue p-3.5 text-center text-xl [text-shadow:0_0_10px_#6060ff,0_0_20px_#ffffff] md:p-4">
+        <div className="w-full border-2 border-brand-blue p-3.5 text-center text-xl [text-shadow:0_0_10px_#6060ff,0_0_20px_#ffffff] nav-desktop:p-4">
           <h5 className="text-[clamp(1.1rem,2.3vw,2rem)] leading-tight tracking-[0.06em] uppercase">
             WELCOME TO STUDIO RAPTURE LEADERBOARD
           </h5>
@@ -45,12 +45,12 @@ export default function LeaderboardClient({
       </GlitchReveal>
 
       {/* Desktop layout */}
-      <div className="hidden md:block">
+      <div className="hidden nav-desktop:block">
         <GlitchReveal delay={1.2}>
           <div className="mt-4 flex h-15 w-full flex-row items-center justify-between gap-3">
             <div className="w-10/20 bg-brand-blue p-2 text-xl text-white">
-              <p className="hidden md:block">VITROL LEADERBOARD</p>
-              <p className="block md:hidden">VITROL</p>
+              <p className="hidden nav-desktop:block">VITROL LEADERBOARD</p>
+              <p className="block nav-desktop:hidden">VITROL</p>
             </div>
             <Pagination page={page} totalPages={totalPages} hasNextPage={hasNextPage} hasPrevPage={hasPrevPage} />
             <div className="h-11 w-25 rounded-xs border-2 border-dashed border-brand-blue"></div>
@@ -73,12 +73,12 @@ export default function LeaderboardClient({
       </div>
 
       {/* Mobile layout */}
-      <div className="mt-4 flex w-full flex-col gap-3 md:hidden">
+      <div className="mt-4 flex w-full flex-col gap-3 nav-desktop:hidden">
         <GlitchReveal delay={1.2}>
           <div className="flex items-center justify-between gap-2">
             <div className="min-w-0 flex-1 bg-brand-blue px-3 py-2 text-white">
-              <p className="hidden truncate text-[clamp(1.1rem,5vw,1.8rem)] leading-none uppercase md:block">VITROL LEADERBOARD</p>
-              <p className="block truncate text-[clamp(1.1rem,5vw,1.8rem)] leading-none uppercase md:hidden">VITROL</p>
+              <p className="hidden truncate text-[clamp(1.1rem,5vw,1.8rem)] leading-none uppercase nav-desktop:block">VITROL LEADERBOARD</p>
+              <p className="block truncate text-[clamp(1.1rem,5vw,1.8rem)] leading-none uppercase nav-desktop:hidden">VITROL</p>
             </div>
             <div className="shrink-0">
               <Pagination page={page} totalPages={totalPages} hasNextPage={hasNextPage} hasPrevPage={hasPrevPage} />
