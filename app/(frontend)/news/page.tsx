@@ -25,7 +25,7 @@ export default async function ExampleCollectionPage({
   const expandedArticleId = params.article ?? null;
 
   return (
-    <main className="min-h-screen w-full bg-[url('/PROP%20%232%201.png')] bg-fixed bg-cover bg-center">
+    <main className="w-full bg-[url('/PROP%20%232%201.png')] bg-fixed bg-cover bg-center">
       {/* Container: 14px left, 16px right on mobile per Figma */}
       <div className="w-full max-w-[1440px] mx-auto pl-[14px] pr-[16px] md:px-[5%] pt-6 md:pt-10">
         {/* TITLE + ADMIN BUTTON */}

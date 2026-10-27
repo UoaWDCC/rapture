@@ -112,7 +112,7 @@ export default function MerchPageClient({
 
   return (
     <div 
-      className="merch-wrapper min-h-screen bg-black text-white w-full max-w-[1440px] mx-auto relative flex z-10 overflow-x-clip" 
+      className="merch-wrapper bg-black text-white w-full max-w-[1440px] mx-auto relative flex z-10 overflow-x-clip" 
     >
       <style>{`
         .merch-wrapper {
@@ -139,6 +139,9 @@ export default function MerchPageClient({
           :root:not([data-nav-mobile]) .merch-wrapper {
             flex-direction: row;
             padding-top: 8rem;
+            /* The sidebar is absolutely positioned, so keep the wrapper tall enough
+               to contain it when only a few (or no) products are showing */
+            min-height: 600px;
           }
           :root:not([data-nav-mobile]) .merch-mobile-header {
             display: none;

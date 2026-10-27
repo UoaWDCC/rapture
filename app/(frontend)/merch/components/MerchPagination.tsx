@@ -15,7 +15,7 @@ export default function MerchPagination({
 }: MerchPaginationProps) {
   return (
     <div
-      className="merch-pagination w-full mt-16 md:mt-24 mb-16 md:mb-24"
+      className="merch-pagination w-full mt-16 md:mt-24"
       style={{ maxWidth: '908px' }}
     >
       <style>{`
