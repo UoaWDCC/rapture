@@ -1,4 +1,5 @@
 import UserDashboardVisual from "@/app/(frontend)/components/UserDashboardVisual";
+import SubscribeButton from "@/app/(frontend)/news/components/SubscribeButton";
 import payloadConfig from "@/payload.config";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -22,6 +23,7 @@ export default async function AccountPage() {
   });
   return (
     <main className="min-h-screen">
+      <SubscribeButton isLoggedIn isSubscribed={!!user.newsSubscribed} />
       <UserDashboardVisual user={user} orders={ordersResult.docs} />
     </main>
   );
