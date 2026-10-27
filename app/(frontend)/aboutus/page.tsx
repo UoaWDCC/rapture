@@ -11,11 +11,11 @@ const NAVBAR_LEFT_EDGE = "max(0px, calc(50% - 130px - 2 * clamp(8rem, 16vw, 12.5
 
 export default async function Page() {
   return (
-    <section className="relative pb-10">
+    <section className="relative">
       <GlitchReveal>
         {/* LEFT - Folders */}
         <div
-          className="absolute right-0 top-0 flex z-100 h-230"
+          className="absolute right-0 top-0 flex z-100 h-172.5"
           style={{ left: NAVBAR_LEFT_EDGE }}
         >
           <div className="w-[100%] h-full relative">
@@ -69,7 +69,8 @@ export default async function Page() {
         </div>
 
         {/* RIGHT - Computer */}
-        <div className="container mx-auto my-6 px-4 relative max-w-6xl min-h-[850px] flex items-center justify-center overflow-hidden sm:overflow-visible">
+        {/* Same height as the folders so the computer centres against them */}
+        <div className="container mx-auto px-4 relative max-w-6xl h-172.5 flex items-center justify-center overflow-hidden sm:overflow-visible">
           <div className="relative w-150 h-150 shrink-0">
             <Image
               alt="Computer"
