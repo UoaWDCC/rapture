@@ -5,9 +5,33 @@ import GlitchReveal from "../components/GlitchReveal";
 // Left edge of the centred desktop navbar: half of (page width - navbar content width).
 // Content = logo (156px) + mr-8 (32px) + 4 nav buttons at clamp(8rem,16vw,12.5rem)
 // + gaps (12px) + account icon (60px). Update if the navbar layout changes.
-// From xl up the nav buttons hit their 12.5rem cap, so the navbar is a fixed 1060px wide;
-// the xl open widths below keep the files within 3/4 of it (795px).
 const NAVBAR_LEFT_EDGE = "max(0px, calc(50% - 130px - 2 * clamp(8rem, 16vw, 12.5rem)))";
+
+type TeamMember = { role: string; name: string };
+
+const TEAM_ROWS: TeamMember[][] = [
+  [
+    { role: "Project Manager", name: "Emily Ha" },
+    { role: "Technical Lead", name: "Shazeel Ali" },
+  ],
+  [
+    { role: "Developer", name: "Aeriel Cruz" },
+    { role: "Designer", name: "Vivien Trinh" },
+    { role: "Developer", name: "Tom Suh" },
+  ],
+  [
+    { role: "Developer", name: "Leona Zhao" },
+    { role: "Developer", name: "James Anderson" },
+    { role: "Developer", name: "Xavier Miller" },
+    { role: "Developer", name: "Irene Andyna Tendean" },
+  ],
+];
+
+const ROW_COLUMNS: Record<number, string> = {
+  2: "grid-cols-2",
+  3: "grid-cols-3",
+  4: "grid-cols-2 sm:grid-cols-4",
+};
 
 export default async function Page() {
   return (
@@ -15,8 +39,8 @@ export default async function Page() {
       <GlitchReveal>
         {/* LEFT - Folders */}
         <div
-          className="absolute right-0 top-0 flex z-100 h-172.5"
-          style={{ left: NAVBAR_LEFT_EDGE }}
+          className="absolute left-0 right-0 top-0 flex z-100 h-172.5 nav-desktop:left-(--navbar-left-edge)"
+          style={{ "--navbar-left-edge": NAVBAR_LEFT_EDGE } as React.CSSProperties}
         >
           <div className="w-[100%] h-full relative">
             <ContactFile
@@ -26,17 +50,15 @@ export default async function Page() {
               sideHeight="100px"
               zIndex={3}
               className="h-full absolute"
-              closedWidthClass="w-0 md:w-[2vw] lg:w-[10vw] xl:w-32"
-              openWidthClass="w-[100vw] md:w-[65vw] lg:w-[70vw] xl:w-[735px]"
+              closedWidthClass="w-6 nav-desktop:w-[calc((260px_+_4_*_clamp(8rem,16vw,12.5rem))_*_0.1208)]"
+              openWidthClass="w-[calc(100%-5rem)] nav-desktop:w-[calc((260px_+_4_*_clamp(8rem,16vw,12.5rem))_*_0.6934)]"
             >
-              <div className="w-full flex flex-row justify-end items-end max-w-full">
-                <div className="flex flex-col items-end">
-                  <h1 className="mb-20 mr-10 mt-10">STUDIO RAPTURE!</h1>
+              <div className="w-full flex flex-col">
+                <h1 className="mt-10 mb-15 text-left">STUDIO RAPTURE!</h1>
 
-                  <p className="w-[60%] mb-10 mr-10 text-right">
-                    we are very enthusiastic about VR
-                  </p>
-                </div>
+                <p className="self-end w-[85%] mb-10 text-right text-xl">
+                  we are very enthusiastic about VR
+                </p>
               </div>
             </ContactFile>
 
@@ -47,22 +69,34 @@ export default async function Page() {
               sideHeight="300px"
               zIndex={2}
               className="h-full absolute"
-              closedWidthClass="w-0 md:w-[6vw] lg:w-[16vw] xl:w-45"
-              openWidthClass="w-[100vw] md:w-[70vw] lg:w-[75vw] xl:w-[795px]"
+              closedWidthClass="w-10 nav-desktop:w-[calc((260px_+_4_*_clamp(8rem,16vw,12.5rem))_*_0.1698)]"
+              openWidthClass="w-[calc(100%-5rem)] nav-desktop:w-[calc((260px_+_4_*_clamp(8rem,16vw,12.5rem))_*_0.75)]"
             >
-              <div className="pl-20 w-full h-full flex flex-col items-end">
-                <h1 className="mb-20 mr-10 mt-10">Meet the Devs</h1>
+              <div className="w-full h-full overflow-y-auto scrollbar-hidden fade-bottom pb-20 flex flex-col pl-16 nav-desktop:pl-[calc((260px_+_4_*_clamp(8rem,16vw,12.5rem))_*_0.1208_+_1.5rem)]">
+                <h1 className="mt-10 mb-15 text-left">TEAM RAP!</h1>
 
-                <p className="w-full mb-10 text-left">
-                  Loren als ser pal Loren als ser pal Loren als ser pal
-                  Loren als ser pal Loren als ser pal Loren als ser pal
-                  Loren als ser pal Loren als ser pal Loren als ser pal
-                  Loren als ser pal Loren als ser pal Loren als ser pal
-                  Loren als ser pal Loren als ser pal Loren als ser pal
-                  Loren als ser pal Loren als ser pal Loren als ser pal
-                  Loren als ser pal Loren als ser pal Loren als ser pal
-                  Loren als ser pal Loren als ser pal Loren als ser pal
+                <p className="w-full mb-5 text-right">
+                  This dedicated website for Studio Rapture was created by team RAP from the Web Development
+                  & Coding Club (WDCC) at the University of Auckland. As a team of 9 with 6 developers, 1 designer
+                  and 2 leads, we've worked hard for a full year on this website and was able to complete it
+                  before the expected deadline. Despite some challenges, late nights, and last minute edits, 
+                  this experience was definitely worthwhile for the whole team.
                 </p>
+                <p className="w-full mb-10 text-right">
+                  We hope all users (including Studio Rapture) loves this website, as much as we do.
+                </p>
+                <div className="flex flex-col gap-y-6">
+                  {TEAM_ROWS.map((row, rowIndex) => (
+                    <div key={rowIndex} className={`grid gap-x-8 gap-y-6 ${ROW_COLUMNS[row.length]}`}>
+                      {row.map((member, i) => (
+                        <div key={i} className="text-center">
+                          <p className="font-fira-custom text-sm opacity-60">{member.role}</p>
+                          <p>{member.name}</p>
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
               </div>
             </ContactFile>
           </div>
