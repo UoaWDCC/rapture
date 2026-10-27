@@ -75,14 +75,17 @@ function FilterSection({
   const isDesktop = !!pxPage
 
   if (isDesktop) {
+    const sectionWidth = 'clamp(250px, calc(318 * var(--scale)), 318px)'
+
     return (
       <div className="relative">
         {/* Section header row (clickable) */}
         <button
           onClick={onToggle}
-          className="flex items-center bg-transparent border-none p-0"
+          className="flex items-center justify-between cursor-pointer bg-transparent border-none p-0"
           style={{
-            paddingLeft: pxPage(10),
+            width: sectionWidth,
+            paddingLeft: '10px',
           }}
         >
           <div
@@ -91,8 +94,8 @@ function FilterSection({
               width: pxPage(172),
               height: pxPage(30),
               fontFamily: "var(--font-fira-mono), monospace",
-              fontSize: pxPage(15),
-              lineHeight: pxPage(20),
+              fontSize: '15px',
+              lineHeight: '20px',
             }}
           >
             {title}
@@ -243,6 +246,8 @@ export default function MerchFilterSort({
 
   // DESKTOP/TABLET
   if (isDesktop) {
+    const sectionWidth = 'clamp(250px, calc(318 * var(--scale)), 318px)'
+
     return (
       <div>
         {/* First line */}
@@ -250,14 +255,14 @@ export default function MerchFilterSort({
           className="bg-white"
           style={{
             height: '1px',
-            width: pxPage(318),
-            marginLeft: pxPage(10),
-            marginTop: pxPage(42),
+            width: sectionWidth,
+            marginLeft: '10px',
+            marginTop: '18px',
           }}
         />
 
         {/* Sort by section */}
-        <div style={{ marginTop: pxPage(18) }}>
+        <div style={{ marginTop: '18px' }}>
           <FilterSection
             title="Sort by :"
             options={SORT_OPTIONS}

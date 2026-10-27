@@ -11,14 +11,14 @@ export const EmailSettings: GlobalConfig = {
       name: "welcomeEmailText",
       type: "textarea",
       required: true,
-      defaultValue: "Thank you for signing up!\nVITRIOL is our primary concern, and you have just unlocked the ability to upload your ARCADE MODE SCORES to our website using this account after completing an arcade run!\nSo get running!\n\nBurn & Fallow.",
+      defaultValue: "VITRIOL is our primary concern, and you have just unlocked the ability to upload your ARCADE MODE SCORES to our website using this account after completing an arcade run!",
       label: "Welcome Email Content",
     },
     {
       name: "newsletterEmailText",
       type: "textarea",
       required: true,
-      defaultValue: "Looking for news?\nWell thank you signing up to the newsletter! You've made the right choice.\nEverything you need to know about STUDIO RAPTURE! News on our games that were, are not, and are to come.\nRight here. Straight to your inbox.\n\nBurn & Fallow.",
+      defaultValue: "Well thank you for signing up to the newsletter!\nYou've made the right choice.\n\nEverything you need to know about STUDIO RAPTURE! News on our games that were, are not, and are to come.\n\nRight here. Straight to your inbox.",
       label: "Newsletter Email Content",
     },
     {

@@ -160,6 +160,7 @@ export interface User {
    */
   state?: string | null;
   steamId?: string | null;
+  newsSubscribed?: boolean | null;
   pincode?: string | null;
   paymentCountry?: string | null;
   updatedAt: string;
@@ -198,8 +199,8 @@ export interface Example {
  */
 export interface Player {
   id: string;
-  userId?: string | null;
-  score?: number | null;
+  userId: string;
+  score: number;
   updatedAt: string;
   createdAt: string;
 }
@@ -473,6 +474,7 @@ export interface UsersSelect<T extends boolean = true> {
   address?: T;
   state?: T;
   steamId?: T;
+  newsSubscribed?: T;
   pincode?: T;
   paymentCountry?: T;
   updatedAt?: T;

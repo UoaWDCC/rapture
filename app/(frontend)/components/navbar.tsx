@@ -28,7 +28,7 @@ type NavProps = {
   user: User | null;
 };
 
-export default function Navbar({ item }: NavProps) {
+export default function Navbar({ item, user }: NavProps) {
   const pathname = usePathname();
   const desktopNavRef = useRef<HTMLElement>(null);
   const desktopNavContainerRef = useRef<HTMLDivElement>(null);

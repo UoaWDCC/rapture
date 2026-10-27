@@ -13,8 +13,8 @@ export default function IncrementorButton(props: props) {
       className={`flex flex-row w-[35%] px-[3.5%] py-[1.5%] border-brand-yellow border ${props.className}`}
     >
       <button
-        className={`font-mono text-brand-yellow rounded-sm hover:text-shadow-white hover:text-shadow-xs hover:cursor-pointer`}
-        onClick={() => props.setCounter((c) => Math.max(0, c - 1))}
+        className={`font-mono text-white rounded-sm hover:text-shadow-white hover:text-shadow-xs hover:cursor-pointer`}
+        onClick={() => props.setCounter((c) => Math.max(1, c - 1))}
       >
         -
       </button>
