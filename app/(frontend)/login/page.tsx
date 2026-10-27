@@ -9,6 +9,8 @@ import AuthSideCard from "../components/auth/authSideCard";
 import Image from "next/image";
 import { getErrorMessage } from "@/lib/getErrorMessage";
 import { authClient } from "@/lib/auth";
+import { getOAuthLoginError } from "@/lib/oauthLoginErrors";
+import { forgetGoogleSignup } from "@/lib/oauthIntent";
 // import ForgotPasswordButton from '../components/ui/ForgotPasswordButton'
 
 // useSearchParams needs a Suspense boundary in the app router
@@ -21,13 +23,14 @@ export default function LoginPage() {
 }
 
 function LoginPageContent() {
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  // A failed Google sign-in comes back as /login?error=<code>
+  const [error, setError] = useState(() => getOAuthLoginError(searchParams.get("error")));
   const { oauth } = authClient.signin();
 
   const router = useRouter();
-  const searchParams = useSearchParams();
   const authRedirectQuery = getAuthRedirectQuery(searchParams);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -121,7 +124,11 @@ function LoginPageContent() {
             <div className="flex flex-col items-center gap-3 mt-4">
               <p className="text-gray-400 font-mono text-xs">or log in with</p>
               <div className="border-2 border-[#F2B423] rounded-3xl px-8 py-2 cursor-pointer"
-                onClick={() => oauth('google')}
+                onClick={() => {
+                  // Logging in never creates an account, even if a signup was started earlier
+                  forgetGoogleSignup();
+                  oauth('google');
+                }}
               >
                 <div className="bg-white rounded-full w-8 h-8 flex items-center justify-center">
                   <Image

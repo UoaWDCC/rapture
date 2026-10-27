@@ -15,14 +15,17 @@ import { Category } from "./collections/category.ts"
 import { authPlugin } from "payload-auth-plugin";
 import { GoogleAuthProvider } from "payload-auth-plugin/providers";
 import { Accounts } from "./collections/accounts.ts";
+import { redirectOAuthErrorsToLogin } from "./lib/oauthErrorRedirect.ts";
 import { Donors } from "./collections/Donors.ts"
 
 import { EmailSettings } from "./collections/EmailSettings.ts";
 
+const serverURL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+
 export default buildConfig({
   editor: lexicalEditor(),
 
-  serverURL: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+  serverURL,
 
   admin: {
     routes: {
@@ -47,7 +50,9 @@ export default buildConfig({
         client_secret: process.env.GOOGLE_CLIENT_SECRET!,
       }),
     ],
-  })],
+  }),
+  // Must come after authPlugin: sends failed Google sign-ins back to /login instead of raw JSON
+  redirectOAuthErrorsToLogin(serverURL)],
 
   email: resendAdapter({
     defaultFromAddress: "onboarding@resend.dev",
