@@ -29,7 +29,11 @@ export default async function ExampleCollectionPage({
       <div className="w-full max-w-[1440px] mx-auto pl-[14px] pr-[16px] md:px-[5%] py-6 md:py-10">
         {/* TITLE + ADMIN BUTTON */}
         <GlitchReveal>
-          <NewsHeader isAdmin={isAdmin} />
+          <NewsHeader
+            isAdmin={isAdmin}
+            isLoggedIn={!!user}
+            isSubscribed={!!user?.newsSubscribed}
+          />
         </GlitchReveal>
 
         {/* NEWS ITEMS: 9px from heading box per Figma */}
