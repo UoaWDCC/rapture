@@ -37,7 +37,7 @@ describe("GET /api/leaderboard", () => {
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({
       success: true,
-      data: [{ userId: "Rapture", score: 1200 }],
+      data: [{ userId: "Rapture", displayName: "Rapture", score: 1200 }],
     });
     expect(find).toHaveBeenCalledWith({
       collection: "Players",
@@ -160,18 +160,28 @@ describe("GET /api/leaderboard/search", () => {
     expect(find).not.toHaveBeenCalled();
   });
 
-  it("returns players matching the username query", async () => {
-    find.mockResolvedValue({ docs: [player] });
+  it("returns players whose account username matches, shown by username", async () => {
+    const accountId = "66f1c0ffee0000000000abcd";
+    const account = { id: accountId, username: "Rapture" };
+    const scored = { id: "player-1", userId: accountId, score: 1200 };
+    find
+      .mockResolvedValueOnce({ docs: [account] }) // users matching the username
+      .mockResolvedValueOnce({ docs: [scored] }) // their scores
+      .mockResolvedValueOnce({ docs: [account] }); // usernames for display
 
     const response = await search(
       new Request("http://localhost/api/leaderboard/search?username=Rapture"),
     );
 
     expect(response.status).toBe(200);
-    expect(await response.json()).toEqual({ success: true, data: [player] });
-    expect(find).toHaveBeenCalledWith({
+    expect(await response.json()).toEqual({
+      success: true,
+      data: [{ ...scored, displayName: "Rapture" }],
+    });
+    expect(find).toHaveBeenNthCalledWith(2, {
       collection: "Players",
-      where: { userId: { like: "Rapture" } },
+      where: { or: [{ userId: { like: "Rapture" } }, { userId: { in: [accountId] } }] },
+      sort: "-score",
       overrideAccess: true,
     });
   });

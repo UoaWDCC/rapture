@@ -1,6 +1,7 @@
 import { getPayload } from "payload";
 import config from "@/payload.config";
 import { NextResponse } from "next/server";
+import { withDisplayNames } from "@/lib/leaderboard";
 
 // retrieve top 10 scores at /api/leaderboard
 export async function GET() {
@@ -16,8 +17,9 @@ export async function GET() {
 
     return NextResponse.json({
       success: true,
-      data: result.docs.map((player) => ({
+      data: (await withDisplayNames(payload, result.docs)).map((player) => ({
         userId: player.userId,
+        displayName: player.displayName,
         score: player.score,
       })),
     });
